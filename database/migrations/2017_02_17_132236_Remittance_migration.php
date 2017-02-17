@@ -1,10 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class InvoicesMigration extends Migration
+class RemittanceMigration extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +12,15 @@ class InvoicesMigration extends Migration
      */
     public function up()
     {
-        Schema::create('invoices', function (Blueprint $table) {
+        Schema::create('remittances', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('invoice_key');
+            $table->string('collection_key');
+            $table->string('amount');
+            $table->string('phone');
+            $table->integer('invoice_id')->unsigned()->index();
+            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
             $table->string('name');
             $table->string('email');
-            $table->integer('remittance_id')->unsigned()->index();
-            $table->foreign('remittance_id')->references('id')->on('remittances')->onDelete('cascade');
-            $table->string('phone');
-            $table->string('amount');
             $table->string('start_date');
             $table->string('end_date');
             $table->timestamps();
@@ -35,6 +34,6 @@ class InvoicesMigration extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('invoices');
+        Schema::drop('remittances');
     }
 }

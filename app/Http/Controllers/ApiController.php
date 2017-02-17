@@ -11,6 +11,7 @@ use Image;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Dingo\Api\Routing\Helpers;
 use App\User;
+use App\Invoice;
 use App\Revenuehead;
 use Carbon\Carbon;
 use App\Http\Requests;
@@ -53,6 +54,33 @@ class ApiController extends Controller
         }
 
         return $this->response->array(compact('revenue_heads'))->setStatusCode(200);
+    }
+
+    //verifying invoice Number
+    public function invoice(Request $request)
+    {
+        $invoice = $request->only('invoice_id');
+       
+       //verify that invoice
+        if (! $invoice = Invoice::where("invoice_key",$invoice)->first()) {
+            return $this->response->errorNotFound();
+        }
+        
+        $result = $invoice->remittance->toArray();
+        
+        if ($result) {
+
+            $invoice_receipt['invoice_no'] = $result['collection_key'];
+            $invoice_receipt['amount'] = $result['amount'];
+            $invoice_receipt['name'] = $result['name'];
+            $invoice_receipt['email'] = $result['email'];
+            $invoice_receipt['start_date'] = $result['start_date'];
+            $invoice_receipt['end_date'] = $result['end_date'];
+
+            return $this->response->array(compact('invoice_receipt'))->setStatusCode(200);
+        }
+
+        return $this->response->error('Invoice not remitted',404);
     }
 
 

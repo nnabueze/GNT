@@ -36,4 +36,7 @@ $api->version('v1',['middleware'=>'api.auth'],function($api){
 
 	//getting list of revenue heads
 	$api->get('revenue_heads','App\Http\Controllers\ApiController@revenue_heads');
+
+	//api for verifying Invoice
+	$api->post('invoice','App\Http\Controllers\ApiController@invoice');
 });
