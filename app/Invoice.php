@@ -9,9 +9,21 @@ class Invoice extends Model
     //
 
 
-    //relationship between invoice and remittance
-    public function remittance()
+    //relationship between invoice and mda
+    public function mda()
     {
-        return $this->hasOne('App\Remittance');
+        return $this->belongsTo('App\Mda');
+    }
+
+    ////relationship between invoice and revenue heads
+    public function revenuehead()
+    {
+        return $this->belongsTo('App\Revenuehead');
+    }
+
+    //relationshp between invoice and subheads
+    public function subhead()
+    {
+    	return $this->belongsTo('App\Subhead');
     }
 }

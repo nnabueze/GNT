@@ -17,8 +17,10 @@ class RemittanceMigration extends Migration
             $table->string('collection_key');
             $table->string('amount');
             $table->string('phone');
-            $table->integer('invoice_id')->unsigned()->index();
-            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
+            $table->integer('mda_id')->unsigned()->index();
+            $table->foreign('mda_id')->references('id')->on('mdas')->onDelete('cascade');
+            $table->integer('worker_id')->unsigned()->index();
+            $table->foreign('worker_id')->references('id')->on('workers')->onDelete('cascade');
             $table->string('name');
             $table->string('email');
             $table->string('start_date');

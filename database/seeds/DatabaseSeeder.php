@@ -16,5 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RevenueheadsTableSeeder::class);
         $this->call(RemittancesTableSeeder::class);
         $this->call(InvoicesTableSeeder::class);
+        $this->call(MdaTableSeeder::class);
+        $this->call(SubheadTableSeeder::class);
     }
 }

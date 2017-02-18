@@ -8,9 +8,15 @@ class Remittance extends Model
 {
     //
 
-	//relationship between invoice and remittance
-    public function invoice()
-    {
-        return $this->belongsTo('App\Invoice');
-    }
+	//relationship between mda and remittance
+	public function mda()
+	{
+		return $this->belongsTo('App\Mda');
+	}
+
+    	//relationship between worker and remittance
+	public function worker()
+	{
+		return $this->belongsTo('App\Worker');
+	}
 }

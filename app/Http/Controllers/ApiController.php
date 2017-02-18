@@ -13,6 +13,8 @@ use Dingo\Api\Routing\Helpers;
 use App\User;
 use App\Invoice;
 use App\Revenuehead;
+use App\Mda;
+use App\Subhead;
 use Carbon\Carbon;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -65,22 +67,35 @@ class ApiController extends Controller
         if (! $invoice = Invoice::where("invoice_key",$invoice)->first()) {
             return $this->response->errorNotFound();
         }
-        
-        $result = $invoice->remittance->toArray();
-        
-        if ($result) {
 
-            $invoice_receipt['invoice_no'] = $result['collection_key'];
-            $invoice_receipt['amount'] = $result['amount'];
-            $invoice_receipt['name'] = $result['name'];
-            $invoice_receipt['email'] = $result['email'];
-            $invoice_receipt['start_date'] = $result['start_date'];
-            $invoice_receipt['end_date'] = $result['end_date'];
 
-            return $this->response->array(compact('invoice_receipt'))->setStatusCode(200);
+        //returning details of a specific inoice
+        $invoice_receipt['invoice_no'] = $invoice->invoice_key;
+        $invoice_receipt['name'] = $invoice->name;
+        $invoice_receipt['email'] = $invoice->email;
+        $invoice_receipt['phone'] = $invoice->phone;
+        $invoice_receipt['amount'] = $invoice->amount;
+        $invoice_receipt['start_date'] = $invoice->start_date;
+        $invoice_receipt['end_date'] = $invoice->end_date;
+        $invoice_receipt['invoice_status'] = $invoice->invoice_status;
+
+        //checking if invoice is assigned to mda
+        if ($invoice->mda) {
+            $invoice_receipt['mda'] = $invoice->mda->mda_name;
         }
 
-        return $this->response->error('Invoice not remitted',404);
+        //checking if invoice is assign to revenue head
+        if ($invoice->revenuehead) {
+            $invoice_receipt['revenue_head'] = $invoice->revenuehead->revenue_name;
+        }
+
+        //checking if invoice is assign to subhead
+        if ($invoice->subhead) {
+            $invoice_receipt['sub_head'] = $invoice->subhead->subhead_name;
+        }
+
+        return $this->response->array(compact('invoice_receipt'))->setStatusCode(200);
+
     }
 
 
