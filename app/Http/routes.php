@@ -39,4 +39,7 @@ $api->version('v1',['middleware'=>'api.auth'],function($api){
 
 	//api for verifying Invoice
 	$api->post('invoice','App\Http\Controllers\ApiController@invoice');
+
+	//api to generate invoice
+	$api->post('generate_invoice','App\Http\Controllers\ApiController@generate_invoice');
 });

@@ -8,7 +8,20 @@ class Invoice extends Model
 {
     //
 
-
+    protected $fillable =[
+        "name",
+          "email",
+          "phone",
+          "payer_id",
+          "mda_id",
+          "revenuehead_id",
+          "subhead_id",
+          "amount",
+          "user_id",
+          "start_date",
+           "end_date",
+           "invoice_key"
+    ];
     //relationship between invoice and mda
     public function mda()
     {
