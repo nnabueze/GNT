@@ -263,7 +263,6 @@ class ApiController extends Controller
                 //insert remittance 
                 if ($remittance = Remittance::create($request->all())) {
 
-
                     //updateing collection table with remittance_id
                     Collection::where('worker_id',$worker)
                                 ->where('mda_id',$mda)

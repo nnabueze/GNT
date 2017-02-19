@@ -11,7 +11,8 @@ class Remittance extends Model
         "remittance_key",
           "worker_id",
           "mda_id",
-          "amount"
+          "amount",
+          "remittance_status"
     ];
 
 	//relationship between mda and remittance
