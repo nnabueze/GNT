@@ -23,8 +23,8 @@ class RemittanceMigration extends Migration
             $table->foreign('worker_id')->references('id')->on('workers')->onDelete('cascade');
             $table->string('name');
             $table->string('email');
-            $table->string('start_date');
-            $table->string('end_date');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->timestamps();
         });
     }

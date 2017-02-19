@@ -29,8 +29,8 @@ class InvoicesMigration extends Migration
             $table->foreign('subhead_id')->references('id')->on('subheads')->onDelete('cascade');
             $table->string('phone');
             $table->string('amount');
-            $table->string('start_date');
-            $table->string('end_date');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->timestamps();
         });
     }

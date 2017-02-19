@@ -20,8 +20,8 @@ class EbillsMigration extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone');
-            $table->string('start_date');
-            $table->string('end_date');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->string('amount');
             $table->timestamps();
         });

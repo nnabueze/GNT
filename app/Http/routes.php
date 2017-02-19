@@ -26,9 +26,6 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version('v1',function($api){
     //creating user token
     $api->post('authenticate','App\Http\Controllers\ApiController@authentication');
-    $api->post('hello',function(){
-        return "hello";
-    });
 });
 
 //protected Api route
@@ -42,4 +39,8 @@ $api->version('v1',['middleware'=>'api.auth'],function($api){
 
 	//api to generate invoice
 	$api->post('generate_invoice','App\Http\Controllers\ApiController@generate_invoice');
+
+	//Pos collection api
+	$api->post('pos_collection','App\Http\Controllers\ApiController@pos_collection');
+
 });

@@ -15,6 +15,7 @@ use App\Invoice;
 use App\Revenuehead;
 use App\Mda;
 use App\Subhead;
+use App\Collection;
 use Carbon\Carbon;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -102,52 +103,113 @@ class ApiController extends Controller
     public function generate_invoice(Request $request)
     {
         //validation incoming request
-        if (empty($request->input('name')) || empty($request->input('phone'))||empty($request->input('payer_id'))||empty($request->input('mda'))||empty($request->input('revenue_head'))
-            ||empty($request->input('amount'))||empty($request->input('user_id'))||empty($request->input('start_date'))||empty($request->input('end_date'))) {
+        if ($request->has('name') && $request->has('phone')&&$request->has('payer_id')&&$request->has('mda')&&$request->has('revenue_head')
+            &&$request->has('amount')&&$request->has('user_id')&&$request->has('start_date')&&$request->has('end_date')) {
 
-            $message = "parameter missing";
-            return $this->response->array(compact('message'))->setStatusCode(400);
+            $request['invoice_key'] = str_random(15);
+            $request['mda_id'] = $this->mda_id($request->input("mda"));
+            $request['revenuehead_id'] = $this->revenue_id($request->input("revenue_head"));
+            if ($request->input("subhead")) {
+
+                $request['subhead_id'] = $this->subhead_id($request->input("subhead"));
+            }
+
+            if (!$invoice = Invoice::create($request->all())) {
+                $message = "unable to generate invoice";
+                return $this->response->array(compact('message'))->setStatusCode(400);
+            }
+
+            //returning details of a specific inoice
+            $invoice_receipt['invoice_no'] = $invoice->invoice_key;
+            $invoice_receipt['name'] = $invoice->name;
+            $invoice_receipt['email'] = $invoice->email;
+            $invoice_receipt['phone'] = $invoice->phone;
+            $invoice_receipt['amount'] = $invoice->amount;
+            $invoice_receipt['start_date'] = $invoice->start_date;
+            $invoice_receipt['end_date'] = $invoice->end_date;
+            $invoice_receipt['invoice_status'] = $invoice->invoice_status;
+
+            //checking if invoice is assigned to mda
+            if ($invoice->mda) {
+                $invoice_receipt['mda'] = $invoice->mda->mda_name;
+            }
+
+            //checking if invoice is assign to revenue head
+            if ($invoice->revenuehead) {
+                $invoice_receipt['revenue_head'] = $invoice->revenuehead->revenue_name;
+            }
+
+            //checking if invoice is assign to subhead
+            if ($invoice->subhead) {
+                $invoice_receipt['sub_head'] = $invoice->subhead->subhead_name;
+            }
+
+            return $this->response->array(compact('invoice_receipt'))->setStatusCode(200);
         }
 
-        $request['invoice_key'] = str_random(15);
-        $request['mda_id'] = $this->mda_id($request->input("mda"));
-        $request['revenuehead_id'] = $this->revenue_id($request->input("revenue_head"));
-        if ($request->input("subhead")) {
+        $message = "parameter missing";
+        return $this->response->array(compact('message'))->setStatusCode(400);
 
-            $request['subhead_id'] = $this->subhead_id($request->input("subhead"));
+    }
+
+    //post collections via 
+    public function pos_collection(Request $request)
+    {
+        //validating request
+        if ($request->has('name') && $request->has('phone')&&$request->has('payer_id')&&$request->has('mda')&&$request->has('revenue_head')
+            &&$request->has('amount')&&$request->has('user_id')&&$request->has('start_date')&&$request->has('end_date')) {
+
+            //generating for collect and getting mda auto incremental id.
+            $request['collection_key'] = str_random(15);
+            $request['mda_id'] = $this->mda_id($request->input("mda"));
+            $request['revenuehead_id'] = $this->revenue_id($request->input("revenue_head"));
+            $request['collection_type'] = "pos";
+            if ($request->input("subhead")) {
+
+                $request['subhead_id'] = $this->subhead_id($request->input("subhead"));
+            }
+
+            //inserting records
+            if (! $collection = Collection::create($request->all())) {
+                $message = "unable to insert record";
+                return $this->response->array(compact('message'))->setStatusCode(400);
+            }
+
+            $collection_receipt['collection_key'] = $collection->collection_key;
+            $collection_receipt['name'] = $collection->name;
+            $collection_receipt['email'] = $collection->email;
+            $collection_receipt['phone'] = $collection->phone;
+            $collection_receipt['amount'] = $collection->amount;
+            $collection_receipt['start_date'] = $collection->start_date;
+            $collection_receipt['end_date'] = $collection->end_date;
+            $collection_receipt['collection_type'] = $collection->collection_type;
+            $collection_receipt['payer_id'] = $collection->payer_id;
+            $collection_receipt['email'] = $collection->email;
+            $collection_receipt['phone'] = $collection->phone;
+
+            //checking if invoice is assigned to mda
+            if ($collection->mda) {
+                $collection_receipt['mda'] = $collection->mda->mda_name;
+            }
+
+            //checking if collection is assign to revenue head
+            if ($collection->revenuehead) {
+                $collection_receipt['revenue_head'] = $collection->revenuehead->revenue_name;
+            }
+
+            //checking if collection is assign to subhead
+            if ($collection->subhead) {
+                $collection_receipt['sub_head'] = $collection->subhead->subhead_name;
+            }
+
+            return $this->response->array(compact('collection_receipt'))->setStatusCode(200);
+
+          
         }
 
-        if (!$invoice = Invoice::create($request->all())) {
-            $message = "unable to generate invoice";
-            return $this->response->array(compact('message'))->setStatusCode(400);
-        }
+        $message = "parameter missing";
+        return $this->response->array(compact('message'))->setStatusCode(400);
 
-        //returning details of a specific inoice
-        $invoice_receipt['invoice_no'] = $invoice->invoice_key;
-        $invoice_receipt['name'] = $invoice->name;
-        $invoice_receipt['email'] = $invoice->email;
-        $invoice_receipt['phone'] = $invoice->phone;
-        $invoice_receipt['amount'] = $invoice->amount;
-        $invoice_receipt['start_date'] = $invoice->start_date;
-        $invoice_receipt['end_date'] = $invoice->end_date;
-        $invoice_receipt['invoice_status'] = $invoice->invoice_status;
-
-        //checking if invoice is assigned to mda
-        if ($invoice->mda) {
-            $invoice_receipt['mda'] = $invoice->mda->mda_name;
-        }
-
-        //checking if invoice is assign to revenue head
-        if ($invoice->revenuehead) {
-            $invoice_receipt['revenue_head'] = $invoice->revenuehead->revenue_name;
-        }
-
-        //checking if invoice is assign to subhead
-        if ($invoice->subhead) {
-            $invoice_receipt['sub_head'] = $invoice->subhead->subhead_name;
-        }
-
-        return $this->response->array(compact('invoice_receipt'))->setStatusCode(200);
 
     }
 
