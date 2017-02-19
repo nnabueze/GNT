@@ -14,7 +14,9 @@ use App\User;
 use App\Invoice;
 use App\Revenuehead;
 use App\Mda;
+use App\Worker;
 use App\Subhead;
+use App\Remittance;
 use App\Collection;
 use Carbon\Carbon;
 use App\Http\Requests;
@@ -163,11 +165,22 @@ class ApiController extends Controller
             $request['collection_key'] = str_random(15);
             $request['mda_id'] = $this->mda_id($request->input("mda"));
             $request['revenuehead_id'] = $this->revenue_id($request->input("revenue_head"));
+            $request['worker_id'] = $this->worker_id($request->input("user_id"));
             $request['collection_type'] = "pos";
             if ($request->input("subhead")) {
 
                 $request['subhead_id'] = $this->subhead_id($request->input("subhead"));
             }
+
+            //check if worker and mda passed exist            
+            if (empty($request['mda_id']) || empty($request['revenuehead_id']) || empty($request['worker_id']) ) {
+
+                return $this->response->errorNotFound();
+            }
+
+            //checking for user limit
+
+            //checking for uses remittance status
 
             //inserting records
             if (! $collection = Collection::create($request->all())) {
@@ -186,6 +199,7 @@ class ApiController extends Controller
             $collection_receipt['payer_id'] = $collection->payer_id;
             $collection_receipt['email'] = $collection->email;
             $collection_receipt['phone'] = $collection->phone;
+            $collection_receipt['user'] = $collection->worker->worker_name;
 
             //checking if invoice is assigned to mda
             if ($collection->mda) {
@@ -213,6 +227,74 @@ class ApiController extends Controller
 
     }
 
+    //generating remittance
+    public function generate_remittance(Request $request)
+    {
+        if ($request->has('user_id') && $request->has('mda')) {
+
+            $worker = $this->worker_id($request->input("user_id"));
+            $mda = $this->mda_id($request->input("mda"));
+
+            //check if worker and mda passed exist            
+            if (empty($worker) || empty($mda)) {
+
+                return $this->response->errorNotFound();
+            }
+
+            $collections = Collection::where("worker_id",$worker)
+                                        ->where("mda_id",$mda)
+                                        ->where("collection_type","pos")
+                                        ->where("collection_status",0)
+                                        ->get();
+
+            //check if there any collection that have not been remited
+            if (count($collections) > 0) {
+
+                $amount = "";
+                foreach ($collections as $collection) {
+                    $amount += $collection->amount;
+                }
+
+                $request['remittance_key'] = str_random(15);
+                $request['amount'] = $amount;
+                $request['mda_id'] = $mda;
+                $request['worker_id'] = $worker;
+
+                //insert remittance 
+                if ($remittance = Remittance::create($request->all())) {
+
+
+                    //updateing collection table with remittance_id
+                    Collection::where('worker_id',$worker)
+                                ->where('mda_id',$mda)
+                                ->update(['remittance_id'=>$remittance->id,'collection_status'=>1]);
+
+                    
+                    $remittance_receipt['remittance_no'] = $remittance->remittance_key;
+                    $remittance_receipt['mda'] = $remittance->mda->mda_name;
+                    $remittance_receipt['user'] = $remittance->worker->worker_name;
+                    $remittance_receipt['amount'] = $remittance->amount;
+                    $remittance_receipt['remittance_status'] = $remittance->remittance_status;
+
+                    return $this->response->array(compact('remittance_receipt'))->setStatusCode(200);
+                }
+
+                $message = "unable to generate remittance";
+                return $this->response->array(compact('message'))->setStatusCode(400);
+               
+            }
+
+            $message = "No generate remittance";
+            return $this->response->array(compact('message'))->setStatusCode(400);
+        }
+
+        $message = "parameter missing";
+        return $this->response->array(compact('message'))->setStatusCode(400);
+    }
+
+
+
+/////////////////////////////////////////////////private class
     //getting mda increment id
     private function mda_id($mda_key)
     {
@@ -221,6 +303,16 @@ class ApiController extends Controller
             return $mda->id;
         }
     }
+
+    //getting user increment id
+    private function worker_id($worker_key)
+    {
+        if ($worker = Worker::where("worker_key",$worker_key)->first()) {
+            # code...
+            return $worker->id;
+        }
+    }
+
 
     //revenue head
     private function revenue_id($revenue_key)
@@ -239,5 +331,6 @@ class ApiController extends Controller
         return  $subhead->id;
         }
     }
+//////////////////////////////////////////////////////////////////////////////Private class end
 
 }

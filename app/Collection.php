@@ -15,11 +15,17 @@ class Collection extends Model
           "payer_id",
           "mda_id",
           "revenuehead_id",
-          "revenuehead_id",
+          "worker_id",
           "subhead_id",
           "collection_type",
           "email",
           "phone",
           "name",
     ];
+
+    //relationship between worker and collection
+    public function worker()
+    {
+      return $this->belongsTo('App\Worker');
+    }
 }

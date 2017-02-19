@@ -19,6 +19,8 @@ class WorkersMigrate extends Migration
             $table->string('worker_name');
             $table->string('phone')->unique();
             $table->string('email');
+            $table->integer('mda_id')->unsigned()->index();
+            $table->foreign('mda_id')->references('id')->on('mdas')->onDelete('cascade');
             $table->string('pin');
             $table->timestamps();
         });

@@ -19,7 +19,8 @@ class InvoicesMigration extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('payer_id');
-            $table->string('user_id');
+            $table->integer('worker_id')->unsigned()->index();
+            $table->foreign('worker_id')->references('id')->on('workers')->onDelete('cascade');
             $table->enum('invoice_status', [0, 1]);
             $table->integer('mda_id')->unsigned()->index();
             $table->foreign('mda_id')->references('id')->on('mdas')->onDelete('cascade');

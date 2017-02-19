@@ -22,7 +22,8 @@ class CollectionMigration extends Migration
             $table->string('payer_id');
             $table->string('phone');
             $table->string('name');
-            $table->string('user_id');
+            $table->integer('worker_id')->unsigned()->index();
+            $table->foreign('worker_id')->references('id')->on('workers')->onDelete('cascade');
             $table->integer('remittance_id')->unsigned()->index();
             $table->foreign('remittance_id')->references('id')->on('remittances')->onDelete('cascade');
             $table->integer('mda_id')->unsigned()->index();
@@ -32,6 +33,7 @@ class CollectionMigration extends Migration
             $table->integer('subhead_id')->unsigned()->index();
             $table->foreign('subhead_id')->references('id')->on('subheads')->onDelete('cascade');
             $table->string('collection_type');
+            $table->enum('collection_status', [0, 1]);
             $table->string('email');
             $table->timestamps();
         });

@@ -43,4 +43,7 @@ $api->version('v1',['middleware'=>'api.auth'],function($api){
 	//Pos collection api
 	$api->post('pos_collection','App\Http\Controllers\ApiController@pos_collection');
 
+	//generating remittance
+	$api->post('generate_remittance','App\Http\Controllers\ApiController@generate_remittance');
+
 });

@@ -17,7 +17,7 @@ class RemittancesTableSeeder extends Seeder
             	$faker = Faker::create();
             	foreach (range(1,3) as $index) {
         	        DB::table('remittances')->insert([
-        	            'collection_key' => str_random(15),
+        	            'remittance_key' => str_random(15),
         	            'name' => $faker->name,
         	            'email' => $faker->email,
         	            'phone' => "08032746783",

@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Remittance extends Model
 {
     //
+    protected $fillable =[
+        "remittance_key",
+          "worker_id",
+          "mda_id",
+          "amount"
+    ];
 
 	//relationship between mda and remittance
 	public function mda()
