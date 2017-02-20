@@ -10,6 +10,16 @@ use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
+	//protecting route
+	public function __construct()
+	{
+
+		$this->middleware('auth', ['except' => [
+		     'index','logout','store'
+		 ]]);
+
+	}
+
 	//display login page
 	public function index()
 	{
