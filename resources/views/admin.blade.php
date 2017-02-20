@@ -551,6 +551,14 @@
 		<script src="{{ asset('template/js/plugin/moment/moment.min.js')}}"></script>
 		<script src="{{ asset('template/js/plugin/fullcalendar/jquery.fullcalendar.min.js')}}"></script>
 
+		<!-- PAGE RELATED PLUGIN(S) -->
+		<script src="{{ asset('template/js/plugin/datatables/jquery.dataTables.min.js')}}"></script>
+		<script src="{{ asset('template/js/plugin/datatables/dataTables.colVis.min.js')}}"></script>
+		<script src="{{ asset('template/js/plugin/datatables/dataTables.tableTools.min.js')}}"></script>
+		<script src="{{ asset('template/js/plugin/datatables/dataTables.bootstrap.min.js')}}"></script>
+		<script src="{{ asset('template/js/plugin/datatable-responsive/datatables.responsive.min.js')}}"></script>
+		@stack('scripts')
+
 		<script>
 			$(document).ready(function() {
 
@@ -1123,7 +1131,7 @@
 			})();
 
 		</script>
-
+		
 	</body>
 
 </html>

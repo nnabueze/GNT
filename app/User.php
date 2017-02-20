@@ -13,11 +13,11 @@ use Bican\Roles\Traits\HasRoleAndPermission;
 use Bican\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
-class User extends Model implements AuthenticatableContract,
-                                    CanResetPasswordContract,
-                                    HasRoleAndPermissionContract
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
-    use Authenticatable, CanResetPassword, HasRoleAndPermission, EntrustUserTrait;
+    use Authenticatable;
+    use CanResetPassword;
+    use EntrustUserTrait;
 
     /**
      * The database table used by the model.

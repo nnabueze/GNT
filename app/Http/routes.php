@@ -15,14 +15,16 @@
 Route::get('/',"adminController@index");
 
 //route to display dashboard
-Route::get("/admin/dashboard","adminController@dashboard");
-Route::get("/admin","adminController@index");
+Route::get("/dashboard","adminController@dashboard");
 
 //login into the system
 Route::post("/admin","adminController@store");
 
 //logout route
 Route::get("/logout","adminController@logout");
+
+//All revenue collection route
+Route::get("/all_collection","CollectionController@index");
 
 
 

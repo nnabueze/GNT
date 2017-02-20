@@ -57,7 +57,7 @@
 				<a href="#"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Collection Record</span></a>
 				<ul>
 				<li>
-					<a href="#">All Collections</a>
+					<a href="/all_collection">All Collections</a>
 				</li>
 					<li>
 						<a href="#">Ebills Collection</a>

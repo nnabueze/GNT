@@ -32,7 +32,7 @@ class AdminController extends Controller
 
 		if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
 
-			return redirect()->intended('admin/dashboard');
+			return redirect()->intended('/dashboard');
 		}
 	}
 
@@ -47,10 +47,10 @@ class AdminController extends Controller
 	{
 		if (Auth::check()) {
 		    Auth::logout();
-		    return redirect('/admin');
+		    return redirect('/');
 		} else {
 	        Auth::logout();
-	        return redirect('/admin');
+	        return redirect('/');
 		}
 	}
 
