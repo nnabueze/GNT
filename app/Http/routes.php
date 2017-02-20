@@ -11,10 +11,19 @@
 |
 */
 
+////////////////////////////////////////////////Admin Route
+Route::get('/',"adminController@index");
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//route to display dashboard
+Route::get("/admin/dashboard","adminController@dashboard");
+Route::get("/admin","adminController@index");
+
+//login into the system
+Route::post("/admin","adminController@store");
+
+//logout route
+Route::get("/logout","adminController@logout");
+
 
 
 

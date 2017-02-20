@@ -195,6 +195,10 @@ class ApiController extends Controller
     //post collections via 
 public function pos_collection(Request $request)
 {
+
+    //Token authentication
+    $this->token_auth();
+
         //validating request
     if ($request->has('name') && $request->has('phone')&&$request->has('payer_id')&&$request->has('mda')&&$request->has('revenue_head')
         &&$request->has('amount')&&$request->has('user_id')&&$request->has('start_date')&&$request->has('end_date')) {
@@ -268,6 +272,9 @@ return $this->response->array(compact('message'))->setStatusCode(400);
     //generating remittance
 public function generate_remittance(Request $request)
 {
+    //Token authentication
+    $this->token_auth();
+
     if ($request->has('user_id') && $request->has('mda')) {
 
         $worker = $this->worker_id($request->input("user_id"));
@@ -332,6 +339,9 @@ public function generate_remittance(Request $request)
     //login pos user api
 public function user_login(Request $request)
 {
+    //Token authentication
+    $this->token_auth();
+    
     if ($request->has("phone")&&$request->has("pin")) {
         $user_login = Worker::where("phone",$request->input("phone"))
         ->where("pin",$request->input("pin"))
