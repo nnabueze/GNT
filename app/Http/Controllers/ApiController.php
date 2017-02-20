@@ -115,11 +115,12 @@ class ApiController extends Controller
         
         //validation incoming request
         if ($request->has('name') && $request->has('phone')&&$request->has('payer_id')&&$request->has('mda')&&$request->has('revenue_head')
-            &&$request->has('amount')&&$request->has('worker_id')&&$request->has('start_date')&&$request->has('end_date')) {
+            &&$request->has('amount')&&$request->has('user_id')&&$request->has('start_date')&&$request->has('end_date')) {
 
             $request['invoice_key'] = str_random(15);
         $request['mda_id'] = $this->mda_id($request->input("mda"));
         $request['revenuehead_id'] = $this->revenue_id($request->input("revenue_head"));
+        $request['worker_id'] = $this->worker_id($request->input('user_id'));
 
         if ($request->input("subhead")) {
 
@@ -130,6 +131,13 @@ class ApiController extends Controller
         if (empty($request['mda_id'])) {
             $message = "invalid Mda";
             return $this->response->array(compact('message'))->setStatusCode(400);
+        }
+
+        //checking for workers id
+        if (empty($request['worker_id'])) {
+
+           $message = "invalid User id";
+           return $this->response->array(compact('message'))->setStatusCode(400);
         }
 
         //checking for revenue head
@@ -374,7 +382,6 @@ private function mda_id($mda_key)
 private function worker_id($worker_key)
 {
     if ($worker = Worker::where("worker_key",$worker_key)->first()) {
-            # code...
         return $worker->id;
     }
 }

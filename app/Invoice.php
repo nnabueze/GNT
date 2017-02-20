@@ -17,7 +17,7 @@ class Invoice extends Model
           "revenuehead_id",
           "subhead_id",
           "amount",
-          "user_id",
+          "worker_id",
           "start_date",
            "end_date",
            "invoice_key"
