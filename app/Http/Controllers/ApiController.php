@@ -46,6 +46,9 @@ class ApiController extends Controller
     //getting the list of revenue heads
     public function revenue_heads()
     {
+        //Token authentication
+        $this->token_auth();
+
         $heads = Revenuehead::all();
 
         $revenue_heads = array();
@@ -64,6 +67,9 @@ class ApiController extends Controller
     //verifying invoice Number
     public function invoice(Request $request)
     {
+        //Token authentication
+        $this->token_auth();
+
         $invoice = $request->only('invoice_id');
 
        //verify that invoice
@@ -104,16 +110,40 @@ class ApiController extends Controller
     //genarating invoice
     public function generate_invoice(Request $request)
     {
+        //Token authentication
+        $this->token_auth();
+        
         //validation incoming request
         if ($request->has('name') && $request->has('phone')&&$request->has('payer_id')&&$request->has('mda')&&$request->has('revenue_head')
-            &&$request->has('amount')&&$request->has('user_id')&&$request->has('start_date')&&$request->has('end_date')) {
+            &&$request->has('amount')&&$request->has('worker_id')&&$request->has('start_date')&&$request->has('end_date')) {
 
             $request['invoice_key'] = str_random(15);
         $request['mda_id'] = $this->mda_id($request->input("mda"));
         $request['revenuehead_id'] = $this->revenue_id($request->input("revenue_head"));
+
         if ($request->input("subhead")) {
 
             $request['subhead_id'] = $this->subhead_id($request->input("subhead"));
+        }
+
+        //checking for mda and revenue head
+        if (empty($request['mda_id'])) {
+            $message = "invalid Mda";
+            return $this->response->array(compact('message'))->setStatusCode(400);
+        }
+
+        //checking for revenue head
+        if (empty($request['revenuehead_id'])) {
+
+           $message = "invalid Mda";
+           return $this->response->array(compact('message'))->setStatusCode(400);
+        }
+
+        //checking if subhead is valid and exist
+        if ($request->has('subhead') && empty($request['subhead_id'])) {
+
+            $message = "invalid sub-head";
+            return $this->response->array(compact('message'))->setStatusCode(400);
         }
 
         if (!$invoice = Invoice::create($request->all())) {
@@ -367,6 +397,22 @@ private function subhead_id($subhead_key)
         return  $subhead->id;
     }
 }
+
+//token Authentication
+private function token_auth()
+{
+            //Token authentication
+    $user = JWTAuth::parseToken()->authenticate();
+    try{
+        if (! $user ) {
+            return $this->response->errorUnauthorized();
+        } 
+    } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+        return $this->response->error('something went wrong');
+    }
+
+}
+
 //////////////////////////////////////////////////////////////////////////////Private class end
 
 }
