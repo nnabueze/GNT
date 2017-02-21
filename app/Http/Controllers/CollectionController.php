@@ -24,16 +24,16 @@ class CollectionController extends Controller
     public function index()
     {
         $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
-      
-    	return view("collection.index",compact("igr"));
+        $mda = Mda::with("collections")->find(Auth::user()->igr_id);
+    	return view("collection.index",compact("igr","mda"));
     }
 
     //show all the collection
     public function all_collection()
     {
+        $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
             $mda = Mda::with("collections")->find(Auth::user()->igr_id);
-          print_r($mda);
-          die;
-            return view("collection.index",compact("mda"));
+
+            return view("collection.index",compact("mda","igr"));
     }
 }

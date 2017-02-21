@@ -162,8 +162,11 @@
 									</tr>
 								</thead>
 								<tbody>
+								
+									@foreach($mda->collections as $mda)
+									<?php echo  $mda; die; ?>
 									<tr>
-										<td>1</td>
+										<td>{{$mda->collection_key}}</td>
 										<td>Jennifer</td>
 										<td>1-342-463-8341</td>
 										<td>Et Rutrum Non Associates</td>
@@ -171,6 +174,8 @@
 										<td>Fogo</td>
 										<td>03/04/14</td>
 									</tr>
+									@endforeach
+								
 								</tbody>
 							</table>
 
