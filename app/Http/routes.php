@@ -27,6 +27,9 @@ Route::get("/logout","adminController@logout");
 //All revenue collection route
 Route::get("/all_collection","CollectionController@index");
 
+//getting collections
+Route::post("/all_collection","CollectionController@all_collection");
+
 //route for dispalying permission page
 Route::get("/permission","PermissionController@index");
 
