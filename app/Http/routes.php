@@ -12,7 +12,7 @@
 */
 
 ////////////////////////////////////////////////Admin Route
-Route::get('/',"adminController@index");
+Route::get('/',"AdminController@index");
 
 //route to display dashboard
 Route::get("/dashboard","AdminController@dashboard");
