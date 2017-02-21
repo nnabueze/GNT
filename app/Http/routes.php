@@ -35,6 +35,16 @@ Route::post("/permission","PermissionController@store");
 //deleteeing permission
 Route::get("/permission/{any}","PermissionController@permission_delete");
 
+//route display and create role
+Route::get("/role","RoleController@index");
+
+//Route storing role
+Route::post("/role","RoleController@store");
+
+//deleting role
+Route::get("/role/{any}","RoleController@role_delete");
+
+
 
 
 /////////////////////API'S ////////////////////////

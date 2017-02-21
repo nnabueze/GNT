@@ -42,7 +42,7 @@
 						<a href="" target="_blank">User <i class="fa fa-external-link"></i></a>
 					</li>
 					<li>
-						<a href="">Role</a>
+						<a href="/role">Role</a>
 					</li>
 					<li>
 						<a href="/permission">Permission</a>

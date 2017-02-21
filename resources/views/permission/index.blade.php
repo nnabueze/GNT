@@ -99,7 +99,7 @@
 										<td>{{$permission->name}}</td>
 										<td>{{$permission->display_name}}</td>
 										<td>{{$permission->description}}</td>
-										<td><a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/permission/{{$permission->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-trash"></span></a> </td>
+										<td><a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/permission/{{$permission->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a> </td>
 
 									</tr>
 									<?php $i++;?>
