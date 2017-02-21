@@ -107,6 +107,7 @@
 				<!-- PLACE YOUR LOGO HERE -->
 				<!-- <span id="logo"> <img src="{{ asset('template/img/logo.png')}}" alt="SmartAdmin"> </span> -->
 				<!-- END LOGO PLACEHOLDER -->
+				
 
 				<!-- Note: The activity badge color changes when clicked and resets the number to 0
 				Suggestion: You may want to set a flag when this happens to tick off all checked messages / notifications -->
