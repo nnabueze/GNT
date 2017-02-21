@@ -16,6 +16,7 @@ Route::get('/',"adminController@index");
 
 //route to display dashboard
 Route::get("/dashboard","adminController@dashboard");
+Route::get("/admin","adminController@dashboard");
 
 //login into the system
 Route::post("/admin","adminController@store");
@@ -43,6 +44,12 @@ Route::post("/role","RoleController@store");
 
 //deleting role
 Route::get("/role/{any}","RoleController@role_delete");
+
+//Route to create admin user
+Route::get("/users","UserController@index");
+
+//creating user
+Route::post("/users","UserController@store");
 
 
 

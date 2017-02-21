@@ -17,6 +17,8 @@ class SubheadsMigrate extends Migration
             $table->increments('id');
             $table->string('subhead_key');
             $table->string('subhead_code');
+            $table->integer('revenuehead_id')->unsigned()->index();
+            $table->foreign('revenuehead_id')->references('id')->on('revenueheads')->onDelete('cascade');
             $table->string('subhead_name');
             $table->string('amount');
             $table->timestamps();

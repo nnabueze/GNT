@@ -17,6 +17,8 @@ class RevenueheadsMigration extends Migration
             $table->increments('id');
             $table->string('revenueheads_key');
             $table->string('revenue_code');
+            $table->integer('mda_id')->unsigned()->index();
+            $table->foreign('mda_id')->references('id')->on('mdas')->onDelete('cascade');
             $table->string('revenue_name');
             $table->string('amount');
             $table->enum('sub_heads', [0, 1]);

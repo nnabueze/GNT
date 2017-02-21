@@ -39,7 +39,7 @@
 				<a href="#"><i class="fa fa-lg fa-fw fa-windows"></i> <span class="menu-item-parent">Access Control</span></a>
 				<ul>
 					<li>
-						<a href="" target="_blank">User <i class="fa fa-external-link"></i></a>
+						<a href="/users" target="_blank">User <i class="fa fa-external-link"></i></a>
 					</li>
 					<li>
 						<a href="/role">Role</a>

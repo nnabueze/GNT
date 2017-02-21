@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\UserRequest;
 use App\User;
+use App\Role;
+use App\Igr;
+use Auth;
 use Redirect;
 use Session;
 use Hash;
-use Bican\Roles\Models\Role;
 
-//User Type Admin=1, Scheme=2, Worker=3, Dealer=4
-//User Role SuperAdmin=5, Admin=3, Scheme=2, worker=1, Dealer=1
+
 class UserController extends Controller
 {
     public function __construct()
@@ -30,10 +31,9 @@ class UserController extends Controller
     public function index()
     {
         //
+        $igrs = Igr::all();
         $roles = Role::all();
-        $users = User::with('roles')->where('user',1)->paginate(3);
-        $title = 'Fermers Connect: Users Page';
-        return view('user.index', compact('title','roles','users'));
+        return view('user.index',compact("igrs","roles"));
     }
 
     /**
@@ -52,25 +52,32 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
         //
-        $user = User::where('email',$request->input('email'))->first();
-        if ($user) {
-            Session::flash('warning', 'Failed! Email already exist');
-            return Redirect::back();
-        }
-        if (empty($request->input('role'))) {
-           Session::flash('warning', 'Failed! select a role');
-           return Redirect::back();
-        }
-        $request['password'] = Hash::make($request->input('password'));
-        $request['user'] = 1;
-      $user = User::create($request->all());
-      $user->attachRole($request->input('role'));
+          $user = User::where('email',$request->input('email'))->first();
+          if ($user) {
+              Session::flash('warning', 'Failed! Email already exist');
+              return Redirect::back();
+          }
 
-      Session::flash('message', 'Success! Acount have been created');
-      return Redirect::back();
+          if (empty($request->input('igr_id'))) {
+             Session::flash('warning', 'Failed! select IGR');
+             return Redirect::back();
+          }
+
+          if (empty($request->input('role'))) {
+             Session::flash('warning', 'Failed! select a role');
+             return Redirect::back();
+          }
+
+          $request['password'] = Hash::make($request->input('password'));
+          
+        $user = User::create($request->all());
+        $user->attachRole($request->input('role'));
+
+        Session::flash('message', 'Success! Acount have been created');
+        return Redirect::back();
     }
 
     /**
