@@ -157,6 +157,18 @@ class UserController extends Controller
     return Redirect::back();
     }
 
+    public function delete_user($id)
+    {
+        $user = User::find($id);
+        if ($user) {
+            $user->delete();
+            Session::flash('message', 'Success! You have deleted a User');
+            return Redirect::back();
+        }
+        Session::flash('warning', 'Failed! Unable to delete a User');
+        return Redirect::back();
+    }
+
     //activating a USER
     public function status(Request $request)
     {

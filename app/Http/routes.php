@@ -51,6 +51,9 @@ Route::get("/role/{any}","RoleController@role_delete");
 //Route to create admin user
 Route::get("/users","UserController@index");
 
+//delete a user 
+Route::get("/users/{any}","UserController@delete_user");
+
 //creating user
 Route::post("/users","UserController@store");
 
@@ -59,6 +62,9 @@ Route::get("/pos_collection","CollectionController@pos_collection");
 
 //Ebills collection page
 Route::get("/ebill_collection","CollectionController@ebill_collection");
+
+//revenue heads
+Route::get("/revenue_heads","CollectionController@revenue_heads");
 
 
 

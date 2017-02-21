@@ -51,7 +51,7 @@
 				</ul>
 			</li>
 			<li class="top-menu-invisible">
-				<a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Revenue Heads</span></a>
+				<a href="/revenue_heads"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Revenue Heads</span></a>
 			</li>
 			<li>
 				<a href="#"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Collection Record</span></a>

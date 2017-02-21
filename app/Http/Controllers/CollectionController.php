@@ -48,4 +48,10 @@ class CollectionController extends Controller
     {
         return view("collection.ebills_collection");
     }
+
+    //displaying revenue heads
+    public function revenue_heads()
+    {
+        return view("collection.revenue_heads");
+    }
 }
