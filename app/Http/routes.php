@@ -54,6 +54,12 @@ Route::get("/users","UserController@index");
 //creating user
 Route::post("/users","UserController@store");
 
+//pos collection page
+Route::get("/pos_collection","CollectionController@pos_collection");
+
+//Ebills collection page
+Route::get("/ebill_collection","CollectionController@ebill_collection");
+
 
 
 

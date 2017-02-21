@@ -92,8 +92,7 @@
 												<tr>
 													<th data-hide="phone">ID</th>
 													<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Name</th>
-													<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> User</th>
-													<th data-hide="phone,tablet">Description</th>
+													<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Email</th>
 													<th data-hide="phone,tablet">Action</th>
 													
 													
@@ -101,21 +100,20 @@
 												</tr>
 											</thead>
 											<tbody>
+											<?php $i = 1;?>
+											@if($users)
+												@foreach($users as $user)
 												<tr>
-													<td>1</td>
-													<td>Fogo</td>
-													<td>Fogo</td>
-													<td>Et Rutrum Non Associates</td>
-													<td> </td>
+													<td>{{$i}}</td>
+													<td>{{$user->name}}</td>
+													<td>{{$user->email}}</td>
+													<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 													
 												</tr>
-												<tr>
-													<td>2</td>
-													<td>Machelen</td>
-													<td>Machelen</td>
-													<td>Nam Ac Inc.</td>
-													<td> </td>
-												</tr>
+												<?php $i++; ?>
+												@endforeach
+												@endif
+
 															
 											</tbody>
 										</table>

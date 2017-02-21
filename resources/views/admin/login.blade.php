@@ -58,10 +58,9 @@
 		<header id="header">
 
 			<div id="logo-group">
-				<span id="logo"> <img src="{{ asset('template/img/logo.png')}}" alt="SmartAdmin"> </span>
-			</div>
-
-			<span id="extr-page-header-space"> <span class="hidden-mobile hiddex-xs">Need an account?</span> <a href="register.html" class="btn btn-danger">Create account</a> </span>
+				<!-- <span id="logo"> <img src="{{ asset('template/img/logo.png')}}" alt="SmartAdmin"> </span> -->
+				<h2>IGR PORTAL</h2>
+			</div>>
 
 		</header>
 
@@ -72,14 +71,12 @@
 
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
-						<h1 class="txt-color-red login-header-big">SmartAdmin</h1>
+						<h1 class="txt-color-red login-header-big">Ercas Solutions <small>Simple, Secured, synergy</small></h1>
 						<div class="hero">
 
 							<div class="pull-left login-desc-box-l">
 								<h4 class="paragraph-header">It's Okay to be Smart. Experience the simplicity of SmartAdmin, everywhere you go!</h4>
 								<div class="login-app-icons">
-									<a href="javascript:void(0);" class="btn btn-danger btn-sm">Frontend Template</a>
-									<a href="javascript:void(0);" class="btn btn-danger btn-sm">Find out more</a>
 								</div>
 							</div>
 							

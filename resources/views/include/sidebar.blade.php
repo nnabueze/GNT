@@ -60,10 +60,10 @@
 					<a href="/all_collection">All Collections</a>
 				</li>
 					<li>
-						<a href="#">Ebills Collection</a>
+						<a href="/ebill_collection">Ebills Collection</a>
 					</li>
 					<li>
-						<a href="#">POS</a>
+						<a href="/pos_collection">POS</a>
 				</ul>
 			</li>
 			<li>

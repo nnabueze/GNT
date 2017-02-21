@@ -8,9 +8,9 @@
 		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
 			<h1 class="page-title txt-color-blueDark">
 				<i class="fa fa-table fa-fw "></i> 
-				Table 
+				Collection 
 				<span>> 
-					Data Tables
+					All collection Table
 				</span>
 			</h1>
 		</div>
@@ -47,22 +47,22 @@
 					<section id="widget-grid" class="">
 						<!-- row -->
 						
+						<form action="/all_collection" method="POST">
 							<div class="col-sm-3">				
 								<div class="">
 									<div class="">
-									<form action="/all_collection" method="POST">
-									<input type="hidden" name="_token" value="{{ csrf_token() }}">
-										<select name="lga" class="select" onchange="this.form.submit()">
-										@if(count($igr->mdas) > 0)
-											<option value="">Select Table</option>
+										<input type="hidden" name="_token" value="{{ csrf_token() }}">
+										<select name="lga" class="select" ">
+											@if(count($igr->mdas) > 0)
+											<option value="">Select LGA's</option>
 											@foreach($igr->mdas as $mda)
 											<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
 											@endforeach
-										@else
-										<option value="">Select Table</option>
-										@endif
+											@else
+											<option value="">Select LGA's</option>
+											@endif
 										</select> 
-										</form>     
+
 									</div>
 								</div>
 							</div>
@@ -80,11 +80,11 @@
 								<div class="input-group">
 									<input class="form-control" id="from" type="text" placeholder="From" name="datefrm">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-									<input type="button" id="searchreport" name="biller_srch" id="billersearch" value="Go">
+									<input type="button" class="btn btn-default" value="Go">
 								</div>
 							</div>
 						</div>
-						
+					</form> 
 
 					<!-- Widget ID (each widget will need unique ID)-->
 					<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-1" data-widget-editbutton="false">
@@ -147,59 +147,59 @@
 
 						<!-- widget content -->
 						<div class="widget-body no-padding">
-						<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
-						           <thead>
-						            <tr>
-						             <th data-hide="phone">Transaction ID</th>
-						             <th data-class="expand">Payer Name</th>
-						             <th>Payer ID</th>
-						             <th data-hide="phone,tablet">Revenue Head</th>
-						             <th data-hide="phone">Amount</th>
-						             <th data-hide="phone,tablet">Channel</th>
-						             <th data-hide="phone,tablet">Date</th>
-						             
-						            </tr>
-						           </thead>
-						           <tbody>
-						            <tr>
-						             <td>NEMXpRGIefMLpMe</td>
-						             <td>test tester </td>
-						             <td>112233445566</td>
-						             <td>Registration of Night Soil</td>
-						             <td>1000</td>
-						             <td>pos</td>
-						             <td>2017-02-13</td>
-						            </tr>
-						            <tr>
-						             <td>7YwvC4y2cvK59OB</td>
-						             <td>test tester</td>
-						             <td>112233445566</td>
-						             <td>Contract Registration (Per Contract)- Cat F. (501,000,000 - 999,999,999).</td>
-						             <td>21000</td>
-						             <td>pos</td>
-						             <td>2017-02-13</td>
-						            </tr>
-						            <tr>
-						             <td>rOMeXsKumkWdoPG</td>
-						             <td>test tester</td>
-						             <td>102030405060</td>
-						             <td>Saw-Mill License(Per Annum)</td>
-						             <td>2000</td>
-						             <td>pos</td>
-						             <td>02/13/14</td>
-						            </tr>
-						            <tr>
-						             <td>S6HueeNi2ahSltS</td>
-						             <td>test tester</td>
-						             <td>102030401010</td>
-						             <td>Mass Transit Hiring/Services(per Day)- Medium Bus</td>
-						             <td>3000</td>
-						             <td>pos</td>
-						             <td>01/01/13</td>
-						            </tr>
-						            
-						           </tbody>
-						          </table>
+							<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
+								<thead>
+									<tr>
+										<th data-hide="phone">Transaction ID</th>
+										<th data-class="expand">Payer Name</th>
+										<th>Payer ID</th>
+										<th data-hide="phone,tablet">Revenue Head</th>
+										<th data-hide="phone">Amount</th>
+										<th data-hide="phone,tablet">Channel</th>
+										<th data-hide="phone,tablet">Date</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>NEMXpRGIefMLpMe</td>
+										<td>test tester </td>
+										<td>112233445566</td>
+										<td>Registration of Night Soil</td>
+										<td>1000</td>
+										<td>pos</td>
+										<td>2017-02-13</td>
+									</tr>
+									<tr>
+										<td>7YwvC4y2cvK59OB</td>
+										<td>test tester</td>
+										<td>112233445566</td>
+										<td>Contract Registration (Per Contract)- Cat F. (501,000,000 - 999,999,999).</td>
+										<td>21000</td>
+										<td>pos</td>
+										<td>2017-02-13</td>
+									</tr>
+									<tr>
+										<td>rOMeXsKumkWdoPG</td>
+										<td>test tester</td>
+										<td>102030405060</td>
+										<td>Saw-Mill License(Per Annum)</td>
+										<td>2000</td>
+										<td>pos</td>
+										<td>02/13/14</td>
+									</tr>
+									<tr>
+										<td>S6HueeNi2ahSltS</td>
+										<td>test tester</td>
+										<td>102030401010</td>
+										<td>Mass Transit Hiring/Services(per Day)- Medium Bus</td>
+										<td>3000</td>
+										<td>pos</td>
+										<td>01/01/13</td>
+									</tr>
+
+								</tbody>
+							</table>
 
 						</div>
 						<!-- end widget content -->

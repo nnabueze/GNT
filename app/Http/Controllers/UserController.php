@@ -33,7 +33,8 @@ class UserController extends Controller
         //
         $igrs = Igr::all();
         $roles = Role::all();
-        return view('user.index',compact("igrs","roles"));
+        $users = User::all();
+        return view('user.index',compact("igrs","roles",'users'));
     }
 
     /**

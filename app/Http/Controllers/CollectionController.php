@@ -36,4 +36,16 @@ class CollectionController extends Controller
 
             return view("collection.index",compact("mda","igr"));
     }
+
+    //displaying collection by pos
+    public function pos_collection()
+    {
+        return view("collection.pos_collection");
+    }
+
+    //ebills
+    public function ebill_collection()
+    {
+        return view("collection.ebills_collection");
+    }
 }
