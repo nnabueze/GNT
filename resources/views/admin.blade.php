@@ -477,7 +477,7 @@
 		</script>
 
 		<!-- IMPORTANT: APP CONFIG -->
-		<script src="{{ asset('template/js/app.config.js')}}"></script>{{ asset('template/js/app.config.js')}}
+		<script src="{{ asset('template/js/app.config.js')}}"></script>
 
 		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
 		<script src="{{ asset('template/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js')}}"></script> 

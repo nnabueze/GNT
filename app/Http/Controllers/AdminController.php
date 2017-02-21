@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Redirect;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -23,6 +24,9 @@ class AdminController extends Controller
 	//display login page
 	public function index()
 	{
+		if (Auth::user()) {
+			return Redirect::to("/dashboard");
+		}
 		return view("admin.login");
 	}
 

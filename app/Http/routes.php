@@ -26,6 +26,14 @@ Route::get("/logout","adminController@logout");
 //All revenue collection route
 Route::get("/all_collection","CollectionController@index");
 
+//route for dispalying permission page
+Route::get("/permission","PermissionController@index");
+
+//storing permission
+Route::post("/permission","PermissionController@store");
+
+//deleteeing permission
+Route::get("/permission/{any}","PermissionController@permission_delete");
 
 
 

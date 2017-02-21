@@ -45,7 +45,7 @@
 						<a href="">Role</a>
 					</li>
 					<li>
-						<a href="">Permission</a>
+						<a href="/permission">Permission</a>
 					</li>
 
 				</ul>
