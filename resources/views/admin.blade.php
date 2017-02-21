@@ -137,7 +137,7 @@
 				<div class="col-xs-12 col-sm-6">
 					<span class="txt-color-white">Ercas Solution <span class="hidden-xs"> - IGR portal</span> © 2014-2015</span>
 				</div>
-
+git 
 			</div>
 		</div>
 		<!-- END PAGE FOOTER -->

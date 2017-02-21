@@ -58,7 +58,7 @@
 
 									<ul class="nav nav-tabs pull-right in" id="myTab">
 										<li class="active">
-											<a data-toggle="tab" href="#s1"><i class="fa fa-clock-o"></i> <span class="hidden-mobile hidden-tablet">Top MDAs</span></a>
+											<a data-toggle="tab" href="#s1"><i class="fa fa-clock-o"></i> <span class="hidden-mobile hidden-tablet">Top LGAs</span></a>
 										</li>
 
 										<!--<li>
