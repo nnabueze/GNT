@@ -147,37 +147,59 @@
 
 						<!-- widget content -->
 						<div class="widget-body no-padding">
-
-							<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
-								<thead>
-									<tr>
-										<th data-hide="phone">Transaction ID</th>
-										<th data-class="expand">Payer Name</th>
-										<th>Payer ID</th>
-										<th data-hide="phone,tablet">Revenue Head</th>
-										<th data-hide="phone">Amount</th>
-										<th data-hide="phone,tablet">Channel</th>
-										<th data-hide="phone,tablet">Date</th>
-
-									</tr>
-								</thead>
-								<tbody>
-								
-									@foreach($mda->collections as $mda)
-									<?php echo  $mda; die; ?>
-									<tr>
-										<td>{{$mda->collection_key}}</td>
-										<td>Jennifer</td>
-										<td>1-342-463-8341</td>
-										<td>Et Rutrum Non Associates</td>
-										<td>35728</td>
-										<td>Fogo</td>
-										<td>03/04/14</td>
-									</tr>
-									@endforeach
-								
-								</tbody>
-							</table>
+						<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
+						           <thead>
+						            <tr>
+						             <th data-hide="phone">Transaction ID</th>
+						             <th data-class="expand">Payer Name</th>
+						             <th>Payer ID</th>
+						             <th data-hide="phone,tablet">Revenue Head</th>
+						             <th data-hide="phone">Amount</th>
+						             <th data-hide="phone,tablet">Channel</th>
+						             <th data-hide="phone,tablet">Date</th>
+						             
+						            </tr>
+						           </thead>
+						           <tbody>
+						            <tr>
+						             <td>NEMXpRGIefMLpMe</td>
+						             <td>test tester </td>
+						             <td>112233445566</td>
+						             <td>Registration of Night Soil</td>
+						             <td>1000</td>
+						             <td>pos</td>
+						             <td>2017-02-13</td>
+						            </tr>
+						            <tr>
+						             <td>7YwvC4y2cvK59OB</td>
+						             <td>test tester</td>
+						             <td>112233445566</td>
+						             <td>Contract Registration (Per Contract)- Cat F. (501,000,000 - 999,999,999).</td>
+						             <td>21000</td>
+						             <td>pos</td>
+						             <td>2017-02-13</td>
+						            </tr>
+						            <tr>
+						             <td>rOMeXsKumkWdoPG</td>
+						             <td>test tester</td>
+						             <td>102030405060</td>
+						             <td>Saw-Mill License(Per Annum)</td>
+						             <td>2000</td>
+						             <td>pos</td>
+						             <td>02/13/14</td>
+						            </tr>
+						            <tr>
+						             <td>S6HueeNi2ahSltS</td>
+						             <td>test tester</td>
+						             <td>102030401010</td>
+						             <td>Mass Transit Hiring/Services(per Day)- Medium Bus</td>
+						             <td>3000</td>
+						             <td>pos</td>
+						             <td>01/01/13</td>
+						            </tr>
+						            
+						           </tbody>
+						          </table>
 
 						</div>
 						<!-- end widget content -->
