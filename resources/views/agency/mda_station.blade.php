@@ -10,7 +10,7 @@
 				<i class="fa fa-table fa-fw "></i> 
 				Setup
 				<span>> 
-					MDA's Table
+					Station
 				</span>
 			</h1>
 		</div>
@@ -45,9 +45,8 @@
 					<!-- end widget -->
 					
 					<section id="widget-grid" class="">
-						<!-- row -->
-						
-					<button class="pull-right btn btn-sm btn-primary">ADD MDA</button>
+
+					<button class="pull-right btn btn-sm btn-primary">ADD STATION</button>
 					<br/>
 					<br/>
 					<br/>
@@ -118,7 +117,7 @@
 								<tr>
 									<th data-hide="phone">MDA Code</th>
 									<th data-hide="phone,tablet">MDA</th>
-									<th>No of Revenue Heads</th>
+									<th>No of Stations</th>
 									<th data-hide="phone,tablet"> Action</th>
 									
 								</tr>
@@ -129,7 +128,7 @@
 								<tr>
 									<td>{{$mda->mda_key}}</td>
 									<td>{{$mda->mda_name}}</td>
-									<td>{{count($mda->revenue)}}</td>
+									<td>{{count($mda->station)}}</td>
 									<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/agency/{{$mda->mda_key}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="View"><span class="glyphicon glyphicon-eye-open"></span></a>&nbsp;&nbsp;<a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 									
 								</tr>

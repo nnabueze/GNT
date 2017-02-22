@@ -10,8 +10,9 @@
 				<i class="fa fa-table fa-fw "></i> 
 				Setup
 				<span>> 
-					MDA's Table
+					MDA's
 				</span>
+				<span>>Revenue</span>
 			</h1>
 		</div>
 
@@ -45,9 +46,8 @@
 					<!-- end widget -->
 					
 					<section id="widget-grid" class="">
-						<!-- row -->
-						
-					<button class="pull-right btn btn-sm btn-primary">ADD MDA</button>
+
+					<button class="pull-right btn btn-sm btn-primary">ADD REVENU HEADS</button>
 					<br/>
 					<br/>
 					<br/>
@@ -117,20 +117,20 @@
 							<thead>
 								<tr>
 									<th data-hide="phone">MDA Code</th>
-									<th data-hide="phone,tablet">MDA</th>
-									<th>No of Revenue Heads</th>
+									<th data-hide="phone,tablet">Revenue Name</th>
+									<th>Amount</th>
 									<th data-hide="phone,tablet"> Action</th>
 									
 								</tr>
 							</thead>
 							<tbody>
-							@if($mdas)
-								@foreach($mdas->mdas as $mda)
+							@if($revenue)
+								@foreach($revenue as $revenue)
 								<tr>
-									<td>{{$mda->mda_key}}</td>
-									<td>{{$mda->mda_name}}</td>
-									<td>{{count($mda->revenue)}}</td>
-									<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/agency/{{$mda->mda_key}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="View"><span class="glyphicon glyphicon-eye-open"></span></a>&nbsp;&nbsp;<a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
+									<td>{{$revenue->revenue_code}}</td>
+									<td>{{$revenue->revenue_name}}</td>
+									<td>{{$revenue->amount}}</td>
+								<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 									
 								</tr>
 								@endforeach

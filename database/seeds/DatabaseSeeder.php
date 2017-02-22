@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MdaTableSeeder::class);
         $this->call(SubheadTableSeeder::class);
         $this->call(WorkerTableSeeder::class);
+        $this->call(StationTableSeeder::class);
     }
 }

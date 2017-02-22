@@ -16,6 +16,8 @@ class StationsMigrate extends Migration
         Schema::create('stations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('station_key');
+            $table->integer('mda_id')->unsigned()->index();
+            $table->foreign('mda_id')->references('id')->on('mdas')->onDelete('cascade');
             $table->string('station_name');
             $table->timestamps();
         });

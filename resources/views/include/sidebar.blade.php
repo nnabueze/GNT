@@ -30,7 +30,7 @@
 				<a href="#"><i class="fa fa-lg fa-fw fa-desktop"></i><span class="menu-item-parent">Setup</span></a>
 				<ul>
 					<li><a href="/agencies">Agencies</a></li>
-					<li><a href="/revenue_heads">Revenue Heads</a></li>
+					<!-- <li><a href="/revenue_heads">Revenue Heads</a></li> -->
 					<li><a href="/station">Stations</a></li>
 					<li><a href="/pos">POS</a></li>
 				</ul>

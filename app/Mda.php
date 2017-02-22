@@ -8,14 +8,20 @@ class Mda extends Model
 {
     //
     	//relationship between revenue head and Mda
-        public function revenue()
-        {
-          return $this->hasMany('App\Revenuehead');
-        }
+    public function revenue()
+    {
+      return $this->hasMany('App\Revenuehead');
+    }
 
         	//relationship between revenue head and Mda
-            public function collections()
-            {
-              return $this->hasMany('App\Collection');
-            }
+    public function collections()
+    {
+      return $this->hasMany('App\Collection');
+    }
+
+                //relationship between revenue head and Mda
+    public function station()
+    {
+      return $this->hasMany('App\Station');
+    }
 }
