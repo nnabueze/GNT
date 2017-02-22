@@ -9,7 +9,7 @@
 			<a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
 				<img src="{{ asset('template/img/avatars/sunny.png')}}" alt="me" class="online" /> 
 				<span>
-					john.doe 
+					Emeka Aka 
 				</span>
 				<i class="fa fa-angle-down"></i>
 			</a> 
@@ -29,10 +29,10 @@
 			<li>
 				<a href="#"><i class="fa fa-lg fa-fw fa-desktop"></i><span class="menu-item-parent">Setup</span></a>
 				<ul>
-					<li><a href="orders.html">Agencies</a></li>
-					<li><a href="products-view.html">Revenue Heads</a></li>
-					<li><a href="products-detail.html">Stations</a></li>
-					<li><a href="products-detail.html">POS</a></li>
+					<li><a href="#">Agencies</a></li>
+					<li><a href="#">Revenue Heads</a></li>
+					<li><a href="#">Stations</a></li>
+					<li><a href="#">POS</a></li>
 				</ul>
 			</li>	
 			<li>
@@ -79,44 +79,7 @@
 						<a href="#">POS</a>
 				</ul>
 			</li>
-			<li>
-				<a href="#"><i class="fa fa-lg fa-fw fa-pencil-square-o"></i> <span class="menu-item-parent">Profile Management</span></a>
-				<ul>
-					<li>
-						<a href="form-elements.html">Smart Form Elements</a>
-					</li>
-					<li>
-						<a href="form-templates.html">Smart Form Layouts</a>
-					</li>
-					<li>
-						<a href="validation.html">Smart Form Validation</a>
-					</li>
-					<li>
-						<a href="bootstrap-forms.html">Bootstrap Form Elements</a>
-					</li>
-					<li>
-						<a href="bootstrap-validator.html">Bootstrap Form Validation</a>
-					</li>
-					<li>
-						<a href="plugins.html">Form Plugins</a>
-					</li>
-					<li>
-						<a href="wizard.html">Wizards</a>
-					</li>
-					<li>
-						<a href="other-editors.html">Bootstrap Editors</a>
-					</li>
-					<li>
-						<a href="dropzone.html">Dropzone</a>
-					</li>
-					<li>
-						<a href="image-editor.html">Image Cropping</a>
-					</li>
-					<li>
-						<a href="ckeditor.html">CK Editor</a>
-					</li>
-				</ul>
-			</li>
+
 			<li>
 				<a href="/logout"><i class="fa fa-lg fa-fw fa-list-alt"></i> <span class="menu-item-parent">Logout</span></a>
 			</li>
