@@ -66,6 +66,20 @@ Route::get("/ebill_collection","CollectionController@ebill_collection");
 //revenue heads
 Route::get("/revenue_heads","CollectionController@revenue_heads");
 
+//Route onboarding the IGR
+Route::get("/agencies","AgencyController@index");
+
+//adding revenue heads
+Route::get("/revenue_heads","AgencyController@revenue_heads");
+
+//route for adding up station
+Route::get("/station","AgencyController@station");
+
+//Post action status
+Route::get("/pos","AgencyController@pos");
+
+
+
 
 
 
