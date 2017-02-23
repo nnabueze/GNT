@@ -117,5 +117,8 @@ $api->version('v1',['middleware'=>'api.auth'],function($api){
 	//login user
 	$api->post('user_login','App\Http\Controllers\ApiController@user_login');
 
+	//activation of pos
+	$api->post('pos_activation','App\Http\Controllers\ApiController@pos_activation');
+
 
 });

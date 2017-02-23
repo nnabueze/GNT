@@ -15,6 +15,7 @@ use App\Invoice;
 use App\Revenuehead;
 use App\Mda;
 use App\Worker;
+use App\Postable;
 use App\Subhead;
 use App\Remittance;
 use App\Collection;
@@ -136,59 +137,59 @@ class ApiController extends Controller
         //checking for workers id
         if (empty($request['worker_id'])) {
 
-           $message = "invalid User id";
-           return $this->response->array(compact('message'))->setStatusCode(400);
-        }
+         $message = "invalid User id";
+         return $this->response->array(compact('message'))->setStatusCode(400);
+     }
 
         //checking for revenue head
-        if (empty($request['revenuehead_id'])) {
+     if (empty($request['revenuehead_id'])) {
 
-           $message = "invalid Mda";
-           return $this->response->array(compact('message'))->setStatusCode(400);
-        }
+         $message = "invalid Mda";
+         return $this->response->array(compact('message'))->setStatusCode(400);
+     }
 
         //checking if subhead is valid and exist
-        if ($request->has('subhead') && empty($request['subhead_id'])) {
+     if ($request->has('subhead') && empty($request['subhead_id'])) {
 
-            $message = "invalid sub-head";
-            return $this->response->array(compact('message'))->setStatusCode(400);
-        }
-
-        if (!$invoice = Invoice::create($request->all())) {
-            $message = "unable to generate invoice";
-            return $this->response->array(compact('message'))->setStatusCode(400);
-        }
-
-            //returning details of a specific inoice
-        $invoice_receipt['invoice_no'] = $invoice->invoice_key;
-        $invoice_receipt['name'] = $invoice->name;
-        $invoice_receipt['email'] = $invoice->email;
-        $invoice_receipt['phone'] = $invoice->phone;
-        $invoice_receipt['amount'] = $invoice->amount;
-        $invoice_receipt['start_date'] = $invoice->start_date;
-        $invoice_receipt['end_date'] = $invoice->end_date;
-        $invoice_receipt['invoice_status'] = $invoice->invoice_status;
-
-            //checking if invoice is assigned to mda
-        if ($invoice->mda) {
-            $invoice_receipt['mda'] = $invoice->mda->mda_name;
-        }
-
-            //checking if invoice is assign to revenue head
-        if ($invoice->revenuehead) {
-            $invoice_receipt['revenue_head'] = $invoice->revenuehead->revenue_name;
-        }
-
-            //checking if invoice is assign to subhead
-        if ($invoice->subhead) {
-            $invoice_receipt['sub_head'] = $invoice->subhead->subhead_name;
-        }
-
-        return $this->response->array(compact('invoice_receipt'))->setStatusCode(200);
+        $message = "invalid sub-head";
+        return $this->response->array(compact('message'))->setStatusCode(400);
     }
 
-    $message = "parameter missing";
-    return $this->response->array(compact('message'))->setStatusCode(400);
+    if (!$invoice = Invoice::create($request->all())) {
+        $message = "unable to generate invoice";
+        return $this->response->array(compact('message'))->setStatusCode(400);
+    }
+
+            //returning details of a specific inoice
+    $invoice_receipt['invoice_no'] = $invoice->invoice_key;
+    $invoice_receipt['name'] = $invoice->name;
+    $invoice_receipt['email'] = $invoice->email;
+    $invoice_receipt['phone'] = $invoice->phone;
+    $invoice_receipt['amount'] = $invoice->amount;
+    $invoice_receipt['start_date'] = $invoice->start_date;
+    $invoice_receipt['end_date'] = $invoice->end_date;
+    $invoice_receipt['invoice_status'] = $invoice->invoice_status;
+
+            //checking if invoice is assigned to mda
+    if ($invoice->mda) {
+        $invoice_receipt['mda'] = $invoice->mda->mda_name;
+    }
+
+            //checking if invoice is assign to revenue head
+    if ($invoice->revenuehead) {
+        $invoice_receipt['revenue_head'] = $invoice->revenuehead->revenue_name;
+    }
+
+            //checking if invoice is assign to subhead
+    if ($invoice->subhead) {
+        $invoice_receipt['sub_head'] = $invoice->subhead->subhead_name;
+    }
+
+    return $this->response->array(compact('invoice_receipt'))->setStatusCode(200);
+}
+
+$message = "parameter missing";
+return $this->response->array(compact('message'))->setStatusCode(400);
 
 }
 
@@ -342,15 +343,15 @@ public function user_login(Request $request)
     //Token authentication
     $this->token_auth();
     
-    if ($request->has("phone")&&$request->has("pin")) {
+    if ($request->has("phone")&&$request->has("pin")&&$request->has("pos_key")) {
         $user_login = Worker::where("phone",$request->input("phone"))
         ->where("pin",$request->input("pin"))
         ->first();
 
         //check if the user exist
-        if (! $user_login) {
+    if (! $user_login) {
           return $this->response->errorNotFound();
-      }
+    }
 
         //checking if user is assigned to MDA
       if ($user_login->mda_id == 0) {
@@ -358,11 +359,32 @@ public function user_login(Request $request)
         return $this->response->array(compact('message'))->setStatusCode(401);
     }
 
-      //return user credentials
+    //check if pos is not found
+    $pos_check = $this->pos_check($request->input("pos_key"));
+    if (empty($pos_check)) {
+
+        return $this->response->errorNotFound();
+    }
+
+    if ($pos_check->activation != 1) {
+      $message = "POS not activated";
+      return $this->response->array(compact('message'))->setStatusCode(401);
+    }
+
+    //check if user is assigned to mda
+    if($user_login->mda_id != $pos_check->mda_id){
+
+        $message = "User does not belong to the MDA";
+        return $this->response->array(compact('message'))->setStatusCode(401);
+    }
+
+
+    //return user credentials
     $credential["user_id"] = $user_login->worker_key;
     $credential["name"] = $user_login->worker_name;
     $credential["phone"] = $user_login->phone;
     $credential["email"] = $user_login->email;
+    $credential["pos_key"] = $pos_check->pos_key;
 
     $credential["mda_name"] = $user_login->mda->mda_name;
     $credential["mda_id"] = $user_login->mda->mda_key;
@@ -376,10 +398,51 @@ $message = "parameter missing";
 return $this->response->array(compact('message'))->setStatusCode(400);
 }
 
+//activation of pos
+public function pos_activation(Request $request)
+{
+
+    //Token authentication
+    $this->token_auth();
+
+    //get the incoming parameter
+    $pos_code = $request->only("activation_code");
+
+    //check if the parameter exist and activated
+    $pos_activation = Postable::where("activation_code",$pos_code)->first();
+    if ($pos_activation->activation == "1") {
+     $message = "Pos Already activated";
+     return $this->response->array(compact('message'))->setStatusCode(401);
+ }
+
+    //Activating the pos by updating
+ $pos_activation->activation = 1;
+ $pos_activation->save();
+
+    //return pos details
+ $pos_details['pos_key'] = $pos_activation->pos_key;
+ $pos_details['pos_imei'] = $pos_activation->pos_imei;
+ $pos_details['name'] = $pos_activation->name;
+ $pos_details['activation'] = $pos_activation->activation;
+ $pos_details['mda_key'] = $this->mda_key($pos_activation->mda_id);
+
+ return $this->response->array(compact('pos_details'))->setStatusCode(200);
+}
+
 
 
 /////////////////////////////////////////////////private class
-    //getting mda increment id
+
+//getting mda random key
+private function mda_key($id)
+{
+    if ($mda = Mda::where("id",$id)->first()) {
+            # code...
+        return $mda->mda_key;
+    }
+}
+
+//getting mda increment id
 private function mda_id($mda_key)
 {
     if ($mda = Mda::where("mda_key",$mda_key)->first()) {
@@ -428,6 +491,16 @@ private function token_auth()
         return $this->response->error('something went wrong');
     }
 
+}
+
+//pos check
+private function pos_check($pos_key)
+{
+    $pos_check ="";
+    if ($pos_check = Postable::where("pos_key",$pos_key)->first()) {
+        return $pos_check;
+    }
+    return $pos_check;
 }
 
 //////////////////////////////////////////////////////////////////////////////Private class end

@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SubheadTableSeeder::class);
         $this->call(WorkerTableSeeder::class);
         $this->call(StationTableSeeder::class);
+        $this->call(PosTableSeeder::class);
     }
 }
