@@ -20,7 +20,8 @@ class Invoice extends Model
           "worker_id",
           "start_date",
            "end_date",
-           "invoice_key"
+           "invoice_key",
+           "pos_key"
     ];
     //relationship between invoice and mda
     public function mda()

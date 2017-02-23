@@ -27,7 +27,7 @@ class ApiController extends Controller
 {
 	use Helpers;
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////API LOGIN
     //creating user token
     public function authentication(Request $request)
     {
@@ -46,7 +46,7 @@ class ApiController extends Controller
     }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////GETTING REVENUE HEADS
     //getting the list of revenue heads
     public function revenue_heads(Request $request)
     {
@@ -170,6 +170,8 @@ class ApiController extends Controller
 
     }
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////GENERATE INVOICE
     //genarating invoice
     public function generate_invoice(Request $request)
     {
@@ -178,12 +180,12 @@ class ApiController extends Controller
         
         //validation incoming request
         if ($request->has('name') && $request->has('phone')&&$request->has('payer_id')&&$request->has('mda')&&$request->has('revenue_head')
-            &&$request->has('amount')&&$request->has('user_id')&&$request->has('start_date')&&$request->has('end_date')) {
+            &&$request->has('amount')&&$request->has('user_key')&&$request->has('start_date')&&$request->has('end_date')&&$request->has('pos_key')) {
 
             $request['invoice_key'] = str_random(15);
         $request['mda_id'] = $this->mda_id($request->input("mda"));
         $request['revenuehead_id'] = $this->revenue_id($request->input("revenue_head"));
-        $request['worker_id'] = $this->worker_id($request->input('user_id'));
+        $request['worker_id'] = $this->worker_id($request->input('user_key'));
 
         if ($request->input("subhead")) {
 
@@ -206,7 +208,7 @@ class ApiController extends Controller
         //checking for revenue head
      if (empty($request['revenuehead_id'])) {
 
-         $message = "invalid Mda";
+         $message = "invalid revenue head";
          return $this->response->array(compact('message'))->setStatusCode(400);
      }
 
@@ -217,12 +219,29 @@ class ApiController extends Controller
         return $this->response->array(compact('message'))->setStatusCode(400);
     }
 
+    //checking if user is assigned to mda 
+    if (!$pos = $this->pos_check($request->input("pos_key"))) {
+        $message = "invalid pos key";
+        return $this->response->array(compact('message'))->setStatusCode(400);
+    }
+
+    if ($pos->mda_id != $request['mda_id']) {
+        $message = "User not assigned to MDA";
+        return $this->response->array(compact('message'))->setStatusCode(400);
+    }
+
+    //checking if user has a pending remittance
+    if ($remittance =Remittance::where("worker_id",$request['worker_id'])->where("remittance_status",0)->first()) {
+        $message = "Remittance required";
+        return $this->response->array(compact('message'))->setStatusCode(400);
+    }
+
     if (!$invoice = Invoice::create($request->all())) {
         $message = "unable to generate invoice";
         return $this->response->array(compact('message'))->setStatusCode(400);
     }
 
-            //returning details of a specific inoice
+    //returning details of a specific inoice
     $invoice_receipt['invoice_no'] = $invoice->invoice_key;
     $invoice_receipt['name'] = $invoice->name;
     $invoice_receipt['email'] = $invoice->email;
@@ -231,6 +250,7 @@ class ApiController extends Controller
     $invoice_receipt['start_date'] = $invoice->start_date;
     $invoice_receipt['end_date'] = $invoice->end_date;
     $invoice_receipt['invoice_status'] = $invoice->invoice_status;
+    $invoice_receipt['pos_key'] = $invoice->pos_key;
 
             //checking if invoice is assigned to mda
     if ($invoice->mda) {
