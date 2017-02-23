@@ -97,7 +97,7 @@
 					-->
 					<header>
 						<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-						<h2>Export to PDF / Excel</h2>
+						<h2>POS Table</h2>
 
 					</header>
 
@@ -118,7 +118,7 @@
 								<tr>
 									<th data-hide="phone">POS IMEI</th>
 									<th data-hide="phone,tablet">POS Name</th>
-									<th>MDA</th>
+									<th>LGA</th>
 									<th>Activation Status</th>
 									<th>Activation Code</th>
 									<th data-hide="phone,tablet"> Action</th>
@@ -128,47 +128,46 @@
 							<tbody>
 								<tr>
 									<td>1001100101</td>
-									<td>Bauchi LGA</td>
-									<td>test admin</td>
-									<td>test admin</td>
-									<td>test admin</td>
+									<td>POS1</td>
+									<td>Tafawa Balewa LGA</td>
+									<td>Not Activated</td>
+									<td>12345</td>
 									
 								<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 									
 								</tr>
 								<tr>
-									<td>1001100102</td>
+									<td>1001100101</td>
+									<td>POS2</td>
 									<td>Tafawa Balewa LGA</td>
-									<td>Tafawa Balewa LGA</td>
-									<td>Tafawa Balewa LGA</td>
-									
-									<td>test admin</td>
+									<td>Not Activated</td>
+									<td>12345</td>
 								<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 								</tr>
 								<tr>
-									<td>1001100103</td>
-									<td>Dass LGA </td>
-									<td>test admin</td>
-									<td>test admin</td>
-									<td>test admin</td>
+									<td>1001100101</td>
+									<td>POS3</td>
+									<td>Tafawa Balewa LGA</td>
+									<td>Not Activated</td>
+									<td>12345</td>
 							
 								<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 								</tr>
 								<tr>
-									<td>1001100104</td>
-									<td>Toro LGA</td>
-									<td>test admin</td>
-									<td>test admin</td>
-									<td>test admin</td>
+									<td>1001100101</td>
+									<td>POS4</td>
+									<td>Tafawa Balewa LGA</td>
+									<td>Not Activated</td>
+									<td>12345</td>
 					
 								<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 								</tr>
 								<tr>
-									<td>1001100105</td>
-									<td>Bogoro LGA </td>
-									<td>test admin</td>
-									<td>test admin</td>
-									<td>test admin</td>
+								<td>1001100101</td>
+								<td>POS4</td>
+								<td>Tafawa Balewa LGA</td>
+								<td>Not Activated</td>
+								<td>12345</td>
 								
 										<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 								</tr>

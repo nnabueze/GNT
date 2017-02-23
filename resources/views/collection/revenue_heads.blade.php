@@ -8,9 +8,9 @@
 		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
 			<h1 class="page-title txt-color-blueDark">
 				<i class="fa fa-table fa-fw "></i> 
-				Collection 
+				Setup
 				<span>> 
-					Pos collection Table
+					Revenue Heads Table
 				</span>
 			</h1>
 		</div>
@@ -47,39 +47,10 @@
 					<section id="widget-grid" class="">
 						<!-- row -->
 						
-						<form action="/all_collection" method="POST">
-							<div class="col-sm-3">				
-								<div class="">
-									<div class="">
-										<input type="hidden" name="_token" value="{{ csrf_token() }}">
-										<select name="lga" class="select" ">
-											
-											<option value="">Select Revenue Heads</option>
-									
-										</select> 
-
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3">				
-							<div class="form-group">
-								<div class="input-group">
-									<input class="form-control" id="to" type="text" placeholder="Select a date" name="dateto">
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>							
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<div class="form-group">
-								<div class="input-group">
-									<input class="form-control" id="from" type="text" placeholder="From" name="datefrm">
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-									<input type="button" class="btn btn-default" value="Go">
-								</div>
-							</div>
-						</div>
-					</form> 
+					<button class="pull-right btn btn-sm btn-primary">ADD REVENUE HEAD</button>
+					<br/>
+					<br/>
+					<br/>
 
 					<!-- Widget ID (each widget will need unique ID)-->
 					<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-1" data-widget-editbutton="false">
@@ -126,7 +97,7 @@
 					-->
 					<header>
 						<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-						<h2>Export to PDF / Excel</h2>
+						<h2>Revenue Head Table</h2>
 
 					</header>
 
@@ -143,61 +114,29 @@
 						<!-- widget content -->
 						<div class="widget-body no-padding">
 						<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
-																	<thead>
-																		<tr>
-																			<th data-hide="phone">Revenue Head Code</th>
-																			<th data-hide="phone,tablet">Revenue Head</th>
-																			<th>Revenue Sub-head Code</th>
-																			<th data-hide="phone">Revenue Sub-head</th>
-																			<th data-hide="phone,tablet">Amount</th>
-																			<th data-hide="phone,tablet"> Action</th>
-																			
-																		</tr>
-																	</thead>
-																	<tbody>
-																		<tr>
-																			<td>7403</td>
-																			<td>HEAD LOCAL LICENSE FEE </td>
-																			<td>7403-68</td>
-																			<td>Vehicles Spare Parts License (Per annum)</td>
-																			<td>6000.00</td>
-																			<td> </td>
-																			
-																		</tr>
-																		<tr>
-																			<td>7402</td>
-																			<td>HEAD RATES </td>
-																			<td>7402-06</td>
-																			<td>Urban/Rural Water (Per Month)</td>
-																			<td>100.00</td>
-																			<td> </td>
-																		</tr>
-																		<tr>
-																			<td>7401</td>
-																			<td>HEAD TAXES </td>
-																			<td>7401</td>
-																			<td>Community Poll Tax (Per Head/P.A)</td>
-																			<td>500.00</td>
-																			<td> </td>
-																		</tr>
-																		<tr>
-																			<td>7404</td>
-																			<td>HEAD EARNING FROM COMMERCIAL UNDERTAKING </td>
-																			<td>7404-01</td>
-																			<td>Market Fees Receipt (Per market Day)</td>
-																			<td>50.00</td>
-																			<td> </td>
-																		</tr>
-																		<tr>
-																			<td>7405</td>
-																			<td>HEAD RENTS </td>
-																			<td>7405-04-01</td>
-																			<td>Rent of Local Govt Property(e.g Canopy & Chair)- Chair</td>
-																			<td>50.00</td>
-																			<td> </td>
-																		</tr>
-																	</tbody>
-																</table>
+							<thead>
+								<tr>
+									<th data-hide="phone">Revenue Code</th>
+									<th data-hide="phone,tablet">Revenue Name</th>
+									<th>Amount</th>
+									<th data-hide="phone,tablet"> Action</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+							@if($revenue)
+								@foreach($revenue as $revenue)
+								<tr>
+									<td>{{$revenue->revenue_code}}</td>
+									<td>{{$revenue->revenue_name}}</td>
+									<td>{{$revenue->amount}}</td>
+								<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="View"><span class="glyphicon glyphicon-eye-open"></span></a>&nbsp;&nbsp;<a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
+									
+								</tr>
+								@endforeach
+							@endif
+							</tbody>
+						</table>
 
 						</div>
 						<!-- end widget content -->

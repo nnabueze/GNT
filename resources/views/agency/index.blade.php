@@ -10,7 +10,7 @@
 				<i class="fa fa-table fa-fw "></i> 
 				Setup
 				<span>> 
-					MDA's Table
+					LGA's Table
 				</span>
 			</h1>
 		</div>
@@ -47,7 +47,7 @@
 					<section id="widget-grid" class="">
 						<!-- row -->
 						
-					<button class="pull-right btn btn-sm btn-primary">ADD MDA</button>
+					<button class="pull-right btn btn-sm btn-primary">ADD LGA</button>
 					<br/>
 					<br/>
 					<br/>
@@ -97,7 +97,7 @@
 					-->
 					<header>
 						<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-						<h2>Export to PDF / Excel</h2>
+						<h2>LGA TABLE</h2>
 
 					</header>
 
@@ -116,8 +116,8 @@
 						<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
 							<thead>
 								<tr>
-									<th data-hide="phone">MDA Code</th>
-									<th data-hide="phone,tablet">MDA</th>
+									<th data-hide="phone">LGA Code</th>
+									<th data-hide="phone,tablet">LGA</th>
 									<th>No of Revenue Heads</th>
 									<th data-hide="phone,tablet"> Action</th>
 									

@@ -29,9 +29,9 @@
 			<li>
 				<a href="#"><i class="fa fa-lg fa-fw fa-desktop"></i><span class="menu-item-parent">Setup</span></a>
 				<ul>
-					<li><a href="/agencies">Agencies</a></li>
+					<li><a href="/agencies">LGA</a></li>
 					<!-- <li><a href="/revenue_heads">Revenue Heads</a></li> -->
-					<li><a href="/station">Stations</a></li>
+					<!-- <li><a href="/station">Stations</a></li> -->
 					<li><a href="/pos">POS</a></li>
 				</ul>
 			</li>	
@@ -51,7 +51,7 @@
 				</ul>
 			</li>
 			<li class="top-menu-invisible">
-				<a href="/revenue_heads"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Revenue Heads</span></a>
+				<a href="/revenue_heads1"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Revenue Heads</span></a>
 			</li>
 			<li>
 				<a href="#"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Collection Record</span></a>

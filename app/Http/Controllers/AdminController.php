@@ -16,7 +16,7 @@ class AdminController extends Controller
 	{
 
 		$this->middleware('auth', ['except' => [
-		     'index','logout','store'
+		     'index','logout','store','admin'
 		 ]]);
 
 	}
@@ -56,6 +56,12 @@ class AdminController extends Controller
 	        Auth::logout();
 	        return redirect('/');
 		}
+	}
+
+	//redirecting to the homepage
+	public function admin()
+	{
+		return Redirect::to("/");
 	}
 
 }

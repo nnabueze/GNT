@@ -16,7 +16,7 @@ Route::get('/',"AdminController@index");
 
 //route to display dashboard
 Route::get("/dashboard","AdminController@dashboard");
-Route::get("/admin","AdminController@dashboard");
+Route::get("/admin","AdminController@admin");
 
 //login into the system
 Route::post("/admin","AdminController@store");
@@ -64,7 +64,7 @@ Route::get("/pos_collection","CollectionController@pos_collection");
 Route::get("/ebill_collection","CollectionController@ebill_collection");
 
 //revenue heads
-Route::get("/revenue_heads","CollectionController@revenue_heads");
+Route::get("/revenue_heads1","CollectionController@revenue_heads");
 
 //Route onboarding the IGR
 Route::get("/agencies","AgencyController@index");

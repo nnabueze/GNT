@@ -60,7 +60,7 @@
 			<div id="logo-group">
 				<!-- <span id="logo"> <img src="{{ asset('template/img/logo.png')}}" alt="SmartAdmin"> </span> -->
 				<h2>IGR PORTAL</h2>
-			</div>>
+			</div>
 
 		</header>
 

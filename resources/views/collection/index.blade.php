@@ -170,34 +170,6 @@
 										<td>pos</td>
 										<td>2017-02-13</td>
 									</tr>
-									<tr>
-										<td>7YwvC4y2cvK59OB</td>
-										<td>test tester</td>
-										<td>112233445566</td>
-										<td>Contract Registration (Per Contract)- Cat F. (501,000,000 - 999,999,999).</td>
-										<td>21000</td>
-										<td>pos</td>
-										<td>2017-02-13</td>
-									</tr>
-									<tr>
-										<td>rOMeXsKumkWdoPG</td>
-										<td>test tester</td>
-										<td>102030405060</td>
-										<td>Saw-Mill License(Per Annum)</td>
-										<td>2000</td>
-										<td>pos</td>
-										<td>02/13/14</td>
-									</tr>
-									<tr>
-										<td>S6HueeNi2ahSltS</td>
-										<td>test tester</td>
-										<td>102030401010</td>
-										<td>Mass Transit Hiring/Services(per Day)- Medium Bus</td>
-										<td>3000</td>
-										<td>pos</td>
-										<td>01/01/13</td>
-									</tr>
-
 								</tbody>
 							</table>
 
