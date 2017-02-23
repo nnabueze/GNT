@@ -21,6 +21,7 @@ class RevenueheadsMigration extends Migration
             $table->foreign('mda_id')->references('id')->on('mdas')->onDelete('cascade');
             $table->string('revenue_name');
             $table->string('amount');
+            $table->enum('taxiable', [0, 1]);
             $table->enum('sub_heads', [0, 1]);
             $table->timestamps();
         });

@@ -27,6 +27,7 @@ class ApiController extends Controller
 {
 	use Helpers;
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //creating user token
     public function authentication(Request $request)
     {
@@ -44,26 +45,87 @@ class ApiController extends Controller
     	return $this->response->array(compact('token'))->setStatusCode(200);
     }
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //getting the list of revenue heads
-    public function revenue_heads()
+    public function revenue_heads(Request $request)
     {
         //Token authentication
         $this->token_auth();
 
-        $heads = Revenuehead::all();
+        //check if the parameter is missing
+        if ($request->has("user_key")&&$request->has("mda_key")&&$request->has("pos_key")) {
 
-        $revenue_heads = array();
-        foreach ($heads as $head) {
-            $item['revenueheads_key'] = $head->revenueheads_key;
-            $item['revenue_code'] = $head->revenue_code;
-            $item['revenue_name'] = $head->revenue_name;
-            $item['amount'] = $head->amount;
+            //checking if the user exist
+            if (! $user = $this->user_check($request->input("user_key"))) {
 
-            array_push($revenue_heads, $item);
+               $message = "User does not exist";
+               return $this->response->array(compact('message'))->setStatusCode(400); 
+            }
+
+            //checking if pos exist
+            if (! $pos = $this->pos_check($request->input("pos_key"))) {
+                $message = "Pos does not exist";
+                return $this->response->array(compact('message'))->setStatusCode(400); 
+            }
+
+            //checking if the pos activated
+            if ($pos->activation != 1) {
+                $message = "Pos is not activated";
+                return $this->response->array(compact('message'))->setStatusCode(400); 
+            }
+
+            //checking if user is assigned to the mda
+            if ($pos->mda_id != $user->mda_id) {
+                $message = "User is not assigned to MDA";
+                return $this->response->array(compact('message'))->setStatusCode(400);
+            }
+
+            //getting the revenue heads
+            $mda_id = $this->mda_id($request->input("mda_key"));
+            if ($heads = Revenuehead::with("subheads")->where("mda_id",$mda_id)->get()) {
+                $revenue_heads = array();
+
+                foreach ($heads as $head) {
+                    $item = array();
+
+                    $item['revenueheads_key'] = $head->revenueheads_key;
+                    $item['revenue_code'] = $head->revenue_code;
+                    $item['revenue_name'] = $head->revenue_name;
+                    $item['amount'] = $head->amount;
+                    $item['taxiable'] = $head->taxiable;
+                    if ($head->sub_heads == 1) {
+                        $item['subheads_details'] =array();
+                         //getting the subheads
+                        foreach($head->subheads as $subhead){
+                            $subhead_details['subhead_code'] = $subhead->subhead_code;
+                            $subhead_details['subhead_name'] = $subhead->subhead_name;
+                            $subhead_details['subhead_key'] = $subhead->subhead_key;
+                            $subhead_details['taxiable'] = $subhead->taxiable;
+                            $subhead_details['amount'] = $subhead->amount;
+
+                            array_push($item['subheads_details'], $subhead_details);
+                        }
+                    }
+
+                    array_push($revenue_heads, $item);
+                }
+              /*  print_r($revenue_heads);
+                die;*/
+
+                return $this->response->array(compact('revenue_heads'))->setStatusCode(200);
+            }
+
+            $message = "No Revenue Head Listed";
+            return $this->response->array(compact('message'))->setStatusCode(400);
         }
 
-        return $this->response->array(compact('revenue_heads'))->setStatusCode(200);
+        $message = "parameter missing";
+        return $this->response->array(compact('message'))->setStatusCode(400);
     }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
     //verifying invoice Number
     public function invoice(Request $request)
@@ -498,6 +560,16 @@ private function pos_check($pos_key)
 {
     $pos_check ="";
     if ($pos_check = Postable::where("pos_key",$pos_key)->first()) {
+        return $pos_check;
+    }
+    return $pos_check;
+}
+
+//user check
+private function user_check($user_id)
+{
+    $pos_check ="";
+    if ($pos_check = Worker::where("worker_key",$user_id)->first()) {
         return $pos_check;
     }
     return $pos_check;
