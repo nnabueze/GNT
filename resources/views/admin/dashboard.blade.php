@@ -58,16 +58,16 @@
 
 									<ul class="nav nav-tabs pull-right in" id="myTab">
 										<li class="active">
-											<a data-toggle="tab" href="#s1"><i class="fa fa-clock-o"></i> <span class="hidden-mobile hidden-tablet">Top LGAs</span></a>
-										</li>
-
-										<!--<li>
-											<a data-toggle="tab" href="#s2"><i class="fa fa-facebook"></i> <span class="hidden-mobile hidden-tablet">Social Network</span></a>
+											<a data-toggle="tab" href="#s1"><span class="hidden-mobile hidden-tablet">Top LGAs</span></a>
 										</li>
 
 										<li>
-											<a data-toggle="tab" href="#s3"><i class="fa fa-dollar"></i> <span class="hidden-mobile hidden-tablet">Revenue</span></a>
-										</li>-->
+											<a data-toggle="tab" href="#s2"> <span class="hidden-mobile hidden-tablet">Top POS Collection</span></a>
+										</li>
+
+										<li>
+											<a data-toggle="tab" href="#s3"> <span class="hidden-mobile hidden-tablet">Top Bank Collection</span></a>
+										</li>
 									</ul>
 
 								</header>
@@ -301,7 +301,7 @@
                                                                         <th data-hide="phone">TRANSACTION ID</th>
                                                                         <th data-hide="phone">TRANSACTION AMOUNT</th>
                                                                         <th data-hide="phone,tablet">TRANSACTION DATE</th>
-                                                                        <th data-hide="phone,tablet">MDA</th>
+                                                                        <th data-hide="phone,tablet">LGA</th>
                                                                         <th data-hide="phone,tablet">BANK</th>
                                                                         <th data-hide="phone,tablet" class="text-center">STATUS</th>
                                                                     </tr>
