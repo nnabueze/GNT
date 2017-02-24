@@ -127,7 +127,7 @@ class ApiPosCollectionController extends Controller
 		$collection_receipt['payer_id'] = $collection->payer_id;
 		$collection_receipt['email'] = $collection->email;
 		$collection_receipt['phone'] = $collection->phone;
-		$collection_receipt['user'] = $collection->worker->worker_name;
+		$collection_receipt['pos_user'] = $collection->worker->worker_name;
 
                 //checking if invoice is assigned to mda
 		if ($collection->mda) {
