@@ -34,10 +34,21 @@ class ApiGenerateRemittance extends Controller
         //Token authentication
         $this->token_auth();
 
-        if ($request->has('user_id') && $request->has('mda')) {
+        if ($request->has('user_id') && $request->has('mda')&& $request->has('pos_key')) {
 
             $worker = $this->worker_id($request->input("user_id"));
             $mda = $this->mda_id($request->input("mda"));
+
+            if (!$pos =$this->pos_check($request->input("pos_key"))) {
+            	$message = "invalid pos key";
+            	return $this->response->array(compact('message'))->setStatusCode(400);
+            }
+
+            //checking if user is assign to the MDA
+            if ($pos->mda_id != $mda) {
+            	$message = "User not assigned to MDA";
+            	return $this->response->array(compact('message'))->setStatusCode(400);
+            }
 
                 //check if worker and mda passed exist            
             if (empty($worker) || empty($mda)) {
@@ -72,7 +83,7 @@ class ApiGenerateRemittance extends Controller
 
                     $remittance_receipt['remittance_no'] = $remittance->remittance_key;
                     $remittance_receipt['mda'] = $remittance->mda->mda_name;
-                    $remittance_receipt['user'] = $remittance->worker->worker_name;
+                    $remittance_receipt['pos_user'] = $remittance->worker->worker_name;
                     $remittance_receipt['amount'] = $remittance->amount;
                     $remittance_receipt['remittance_status'] = $remittance->remittance_status;
 
@@ -81,7 +92,7 @@ class ApiGenerateRemittance extends Controller
 
                 	$remittance_receipt['remittance_no'] = $remit->remittance_key;
                 	$remittance_receipt['mda'] = $remit->mda->mda_name;
-                	$remittance_receipt['user'] = $remit->worker->worker_name;
+                	$remittance_receipt['pos_user'] = $remit->worker->worker_name;
                 	$remittance_receipt['amount'] = $remit->amount;
                 	$remittance_receipt['remittance_status'] = $remit->remittance_status;
 
