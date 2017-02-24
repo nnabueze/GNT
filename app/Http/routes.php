@@ -112,7 +112,7 @@ $api->version('v1',['middleware'=>'api.auth'],function($api){
 	$api->post('pos_collection','App\Http\Controllers\ApiPosCollectionController@pos_collection');
 
 	//generating remittance
-	$api->post('generate_remittance','App\Http\Controllers\ApiController@generate_remittance');
+	$api->post('generate_remittance','App\Http\Controllers\ApiGenerateRemittance@generate_remittance');
 
 	//login user
 	$api->post('user_login','App\Http\Controllers\ApiController@user_login');
