@@ -17,6 +17,7 @@ class WorkersMigrate extends Migration
             $table->increments('id');
             $table->string('worker_key');
             $table->string('worker_name');
+            $table->string('user_limit');
             $table->string('phone')->unique();
             $table->string('email');
             $table->integer('mda_id')->unsigned()->index();

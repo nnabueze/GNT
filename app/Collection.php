@@ -21,6 +21,8 @@ class Collection extends Model
           "email",
           "phone",
           "name",
+          "postable_id",
+          "tax"
     ];
 
     //relationship between worker and collection

@@ -32,8 +32,11 @@ class CollectionMigration extends Migration
             $table->foreign('revenuehead_id')->references('id')->on('revenueheads')->onDelete('cascade');
             $table->integer('subhead_id')->unsigned()->index();
             $table->foreign('subhead_id')->references('id')->on('subheads')->onDelete('cascade');
+            $table->integer('postable_id')->unsigned()->index();
+            $table->foreign('postable_id')->references('id')->on('postables')->onDelete('cascade');
             $table->string('collection_type');
             $table->enum('collection_status', [0, 1]);
+            $table->enum('tax', [0, 1]);
             $table->string('email');
             $table->timestamps();
         });
