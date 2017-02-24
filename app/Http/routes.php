@@ -103,7 +103,7 @@ $api->version('v1',['middleware'=>'api.auth'],function($api){
 	$api->post('revenue_heads','App\Http\Controllers\ApiController@revenue_heads');
 
 	//api for verifying Invoice
-	$api->post('invoice','App\Http\Controllers\ApiController@invoice');
+	$api->post('invoice','App\Http\Controllers\ApiInvoiceController@invoice');
 
 	//api to generate invoice
 	$api->post('generate_invoice','App\Http\Controllers\ApiGenerateInvoiceController@generate_invoice');

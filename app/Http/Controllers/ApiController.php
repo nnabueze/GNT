@@ -127,53 +127,7 @@ class ApiController extends Controller
 
 
 
-    //verifying invoice Number
-    public function invoice(Request $request)
-    {
-        //Token authentication
-        $this->token_auth();
 
-        $invoice = $request->only('invoice_id');
-
-       //verify that invoice
-        if (! $invoice = Invoice::where("invoice_key",$invoice)->first()) {
-            return $this->response->errorNotFound();
-        }
-
-
-        //returning details of a specific inoice
-        $invoice_receipt['invoice_no'] = $invoice->invoice_key;
-        $invoice_receipt['name'] = $invoice->name;
-        $invoice_receipt['email'] = $invoice->email;
-        $invoice_receipt['phone'] = $invoice->phone;
-        $invoice_receipt['amount'] = $invoice->amount;
-        $invoice_receipt['start_date'] = $invoice->start_date;
-        $invoice_receipt['end_date'] = $invoice->end_date;
-        $invoice_receipt['invoice_status'] = $invoice->invoice_status;
-
-        //checking if invoice is assigned to mda
-        if ($invoice->mda) {
-            $invoice_receipt['mda'] = $invoice->mda->mda_name;
-        }
-
-        //checking if invoice is assign to revenue head
-        if ($invoice->revenuehead) {
-            $invoice_receipt['revenue_head'] = $invoice->revenuehead->revenue_name;
-        }
-
-        //checking if invoice is assign to subhead
-        if ($invoice->subhead) {
-            $invoice_receipt['sub_head'] = $invoice->subhead->subhead_name;
-        }
-
-        return $this->response->array(compact('invoice_receipt'))->setStatusCode(200);
-
-    }
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     //post collections via 
