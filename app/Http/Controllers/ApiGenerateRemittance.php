@@ -18,6 +18,7 @@ use App\Worker;
 use App\Postable;
 use App\Subhead;
 use App\Remittance;
+use App\Ebillremittance;
 use App\Collection;
 use Carbon\Carbon;
 use App\Http\Requests;
@@ -113,6 +114,64 @@ class ApiGenerateRemittance extends Controller
         return $this->response->array(compact('message'))->setStatusCode(400);
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //clear remittance
+    public function clear_remittance(Request $request)
+    {
+        //Token authentication
+        $this->token_auth();
+
+        //check if request has the parameter
+        if ($request->has('user_key') && $request->has('refcode')&& $request->has('pos_key')) {
+            
+            //check if user and pos key is right
+            if (!$user = $this->user_check($request->input("user_key"))) {
+                $message = "User does not exist";
+                return $this->response->array(compact('message'))->setStatusCode(401);
+            }
+
+            if (!$pos = $this->pos_check($request->input("pos_key"))) {
+                $message = "Pos key does not exist";
+                return $this->response->array(compact('message'))->setStatusCode(401);
+            }
+
+            //check if user is assigned to mda 
+            if ($pos->mda_id != $user->mda_id) {
+                $message = "User is not assigned to MDA";
+                return $this->response->array(compact('message'))->setStatusCode(401);
+            }
+
+            //check if the reference code exist
+            if ($remit = Ebillremittance::where("refcode",$request->input('refcode'))->first()) {
+
+                //update the remittance status to 1
+                if ($remit_status = Remittance::where("remittance_key",$remit->remittance_code)->first()) {
+                   $remit_status->update(['remittance_status' => 1]);
+
+                   $message ="Remittance cleared!";
+
+                   //return response
+                   return $this->response->array(compact("message"))->setStatusCode(200);
+                }
+                
+
+                $message = "remittance code does not exist";
+                return $this->response->array(compact('message'))->setStatusCode(400);
+            }
+
+            
+            $message = "Invalid Refence code";
+            return $this->response->array(compact('message'))->setStatusCode(400);
+            
+        }
+
+        $message = "parameter missing";
+        return $this->response->array(compact('message'))->setStatusCode(400);
+
+    }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //getting mda random key
     private function mda_key($id)

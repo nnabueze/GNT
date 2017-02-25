@@ -126,5 +126,8 @@ $api->version('v1',['middleware'=>'api.auth'],function($api){
 	//creating temporary tin
 	$api->post("temporary_tin","App\Http\Controllers\ApiTinController@temporary_tin");
 
+	//clearing remittance
+	$api->post("clear_remittance","App\Http\Controllers\ApiGenerateRemittance@clear_remittance");
+
 
 });
