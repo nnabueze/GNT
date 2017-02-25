@@ -20,9 +20,9 @@ class TinMigration extends Migration
             $table->text('address');
             $table->integer('igr_id')->unsigned()->index();
             $table->foreign('igr_id')->references('id')->on('igrs')->onDelete('cascade');
-            $table->string('tin_no')->unique();
-            $table->string('temporary_tin')->unique();
-            $table->string('phone')->unique();
+            $table->string('tin_no');
+            $table->string('temporary_tin');
+            $table->string('phone');
             $table->timestamps();
         });
     }

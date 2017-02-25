@@ -123,5 +123,8 @@ $api->version('v1',['middleware'=>'api.auth'],function($api){
 	//verification of tin
 	$api->post("tin_verification","App\Http\Controllers\ApiTinController@verify_tin");
 
+	//creating temporary tin
+	$api->post("temporary_tin","App\Http\Controllers\ApiTinController@temporary_tin");
+
 
 });

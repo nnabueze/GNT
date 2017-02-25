@@ -24,4 +24,9 @@ class Mda extends Model
     {
       return $this->hasMany('App\Station');
     }
+
+    public function igr()
+    {
+      return $this->belongsTo('App\Igr');
+    }
 }
