@@ -120,5 +120,8 @@ $api->version('v1',['middleware'=>'api.auth'],function($api){
 	//activation of pos
 	$api->post('pos_activation','App\Http\Controllers\ApiController@pos_activation');
 
+	//verification of tin
+	$api->post("tin_verification","App\Http\Controllers\ApiTinController@verify_tin");
+
 
 });
