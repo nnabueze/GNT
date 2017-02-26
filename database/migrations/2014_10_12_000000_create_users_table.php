@@ -16,8 +16,8 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('worker_id')->nullable();
-            $table->integer('igr_id')->unsigned()->index();
-            $table->foreign('igr_id')->references('id')->on('igrs')->onDelete('cascade');
+            $table->integer('mda_id')->unsigned()->index();
+            $table->foreign('mda_id')->references('id')->on('mdas')->onDelete('cascade');
             $table->string('email')->unique();
             $table->string('password', 60);
             $table->rememberToken();

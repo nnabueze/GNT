@@ -21,6 +21,8 @@ class PosMigration extends Migration
             $table->enum('activation', [0, 1]);
             $table->integer('mda_id')->unsigned()->index();
             $table->foreign('mda_id')->references('id')->on('mdas')->onDelete('cascade');
+            $table->integer('station_id')->unsigned()->index();
+            $table->foreign('station_id')->references('id')->on('stations')->onDelete('cascade');
             $table->timestamps();
         });
     }

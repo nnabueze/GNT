@@ -209,14 +209,14 @@
 								
 								<section>
 										<label class="select">
-											<select name="igr_id">
-												<option value="0" selected="" disabled="">IGR</option>
+											<select name="mda_id">
+												<option value="0" selected="">Select MDA</option>
 												@if($igrs)
 												@foreach($igrs as $igr)
-												<option value="{{$igr->id}}">{{$igr->state_name}}</option>
+												<option value="{{$igr->id}}">{{$igr->mda_name}}</option>
 												@endforeach
 												@else
-												<option value="1">No IGR</option>
+												<option value="1">No MDA</option>
 												@endif
 											</select> <b class="tooltip tooltip-bottom-right">Select An IGR</b></label>
 									</section>

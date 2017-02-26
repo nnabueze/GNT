@@ -24,17 +24,10 @@
 		<ul>
 			<li class="active">
 				<a href="/dashboard" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
-	
+
 			</li>
-			<li>
-				<a href="#"><i class="fa fa-lg fa-fw fa-desktop"></i><span class="menu-item-parent">Setup</span></a>
-				<ul>
-					<li><a href="/agencies">LGA</a></li>
-					<!-- <li><a href="/revenue_heads">Revenue Heads</a></li> -->
-					<!-- <li><a href="/station">Stations</a></li> -->
-					<li><a href="/pos">POS</a></li>
-				</ul>
-			</li>	
+
+			@if(Auth::user()->hasRole('Superadmin'))
 			<li>
 				<a href="#"><i class="fa fa-lg fa-fw fa-windows"></i> <span class="menu-item-parent">Access Control</span></a>
 				<ul>
@@ -50,43 +43,63 @@
 
 				</ul>
 			</li>
-			<li class="top-menu-invisible">
-				<a href="/revenue_heads1"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Revenue Heads</span></a>
+			@endif
+			<li>
+				<a href="#"><i class="fa fa-lg fa-fw fa-desktop"></i><span class="menu-item-parent">Setup</span></a>
+				<ul>
+					<li><a href="#">Agencies</a></li>
+					<li><a href="#">LGA</a></li>
+					<li><a href="#">Stations</a></li>
+					<li><a href="#">Pool Account</a></li>
+					<li><a href="#">Agents</a></li>
+					<li><a href="#">POS</a></li>
+				</ul>
 			</li>
 			<li>
 				<a href="#"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Collection Record</span></a>
 				<ul>
-				<li>
-					<a href="/all_collection">All Collections</a>
-				</li>
 					<li>
-						<a href="/ebill_collection">Ebills Collection</a>
+						<a href="#">All Collections</a>
 					</li>
 					<li>
-						<a href="/pos_collection">POS</a>
+						<a href="#">Agency Collection</a>
+					</li>
+					<li>
+						<a href="#">LGA Collection</a>
+					</li>
+					<li>
+						<a href="#">Agent Collections</a>
+					</li>
+					<li>
+						<a href="#">Agent Collections</a>
+					</li>
+					<li>
+						<a href="#">Agent Collections</a>
+					</li>
 				</ul>
 			</li>
 			<li>
-				<a href="#"><i class="fa fa-lg fa-fw fa-table"></i> <span class="menu-item-parent">Reports & Analystics</span></a>
+				<a href="#"><i class="fa fa-lg fa-fw fa-table"></i> <span class="menu-item-parent">Invoice/Remittance</span></a>
 				<ul>
-				<li>
-					<a href="#">All Collections</a>
-				</li>
 					<li>
-						<a href="#">Ebills Collection</a>
+						<a href="#">Remittances</a>
 					</li>
 					<li>
-						<a href="#">POS</a>
-				</ul>
-			</li>
+						<a href="#">Transactions </a>
+					</li>
+					<li>
+						<a href="#">Manage Invoices</a>
+					</ul>
+				</li>
 
-			<li>
-				<a href="/logout"><i class="fa fa-lg fa-fw fa-list-alt"></i> <span class="menu-item-parent">Logout</span></a>
-			</li>
-		</ul>
+				<li>
+					<a href="/logout"><i class="fa fa-lg fa-fw fa-list-alt"></i> <span class="menu-item-parent">Logout</span></a>
+				</li>
+			</ul>
+
 
 	</nav>
-	
+
 
 	<span class="minifyme" data-action="minifyMenu"> 
 		<i class="fa fa-arrow-circle-left hit"></i> 

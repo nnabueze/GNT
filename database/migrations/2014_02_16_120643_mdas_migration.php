@@ -16,6 +16,7 @@ class MdasMigration extends Migration
         Schema::create('mdas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('mda_key');
+            $table->enum('mda_category', ["state", "lga","federal"]);
             $table->integer('igr_id')->unsigned()->index();
             $table->foreign('igr_id')->references('id')->on('igrs')->onDelete('cascade');
             $table->string('mda_name');

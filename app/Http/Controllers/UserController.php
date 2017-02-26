@@ -9,6 +9,7 @@ use App\Http\Requests\UserRequest;
 use App\User;
 use App\Role;
 use App\Igr;
+use App\Mda;
 use Auth;
 use Redirect;
 use Session;
@@ -31,7 +32,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $igrs = Igr::all();
+        $igrs = Mda::all();
         $roles = Role::all();
         $users = User::all();
         return view('user.index',compact("igrs","roles",'users'));
@@ -62,8 +63,8 @@ class UserController extends Controller
               return Redirect::back();
           }
 
-          if (empty($request->input('igr_id'))) {
-             Session::flash('warning', 'Failed! select IGR');
+          if (empty($request->input('mda_id'))) {
+             Session::flash('warning', 'Failed! select MDA');
              return Redirect::back();
           }
 

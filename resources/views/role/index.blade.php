@@ -208,7 +208,7 @@
 								
 								<section>
 										<label class="select">
-											<select name="permission[]">
+											<select name="permission[]" multiple="multiple">
 											@if($permissions)
 												@foreach($permissions as $permission)
 												<option value="{{$permission->id}}">{{$permission->name}}</option>
