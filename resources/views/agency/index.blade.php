@@ -16,7 +16,7 @@
 
 		<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
 			<!-- Button trigger modal -->
-			<a data-toggle="modal" href="#myModal" class="btn btn-success btn-lg pull-right header-btn hidden-mobile"><i class="fa fa-circle-arrow-up fa-lg"></i> ADD AGENCY</a>
+			<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg pull-right header-btn hidden-mobile"><i class="fa fa-circle-arrow-up fa-lg"></i> ADD AGENCY</a>
 		</div>
 	</div>
 
@@ -29,79 +29,59 @@
 						&times;
 					</button>
 					<h4 class="modal-title">
-						<img src="img/logo.png" width="150" alt="SmartAdmin">
+						<img src="{{ asset('template/img/logo1.png')}}" width="150" alt="SmartAdmin">
 					</h4>
 				</div>
 				<div class="modal-body no-padding">
 
-					<form id="login-form" class="smart-form">
-
+					<form id="login-form" method="POST" action="/agencies" class="smart-form">
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<fieldset>
-								<!--<section>
+								
+								<section>
 									<div class="row">
-										<label class="label col col-2">Username</label>
+										<label class="label col col-2">Agency Name</label>
 										<div class="col col-10">
 											<label class="input"> <i class="icon-append fa fa-user"></i>
-												<input type="email" name="email">
+												<input type="text" name="mda_name">
+											</label>
+										</div>
+									</div>
+								</section>
+								
+								
+								<section>
+									<div class="row">
+										<label class="label col col-2">IGR</label>
+										<div class="col col-10">
+											<label class="input">
+												<select class="form-control" name="igr" >
+													<option value="">Select IGR</option>
+													@if($igr)
+														@foreach($igr as $igr)
+													<option value="{{$igr->id}}">{{$igr->state_name}}</option>
+														@endforeach
+													@else
+													<option value="">NO IGR</option>
+													@endif
+												</select>	
 											</label>
 										</div>
 									</div>
 								</section>
 
-								<section>
-									<div class="row">
-										<label class="label col col-2">Password</label>
-										<div class="col col-10">
-											<label class="input"> <i class="icon-append fa fa-lock"></i>
-												<input type="password" name="password">
-											</label>
-											<div class="note">
-												<a href="javascript:void(0)">Forgot password?</a>
-											</div>
-										</div>
-									</div>
-								</section>
 
 								<section>
 									<div class="row">
-										<div class="col col-2"></div>
+										<label class="label col col-2">Category</label>
 										<div class="col col-10">
-											<label class="checkbox">
-												<input type="checkbox" name="remember" checked="">
-												<i></i>Keep me logged in</label>
-										</div>
-									</div>
-								</section>-->
-								
-								<section>
-									<div class="row">
-										<label class="label col col-2">Name</label>
-										<div class="col col-10">
-											<label class="input"> <i class="icon-append fa fa-user"></i>
-												<input type="text" name="MDA/LGA">
-											</label>
-										</div>
-									</div>
-								</section>
-								
-								
-								<section>
-									<div class="row">
-										<label class="label col col-2">Address</label>
-										<div class="col col-10">
-											<label class="input"> <i class="icon-append fa fa-user"></i>
-												<input type="text" name="address">
-											</label>
-										</div>
-									</div>
-								</section>
-								
-								<section>
-									<div class="row">
-										<label class="label col col-2">Username</label>
-										<div class="col col-10">
-											<label class="input"> <i class="icon-append fa fa-user"></i>
-												<input type="email" name="email">
+											<label class="input">
+												<select class="form-control" name="mda_category" >
+													<option value="">Select Category</option>
+													<option value="state">State</option>
+													<option value="lga">LGA</option>
+													<option value="federal">Federal</option>
+												</select>	
 											</label>
 										</div>
 									</div>
@@ -113,11 +93,8 @@
 							
 							<footer>
 								<button type="submit" class="btn btn-primary">
-									Save
+									ADD
 								</button>
-								<!--<button type="button" class="btn btn-default" data-dismiss="modal">
-									Cancel
-								</button>-->
 
 							</footer>
 						</form>						
@@ -133,7 +110,7 @@
 		<br />
 		<br />
 
-		<div class="row">
+<!-- 		<div class="row">
 			<div class="col-md-12">
 				<form method="post" action="http://connect.ercasng.com/reports/biller_search" id="smart-form-register">
 
@@ -175,7 +152,7 @@
 					</div>
 				</form>	
 			</div>
-		</div>
+		</div> -->
 
 
 
@@ -191,6 +168,9 @@
 				
 				<!-- NEW WIDGET START -->
 				<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				@include('include.warning')
+				@include('include.message')
+				@include('include.error')
 
 					<!-- Widget ID (each widget will need unique ID)-->
 					<div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
@@ -214,7 +194,7 @@
 
 							<header>
 								<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-								<h2>List of MDA</h2>
+								<h2>LIST OF AGENCIES</h2>
 
 							</header>
 
@@ -234,45 +214,22 @@
 									<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
 										<thead>
 											<tr>
-												<th data-hide="phone">MDA Code</th>
-												<th data-hide="phone,tablet">MDA</th>
-												<th>MDA Admin</th>
-												<th data-hide="phone,tablet"> Action</th>
+												<th data-hide="phone">AGENCY CODE</th>
+												<th data-hide="phone,tablet">AGENCY NAME</th>
+												<th data-hide="phone,tablet"> ACTION</th>
 
 											</tr>
 										</thead>
 										<tbody>
+										@if($mda)
+											@foreach($mda as $mda)
 											<tr>
-												<td>1001100101</td>
-												<td>Bauchi LGA</td>
-												<td>test admin</td>
-												<td> </td>
-
+												<td>{{$mda->mda_key}}</td>
+												<td>{{$mda->mda_name}}</td>
+												<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/agencies/{{$mda->mda_key}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 											</tr>
-											<tr>
-												<td>1001100102</td>
-												<td>Tafawa Balewa LGA</td>
-												<td>test admin</td>
-												<td> </td>
-											</tr>
-											<tr>
-												<td>1001100103</td>
-												<td>Dass LGA </td>
-												<td>test admin</td>
-												<td> </td>
-											</tr>
-											<tr>
-												<td>1001100104</td>
-												<td>Toro LGA</td>
-												<td>test admin</td>
-												<td> </td>
-											</tr>
-											<tr>
-												<td>1001100105</td>
-												<td>Bogoro LGA </td>
-												<td>test admin</td>
-												<td> </td>
-											</tr>
+												@endforeach
+											@endif
 										</tbody>
 									</table>
 

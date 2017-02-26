@@ -20,6 +20,7 @@ class WorkersMigrate extends Migration
             $table->string('user_limit');
             $table->string('phone')->unique();
             $table->string('email');
+            $table->enum('category', ["user", "agent"]);
             $table->integer('mda_id')->unsigned()->index();
             $table->foreign('mda_id')->references('id')->on('mdas')->onDelete('cascade');
             $table->string('pin');

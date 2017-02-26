@@ -69,6 +69,12 @@ Route::get("/revenue_heads1","CollectionController@revenue_heads");
 //Route onboarding the IGR
 Route::get("/agencies","AgencyController@index");
 
+//Route for adding agency on the platform
+Route::post("/agencies","AgencyController@store");
+
+//Route to delete agencies
+Route::get("/agencies/{any}","AgencyController@delete_agency");
+
 //adding revenue heads
 Route::get("/revenue_heads","AgencyController@revenue_heads");
 
