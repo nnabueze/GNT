@@ -89,11 +89,14 @@
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
 						<div class="well no-padding">
+
 							<form action="/admin" id="login-form" class="smart-form client-form" method="POST">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								<header>
 									Sign In
 								</header>
+								@include('include.warning')
+								@include('include.message')
 
 								<fieldset>
 									

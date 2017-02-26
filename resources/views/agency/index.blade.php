@@ -1,175 +1,309 @@
 @extends('admin')
 @section('content')
-
 <!-- MAIN CONTENT -->
 <div id="content">
 
 	<div class="row">
-		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+		<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
 			<h1 class="page-title txt-color-blueDark">
 				<i class="fa fa-table fa-fw "></i> 
 				Setup
 				<span>> 
-					LGA's Table
+					Agencies
 				</span>
 			</h1>
 		</div>
 
+		<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+			<!-- Button trigger modal -->
+			<a data-toggle="modal" href="#myModal" class="btn btn-success btn-lg pull-right header-btn hidden-mobile"><i class="fa fa-circle-arrow-up fa-lg"></i> ADD AGENCY</a>
+		</div>
 	</div>
 
-	<!-- widget grid -->
-	<section id="widget-grid" class="">
-		
-		<!-- row -->
-		<div class="row">
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title">
+						<img src="img/logo.png" width="150" alt="SmartAdmin">
+					</h4>
+				</div>
+				<div class="modal-body no-padding">
 
-			<!-- NEW WIDGET START -->
-			<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<form id="login-form" class="smart-form">
 
-				<!-- Widget ID (each widget will need unique ID)-->
-				<div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
-						<!-- widget options:
-						usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-		
-						data-widget-colorbutton="false"
-						data-widget-editbutton="false"
-						data-widget-togglebutton="false"
-						data-widget-deletebutton="false"
-						data-widget-fullscreenbutton="false"
-						data-widget-custombutton="false"
-						data-widget-collapsed="true"
-						data-widget-sortable="false"
-		
-					-->
-					
-					<!-- end widget -->
-					
-					<section id="widget-grid" class="">
-						<!-- row -->
+						<fieldset>
+								<!--<section>
+									<div class="row">
+										<label class="label col col-2">Username</label>
+										<div class="col col-10">
+											<label class="input"> <i class="icon-append fa fa-user"></i>
+												<input type="email" name="email">
+											</label>
+										</div>
+									</div>
+								</section>
+
+								<section>
+									<div class="row">
+										<label class="label col col-2">Password</label>
+										<div class="col col-10">
+											<label class="input"> <i class="icon-append fa fa-lock"></i>
+												<input type="password" name="password">
+											</label>
+											<div class="note">
+												<a href="javascript:void(0)">Forgot password?</a>
+											</div>
+										</div>
+									</div>
+								</section>
+
+								<section>
+									<div class="row">
+										<div class="col col-2"></div>
+										<div class="col col-10">
+											<label class="checkbox">
+												<input type="checkbox" name="remember" checked="">
+												<i></i>Keep me logged in</label>
+										</div>
+									</div>
+								</section>-->
+								
+								<section>
+									<div class="row">
+										<label class="label col col-2">Name</label>
+										<div class="col col-10">
+											<label class="input"> <i class="icon-append fa fa-user"></i>
+												<input type="text" name="MDA/LGA">
+											</label>
+										</div>
+									</div>
+								</section>
+								
+								
+								<section>
+									<div class="row">
+										<label class="label col col-2">Address</label>
+										<div class="col col-10">
+											<label class="input"> <i class="icon-append fa fa-user"></i>
+												<input type="text" name="address">
+											</label>
+										</div>
+									</div>
+								</section>
+								
+								<section>
+									<div class="row">
+										<label class="label col col-2">Username</label>
+										<div class="col col-10">
+											<label class="input"> <i class="icon-append fa fa-user"></i>
+												<input type="email" name="email">
+											</label>
+										</div>
+									</div>
+								</section>
+
+								
+								
+							</fieldset>
+							
+							<footer>
+								<button type="submit" class="btn btn-primary">
+									Save
+								</button>
+								<!--<button type="button" class="btn btn-default" data-dismiss="modal">
+									Cancel
+								</button>-->
+
+							</footer>
+						</form>						
 						
-					<button class="pull-right btn btn-sm btn-primary">ADD LGA</button>
-					<br/>
-					<br/>
-					<br/>
-
-					<!-- Widget ID (each widget will need unique ID)-->
-					<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-1" data-widget-editbutton="false">
-						<!-- widget options:
-						usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-		
-						data-widget-colorbutton="false"
-						data-widget-editbutton="false"
-						data-widget-togglebutton="false"
-						data-widget-deletebutton="false"
-						data-widget-fullscreenbutton="false"
-						data-widget-custombutton="false"
-						data-widget-collapsed="true"
-						data-widget-sortable="false"
-		
-					-->
-
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-
-					<!-- Widget ID (each widget will need unique ID)-->
-					<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3" data-widget-editbutton="false">
-						<!-- widget options:
-						usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-		
-						data-widget-colorbutton="false"
-						data-widget-editbutton="false"
-						data-widget-togglebutton="false"
-						data-widget-deletebutton="false"
-						data-widget-fullscreenbutton="false"
-						data-widget-custombutton="false"
-						data-widget-collapsed="true"
-						data-widget-sortable="false"
-		
-					-->
-					<header>
-						<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-						<h2>LGA TABLE</h2>
-
-					</header>
-
-					<!-- widget div-->
-					<div>
-
-						<!-- widget edit box -->
-						<div class="jarviswidget-editbox">
-							<!-- This area used as dropdown edit box -->
-
-						</div>
-						<!-- end widget edit box -->
-
-						<!-- widget content -->
-						<div class="widget-body no-padding">
-						<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
-							<thead>
-								<tr>
-									<th data-hide="phone">LGA Code</th>
-									<th data-hide="phone,tablet">LGA</th>
-									<th>No of Revenue Heads</th>
-									<th data-hide="phone,tablet"> Action</th>
-									
-								</tr>
-							</thead>
-							<tbody>
-							@if($mdas)
-								@foreach($mdas->mdas as $mda)
-								<tr>
-									<td>{{$mda->mda_key}}</td>
-									<td>{{$mda->mda_name}}</td>
-									<td>{{count($mda->revenue)}}</td>
-									<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/agency/{{$mda->mda_key}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="View"><span class="glyphicon glyphicon-eye-open"></span></a>&nbsp;&nbsp;<a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
-									
-								</tr>
-								@endforeach
-							@endif
-							</tbody>
-						</table>
-
-						</div>
-						<!-- end widget content -->
 
 					</div>
-					<!-- end widget div -->
 
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+
+		<br />
+		<br />
+
+		<div class="row">
+			<div class="col-md-12">
+				<form method="post" action="http://connect.ercasng.com/reports/biller_search" id="smart-form-register">
+
+
+					<div class="col-sm-3">
+						<div class="form-group">
+							<select class="form-control">
+								<option value="">Select MDA</option>
+								<option value="payment_collection_FCTIRS">Bauchi LGA</option>
+							</select>						
+						</div>
+						
+
+					</div>
+
+					<div class="col-sm-3">				
+						<div class="form-group">
+							<div class="input-group">
+								<input class="form-control" id="to" type="text" placeholder="Select a date" name="dateto">
+								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>							
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<div class="input-group">
+								<input class="form-control" id="from" type="text" placeholder="From" name="datefrm">
+								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-3">				
+						<div class="form-group">
+							<div class="input-group">
+								<button type="submit" class="btn">Search</button>							
+							</div>
+						</div>
+					</div>
+				</form>	
+			</div>
+		</div>
+
+
+
+
+
+
+
+		<!-- widget grid -->
+		<section id="widget-grid" class="">
+
+			<!-- row -->
+			<div class="row">
+				
+				<!-- NEW WIDGET START -->
+				<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+					<!-- Widget ID (each widget will need unique ID)-->
+					<div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+								<!-- widget options:
+								usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+				
+								data-widget-colorbutton="false"
+								data-widget-editbutton="false"
+								data-widget-togglebutton="false"
+								data-widget-deletebutton="false"
+								data-widget-fullscreenbutton="false"
+								data-widget-custombutton="false"
+								data-widget-collapsed="true"
+								data-widget-sortable="false"
+				
+							-->
+							
+							<!-- end widget -->
+							
+					
+
+							<header>
+								<span class="widget-icon"> <i class="fa fa-table"></i> </span>
+								<h2>List of MDA</h2>
+
+							</header>
+
+							<!-- widget div-->
+							<div>
+
+								<!-- widget edit box -->
+								<div class="jarviswidget-editbox">
+									<!-- This area used as dropdown edit box -->
+
+								</div>
+								<!-- end widget edit box -->
+
+								<!-- widget content -->
+								<div class="widget-body no-padding">
+
+									<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
+										<thead>
+											<tr>
+												<th data-hide="phone">MDA Code</th>
+												<th data-hide="phone,tablet">MDA</th>
+												<th>MDA Admin</th>
+												<th data-hide="phone,tablet"> Action</th>
+
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>1001100101</td>
+												<td>Bauchi LGA</td>
+												<td>test admin</td>
+												<td> </td>
+
+											</tr>
+											<tr>
+												<td>1001100102</td>
+												<td>Tafawa Balewa LGA</td>
+												<td>test admin</td>
+												<td> </td>
+											</tr>
+											<tr>
+												<td>1001100103</td>
+												<td>Dass LGA </td>
+												<td>test admin</td>
+												<td> </td>
+											</tr>
+											<tr>
+												<td>1001100104</td>
+												<td>Toro LGA</td>
+												<td>test admin</td>
+												<td> </td>
+											</tr>
+											<tr>
+												<td>1001100105</td>
+												<td>Bogoro LGA </td>
+												<td>test admin</td>
+												<td> </td>
+											</tr>
+										</tbody>
+									</table>
+
+								</div>
+								<!-- end widget content -->
+
+							</div>
+							<!-- end widget div -->
+
+						</div>
+						<!-- end widget -->
+
+					</article>
+					<!-- WIDGET END -->
+					</div>
 				</div>
-				<!-- end widget -->
-
-			</article>
-			<!-- WIDGET END -->
+				
+				<!-- end row -->
+				
+				<!-- end row -->
+				
+			</section>
+			<!-- end widget grid -->
 
 		</div>
-		
-		<!-- end row -->
-		
-		<!-- end row -->
-		
-	</section>
-	<!-- end widget grid -->
+		<!-- END MAIN CONTENT -->
 
-</div>
-<!-- END MAIN CONTENT -->
+		@stop
+		@push('scripts')
+		<script type="text/javascript">
 
-</div>
-<!-- END MAIN PANEL -->
-
-
-@stop
-@push('scripts')
-<script type="text/javascript">
-	
 	// DO NOT REMOVE : GLOBAL FUNCTIONS!
 	
 	$(document).ready(function() {

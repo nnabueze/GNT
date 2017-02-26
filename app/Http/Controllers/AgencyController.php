@@ -25,8 +25,9 @@ class AgencyController extends Controller
    public function index()
    {
       //getting the list of MDA under an igr
-      $mdas = Igr::with("mdas.revenue")->find(Auth::user()->igr_id);
-   	return view("agency.index",compact("mdas"));
+      //$mdas = Igr::with("mdas.revenue")->find(Auth::user()->igr_id);
+      $sidebar = "agancy";
+   	return view("agency.index",compact("sidebar"));
    }
 
    //displaying and setting up the revenue heads
@@ -45,7 +46,8 @@ class AgencyController extends Controller
    //getting list of pos 
    public function pos()
    {
-      return view("agency.pos");
+      $sidebar ="pos";
+      return view("agency.pos",compact("sidebar"));
    }
 
    //view list of revenue heads under MDA

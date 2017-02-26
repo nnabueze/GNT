@@ -22,7 +22,7 @@
 	<nav>
 
 		<ul>
-			<li class="active">
+			<li class="<?php if ($sidebar == "dashbaord"){echo "active";}else{echo "";}?>">
 				<a href="/dashboard" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
 
 			</li>
@@ -44,15 +44,15 @@
 				</ul>
 			</li>
 			@endif
-			<li>
+			<li class="<?php if ($sidebar == "pos"||$sidebar == "agancy"){echo "active";}else{echo "";}?>">
 				<a href="#"><i class="fa fa-lg fa-fw fa-desktop"></i><span class="menu-item-parent">Setup</span></a>
 				<ul>
-					<li><a href="#">Agencies</a></li>
+					<li class="<?php if ($sidebar == "agancy"){echo "active";}else{echo "";}?>"><a href="/agencies">Agencies</a></li>
 					<li><a href="#">LGA</a></li>
 					<li><a href="#">Stations</a></li>
 					<li><a href="#">Pool Account</a></li>
 					<li><a href="#">Agents</a></li>
-					<li><a href="#">POS</a></li>
+					<li class="<?php if ($sidebar == "pos"){echo "active";}else{echo "";}?>"><a href="/pos">POS</a></li>
 				</ul>
 			</li>
 			<li>

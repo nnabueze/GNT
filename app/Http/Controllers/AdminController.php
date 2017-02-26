@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use Redirect;
+use Session;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -24,10 +25,14 @@ class AdminController extends Controller
 	//display login page
 	public function index()
 	{
+
 		if (Auth::user()) {
 			return Redirect::to("/dashboard");
 		}
-		return view("admin.login");
+
+		//setting the menu active
+		$sidebar = "dashbaord";
+		return view("admin.login",compact("sidebar"));
 	}
 
 	//processing login parameter
@@ -35,15 +40,20 @@ class AdminController extends Controller
 	{
 
 		if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-
+			
 			return redirect()->intended('/dashboard');
+		}else{
+			Session::flash("warning","Failed! Invalid login credentails");
+			return Redirect::to("/");
 		}
 	}
 
     //Displaying dashboard page
 	public function dashboard()
 	{
-		return view("admin/dashboard");
+		//setting the side bar
+		$sidebar = "dashbaord";
+		return view("admin/dashboard",compact("sidebar"));
 	}
 
 	//logout from the system
