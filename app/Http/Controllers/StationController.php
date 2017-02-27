@@ -93,6 +93,30 @@ class StationController extends Controller
 
     ////////////////////////////////////////////////////////////////////////////////////
 
+    //deleting station
+    public function delete_station($id)
+    {
+    	//checking user right
+    	if ( ! Auth::user()->hasRole('Superadmin')) {
+
+    	   Session::flash("warning","You don't have the right to delete MDA");
+    	   return Redirect::back();
+    	}
+
+    	//deleting the mda
+    	if ($mda = Station::where("station_key",$id)->first()) {
+    	   $mda->delete();
+
+    	   Session::flash("message","Successful! Station deleted");
+    	   return Redirect::back();
+    	}
+
+    	Session::flash("warning","Failed! Station not deleted");
+    	return Redirect::back();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////
+
     //generating random digit number
     private function random_number($size = 5)
     {
