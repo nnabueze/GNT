@@ -105,6 +105,10 @@ Route::post("/station","StationController@store");
 //selecting station of a specific MDA
 Route::get("/mda_station","StationController@mda_station");
 
+//getting of pos under an MDA
+Route::get("/mda_pos","StationController@mda_pos");
+
+
 //deleting station
 Route::get("/station/{any}","StationController@delete_station");
 

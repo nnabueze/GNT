@@ -10,6 +10,7 @@ use Redirect;
 use App\Igr;
 use App\Mda;
 use App\Station;
+use App\Postable;
 use App\Revenuehead;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -116,6 +117,30 @@ class StationController extends Controller
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
+
+
+    //getting lis of pos assigned to a perticuar mda
+    public function mda_pos(Request $request)
+    {
+        //getting the parameter
+        $item = $request->only("station");
+
+        //getting all the existing MDA
+        $sidebar = "station";
+        $mda = Mda::all();
+        $mda1 = Mda::all();
+
+        //select station base on MDA
+        $pos = Postable::where("mda_id",$item)->get();
+        if (count($pos) > 0) {
+            
+            return view("station.pos",compact("pos","sidebar","mda","mda1"));
+        }
+
+        Session::flash("warning","Failed! No POS added.");
+        return Redirect::to("/pos");
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////
 
     //generating random digit number
     private function random_number($size = 5)

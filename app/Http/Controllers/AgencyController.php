@@ -9,6 +9,7 @@ use Session;
 use Redirect;
 use App\Igr;
 use App\Mda;
+use App\Station;
 use App\Revenuehead;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -111,7 +112,11 @@ class AgencyController extends Controller
    public function pos()
    {
       $sidebar ="pos";
-      return view("agency.pos",compact("sidebar"));
+      $mda = Mda::all();
+      $mda1 = Mda::all();
+      $station = Station::all();
+      $pos = array();
+      return view("agency.pos",compact("sidebar","mda",'station',"mda1","pos"));
    }
 
    /////////////////////////////////////////////////////////////////////////////////////
