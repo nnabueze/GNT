@@ -19,6 +19,8 @@ class SubheadsMigrate extends Migration
             $table->string('subhead_code');
             $table->integer('revenuehead_id')->unsigned()->index();
             $table->foreign('revenuehead_id')->references('id')->on('revenueheads')->onDelete('cascade');
+            $table->integer('mda_id')->unsigned()->index();
+            $table->foreign('mda_id')->references('id')->on('mdas')->onDelete('cascade');
             $table->string('subhead_name');
              $table->enum('taxiable', [0, 1]);
             $table->string('amount');

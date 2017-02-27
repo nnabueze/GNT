@@ -108,6 +108,12 @@ Route::get("/mda_station","StationController@mda_station");
 //deleting station
 Route::get("/station/{any}","StationController@delete_station");
 
+//Route to display agent
+Route::get("/agent","AgentController@index");
+
+//Route for getting list of suhheads under mda
+Route::get("/agent_mda/{any}","AgentController@agent_mda");
+
 
 
 
