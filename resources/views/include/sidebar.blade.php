@@ -46,11 +46,12 @@ Left panel : Navigation area -->
 			@endif
 
 
-			<li class="<?php if ($sidebar == "pos"||$sidebar == "agancy"|| $sidebar == "lga" ||$sidebar == "station"||$sidebar == "agent"){echo "active";}else{echo "";}?>">
+			<li class="<?php if ($sidebar == "pos"||$sidebar == "agancy"|| $sidebar == "lga" ||$sidebar == "station"||$sidebar == "agent"||$sidebar == "heads"){echo "active";}else{echo "";}?>">
 				<a href="#"><i class="fa fa-lg fa-fw fa-desktop"></i><span class="menu-item-parent">Setup</span></a>
 				<ul>
 					<li class="<?php if ($sidebar == "agancy"){echo "active";}else{echo "";}?>"><a href="/agencies">Agencies</a></li>
 					<li class="<?php if ($sidebar == "lga"){echo "active";}else{echo "";}?>"><a href="/lga">LGA</a></li>
+					<li class="<?php if ($sidebar == "heads"){echo "active";}else{echo "";}?>"><a href="/revenue_heads">SubHeads</a></li>
 					<li class="<?php if ($sidebar == "station"){echo "active";}else{echo "";}?>"><a href="/station">Stations</a></li>
 					<!-- <li><a href="#">Pool Account</a></li> -->
 					<li class="<?php if ($sidebar == "agent"){echo "active";}else{echo "";}?>"><a href="/agent">Agents</a></li>

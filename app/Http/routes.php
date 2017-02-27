@@ -118,6 +118,12 @@ Route::get("/agent","AgentController@index");
 //Route for getting list of suhheads under mda
 Route::get("/agent_mda/{any}","AgentController@agent_mda");
 
+//route for showing revenue heads and subheads
+Route::get("/revenue_heads","HeadsController@index");
+
+//Route for getting list of head of a specific MDA
+Route::get("/heads","HeadsController@heads");
+
 
 
 
