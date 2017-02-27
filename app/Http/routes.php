@@ -75,6 +75,15 @@ Route::post("/agencies","AgencyController@store");
 //Route to delete agencies
 Route::get("/agencies/{any}","AgencyController@delete_agency");
 
+//Route to display LGA Page
+Route::get("/lga","LgaController@index");
+
+//Route storing lga
+Route::post("/lga","LgaController@store");
+
+//Route deleting lgas
+Route::get("/lga/{any}","LgaController@delete_lga");
+
 //adding revenue heads
 Route::get("/revenue_heads","AgencyController@revenue_heads");
 

@@ -9,14 +9,14 @@
 				<i class="fa fa-table fa-fw "></i> 
 				Setup
 				<span>> 
-					Agencies
+					LGA
 				</span>
 			</h1>
 		</div>
 
 		<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
 			<!-- Button trigger modal -->
-			<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg pull-right header-btn hidden-mobile"><i class="fa fa-circle-arrow-up fa-lg"></i> ADD AGENCY</a>
+			<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg pull-right header-btn hidden-mobile"><i class="fa fa-circle-arrow-up fa-lg"></i> ADD LGA</a>
 		</div>
 	</div>
 
@@ -34,13 +34,13 @@
 				</div>
 				<div class="modal-body no-padding">
 
-					<form id="login-form" method="POST" action="/agencies" class="smart-form">
+					<form id="login-form" method="POST" action="/lga" class="smart-form">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<fieldset>
 								
 								<section>
 									<div class="row">
-										<label class="label col col-2">Agency Name</label>
+										<label class="label col col-2">LGA Name</label>
 										<div class="col col-10">
 											<label class="input"> <i class="icon-append fa fa-user"></i>
 												<input type="text" name="mda_name">
@@ -77,8 +77,7 @@
 										<div class="col col-10">
 											<label class="input">
 												<select class="form-control" name="mda_category" >
-													<option value="">Select Category</option>
-													<option value="state">State</option>
+													<option value="lga">LGA</option>
 												</select>	
 											</label>
 										</div>
@@ -192,7 +191,7 @@
 
 							<header>
 								<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-								<h2>LIST OF AGENCIES</h2>
+								<h2>LIST OF LGA</h2>
 
 							</header>
 
@@ -212,8 +211,8 @@
 									<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
 										<thead>
 											<tr>
-												<th data-hide="phone">AGENCY CODE</th>
-												<th data-hide="phone,tablet">AGENCY NAME</th>
+												<th data-hide="phone">LGA CODE</th>
+												<th data-hide="phone,tablet">LGA NAME</th>
 												<th data-hide="phone,tablet"> ACTION</th>
 
 											</tr>
@@ -224,7 +223,7 @@
 											<tr>
 												<td>{{$mda->mda_key}}</td>
 												<td>{{$mda->mda_name}}</td>
-												<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/agencies/{{$mda->mda_key}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
+												<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/lga/{{$mda->mda_key}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 											</tr>
 												@endforeach
 											@endif

@@ -9,6 +9,12 @@ class Mda extends Model
     
     protected $fillable = ['mda_key','mda_name','mda_category','igr_id'];
 
+    //capitalising the name attribute
+    public function setMdaNameAttribute($value)
+    {
+        $this->attributes['mda_name'] = ucwords($value);
+    }
+
     //relationship between revenue head and Mda
     public function revenue()
     {
