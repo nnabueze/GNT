@@ -96,6 +96,15 @@ Route::get("/pos","AgencyController@pos");
 //Route viewing list of revenue heads under an mda
 Route::get("/agency/{any}","AgencyController@view_head");
 
+//Route displaying station
+Route::get("/station","StationController@index");
+
+//Route for adding station 
+Route::post("/station","StationController@store");
+
+//selecting station of a specific MDA
+Route::get("/mda_station","StationController@mda_station");
+
 
 
 

@@ -46,17 +46,20 @@
 			@endif
 
 
-			<li class="<?php if ($sidebar == "pos"||$sidebar == "agancy"|| $sidebar == "lga"){echo "active";}else{echo "";}?>">
+			<li class="<?php if ($sidebar == "pos"||$sidebar == "agancy"|| $sidebar == "lga" ||$sidebar == "station"){echo "active";}else{echo "";}?>">
 				<a href="#"><i class="fa fa-lg fa-fw fa-desktop"></i><span class="menu-item-parent">Setup</span></a>
 				<ul>
 					<li class="<?php if ($sidebar == "agancy"){echo "active";}else{echo "";}?>"><a href="/agencies">Agencies</a></li>
 					<li class="<?php if ($sidebar == "lga"){echo "active";}else{echo "";}?>"><a href="/lga">LGA</a></li>
-					<li><a href="#">Stations</a></li>
+					<li class="<?php if ($sidebar == "station"){echo "active";}else{echo "";}?>"><a href="/station">Stations</a></li>
 					<li><a href="#">Pool Account</a></li>
 					<li><a href="#">Agents</a></li>
 					<li class="<?php if ($sidebar == "pos"){echo "active";}else{echo "";}?>"><a href="/pos">POS</a></li>
 				</ul>
 			</li>
+
+
+
 			<li>
 				<a href="#"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Collection Record</span></a>
 				<ul>
