@@ -28,16 +28,16 @@ Left panel : Navigation area -->
 			</li>
 
 			@if(Auth::user()->hasRole('Superadmin'))
-			<li>
+			<li class="<?php if ($sidebar == "user_sidebar"||$sidebar == "permission" ||$sidebar == "role"){echo "active";}else{echo "";}?>">
 				<a href="#"><i class="fa fa-lg fa-fw fa-windows"></i> <span class="menu-item-parent">Access Control</span></a>
 				<ul>
-					<li>
+					<li class="<?php if ($sidebar == "user_sidebar"){echo "active";}else{echo "";}?>">
 						<a href="/users">User <i class="fa fa-external-link"></i></a>
 					</li>
-					<li>
+					<li class="<?php if ($sidebar == "role"){echo "active";}else{echo "";}?>">
 						<a href="/role">Role</a>
 					</li>
-					<li>
+					<li class="<?php if ($sidebar == "permission"){echo "active";}else{echo "";}?>">
 						<a href="/permission">Permission</a>
 					</li>
 

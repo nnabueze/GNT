@@ -35,7 +35,8 @@ class UserController extends Controller
         $igrs = Mda::all();
         $roles = Role::all();
         $users = User::all();
-        return view('user.index',compact("igrs","roles",'users'));
+        $sidebar = "user_sidebar";
+        return view('user.index',compact("igrs","roles",'users','sidebar'));
     }
 
     /**

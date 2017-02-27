@@ -25,8 +25,9 @@ class PermissionController extends Controller
     //displaying permission page
     public function index()
     {
+        $sidebar = "permission";
     	$permissions = Permission::all();
-    	return view("permission.index",compact("permissions"));
+    	return view("permission.index",compact("permissions",'sidebar'));
     }
 
     //stroing permission

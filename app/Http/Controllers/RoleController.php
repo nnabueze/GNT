@@ -28,7 +28,8 @@ class RoleController extends Controller
    {
    	$permissions = Permission::all();
    	$roles = Role::all();
-   	return view("role.index",compact("permissions","roles"));
+      $sidebar = "role";
+   	return view("role.index",compact("permissions","roles","sidebar"));
    }
 
    //storing role data
