@@ -80,10 +80,42 @@ class CollectionController extends Controller
     //ebills
     public function ebill_collection()
     {
-        $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
-            $mda = Mda::with("collections")->find(Auth::user()->igr_id);
-        return view("collection.ebills_collection",compact("mda","igr"));
+        $mda = Mda::where("igr_id",Auth::user()->igr_id)->get();
+        $sidebar = "ebill_collection";
+        $collection = array();
+        return view("collection.ebills_collection",compact("mda",'sidebar',"collection"));
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //get a specific mda collection
+    public function ebill_collection_range(Request $request)
+    {
+        //getting list of mdas
+        $mda = Mda::where("mda_category","state")->where("igr_id",Auth::user()->igr_id)->get();
+
+        //getting all the request
+        $mda_id = $request->input("mda");
+        $start_date = $request->input("startdate");
+        $end_date = $request->input("enddate");
+
+        $sidebar = "ebill_collection";
+
+        //getting collection within the date range
+        $collections = Collection::where("collection_type","ebill")->where("mda_id",$mda_id)->whereDate('created_at',">=",$start_date )->whereDate('created_at',"<=",$end_date )->get();
+
+        //select station base on MDA
+        
+        if (count($collections) > 0) {
+                
+            return view("collection.ebill_range",compact("mda","sidebar","collections"));
+        }
+
+            Session::flash("warning","Failed! No result found.");
+            return Redirect::to("/all_collection");
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //displaying revenue heads
     public function revenue_heads()

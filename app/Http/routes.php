@@ -63,6 +63,9 @@ Route::get("/pos_collection","CollectionController@pos_collection");
 //Ebills collection page
 Route::get("/ebill_collection","CollectionController@ebill_collection");
 
+//Route to select each mda specific collection
+Route::post("/ebill_collection","CollectionController@ebill_collection_range");
+
 //revenue heads
 Route::get("/revenue_heads1","CollectionController@revenue_heads");
 
@@ -135,6 +138,7 @@ Route::get("/lga_collection","CollectionController@lga_collection");
 
 //route lga range collection
 Route::post("/lga_collection","CollectionController@lga_collection_range");
+
 
 
 

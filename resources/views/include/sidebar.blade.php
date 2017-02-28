@@ -73,8 +73,8 @@ Left panel : Navigation area -->
 					<li class="<?php if ($sidebar == "lga_collection"){echo "active";}else{echo "";}?>">
 						<a href="/lga_collection">LGA Collection</a>
 					</li>
-					<li>
-						<a href="#">Ebills Collections</a>
+					<li class="<?php if ($sidebar == "ebill_collection"){echo "active";}else{echo "";}?>">
+						<a href="/ebill_collection">Ebills Collections</a>
 					</li>
 					<li>
 						<a href="#">POS Collections</a>
