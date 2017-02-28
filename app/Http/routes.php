@@ -124,6 +124,12 @@ Route::get("/revenue_heads","HeadsController@index");
 //Route for getting list of head of a specific MDA
 Route::get("/heads","HeadsController@heads");
 
+//Route getting all collection by agency
+Route::get("/agency_collection","CollectionController@agency_collection");
+
+//Route for agency collection range
+Route::post("/agency_collection","CollectionController@agency_collection_range");
+
 
 
 

@@ -61,14 +61,14 @@ Left panel : Navigation area -->
 
 
 
-			<li class="<?php if ($sidebar == "all_collection"){echo "active";}else{echo "";}?>">
+			<li class="<?php if ($sidebar == "all_collection"||$sidebar == "agency"){echo "active";}else{echo "";}?>">
 				<a href="#"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Collection Record</span></a>
 				<ul>
 					<li class="<?php if ($sidebar == "all_collection"){echo "active";}else{echo "";}?>">
 						<a href="/all_collection">All Collections</a>
 					</li>
-					<li>
-						<a href="#">Agency Collection</a>
+					<li class="<?php if ($sidebar == "agency"){echo "active";}else{echo "";}?>">
+						<a href="/agency_collection">Agency Collection</a>
 					</li>
 					<li>
 						<a href="#">LGA Collection</a>
