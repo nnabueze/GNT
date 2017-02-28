@@ -14,4 +14,10 @@ class Station extends Model
     {
         $this->attributes['station_name'] = ucwords($value);
     }
+
+    //has many through relationship between collection,pos and station
+    public function collections()
+    {
+        return $this->hasManyThrough('App\Collection', 'App\Postable');
+    }
 }

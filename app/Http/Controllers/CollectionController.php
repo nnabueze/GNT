@@ -166,7 +166,7 @@ class CollectionController extends Controller
         
         if (count($collections) > 0) {
                 
-            return view("collection.lga_range",compact("igr","sidebar","collections"));
+            return view("collection.lga_range",compact("mda","sidebar","collections"));
         }
 
             Session::flash("warning","Failed! No result found.");

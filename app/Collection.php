@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Collection extends Model
 {
-    //
+    protected $appends = ['Station'];
+
     protected $fillable =[
         "collection_key",
           "start_date",
@@ -32,8 +33,18 @@ class Collection extends Model
     }
 
     //relationship between heads
-    public function head()
+    public function revenuehead()
     {
-        return $this->belongsTo('App\Revenuehead');
+      return $this->belongsTo('App\Revenuehead');
+    }
+
+    //reationship between collection and pos
+    public function postable()
+    {
+      return $this->belongsTo('App\Postable');
+    }
+
+    public function getStationAttribute() {
+        return $this->postable->station;
     }
 }

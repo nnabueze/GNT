@@ -12,4 +12,10 @@ class Postable extends Model
     {
         return $this->belongsTo('App\Mda');
     }
+
+    //relationship between pos and station
+    public function station()
+    {
+    	return $this->belongsTo('App\Station');	
+    }
 }
