@@ -1,5 +1,36 @@
 @extends('admin')
 @section('content')
+<!-- RIBBON -->
+
+<div id="ribbon">
+
+	<span class="ribbon-button-alignment"> 
+		<span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+			<i class="fa fa-refresh"></i>
+		</span> 
+	</span>
+
+	<!-- breadcrumb -->
+	<ol class="breadcrumb">
+		<li>Collection</li><li>POS Collection</li>
+	</ol>
+	<!-- end breadcrumb -->
+
+	<!-- You can also add more buttons to the
+	ribbon for further usability
+
+	Example below:
+
+	<span class="ribbon-button-alignment pull-right">
+	<span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+	<span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+	<span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+</span> -->
+
+</div>
+
+<!-- END RIBBON -->
+
 <!-- MAIN CONTENT -->
 <div id="content">
 
@@ -17,55 +48,55 @@
 
 	</div>
 
-		<div class="row">
-			<div class="col-md-12">
-				<form method="post" action="/pos_collection">
+	<div class="row">
+		<div class="col-md-12">
+			<form method="post" action="/pos_collection">
 
-					<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					<div class="col-sm-3">
-						<div class="form-group">
-							<select name="mda" class="form-control">
-								<option value="">Select MDA</option>
-								@if(isset($mda))
-									@foreach($mda as $mda)
-								<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
-									@endforeach
-								@else
-								<option value="">NO MDA</option>
-								@endif
-							</select>						
-						</div>
-						
-
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<div class="col-sm-3">
+					<div class="form-group">
+						<select name="mda" class="form-control">
+							<option value="">Select MDA</option>
+							@if(isset($mda))
+							@foreach($mda as $mda)
+							<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
+							@endforeach
+							@else
+							<option value="">NO MDA</option>
+							@endif
+						</select>						
 					</div>
 
-					<div class="col-sm-3">				
-						<div class="form-group">
-							<div class="input-group">
-								<input class="form-control" id="startdate" type="text" placeholder="Select a date" name="startdate">
-								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>							
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="form-group">
-							<div class="input-group">
-								<input class="form-control" id="finishdate" type="text" placeholder="From" name="enddate">
-								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-							</div>
-						</div>
-					</div>
 
-					<div class="col-sm-3">				
-						<div class="form-group">
-							<div class="input-group">
-								<button type="submit" class="btn">Search</button>							
-							</div>
+				</div>
+
+				<div class="col-sm-3">				
+					<div class="form-group">
+						<div class="input-group">
+							<input class="form-control" id="startdate" type="text" placeholder="Select a date" name="startdate">
+							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>							
 						</div>
 					</div>
-				</form>	
-			</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<div class="input-group">
+							<input class="form-control" id="finishdate" type="text" placeholder="From" name="enddate">
+							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-3">				
+					<div class="form-group">
+						<div class="input-group">
+							<button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span> Search</button>							
+						</div>
+					</div>
+				</div>
+			</form>	
 		</div>
+	</div>
 
 
 
@@ -73,37 +104,22 @@
 
 
 
-		<!-- widget grid -->
-		<section id="widget-grid" class="">
+	<!-- widget grid -->
+	<section id="widget-grid" class="">
 
-			<!-- row -->
-			<div class="row">
-				
-				<!-- NEW WIDGET START -->
-				<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<!-- row -->
+		<div class="row">
+
+			<!-- NEW WIDGET START -->
+			<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				@include('include.warning')
 				@include('include.message')
 				@include('include.error')
 
-					<!-- Widget ID (each widget will need unique ID)-->
+				<!-- Widget ID (each widget will need unique ID)-->
 					<div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
-								<!-- widget options:
-								usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-				
-								data-widget-colorbutton="false"
-								data-widget-editbutton="false"
-								data-widget-togglebutton="false"
-								data-widget-deletebutton="false"
-								data-widget-fullscreenbutton="false"
-								data-widget-custombutton="false"
-								data-widget-collapsed="true"
-								data-widget-sortable="false"
-				
-							-->
 							
-							<!-- end widget -->
-							
-					
+
 
 							<header>
 								<span class="widget-icon"> <i class="fa fa-table"></i> </span>
@@ -124,59 +140,56 @@
 								<!-- widget content -->
 								<div class="widget-body no-padding">
 
-								<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
-									<thead>
-										<tr>
-											<th data-hide="phone">Transaction ID</th>
-											<th data-class="expand">Payer Name</th>
-											<th>Payer ID</th>
-											<th data-hide="phone,tablet">Revenue Head</th>
-											<th data-hide="phone">Amount</th>
-											<th data-hide="phone,tablet">Channel</th>
-											<th data-hide="phone,tablet">POS User</th>
-											<th data-hide="phone,tablet">Station</th>
-											<th data-hide="phone,tablet">Date</th>
+									<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
+										<thead>
+											<tr>
+												<th data-hide="phone">Transaction ID</th>
+												<th data-class="expand">Payer Name</th>
+												<th>Payer ID</th>
+												<th data-hide="phone,tablet">Revenue Head</th>
+												<th data-hide="phone">Amount</th>
+												<th data-hide="phone,tablet">Channel</th>
+												<th data-hide="phone,tablet">POS User</th>
+												<th data-hide="phone,tablet">Station</th>
+												<th data-hide="phone,tablet">Date</th>
 
-										</tr>
-									</thead>
-									<tbody>
-										@if($collection)
+											</tr>
+										</thead>
+										<tbody>
+											@if($collection)
 											@foreach($collection as $collection)
-										<tr>
-										<td>{{$collection->collection_key}}</td>
-										<td>{{$collection->name}} </td>
-										<td>{{$collection->payer_id}}</td>
+											<tr>
+												<td>{{$collection->collection_key}}</td>
+												<td>{{$collection->name}} </td>
+												<td>{{$collection->payer_id}}</td>
 
-										<td>{{$collection->revenuehead->revenue_name}}</td>
-										<td>{{$collection->amount}}</td>
-										<td>{{$collection->collection_type}}</td>
-										<td>{{$collection->worker->worker_name}}</td>
-										<td>{{$collection->station->station_name}}</td>
-										<td>{{$collection->created_at}}</td>
-										</tr>
+												<td>{{$collection->revenuehead->revenue_name}}</td>
+												<td>{{$collection->amount}}</td>
+												<td>{{$collection->collection_type}}</td>
+												<td>{{$collection->worker->worker_name}}</td>
+												<td>{{$collection->station->station_name}}</td>
+												<td>{{$collection->created_at}}</td>
+											</tr>
 											@endforeach
-										@endif
-									</tbody>
-								</table>
+											@endif
+										</tbody>
+									</table>
 
 								</div>
 								<!-- end widget content -->
 
+						
+							<!-- end widget -->
 							</div>
-							<!-- end widget div -->
-
+							</div>
+							<!-- WIDGET END -->
 						</div>
-						<!-- end widget -->
-
 					</article>
-					<!-- WIDGET END -->
-					</div>
+
+					<!-- end row -->
+
+					<!-- end row -->
 				</div>
-				
-				<!-- end row -->
-				
-				<!-- end row -->
-				
 			</section>
 			<!-- end widget grid -->
 

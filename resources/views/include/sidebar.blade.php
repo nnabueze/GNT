@@ -1,4 +1,4 @@
-Left panel : Navigation area -->
+
 <!-- Note: This width of the aside area can be adjusted through LESS variables -->
 <aside id="left-panel">
 
@@ -9,7 +9,7 @@ Left panel : Navigation area -->
 			<a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
 				<img src="{{ asset('template/img/avatars/sunny.png')}}" alt="me" class="online" /> 
 				<span>
-					Emeka Aka 
+					{{Auth::user()->name}}
 				</span>
 				<i class="fa fa-angle-down"></i>
 			</a> 

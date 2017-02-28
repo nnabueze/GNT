@@ -1,43 +1,43 @@
 <!DOCTYPE html>
 <html lang="en-us">
-	<head>
-		<meta charset="utf-8">
-		<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
+<head>
+	<meta charset="utf-8">
+	<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
 
-		<title> IGR Portal </title>
-		<meta name="description" content="">
-		<meta name="author" content="">
-			
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title> IGR Portal </title>
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-		<!-- Basic Styles -->
-		<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/bootstrap.min.css')}}">
-		<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/font-awesome.min.css')}}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<!-- SmartAdmin Styles : Caution! DO NOT change the order -->
-		<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/smartadmin-production-plugins.min.css')}}">
-		<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/smartadmin-production.min.css')}}">
-		<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/smartadmin-skins.min.css')}}">
+	<!-- Basic Styles -->
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/font-awesome.min.css')}}">
 
-		<!-- SmartAdmin RTL Support  -->
-		<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/smartadmin-rtl.min.css')}}">
+	<!-- SmartAdmin Styles : Caution! DO NOT change the order -->
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/smartadmin-production-plugins.min.css')}}">
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/smartadmin-production.min.css')}}">
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/smartadmin-skins.min.css')}}">
+
+	<!-- SmartAdmin RTL Support  -->
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/smartadmin-rtl.min.css')}}">
 
 		<!-- We recommend you use "your_style.css" to override SmartAdmin
 		     specific styles this will also ensure you retrain your customization with each SmartAdmin update.
-		<link rel="stylesheet" type="text/css" media="screen" href="css/your_style.css"> -->
+		     <link rel="stylesheet" type="text/css" media="screen" href="css/your_style.css"> -->
 
-		<!-- Demo purpose only: goes with demo.js, you can delete this css when designing your own WebApp -->
-		<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/demo.min.css')}}">
+		     <!-- Demo purpose only: goes with demo.js, you can delete this css when designing your own WebApp -->
+		     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/demo.min.css')}}">
 
-		<!-- FAVICONS -->
-		<link rel="shortcut icon" href="{{ asset('template/img/favicon/favicon.ico')}}" type="image/x-icon">
-		<link rel="icon" href="{{ asset('template/img/favicon/favicon.ico')}}" type="image/x-icon">
+		     <!-- FAVICONS -->
+		     <link rel="shortcut icon" href="{{ asset('template/img/favicon/favicon.ico')}}" type="image/x-icon">
+		     <link rel="icon" href="{{ asset('template/img/favicon/favicon.ico')}}" type="image/x-icon">
 
-		<!-- GOOGLE FONT -->
-		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
+		     <!-- GOOGLE FONT -->
+		     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
 
 		<!-- Specifying a Webpage Icon for Web Clip 
-			 Ref: https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html -->
+		Ref: https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html -->
 		<link rel="apple-touch-icon" href="{{ asset('template/img/splash/sptouch-icon-iphone.png')}}">
 		<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('template/img/splash/touch-icon-ipad.png')}}">
 		<link rel="apple-touch-icon" sizes="120x120" href="{{ asset('template/img/splash/touch-icon-iphone-retina.png')}}">
@@ -82,9 +82,9 @@
 	
 	===================================================================
 	
-	-->
-	
-	<!-- #BODY -->
+-->
+
+<!-- #BODY -->
 	<!-- Possible Classes
 
 		* 'smart-style-{SKIN#}'
@@ -103,7 +103,7 @@
 		<!-- HEADER -->
 		<header id="header">
 			<div id="logo-group">
-
+				
 				<!-- PLACE YOUR LOGO HERE -->
 				<!-- <span id="logo"> <img src="{{ asset('template/img/logo.png')}}" alt="SmartAdmin"> </span> -->
 				<!-- END LOGO PLACEHOLDER -->
@@ -112,18 +112,18 @@
 				<!-- Note: The activity badge color changes when clicked and resets the number to 0
 				Suggestion: You may want to set a flag when this happens to tick off all checked messages / notifications -->
 
-	
+
 			</div>
 
 
-				
+
 
 
 
 		</header>
 		<!-- END HEADER -->
 
-@include('include.sidebar')
+		@include('include.sidebar')
 
 		<!-- MAIN PANEL -->
 		<div id="main" role="main">
@@ -132,13 +132,14 @@
 
 			@yield('content')
 
-		<!-- PAGE FOOTER -->
-		<div class="page-footer">
-			<div class="row">
-				<div class="col-xs-12 col-sm-6">
-					<span class="txt-color-white">Ercas Solution <span class="hidden-xs"> - IGR portal</span> © 2014-2015</span>
+			<!-- PAGE FOOTER -->
+			<div class="page-footer">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<span class="txt-color-white">Ercas Solution <span class="hidden-xs"> - IGR portal</span> © 2014-2015</span>
+					</div>
+
 				</div>
-git 
 			</div>
 		</div>
 		<!-- END PAGE FOOTER -->
@@ -146,68 +147,68 @@ git
 		<!-- SHORTCUT AREA : With large tiles (activated via clicking user name tag)
 		Note: These tiles are completely responsive,
 		you can add as many as you like
-		-->
+	-->
 
-		<!-- END SHORTCUT AREA -->
+	<!-- END SHORTCUT AREA -->
 
-		<!--================================================== -->
+	<!--================================================== -->
 
-		<!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
-		<script data-pace-options='{ "restartOnRequestAfter": true }' src="{{ asset('template/js/plugin/pace/pace.min.js')}}"></script>
+	<!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
+	<script data-pace-options='{ "restartOnRequestAfter": true }' src="{{ asset('template/js/plugin/pace/pace.min.js')}}"></script>
 
-		<!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<script>
-			if (!window.jQuery) {
-				document.write('<script src="{{ asset('template/js/libs/jquery-2.1.1.min.js')}}"><\/script>');
-			}
-		</script>
+	<!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script>
+		if (!window.jQuery) {
+			document.write('<script src="{{ asset('template/js/libs/jquery-2.1.1.min.js')}}"><\/script>');
+		}
+	</script>
 
-		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-		<script>
-			if (!window.jQuery.ui) {
-				document.write('<script src="{{ asset('template/js/libs/jquery-ui-1.10.3.min.js')}}"><\/script>');
-			}
-		</script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	<script>
+		if (!window.jQuery.ui) {
+			document.write('<script src="{{ asset('template/js/libs/jquery-ui-1.10.3.min.js')}}"><\/script>');
+		}
+	</script>
 
-		<!-- IMPORTANT: APP CONFIG -->
-		<script src="{{ asset('template/js/app.config.js')}}"></script>
+	<!-- IMPORTANT: APP CONFIG -->
+	<script src="{{ asset('template/js/app.config.js')}}"></script>
 
-		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
-		<script src="{{ asset('template/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js')}}"></script> 
+	<!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
+	<script src="{{ asset('template/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js')}}"></script> 
 
-		<!-- BOOTSTRAP JS -->
-		<script src="{{ asset('template/js/bootstrap/bootstrap.min.js')}}"></script>
+	<!-- BOOTSTRAP JS -->
+	<script src="{{ asset('template/js/bootstrap/bootstrap.min.js')}}"></script>
 
-		<!-- CUSTOM NOTIFICATION -->
-		<script src="{{ asset('template/js/notification/SmartNotification.min.js')}}"></script>
+	<!-- CUSTOM NOTIFICATION -->
+	<script src="{{ asset('template/js/notification/SmartNotification.min.js')}}"></script>
 
-		<!-- JARVIS WIDGETS -->
-		<script src="{{ asset('template/js/smartwidgets/jarvis.widget.min.js')}}"></script>
+	<!-- JARVIS WIDGETS -->
+	<script src="{{ asset('template/js/smartwidgets/jarvis.widget.min.js')}}"></script>
 
-		<!-- EASY PIE CHARTS -->
-		<script src="{{ asset('template/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js')}}"></script>
+	<!-- EASY PIE CHARTS -->
+	<script src="{{ asset('template/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js')}}"></script>
 
-		<!-- SPARKLINES -->
-		<script src="{{ asset('template/js/plugin/sparkline/jquery.sparkline.min.js')}}"></script>
+	<!-- SPARKLINES -->
+	<script src="{{ asset('template/js/plugin/sparkline/jquery.sparkline.min.js')}}"></script>
 
-		<!-- JQUERY VALIDATE -->
-		<script src=""></script>
+	<!-- JQUERY VALIDATE -->
+	<script src=""></script>
 
-		<!-- JQUERY MASKED INPUT -->
-		<script src="{{ asset('template/js/plugin/masked-input/jquery.maskedinput.min.js')}}"></script>
+	<!-- JQUERY MASKED INPUT -->
+	<script src="{{ asset('template/js/plugin/masked-input/jquery.maskedinput.min.js')}}"></script>
 
-		<!-- JQUERY SELECT2 INPUT -->
-		<script src="{{ asset('template/js/plugin/select2/select2.min.js')}}"></script>
+	<!-- JQUERY SELECT2 INPUT -->
+	<script src="{{ asset('template/js/plugin/select2/select2.min.js')}}"></script>
 
-		<!-- JQUERY UI + Bootstrap Slider -->
-		<script src="{{ asset('template/js/plugin/bootstrap-slider/bootstrap-slider.min.js')}}"></script>
+	<!-- JQUERY UI + Bootstrap Slider -->
+	<script src="{{ asset('template/js/plugin/bootstrap-slider/bootstrap-slider.min.js')}}"></script>
 
-		<!-- browser msie issue fix -->
-		<script src="{{ asset('template/js/plugin/msie-fix/jquery.mb.browser.min.js')}}"></script>
+	<!-- browser msie issue fix -->
+	<script src="{{ asset('template/js/plugin/msie-fix/jquery.mb.browser.min.js')}}"></script>
 
-		<!-- FastClick: For mobile devices -->
-		<script src="{{ asset('template/js/plugin/fastclick/fastclick.min.js')}}"></script>
+	<!-- FastClick: For mobile devices -->
+	<script src="{{ asset('template/js/plugin/fastclick/fastclick.min.js')}}"></script>
 
 		<!--[if IE 8]>
 
@@ -216,7 +217,7 @@ git
 		<![endif]-->
 
 		<!-- Demo purpose only -->
-		<script src="{{ asset('template/js/demo.min.js')}}"></script>
+		<!-- <script src="{{ asset('template/js/demo.min.js')}}"></script> -->
 
 		<!-- MAIN APP JS FILE -->
 		<script src="{{ asset('template/js/app.min.js')}}"></script>
@@ -263,13 +264,13 @@ git
 				 * PAGE RELATED SCRIPTS
 				 */
 
-				$(".js-status-update a").click(function() {
-					var selText = $(this).text();
-					var $this = $(this);
-					$this.parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
-					$this.parents('.dropdown-menu').find('li').removeClass('active');
-					$this.parent().addClass('active');
-				});
+				 $(".js-status-update a").click(function() {
+				 	var selText = $(this).text();
+				 	var $this = $(this);
+				 	$this.parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
+				 	$this.parents('.dropdown-menu').find('li').removeClass('active');
+				 	$this.parent().addClass('active');
+				 });
 
 				/*
 				* TODO: add a way to add more todo's to list
@@ -574,66 +575,66 @@ git
 				 * VECTOR MAP
 				 */
 
-				data_array = {
-					"US" : 4977,
-					"AU" : 4873,
-					"IN" : 3671,
-					"BR" : 2476,
-					"TR" : 1476,
-					"CN" : 146,
-					"CA" : 134,
-					"BD" : 100
-				};
+				 data_array = {
+				 	"US" : 4977,
+				 	"AU" : 4873,
+				 	"IN" : 3671,
+				 	"BR" : 2476,
+				 	"TR" : 1476,
+				 	"CN" : 146,
+				 	"CA" : 134,
+				 	"BD" : 100
+				 };
 
-				$('#vector-map').vectorMap({
-					map : 'world_mill_en',
-					backgroundColor : '#fff',
-					regionStyle : {
-						initial : {
-							fill : '#c4c4c4'
-						},
-						hover : {
-							"fill-opacity" : 1
-						}
-					},
-					series : {
-						regions : [{
-							values : data_array,
-							scale : ['#85a8b6', '#4d7686'],
-							normalizeFunction : 'polynomial'
-						}]
-					},
-					onRegionLabelShow : function(e, el, code) {
-						if ( typeof data_array[code] == 'undefined') {
-							e.preventDefault();
-						} else {
-							var countrylbl = data_array[code];
-							el.html(el.html() + ': ' + countrylbl + ' visits');
-						}
-					}
-				});
+				 $('#vector-map').vectorMap({
+				 	map : 'world_mill_en',
+				 	backgroundColor : '#fff',
+				 	regionStyle : {
+				 		initial : {
+				 			fill : '#c4c4c4'
+				 		},
+				 		hover : {
+				 			"fill-opacity" : 1
+				 		}
+				 	},
+				 	series : {
+				 		regions : [{
+				 			values : data_array,
+				 			scale : ['#85a8b6', '#4d7686'],
+				 			normalizeFunction : 'polynomial'
+				 		}]
+				 	},
+				 	onRegionLabelShow : function(e, el, code) {
+				 		if ( typeof data_array[code] == 'undefined') {
+				 			e.preventDefault();
+				 		} else {
+				 			var countrylbl = data_array[code];
+				 			el.html(el.html() + ': ' + countrylbl + ' visits');
+				 		}
+				 	}
+				 });
 
 				/*
 				 * FULL CALENDAR JS
 				 */
 
-				if ($("#calendar").length) {
-					var date = new Date();
-					var d = date.getDate();
-					var m = date.getMonth();
-					var y = date.getFullYear();
+				 if ($("#calendar").length) {
+				 	var date = new Date();
+				 	var d = date.getDate();
+				 	var m = date.getMonth();
+				 	var y = date.getFullYear();
 
-					var calendar = $('#calendar').fullCalendar({
+				 	var calendar = $('#calendar').fullCalendar({
 
-						editable : true,
-						draggable : true,
-						selectable : false,
-						selectHelper : true,
-						unselectAuto : false,
-						disableResizing : false,
-						height: "auto",
+				 		editable : true,
+				 		draggable : true,
+				 		selectable : false,
+				 		selectHelper : true,
+				 		unselectAuto : false,
+				 		disableResizing : false,
+				 		height: "auto",
 
-						header : {
+				 		header : {
 							left : 'title', //,today
 							center : 'prev, next, today',
 							right : 'month, agendaWeek, agenDay' //month, agendaDay,
@@ -714,10 +715,10 @@ git
 						}
 					});
 
-				};
+				 };
 
-				/* hide default buttons */
-				$('.fc-toolbar .fc-right, .fc-toolbar .fc-center').hide();
+				 /* hide default buttons */
+				 $('.fc-toolbar .fc-right, .fc-toolbar .fc-center').hide();
 
 				// calendar prev
 				$('#calendar-buttons #btn-prev').click(function() {
@@ -756,11 +757,11 @@ git
 				 * CHAT
 				 */
 
-				$.filter_input = $('#filter-chat-list');
-				$.chat_users_container = $('#chat-container > .chat-list-body')
-				$.chat_users = $('#chat-users')
-				$.chat_list_btn = $('#chat-container > .chat-list-open-close');
-				$.chat_body = $('#chat-body');
+				 $.filter_input = $('#filter-chat-list');
+				 $.chat_users_container = $('#chat-container > .chat-list-body')
+				 $.chat_users = $('#chat-users')
+				 $.chat_list_btn = $('#chat-container > .chat-list-open-close');
+				 $.chat_body = $('#chat-body');
 
 				/*
 				* LIST FILTER (CHAT)
@@ -828,4 +829,4 @@ git
 		
 	</body>
 
-</html>
+	</html>

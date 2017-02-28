@@ -19,7 +19,7 @@
 
 		<div class="row">
 			<div class="col-md-12">
-				<form method="post" action="/all_collection">
+				<form method="post" action="/lga_collection">
 
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="col-sm-3">
