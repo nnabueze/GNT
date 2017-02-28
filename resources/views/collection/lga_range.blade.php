@@ -132,6 +132,8 @@
 											<th data-hide="phone,tablet">Revenue Head</th>
 											<th data-hide="phone">Amount</th>
 											<th data-hide="phone,tablet">Channel</th>
+											<th data-hide="phone,tablet">POS User</th>
+											<th data-hide="phone,tablet">Station</th>
 											<th data-hide="phone,tablet">Date</th>
 
 										</tr>
@@ -143,9 +145,11 @@
 											<td>{{$collection->collection_key}}</td>
 											<td>{{$collection->name}} </td>
 											<td>{{$collection->payer_id}}</td>
-											<td>{{$collection->name}}</td>
+											<td>{{$collection->revenuehead->revenue_name}}</td>
 											<td>{{$collection->amount}}</td>
 											<td>{{$collection->collection_type}}</td>
+											<td>{{$collection->worker->worker_name}}</td>
+											<td>{{$collection->station->station_name}}</td>
 											<td>{{$collection->created_at}}</td>
 										</tr>
 										@endforeach
