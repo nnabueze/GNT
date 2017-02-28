@@ -130,6 +130,12 @@ Route::get("/agency_collection","CollectionController@agency_collection");
 //Route for agency collection range
 Route::post("/agency_collection","CollectionController@agency_collection_range");
 
+//Route for LGA collection
+Route::get("/lga_collection","CollectionController@lga_collection");
+
+//route lga range collection
+Route::post("/lga_collection","CollectionController@lga_collection_range");
+
 
 
 

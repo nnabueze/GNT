@@ -25,7 +25,7 @@
 					<div class="col-sm-3">
 						<div class="form-group">
 							<select name="mda" class="form-control">
-								<option value="">Select MDA</option>
+								<option value="">Select Agency</option>
 								@if(isset($mda))
 									@foreach($mda as $mda)
 								<option value="{{$mda->id}}">{{$mda->mda_name}}</option>

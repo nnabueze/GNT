@@ -9,7 +9,7 @@
 				<i class="fa fa-table fa-fw "></i> 
 				Collection
 				<span>> 
-					Agency Collection
+					LGA Collection
 				</span>
 			</h1>
 		</div>
@@ -25,7 +25,7 @@
 					<div class="col-sm-3">
 						<div class="form-group">
 							<select name="mda" class="form-control">
-								<option value="">Select Agency</option>
+								<option value="">Select LGA</option>
 								@if(isset($mda))
 									@foreach($mda as $mda)
 								<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
@@ -106,7 +106,7 @@
 
 							<header>
 								<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-								<h2>Agency Collection</h2>
+								<h2>LGA Collection</h2>
 
 							</header>
 
