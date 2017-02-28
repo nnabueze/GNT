@@ -61,11 +61,11 @@ Left panel : Navigation area -->
 
 
 
-			<li>
+			<li class="<?php if ($sidebar == "all_collection"){echo "active";}else{echo "";}?>">
 				<a href="#"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Collection Record</span></a>
 				<ul>
-					<li>
-						<a href="#">All Collections</a>
+					<li class="<?php if ($sidebar == "all_collection"){echo "active";}else{echo "";}?>">
+						<a href="/all_collection">All Collections</a>
 					</li>
 					<li>
 						<a href="#">Agency Collection</a>
@@ -77,10 +77,7 @@ Left panel : Navigation area -->
 						<a href="#">Agent Collections</a>
 					</li>
 					<li>
-						<a href="#">Agent Collections</a>
-					</li>
-					<li>
-						<a href="#">Agent Collections</a>
+						<a href="#">Station Collections</a>
 					</li>
 				</ul>
 			</li>

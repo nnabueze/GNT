@@ -30,4 +30,10 @@ class Collection extends Model
     {
       return $this->belongsTo('App\Worker');
     }
+
+    //relationship between heads
+    public function head()
+    {
+        return $this->belongsTo('App\Revenuehead');
+    }
 }

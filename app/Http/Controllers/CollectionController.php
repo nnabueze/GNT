@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Redirect;
 use Auth;
+use Session;
 use App\Mda;
 use App\Igr;
+use App\Collection;
 use App\Revenuehead;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -21,22 +24,50 @@ class CollectionController extends Controller
 
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
     //displaying allcollection from differentchannels
     public function index()
     {
+        $sidebar = "all_collection";
         $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
-        $mda = Mda::with("collections")->find(Auth::user()->igr_id);
-    	return view("collection.index",compact("igr","mda"));
+        $collection = array();
+    	return view("collection.index",compact("igr","sidebar","collection"));
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //show all the collection
-    public function all_collection()
+    public function all_collection(Request $request)
     {
-        $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
-            $mda = Mda::with("collections")->find(Auth::user()->igr_id);
 
-            return view("collection.index",compact("mda","igr"));
+        //getting list of mdas
+        $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
+        //print_r($igr); die;
+
+        //getting all the request
+        $mda_id = $request->input("mda");
+        $start_date = $request->input("startdate");
+        $end_date = $request->input("enddate");
+
+        $sidebar = "all_collection";
+        $collection = array();
+
+        //getting collection within the date range
+        $collections = Collection::where("mda_id",$mda_id)->whereDate('created_at',">=",$start_date )->whereDate('created_at',"<=",$end_date )->get();
+
+        //select station base on MDA
+        
+        if (count($collections) > 0) {
+                
+            return view("collection.all",compact("igr","sidebar","collections"));
+        }
+
+            Session::flash("warning","Failed! No result found.");
+            return Redirect::to("/all_collection");
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //displaying collection by pos
     public function pos_collection()
@@ -60,4 +91,6 @@ class CollectionController extends Controller
         $revenue = Revenuehead::all();
         return view("collection.revenue_heads",compact('revenue'));
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

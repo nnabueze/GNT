@@ -1,210 +1,186 @@
 @extends('admin')
 @section('content')
-
 <!-- MAIN CONTENT -->
 <div id="content">
 
 	<div class="row">
-		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+		<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
 			<h1 class="page-title txt-color-blueDark">
 				<i class="fa fa-table fa-fw "></i> 
-				Collection 
+				Collection
 				<span>> 
-					All collection Table
+					All Collection
 				</span>
 			</h1>
 		</div>
 
+
 	</div>
 
-	<!-- widget grid -->
-	<section id="widget-grid" class="">
-		
-		<!-- row -->
 		<div class="row">
+			<div class="col-md-12">
+				<form method="post" action="/all_collection">
 
-			<!-- NEW WIDGET START -->
-			<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-				<!-- Widget ID (each widget will need unique ID)-->
-				<div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
-						<!-- widget options:
-						usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-		
-						data-widget-colorbutton="false"
-						data-widget-editbutton="false"
-						data-widget-togglebutton="false"
-						data-widget-deletebutton="false"
-						data-widget-fullscreenbutton="false"
-						data-widget-custombutton="false"
-						data-widget-collapsed="true"
-						data-widget-sortable="false"
-		
-					-->
-					
-					<!-- end widget -->
-					
-					<section id="widget-grid" class="">
-						<!-- row -->
+					<input type="hidden" name="_token" value="{{ csrf_token() }}">
+					<div class="col-sm-3">
+						<div class="form-group">
+							<select name="mda" class="form-control">
+								<option value="">Select MDA</option>
+								@if(isset($igr))
+									@foreach($igr->mdas as $mda)
+								<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
+									@endforeach
+								@else
+								@endif
+							</select>						
+						</div>
 						
-						<form action="/all_collection" method="POST">
-							<div class="col-sm-3">				
-								<div class="">
-									<div class="">
-										<input type="hidden" name="_token" value="{{ csrf_token() }}">
-										<select name="lga" class="select" ">
-											@if(count($igr->mdas) > 0)
-											<option value="">Select LGA's</option>
-											@foreach($igr->mdas as $mda)
-											<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
-											@endforeach
-											@else
-											<option value="">Select LGA's</option>
-											@endif
-										</select> 
-
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3">				
-							<div class="form-group">
-								<div class="input-group">
-									<input class="form-control" id="to" type="text" placeholder="Select a date" name="dateto">
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>							
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<div class="form-group">
-								<div class="input-group">
-									<input class="form-control" id="from" type="text" placeholder="From" name="datefrm">
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-									<input type="button" class="btn btn-default" value="Go">
-								</div>
-							</div>
-						</div>
-					</form> 
-
-					<!-- Widget ID (each widget will need unique ID)-->
-					<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-1" data-widget-editbutton="false">
-						<!-- widget options:
-						usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-		
-						data-widget-colorbutton="false"
-						data-widget-editbutton="false"
-						data-widget-togglebutton="false"
-						data-widget-deletebutton="false"
-						data-widget-fullscreenbutton="false"
-						data-widget-custombutton="false"
-						data-widget-collapsed="true"
-						data-widget-sortable="false"
-		
-					-->
-
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-
-					<!-- Widget ID (each widget will need unique ID)-->
-					<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3" data-widget-editbutton="false">
-						<!-- widget options:
-						usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-		
-						data-widget-colorbutton="false"
-						data-widget-editbutton="false"
-						data-widget-togglebutton="false"
-						data-widget-deletebutton="false"
-						data-widget-fullscreenbutton="false"
-						data-widget-custombutton="false"
-						data-widget-collapsed="true"
-						data-widget-sortable="false"
-		
-					-->
-					<header>
-						<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-						<h2>Export to PDF / Excel</h2>
-
-					</header>
-
-					<!-- widget div-->
-					<div>
-
-						<!-- widget edit box -->
-						<div class="jarviswidget-editbox">
-							<!-- This area used as dropdown edit box -->
-
-						</div>
-						<!-- end widget edit box -->
-
-						<!-- widget content -->
-						<div class="widget-body no-padding">
-							<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
-								<thead>
-									<tr>
-										<th data-hide="phone">Transaction ID</th>
-										<th data-class="expand">Payer Name</th>
-										<th>Payer ID</th>
-										<th data-hide="phone,tablet">Revenue Head</th>
-										<th data-hide="phone">Amount</th>
-										<th data-hide="phone,tablet">Channel</th>
-										<th data-hide="phone,tablet">Date</th>
-
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>NEMXpRGIefMLpMe</td>
-										<td>test tester </td>
-										<td>112233445566</td>
-										<td>Registration of Night Soil</td>
-										<td>1000</td>
-										<td>pos</td>
-										<td>2017-02-13</td>
-									</tr>
-								</tbody>
-							</table>
-
-						</div>
-						<!-- end widget content -->
 
 					</div>
-					<!-- end widget div -->
 
+					<div class="col-sm-3">				
+						<div class="form-group">
+							<div class="input-group">
+								<input class="form-control" id="startdate" type="text" placeholder="Select a date" name="startdate">
+								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>							
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<div class="input-group">
+								<input class="form-control" id="finishdate" type="text" placeholder="From" name="enddate">
+								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-3">				
+						<div class="form-group">
+							<div class="input-group">
+								<button type="submit" class="btn">Search</button>							
+							</div>
+						</div>
+					</div>
+				</form>	
+			</div>
+		</div>
+
+
+
+
+
+
+
+		<!-- widget grid -->
+		<section id="widget-grid" class="">
+
+			<!-- row -->
+			<div class="row">
+				
+				<!-- NEW WIDGET START -->
+				<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				@include('include.warning')
+				@include('include.message')
+				@include('include.error')
+
+					<!-- Widget ID (each widget will need unique ID)-->
+					<div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+								<!-- widget options:
+								usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+				
+								data-widget-colorbutton="false"
+								data-widget-editbutton="false"
+								data-widget-togglebutton="false"
+								data-widget-deletebutton="false"
+								data-widget-fullscreenbutton="false"
+								data-widget-custombutton="false"
+								data-widget-collapsed="true"
+								data-widget-sortable="false"
+				
+							-->
+							
+							<!-- end widget -->
+							
+					
+
+							<header>
+								<span class="widget-icon"> <i class="fa fa-table"></i> </span>
+								<h2>All Collection</h2>
+
+							</header>
+
+							<!-- widget div-->
+							<div>
+
+								<!-- widget edit box -->
+								<div class="jarviswidget-editbox">
+									<!-- This area used as dropdown edit box -->
+
+								</div>
+								<!-- end widget edit box -->
+
+								<!-- widget content -->
+								<div class="widget-body no-padding">
+
+								<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
+									<thead>
+										<tr>
+											<th data-hide="phone">Transaction ID</th>
+											<th data-class="expand">Payer Name</th>
+											<th>Payer ID</th>
+											<th data-hide="phone,tablet">Revenue Head</th>
+											<th data-hide="phone">Amount</th>
+											<th data-hide="phone,tablet">Channel</th>
+											<th data-hide="phone,tablet">Date</th>
+
+										</tr>
+									</thead>
+									<tbody>
+									@if($collection)
+										@foreach($collection as $collection)
+										<tr>
+											<td>{{$collection->collection_key}}</td>
+											<td>{{$collection->name}} </td>
+											<td>{{$collection->payer_id}}</td>
+											<td>{{$collection->head->revenue_name}}</td>
+											<td>{{$collection->amount}}</td>
+											<td>{{$collection->collection_type}}</td>
+											<td>{{$collection->created_at}}</td>
+										</tr>
+										@endforeach
+									@endif
+									</tbody>
+								</table>
+
+								</div>
+								<!-- end widget content -->
+
+							</div>
+							<!-- end widget div -->
+
+						</div>
+						<!-- end widget -->
+
+					</article>
+					<!-- WIDGET END -->
+					</div>
 				</div>
-				<!-- end widget -->
-
-			</article>
-			<!-- WIDGET END -->
+				
+				<!-- end row -->
+				
+				<!-- end row -->
+				
+			</section>
+			<!-- end widget grid -->
 
 		</div>
-		
-		<!-- end row -->
-		
-		<!-- end row -->
-		
-	</section>
-	<!-- end widget grid -->
+		<!-- END MAIN CONTENT -->
 
-</div>
-<!-- END MAIN CONTENT -->
+		@stop
+		@push('scripts')
+		<script type="text/javascript">
 
-</div>
-<!-- END MAIN PANEL -->
-
-
-@stop
-@push('scripts')
-<script type="text/javascript">
-	
 	// DO NOT REMOVE : GLOBAL FUNCTIONS!
 	
 	$(document).ready(function() {
@@ -376,6 +352,26 @@
 		});
 
 	    /* END TABLETOOLS */
+
+
+	    // START AND FINISH DATE
+	    $('#startdate').datepicker({
+	    	dateFormat : 'yy-mm-dd',
+	    	prevText : '<i class="fa fa-chevron-left"></i>',
+	    	nextText : '<i class="fa fa-chevron-right"></i>',
+	    	onSelect : function(selectedDate) {
+	    		$('#finishdate').datepicker('option', 'minDate', selectedDate);
+	    	}
+	    });
+	    
+	    $('#finishdate').datepicker({
+	    	dateFormat : 'yy-mm-dd',
+	    	prevText : '<i class="fa fa-chevron-left"></i>',
+	    	nextText : '<i class="fa fa-chevron-right"></i>',
+	    	onSelect : function(selectedDate) {
+	    		$('#startdate').datepicker('option', 'maxDate', selectedDate);
+	    	}
+	    });
 
 	})
 
