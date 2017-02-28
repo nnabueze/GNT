@@ -9,7 +9,7 @@
 				<i class="fa fa-table fa-fw "></i> 
 				Collection
 				<span>> 
-					POS Collection
+					Ebill Collection
 				</span>
 			</h1>
 		</div>
@@ -25,13 +25,12 @@
 					<div class="col-sm-3">
 						<div class="form-group">
 							<select name="mda" class="form-control">
-								<option value="">Select MDA</option>
+								<option value="">Select Agency</option>
 								@if(isset($mda))
 									@foreach($mda as $mda)
 								<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
 									@endforeach
 								@else
-								<option value="">NO MDA</option>
 								@endif
 							</select>						
 						</div>
@@ -107,7 +106,7 @@
 
 							<header>
 								<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-								<h2>POS Collection</h2>
+								<h2>Ebill Collection</h2>
 
 							</header>
 
@@ -140,22 +139,22 @@
 										</tr>
 									</thead>
 									<tbody>
-										@if($collection)
-											@foreach($collection as $collection)
+									@if($collections)
+										@foreach($collections as $collection)
 										<tr>
-										<td>{{$collection->collection_key}}</td>
-										<td>{{$collection->name}} </td>
-										<td>{{$collection->payer_id}}</td>
+											<td>{{$collection->collection_key}}</td>
+											<td>{{$collection->name}} </td>
+											<td>{{$collection->payer_id}}</td>
 
-										<td>{{$collection->revenuehead->revenue_name}}</td>
-										<td>{{$collection->amount}}</td>
-										<td>{{$collection->collection_type}}</td>
-										<td>{{$collection->worker->worker_name}}</td>
-										<td>{{$collection->station->station_name}}</td>
-										<td>{{$collection->created_at}}</td>
+											<td>{{$collection->revenuehead->revenue_name}}</td>
+											<td>{{$collection->amount}}</td>
+											<td>{{$collection->collection_type}}</td>
+											<td>{{$collection->worker->worker_name}}</td>
+											<td>{{$collection->station->station_name}}</td>
+											<td>{{$collection->created_at}}</td>
 										</tr>
-											@endforeach
-										@endif
+										@endforeach
+									@endif
 									</tbody>
 								</table>
 

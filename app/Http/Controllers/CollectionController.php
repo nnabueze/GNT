@@ -69,14 +69,6 @@ class CollectionController extends Controller
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //displaying collection by pos
-    public function pos_collection()
-    {
-        $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
-            $mda = Mda::with("collections")->find(Auth::user()->igr_id);
-        return view("collection.pos_collection",compact("mda","igr"));
-    }
-
     //ebills
     public function ebill_collection()
     {
@@ -92,7 +84,7 @@ class CollectionController extends Controller
     public function ebill_collection_range(Request $request)
     {
         //getting list of mdas
-        $mda = Mda::where("mda_category","state")->where("igr_id",Auth::user()->igr_id)->get();
+        $mda = Mda::where("igr_id",Auth::user()->igr_id)->get();
 
         //getting all the request
         $mda_id = $request->input("mda");
@@ -112,7 +104,7 @@ class CollectionController extends Controller
         }
 
             Session::flash("warning","Failed! No result found.");
-            return Redirect::to("/all_collection");
+            return Redirect::to("/ebill_collection");
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -163,7 +155,7 @@ class CollectionController extends Controller
         }
 
             Session::flash("warning","Failed! No result found.");
-            return Redirect::to("/all_collection");
+            return Redirect::to("/agency_collection");
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -202,6 +194,45 @@ class CollectionController extends Controller
         }
 
             Session::flash("warning","Failed! No result found.");
-            return Redirect::to("/all_collection");
+            return Redirect::to("/lga_collection");
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //getting all collections by POS
+    public function pos_collection()
+    {
+        $mda = Mda::where("igr_id",Auth::user()->igr_id)->get();
+        $sidebar = "pos_collection";
+        $collection = array();
+        return view("collection.pos_collection",compact("mda",'sidebar',"collection"));
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //getting a specific pos colection
+    public function pos_collection_range(Request $request)
+    {
+        //getting list of mdas
+        $mda = Mda::where("igr_id",Auth::user()->igr_id)->get();
+
+        //getting all the request
+        $mda_id = $request->input("mda");
+        $start_date = $request->input("startdate");
+        $end_date = $request->input("enddate");
+
+        $sidebar = "pos_collection";
+
+        //getting collection within the date range
+        $collections = Collection::where("collection_type","pos")->where("mda_id",$mda_id)->whereDate('created_at',">=",$start_date )->whereDate('created_at',"<=",$end_date )->get();
+
+        //select station base on MDA
+        
+        if (count($collections) > 0) {
+                
+            return view("collection.pos_range",compact("mda","sidebar","collections"));
+        }
+
+            Session::flash("warning","Failed! No result found.");
+            return Redirect::to("/pos_collection");
     }
 }
