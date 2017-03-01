@@ -142,6 +142,16 @@ Route::get("/lga_collection","CollectionController@lga_collection");
 //route lga range collection
 Route::post("/lga_collection","CollectionController@lga_collection_range");
 
+//Route onbarding an  igr
+Route::get("/igr","AdminController@igr");
+
+//storing igr
+Route::post("/igr","AdminController@igr_store");
+
+//deleting igr
+Route::get("/igr/{any}","AdminController@delete_igr");
+
+
 
 
 

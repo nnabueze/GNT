@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Redirect;
 use Session;
+use App\Igr;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -72,6 +73,88 @@ class AdminController extends Controller
 	public function admin()
 	{
 		return Redirect::to("/");
+	}
+
+	//onboarding igr
+	public function igr()
+	{
+		$sidebar = "igr";
+		$igr = Igr::all();
+		return view("agency.igr", compact("sidebar",'igr'));
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//storing IGR
+	public function igr_store(Request $request)
+	{
+		//validate
+		$this->validate($request, [
+		    'state_name' => 'required|min:3',
+		    'igr_abbre' => 'required',
+		]);
+
+		//generate random digit number
+		$request['igr_key'] = $this->random_number(11);
+		$request['igr_code'] = "IGR".$this->random_number(5);
+
+		//check if the name exist
+		if ($igr = Igr::where("state_name",$request->input("state_name"))->first()) {
+
+			Session::flash("warning","Failed! IGR Exist");
+			return Redirect::back();
+		}
+
+
+		//insert into db
+		if (Igr::create($request->all())) {
+
+			Session::flash("message","Success! IGR Onboarded");
+			return Redirect::back();
+
+		}
+
+		//reture response
+		Session::flash("warning","Failed! Unable to onboard IGR");
+		return Redirect::back();
+	}
+
+	//deleting igr from the portal
+	public function delete_igr($id)
+	{
+		//checking user right
+		if ( ! Auth::user()->hasRole('Superadmin')) {
+
+		   Session::flash("warning","You don't have the right to delete MDA");
+		   return Redirect::back();
+		}
+
+		//deleting the mda
+		if ($igr = Igr::where("igr_key",$id)->first()) {
+		   $igr->delete();
+
+		   Session::flash("message","Successful! IGR deleted");
+		   return Redirect::back();
+		}
+
+		Session::flash("warning","Failed! IGR not deleted");
+		return Redirect::back();
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//generating random digit number
+	private function random_number($size = 5)
+	{
+	   $random_number='';
+	   $count=0;
+	   while ($count < $size ) 
+	   {
+	      $random_digit = mt_rand(0, 9);
+	      $random_number .= $random_digit;
+	      $count++;
+	   }
+	   return $random_number;  
 	}
 
 }
