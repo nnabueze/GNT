@@ -14,6 +14,9 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/bootstrap.min.css')}}">
 	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/font-awesome.min.css')}}">
 
+	<!-- dropdow select 2 -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
 	<!-- SmartAdmin Styles : Caution! DO NOT change the order -->
 	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/smartadmin-production-plugins.min.css')}}">
 	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/smartadmin-production.min.css')}}">
@@ -266,6 +269,9 @@
 			document.write('<script src="{{ asset('template/js/libs/jquery-ui-1.10.3.min.js')}}"><\/script>');
 		}
 	</script>
+
+	<!-- dropdown select 2 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
 	<!-- IMPORTANT: APP CONFIG -->
 	<script src="{{ asset('template/js/app.config.js')}}"></script>

@@ -61,7 +61,7 @@ Route::post("/users","UserController@store");
 Route::get("/pos_collection","CollectionController@pos_collection");
 
 //getting a specific collection record for an MDA
-Route::post("/pos_collection","CollectionController@pos_collection_range");
+Route::post("/pos_collection","CollectionController@/'");
 
 //Ebills collection page
 Route::get("/ebill_collection","CollectionController@ebill_collection");

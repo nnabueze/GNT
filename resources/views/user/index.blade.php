@@ -50,7 +50,7 @@
 			<div class="row">
 
 				<!-- NEW COL START -->
-				<article class="col-sm-12 col-md-12 col-lg-6">
+				<article class="col-sm-12 col-md-12 col-lg-7">
 
 					<!-- Widget ID (each widget will need unique ID)-->
 					<div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-custombutton="false">
@@ -118,6 +118,8 @@
 										<th data-hide="phone">ID</th>
 										<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Name</th>
 										<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Email</th>
+										<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Role</th>
+										<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Role Discription</th>
 										<th data-hide="phone,tablet">Action</th>
 
 
@@ -132,6 +134,16 @@
 										<td>{{$i}}</td>
 										<td>{{$user->name}}</td>
 										<td>{{$user->email}}</td>
+										<td>
+										@foreach($user->roles as $role)
+										{{$role->name}}
+										@endforeach
+										</td>
+										<td>
+										@foreach($user->roles as $role)
+										{{$role->description}}
+										@endforeach
+										</td>
 										<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/users/{{$user->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 
 									</tr>
@@ -180,7 +192,7 @@
 		<!-- END COL -->
 
 		<!-- NEW COL START -->
-		<article class="col-sm-12 col-md-12 col-lg-6">
+		<article class="col-sm-12 col-md-12 col-lg-5">
 			
 			<!-- Widget ID (each widget will need unique ID)-->
 			<div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
@@ -260,14 +272,11 @@
 
 												<section>
 													<label class="select">
-														<select name="role[]">
-															<option value="0" selected="" disabled="">Role</option>
+														<select name="role[]" id="user_seclect" multiple="multiple">
 															@if($roles)
 															@foreach($roles as $role)
 															<option value="{{$role->id}}">{{$role->name}}</option>
 															@endforeach
-															@else
-															<option value="1">No Role</option>
 															@endif
 														</select></label>
 													</section>
@@ -302,8 +311,9 @@
 
 							</article>
 							<!-- END COL -->		
+							</div>
 
-						</div>
+						
 
 
 						<!-- END ROW -->
@@ -321,3 +331,11 @@
 </div>
 
 @stop
+@push('scripts')
+<script type="text/javascript">
+	$("#user_seclect").select2({
+	  tags: true,
+	  placeholder: "Select Role",
+	});
+</script>
+@endpush
