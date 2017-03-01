@@ -1,6 +1,5 @@
 @extends('admin')
 @section('content')
-<!-- RIBBON -->
 
 <div id="ribbon">
 
