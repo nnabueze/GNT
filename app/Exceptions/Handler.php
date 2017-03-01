@@ -52,6 +52,13 @@ class Handler extends ExceptionHandler
             return response()->json(['token_invalid'], $e->getStatusCode());
         }
 
+        ///////////////////////////////////CUSTOM ERROR//////////////////////////////////////////////
+        if($e instanceof NotFoundHttpException)
+        {
+            return response()->view('error.error404', [], 404);
+        }
+        ////////////////////////////////////////////////////////////////////////////////
+
         return parent::render($request, $e);
     }
 }
