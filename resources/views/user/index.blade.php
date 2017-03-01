@@ -10,7 +10,7 @@
 
 	<!-- breadcrumb -->
 	<ol class="breadcrumb">
-		<li>Setup</li><li>User</li>
+		<li>Access Control</li><li>User</li>
 	</ol>
 	<!-- end breadcrumb -->
 
@@ -26,34 +26,34 @@
 </span> -->
 
 </div>
-			<!-- MAIN CONTENT -->
+<!-- MAIN CONTENT -->
 <div id="content">
 
 
-<div class="row">
-@include('include.message')
-@include('include.warning')
-<div class="alert alert-block alert-success">
-	<a class="close" data-dismiss="alert" href="#">×</a>
-	<h4 class="alert-heading"><i class="fa fa-check-square-o"></i> User Page!</h4>
-	<p>
-		Create user and attach to an Mda
-	</p>
-</div>
-
-<!-- widget grid -->
-<section id="widget-grid" class="">
-
-
-	<!-- START ROW -->
-
 	<div class="row">
+		@include('include.message')
+		@include('include.warning')
+		<div class="alert alert-block alert-success">
+			<a class="close" data-dismiss="alert" href="#">×</a>
+			<h4 class="alert-heading"><i class="fa fa-check-square-o"></i> User Page!</h4>
+			<p>
+				Create user and attach to an Mda
+			</p>
+		</div>
 
-		<!-- NEW COL START -->
-		<article class="col-sm-12 col-md-12 col-lg-6">
-			
-			<!-- Widget ID (each widget will need unique ID)-->
-			<div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-custombutton="false">
+		<!-- widget grid -->
+		<section id="widget-grid" class="">
+
+
+			<!-- START ROW -->
+
+			<div class="row">
+
+				<!-- NEW COL START -->
+				<article class="col-sm-12 col-md-12 col-lg-6">
+
+					<!-- Widget ID (each widget will need unique ID)-->
+					<div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-custombutton="false">
 				<!-- widget options:
 					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 					
@@ -85,16 +85,16 @@
 					
 					<!-- widget content -->
 					
-				<section id="widget-grid" class="">
-				
-					<!-- row -->
-					<div class="row">
-				
-						<!-- NEW WIDGET START -->
-						<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				
-							<!-- Widget ID (each widget will need unique ID)-->
-							<div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+					<section id="widget-grid" class="">
+
+						<!-- row -->
+						<div class="row">
+
+							<!-- NEW WIDGET START -->
+							<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+								<!-- Widget ID (each widget will need unique ID)-->
+								<div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
 								<!-- widget options:
 								usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 				
@@ -107,56 +107,56 @@
 								data-widget-collapsed="true"
 								data-widget-sortable="false"
 				
-								-->
+							-->
 
-								<!-- widget div-->
+							<!-- widget div-->
 
-				
-										<table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
-											<thead>			                
-												<tr>
-													<th data-hide="phone">ID</th>
-													<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Name</th>
-													<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Email</th>
-													<th data-hide="phone,tablet">Action</th>
-													
-													
-												
-												</tr>
-											</thead>
-											<tbody>
-											<?php $i = 1;?>
-											@if($users)
-												@foreach($users as $user)
-												<tr>
-													<td>{{$i}}</td>
-													<td>{{$user->name}}</td>
-													<td>{{$user->email}}</td>
-													<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/users/{{$user->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
-													
-												</tr>
-												<?php $i++; ?>
-												@endforeach
-												@endif
 
-															
-											</tbody>
-										</table>
+							<table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
+								<thead>			                
+									<tr>
+										<th data-hide="phone">ID</th>
+										<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Name</th>
+										<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Email</th>
+										<th data-hide="phone,tablet">Action</th>
 
-								
-					
-				</div>
-				<!-- end widget div -->
-				
-			</div>
-			<!-- end widget -->
-			
-			<!-- Widget ID (each widget will need unique ID)-->
-			
-			<!-- end widget -->				
 
-			<!-- Widget ID (each widget will need unique ID)-->
-			<div class="jarviswidget" id="wid-id-7" data-widget-editbutton="false" data-widget-custombutton="false">
+
+									</tr>
+								</thead>
+								<tbody>
+									<?php $i = 1;?>
+									@if($users)
+									@foreach($users as $user)
+									<tr>
+										<td>{{$i}}</td>
+										<td>{{$user->name}}</td>
+										<td>{{$user->email}}</td>
+										<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/users/{{$user->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
+
+									</tr>
+									<?php $i++; ?>
+									@endforeach
+									@endif
+
+
+								</tbody>
+							</table>
+							<!-- pagination -->
+
+							{!! $users->render() !!}
+						</div>
+						<!-- end widget div -->
+
+					</div>
+					<!-- end widget -->
+
+					<!-- Widget ID (each widget will need unique ID)-->
+
+					<!-- end widget -->				
+
+					<!-- Widget ID (each widget will need unique ID)-->
+					<div class="jarviswidget" id="wid-id-7" data-widget-editbutton="false" data-widget-custombutton="false">
 				<!-- widget options:
 					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 					
@@ -170,8 +170,8 @@
 					data-widget-sortable="false"
 					
 				-->
-			<!-- widget div-->
-			<!-- end widget div -->
+				<!-- widget div-->
+				<!-- end widget div -->
 				
 			</div>
 			<!-- end widget -->	
@@ -197,7 +197,7 @@
 					data-widget-sortable="false"
 					
 				-->
-			
+
 
 				<!-- widget div-->
 				<div>
@@ -213,7 +213,7 @@
 					<div class="widget-body no-padding">
 						
 						<form  action="/users" class="smart-form" method="POST">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<header>
 								User form
 							</header>
@@ -223,16 +223,16 @@
 									<label class="input"> <i class="icon-append fa fa-user"></i>
 										<input type="text" name="name" placeholder="Name">
 										<b class="tooltip tooltip-bottom-right">Enter Username</b> </label>
-								</section>
-								
-								<section>
+									</section>
+
+									<section>
 										<label class="input"> <i class="icon-append fa fa-envelope-o"></i>
 											<input type="email" name="email" placeholder="E-mail">
 											<b class="tooltip tooltip-bottom-right">Enter a Valid Email</b>
 										</label>
 									</section>
-								
-								<section>
+
+									<section>
 										<label class="select">
 											<select name="mda_id">
 												<option value="0" selected="">Select MDA</option>
@@ -244,147 +244,80 @@
 												<option value="1">No MDA</option>
 												@endif
 											</select> <b class="tooltip tooltip-bottom-right">Select An IGR</b></label>
-									</section>
-									
-									<section>
-									<label class="input"> <i class="icon-append fa fa-lock"></i>
-										<input type="password" name="password" placeholder="Password" id="password">
-										<b class="tooltip tooltip-bottom-right">Enter your password</b> </label>
-								</section>
-									
-								<section>
-									<label class="input"> <i class="icon-append fa fa-lock"></i>
-										<input type="password" name="passwordConfirm" placeholder="Confirm password">
-										<b class="tooltip tooltip-bottom-right">Confirm password</b> </label>
-								</section>
-									
-								<section>
-										<label class="select">
-											<select name="role[]">
-												<option value="0" selected="" disabled="">Role</option>
-												@if($roles)
-												@foreach($roles as $role)
-												<option value="{{$role->id}}">{{$role->name}}</option>
-												@endforeach
-												@else
-												<option value="1">No Role</option>
-												@endif
-											</select></label>
-									</section>
+										</section>
 
-							
-							</fieldset>
-
-							
-							<footer>
-								<button type="submit" class="btn btn-primary">
-									Create
-								</button>
-							</footer>
-						</form>						
-						
-					</div>
-					<!-- end widget content -->
-					
-				</div>
-				<!-- end widget div -->
-				
-			</div>
-			<!-- end widget -->
-			
-			<!-- Widget ID (each widget will need unique ID)-->
-			<!-- end widget -->
-				
-			
-			<!-- Widget ID (each widget will need unique ID)-->
-			<!-- end widget -->								
-
-
-		</article>
-		<!-- END COL -->		
-
-	</div>
-
-	<!-- END ROW -->
-
-</section>
-<!-- end widget grid -->
-
-
-<!-- Modal -->
-<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					&times;
-				</button>
-				<h4 class="modal-title">
-					<img src="img/logo.png" width="150" alt="SmartAdmin">
-				</h4>
-			</div>
-			<div class="modal-body no-padding">
-
-				<form id="login-form" class="smart-form">
-
-							<fieldset>
-								<section>
-									<div class="row">
-										<label class="label col col-2">Username</label>
-										<div class="col col-10">
-											<label class="input"> <i class="icon-append fa fa-user"></i>
-												<input type="email" name="email">
-											</label>
-										</div>
-									</div>
-								</section>
-
-								<section>
-									<div class="row">
-										<label class="label col col-2">Password</label>
-										<div class="col col-10">
+										<section>
 											<label class="input"> <i class="icon-append fa fa-lock"></i>
-												<input type="password" name="password">
-											</label>
-											<div class="note">
-												<a href="javascript:void(0)">Forgot password?</a>
-											</div>
+												<input type="password" name="password" placeholder="Password" id="password">
+												<b class="tooltip tooltip-bottom-right">Enter your password</b> </label>
+											</section>
+
+											<section>
+												<label class="input"> <i class="icon-append fa fa-lock"></i>
+													<input type="password" name="passwordConfirm" placeholder="Confirm password">
+													<b class="tooltip tooltip-bottom-right">Confirm password</b> </label>
+												</section>
+
+												<section>
+													<label class="select">
+														<select name="role[]">
+															<option value="0" selected="" disabled="">Role</option>
+															@if($roles)
+															@foreach($roles as $role)
+															<option value="{{$role->id}}">{{$role->name}}</option>
+															@endforeach
+															@else
+															<option value="1">No Role</option>
+															@endif
+														</select></label>
+													</section>
+
+
+												</fieldset>
+
+
+												<footer>
+													<button type="submit" class="btn btn-primary">
+														Create
+													</button>
+												</footer>
+											</form>						
+
 										</div>
+										<!-- end widget content -->
+
 									</div>
-								</section>
+									<!-- end widget div -->
 
-								<section>
-									<div class="row">
-										<div class="col col-2"></div>
-										<div class="col col-10">
-											<label class="checkbox">
-												<input type="checkbox" name="remember" checked="">
-												<i></i>Keep me logged in</label>
-										</div>
-									</div>
-								</section>
-							</fieldset>
-							
-							<footer>
-								<button type="submit" class="btn btn-primary">
-									Sign in
-								</button>
-								<button type="button" class="btn btn-default" data-dismiss="modal">
-									Cancel
-								</button>
+								</div>
+								<!-- end widget -->
 
-							</footer>
-						</form>						
-						
-
-			</div>
-
-		</div><!-- /.modal-content --
-	</div><!-- /.modal-dialog --
-</div><!-- /.modal --
+								<!-- Widget ID (each widget will need unique ID)-->
+								<!-- end widget -->
 
 
-			</div>-->
-			<!-- END MAIN CONTENT -->
+								<!-- Widget ID (each widget will need unique ID)-->
+								<!-- end widget -->								
+
+
+							</article>
+							<!-- END COL -->		
+
+						</div>
+
+
+						<!-- END ROW -->
+
+					</section>
+					<!-- end widget grid -->
+
+<!-- END MAIN CONTENT -->
+</div>
+</div>
+</article>
+</div>
+</section>
+</div>
+</div>
 
 @stop
