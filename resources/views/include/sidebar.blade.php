@@ -108,6 +108,8 @@
 			</li>
 			@endif
 
+			<!-- Staff can only view collection one specific LGA or MDA assigned to him -->
+
 			@if(Auth::user()->hasRole('Staff'))
 			<li class="<?php if ($sidebar == "all_collection"||$sidebar == "agency" ||$sidebar == "lga"){echo "active";}else{echo "";}?>">
 				<a href="#"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Collection</span></a>
