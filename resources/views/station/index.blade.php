@@ -71,8 +71,8 @@
 											<label class="input">
 												<select class="form-control" name="mda_id" >
 													<option value="">Select MDA/LGA</option>
-													@if($mda)
-														@foreach($mda as $mda)
+													@if(isset($igr->mdas))
+														@foreach($igr->mdas as $mda)
 													<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
 														@endforeach
 													@else
@@ -124,10 +124,10 @@
 					<!-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
 					<div class="col-sm-3">
 						<div class="form-group">
-							<select name="station" class="form-control" onchange="this.form.submit()">
+							<select name="station" class="form-control" onchange="this.form.submit()" id="mda">
 								<option value="">Select MDA</option>
-								@if($mda1)
-									@foreach($mda1 as $mda)
+								@if(isset($igr->mdas))
+									@foreach($igr->mdas as $mda)
 								<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
 									@endforeach
 								@endif
@@ -246,6 +246,11 @@
 
 		@stop
 		@push('scripts')
+		<script type="text/javascript">
+			$("#mda").select2({
+			  placeholder: "Select Station",
+			});
+		</script>
 		<script type="text/javascript">
 
 	// DO NOT REMOVE : GLOBAL FUNCTIONS!

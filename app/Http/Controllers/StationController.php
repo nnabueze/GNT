@@ -34,10 +34,9 @@ class StationController extends Controller
     public function index()
     {
        $sidebar = "station";
-       $mda = Mda::all();
-       $mda1 = Mda::all();
+       $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
        $station="";
-    	return view("station.index",compact("sidebar","mda","mda1","station"));
+    	return view("station.index",compact("sidebar","igr","station"));
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -76,14 +75,13 @@ class StationController extends Controller
 
     	//getting all the existing MDA
     	$sidebar = "station";
-    	$mda = Mda::all();
-    	$mda1 = Mda::all();
+        $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
 
     	//select station base on MDA
     	$station = Station::where("mda_id",$item)->get();
     	if (count($station) > 0) {
     		
-    		return view("station.index",compact("station","sidebar","mda","mda1"));
+    		return view("station.index",compact("station","sidebar","igr"));
     	}
 
     	Session::flash("warning","Failed! No station added.");
