@@ -50,7 +50,7 @@
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="col-sm-3">
 						<div class="form-group">
-							<select name="mda" class="form-control">
+							<select name="mda" class="form-control" id="lga">
 								<option value="">Select LGA</option>
 								@if(isset($mda))
 									@foreach($mda as $mda)
@@ -84,7 +84,7 @@
 					<div class="col-sm-3">				
 						<div class="form-group">
 							<div class="input-group">
-								<button type="submit" class="btn">Search</button>							
+								<button type="submit" class="btn"> <span class="glyphicon glyphicon-search"></span>  Search</button>							
 							</div>
 						</div>
 					</div>
@@ -209,6 +209,14 @@
 
 		@stop
 		@push('scripts')
+		<script type="text/javascript">
+			$("#mda").select2({
+			  placeholder: "Select MDA",
+			});
+			$("#lga").select2({
+			  placeholder: "Select LGA",
+			});
+		</script>
 		<script type="text/javascript">
 
 	// DO NOT REMOVE : GLOBAL FUNCTIONS!
