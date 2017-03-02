@@ -29,7 +29,7 @@
 
 			<!-- Superadmin has the full right to delete and user etc -->
 
-			@if(Auth::user()->hasRole('Superadmin'))
+		
 			<li class="<?php if ($sidebar == "user_sidebar"||$sidebar == "permission" ||$sidebar == "role"){echo "active";}else{echo "";}?>">
 				<a href="#"><i class="fa fa-lg fa-fw fa-windows"></i> <span class="menu-item-parent">Access Control</span></a>
 				<ul>
@@ -45,7 +45,7 @@
 
 				</ul>
 			</li>
-			@endif
+			
 
 			<!-- Superadmin and Admin has the right to onboard new IGR, 
 			add mda, add lga, add station, add pos and heads etc. -->
