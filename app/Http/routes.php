@@ -128,7 +128,7 @@ Route::get("/agent_mda/{any}","AgentController@agent_mda");
 Route::get("/revenue_heads","HeadsController@index");
 
 //Route for getting list of head of a specific MDA
-Route::get("/heads","HeadsController@heads");
+Route::post("/revenue_heads","HeadsController@heads");
 
 //getting the revenue heads for lag and Mda
 Route::get("/heads_revenue","HeadsController@heads_revenue");

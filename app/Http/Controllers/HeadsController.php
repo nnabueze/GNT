@@ -42,13 +42,13 @@ class HeadsController extends Controller
     {
     	//getting the parameter
     	$item = $request->only("station");
-
+       
     	//getting all the existing MDA
     	$sidebar = "heads";
     	$igr = igr::with("mdas")->find(Auth::user()->igr_id);
 
     	//select station base on MDA
-    	$heads = Revenuehead::where("mda_id",$item)->with("subheads")->get();
+    	 $heads = Mda::where("id",$item)->first();
     	if (count($heads) > 0) {
     		
     		return view("heads.subhead",compact("heads","sidebar","igr"));
@@ -83,7 +83,7 @@ class HeadsController extends Controller
 
         //select station base on MDA
         $heads = Mda::where("id",$item)->first();
-        
+
         if (count($heads) > 0) {
             
             return view("heads.heads_revenue_range",compact("heads","sidebar","igr"));

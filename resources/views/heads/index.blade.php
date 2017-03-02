@@ -156,9 +156,9 @@
 
 		<div class="row">
 			<div class="col-md-12">
-			<form method="get" action="/heads" >
+			<form method="post" action="/revenue_heads" >
 
-				<!-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<div class="col-sm-3">
 					<div class="form-group">
 						<select name="station" class="form-control" onchange="this.form.submit()" id="mda">
