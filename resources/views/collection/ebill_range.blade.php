@@ -48,10 +48,50 @@
 				<form method="post" action="/ebill_collection">
 
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
+					
+					@if(Auth::user()->hasRole('Lga'))
+
 					<div class="col-sm-3">
 						<div class="form-group">
-							<select name="mda" class="form-control">
-								<option value="">Select Agency</option>
+							<select name="mda" class="form-control" id="lga">
+								<option value="">Select LGA</option>
+								@if(isset($mda))
+									@foreach($mda as $mda)
+										@if($mda->mda_category == 'lga')
+								<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
+										@endif
+									@endforeach
+								@else
+								@endif
+							</select>						
+						</div>
+					</div>
+
+
+					@elseif(Auth::user()->hasRole('Mda'))
+
+					<div class="col-sm-3">
+						<div class="form-group">
+							<select name="mda" class="form-control" id="mda">
+								<option value="">Select LGA</option>
+								@if(isset($mda))
+									@foreach($mda as $mda)
+										@if($mda->mda_category == 'state')
+								<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
+										@endif
+									@endforeach
+								@else
+								@endif
+							</select>						
+						</div>
+					</div>
+
+					@else
+
+					<div class="col-sm-3">
+						<div class="form-group">
+							<select name="mda" class="form-control" id="mda">
+								<option value="">Select MDA</option>
 								@if(isset($mda))
 									@foreach($mda as $mda)
 								<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
@@ -60,9 +100,10 @@
 								@endif
 							</select>						
 						</div>
-						
-
 					</div>
+
+
+					@endif
 
 					<div class="col-sm-3">				
 						<div class="form-group">

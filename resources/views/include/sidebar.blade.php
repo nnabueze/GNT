@@ -27,6 +27,8 @@
 
 			</li>
 
+			<!-- Superadmin has the full right to delete and user etc -->
+
 			@if(Auth::user()->hasRole('Superadmin'))
 			<li class="<?php if ($sidebar == "user_sidebar"||$sidebar == "permission" ||$sidebar == "role"){echo "active";}else{echo "";}?>">
 				<a href="#"><i class="fa fa-lg fa-fw fa-windows"></i> <span class="menu-item-parent">Access Control</span></a>
@@ -45,6 +47,9 @@
 			</li>
 			@endif
 
+			<!-- Superadmin and Admin has the right to onboard new IGR, 
+			add mda, add lga, add station, add pos and heads etc. -->
+
 			@if(Auth::user()->hasRole(['Admin','Superadmin']))
 			<li class="<?php if ($sidebar == "pos"||$sidebar == "agancy"|| $sidebar == "lga" ||$sidebar == "station"||$sidebar == "agent"||$sidebar == "heads"){echo "active";}else{echo "";}?>">
 				<a href="#"><i class="fa fa-lg fa-fw fa-desktop"></i><span class="menu-item-parent">Setup</span></a>
@@ -61,11 +66,17 @@
 			</li>
 			@endif
 
+			<!-- MDA and LGA has the right to view revenue heads but 
+			can not onboard or add new heads. -->
+
 			@if(Auth::user()->hasRole(['Lga','Mda']))
-			<li class="<?php if ($sidebar == "heads"){echo "active";}else{echo "";}?>">
-				<a href="/revenue_heads"><i class="fa fa-lg fa-fw fa-desktop"></i>SubHeads</a></li>
+			<li class="<?php if ($sidebar == "heads_revenue"){echo "active";}else{echo "";}?>">
+				<a href="/heads_revenue"><i class="fa fa-lg fa-fw fa-desktop"></i>SubHeads</a></li>
 			</li>
 			@endif
+
+			<!-- Superadmin and Admin have the right to view collections on different level like 
+			MDA and LGA while LGA and MDA can only view collection at it own level. -->
 
 			@if(Auth::user()->hasRole(['Admin','Superadmin','Mda','Lga']))
 			<li class="<?php if ($sidebar == "all_collection"||$sidebar == "agency" ||$sidebar == "lga"){echo "active";}else{echo "";}?>">

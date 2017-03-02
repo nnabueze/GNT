@@ -40,115 +40,9 @@
 			</h1>
 		</div>
 
-		<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-			<!-- Button trigger modal -->
-			<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg pull-right header-btn hidden-mobile"><i class="fa fa-circle-arrow-up fa-lg"></i> ADD REVENUE HEAD</a>
-		</div>
 	</div>
 
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-						&times;
-					</button>
-					<h4 class="modal-title">
-						<img src="{{ asset('template/img/logo1.png')}}" width="150" alt="SmartAdmin">
-					</h4>
-				</div>
-				<div class="modal-body no-padding">
-				<form id="login-form" method="POST" action="/lga" class="smart-form">
-					<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					<fieldset>
-							
-							<section>
-								<div class="row">
-									<label class="label col col-2">Revenue Name</label>
-									<div class="col col-10">
-										<label class="input"> <i class="icon-append fa fa-user"></i>
-											<input type="text" name="revenue_name">
-										</label>
-									</div>
-								</div>
-							</section>
 
-							<section>
-								<div class="row">
-									<label class="label col col-2">Amount</label>
-									<div class="col col-10">
-										<label class="input"> <i class="icon-append fa fa-user"></i>
-											<input type="text" name="amount">
-										</label>
-									</div>
-								</div>
-							</section>
-							
-							
-							<section>
-								<div class="row">
-									<label class="label col col-2">MDA</label>
-									<div class="col col-10">
-										<label class="input">
-											<select class="form-control" name="mda" >
-
-												<option value="">Select MDA</option>
-												@if(isset($igr->mdas))
-													@foreach($igr->mdas as $mda)
-												<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
-													@endforeach
-												@else
-												<option value="">NO MDA</option>
-												@endif
-												
-											</select>	
-										</label>
-									</div>
-								</div>
-							</section>
-
-							<section>
-								<div class="row">
-							
-								<label class="label col col-2">Taxible</label>
-								<div class="col-md-10">
-								<label class="input">
-									<div class="radio">
-										<label>
-											<input type="radio" class="radiobox style-0" checked="checked" name="style-0">
-											<span>Yes</span> 
-										</label>
-									</div>
-									<div class="radio">
-										<label>
-											<input type="radio" class="radiobox style-0" name="style-0">
-											<span>No</span> 
-										</label>
-									</div>
-								</label>
-							</div>
-							</div>
-							</section>
-
-							
-							
-						</fieldset>
-						
-						<footer>
-							<button type="submit" class="btn btn-primary">
-								ADD
-							</button>
-
-						</footer>
-					</form>						
-						
-
-					</div>
-
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
 
 
 		<br />
@@ -156,23 +50,64 @@
 
 		<div class="row">
 			<div class="col-md-12">
-			<form method="get" action="/heads" >
+			<form method="get" action="/heads_revenue" >
 
-				<!-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				@if(Auth::user()->hasRole('Lga'))
+
 				<div class="col-sm-3">
 					<div class="form-group">
-						<select name="station" class="form-control" onchange="this.form.submit()" id="mda">
+						<select name="mda" class="form-control" id="lga">
+							<option value="">Select LGA</option>
+							@if(isset($igr->mdas))
+								@foreach($igr->mdas as $mda)
+									@if($mda->mda_category == 'lga')
+							<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
+									@endif
+								@endforeach
+							@else
+							@endif
+						</select>						
+					</div>
+				</div>
+
+
+				@elseif(Auth::user()->hasRole('Mda'))
+
+				<div class="col-sm-3">
+					<div class="form-group">
+						<select name="mda" class="form-control" id="mda">
+							<option value="">Select LGA</option>
+							@if(isset($igr->mdas))
+								@foreach($igr->mdas as $mda)
+									@if($mda->mda_category == 'state')
+							<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
+									@endif
+								@endforeach
+							@else
+							@endif
+						</select>						
+					</div>
+				</div>
+
+				@else
+
+				<div class="col-sm-3">
+					<div class="form-group">
+						<select name="mda" class="form-control" id="mda">
 							<option value="">Select MDA</option>
 							@if(isset($igr->mdas))
 								@foreach($igr->mdas as $mda)
 							<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
 								@endforeach
+							@else
 							@endif
 						</select>						
 					</div>
-					
-
 				</div>
+
+
+				@endif
 			</form>	
 		</div>
 		</div>
@@ -249,10 +184,17 @@
 										@if(isset($heads))
 											@foreach($heads as $heads)
 											<tr>
-												<td>{{$heads->heads_imei}}</td>
-												<td>{{$heads->name}}</td>
-												<td>{{$heads->mda->mda_name}}</td>
-												<td>{{$heads->activation_code}}</td>
+												<td>{{$heads->revenue_code}}</td>
+												<td>{{$heads->revenue_name}}</td>
+												@if(count($heads->subheads) > 0)
+													@foreach($heads->subheads as $subheads)
+												<td>{{$subheads->subhead_code}}</td>
+												<td>{{$subheads->subhead_name}}</td>
+													@endforeach
+												@else
+												<td></td>
+												<td></td>
+												@endif
 												
 											<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 												
@@ -293,12 +235,7 @@
 			$("#mda").select2({
 			  placeholder: "Select MDA",
 			});
-
-			$("#lga").select2({
-			  placeholder: "Select LGA",
-			});
 		</script>
-
 		<script type="text/javascript">
 
 	// DO NOT REMOVE : GLOBAL FUNCTIONS!
