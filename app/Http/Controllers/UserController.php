@@ -58,6 +58,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        print_r($request->all());die;
         //checking if email exist
           $user = User::where('email',$request->input('email'))->first();
           if ($user) {
