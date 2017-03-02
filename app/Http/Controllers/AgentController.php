@@ -30,9 +30,9 @@ class AgentController extends Controller
     public function index()
     {
     	$sidebar = "agent";
-    	$mda = Mda::all();
+    	$igr = Igr::with('mdas')->find(Auth::user()->igr_id);
 
-    	return view("agent.index",compact("sidebar","mda"));
+    	return view("agent.index",compact("sidebar","igr"));
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////

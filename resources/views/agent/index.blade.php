@@ -132,70 +132,70 @@
 								</section>
 
 								<section>
-									<label class="label">Assign Sub-Heads</label>
-									<label class="select select-multiple">
-										<select multiple="" class="custom-scroll">
-											<option value="1">Alexandra</option>
-											<option value="2">Alice</option>
-											<option value="3">Anastasia</option>
-											<option value="4">Avelina</option>
-											<option value="5">Basilia</option>
-											<option value="6">Beatrice</option>
-											<option value="7">Cassandra</option>
-											<option value="8">Clemencia</option>
-											<option value="9">Desiderata</option>
-										</select> </label>
-										<div class="note">
-											<strong>Note:</strong> hold down the ctrl/cmd button to select multiple options.
+									<div class="row">
+										<label class="label col col-2">MDA</label>
+										<div class="col col-10">
+											<label class="input">
+												<select class="form-control" name="mda" >
+
+													<option value="">Select MDA</option>
+													@if(isset($igr->mdas))
+													@foreach($igr->mdas as $mda)
+													<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
+													@endforeach
+													@else
+													<option value="">NO MDA</option>
+													@endif
+													
+												</select>	
+											</label>
 										</div>
-									</section>
+									</div>
+								</section>
 
-								</fieldset>
+							</fieldset>
 
-								<footer>
-									<button type="submit" class="btn btn-primary">
-										Save
-									</button>
+							<footer>
+								<button type="submit" class="btn btn-primary">
+									Save
+								</button>
 
-								</footer>
-							</form>						
-
-
-						</div>
-
-					</div><!-- /.modal-content -->
-				</div><!-- /.modal-dialog -->
-			</div><!-- /.modal -->
+							</footer>
+						</form>						
 
 
-			<br />
-			<br />
+					</div>
 
-			<div class="row">
-				<div class="col-md-12">
-					<form method="get" action="#" >
-
-						<!-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
-						<div class="col-sm-3">
-							<div class="form-group">
-								<select name="station" class="form-control" onchange="this.form.submit()">
-									<option value="">Select MDA</option>
-									@if($mda)
-									@foreach($mda as $mda)
-
-									<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
-									@endforeach
-									@else
-									<option value="">NO MDA</option>
-									@endif
-								</select>						
-							</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 
 
-						</div>
-					</form>	
+		<br />
+		<br />
+
+		<div class="row">
+			<div class="col-md-12">
+			<form method="get" action="#" >
+
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<div class="col-sm-3">
+					<div class="form-group">
+						<select name="station" class="form-control" onchange="this.form.submit()" id="mda1">
+							<option value="">Select MDA</option>
+							@if(isset($igr->mdas))
+								@foreach($igr->mdas as $mda)
+							<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
+								@endforeach
+							@endif
+						</select>						
+					</div>
+					
+
 				</div>
+			</form>	
 			</div>
+		</div>
 
 
 
@@ -203,20 +203,20 @@
 
 
 
-			<!-- widget grid -->
-			<section id="widget-grid" class="">
+		<!-- widget grid -->
+		<section id="widget-grid" class="">
 
-				<!-- row -->
-				<div class="row">
+			<!-- row -->
+			<div class="row">
 
-					<!-- NEW WIDGET START -->
-					<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-						@include('include.warning')
-						@include('include.message')
-						@include('include.error')
+				<!-- NEW WIDGET START -->
+				<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					@include('include.warning')
+					@include('include.message')
+					@include('include.error')
 
-						<!-- Widget ID (each widget will need unique ID)-->
-						<div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+					<!-- Widget ID (each widget will need unique ID)-->
+					<div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
 								<!-- widget options:
 								usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 				
@@ -331,6 +331,14 @@
 
 	@stop
 	@push('scripts')
+	<script type="text/javascript">
+		$("#mda").select2({
+			placeholder: "Select MDA"
+		});
+		$("#mda1").select2({
+			placeholder: "Select MDA"
+		});
+	</script>
 
 	<script type="text/javascript">
 
