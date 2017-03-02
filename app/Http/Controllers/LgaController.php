@@ -29,9 +29,9 @@ class LgaController extends Controller
     public function index()
     {
        $sidebar = "lga";
-       $igr = Igr::all();
-       $mda = Mda::where("mda_category","lga")->get();
-    	return view("lga.index",compact("sidebar","igr","mda"));
+       $igr = Igr::with('mdas')->find(Auth::user()->igr_id);
+       
+    	return view("lga.index",compact("sidebar","igr"));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////

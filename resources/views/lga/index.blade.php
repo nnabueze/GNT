@@ -49,40 +49,8 @@
 									</div>
 								</section>
 								
-								
-								<section>
-									<div class="row">
-										<label class="label col col-2">IGR</label>
-										<div class="col col-10">
-											<label class="input">
-												<select class="form-control" name="igr" >
-													<option value="">Select IGR</option>
-													@if($igr)
-														@foreach($igr as $igr)
-													<option value="{{$igr->id}}">{{$igr->state_name}}</option>
-														@endforeach
-													@else
-													<option value="">NO IGR</option>
-													@endif
-												</select>	
-											</label>
-										</div>
-									</div>
-								</section>
-
-
-								<section>
-									<div class="row">
-										<label class="label col col-2">Category</label>
-										<div class="col col-10">
-											<label class="input">
-												<select class="form-control" name="mda_category" >
-													<option value="lga">LGA</option>
-												</select>	
-											</label>
-										</div>
-									</div>
-								</section>
+								<input type="hidden" name="igr" value="{{$igr->id}}">
+								<input type="hidden" name="mda_category" value="lga">
 
 								
 								
@@ -218,15 +186,17 @@
 											</tr>
 										</thead>
 										<tbody>
-										@if($mda)
-											@foreach($mda as $mda)
+										@if(isset($igr->mdas))
+											@foreach($igr->mdas as $mda)
+												@if($mda->mda_category == 'lga')
 											<tr>
 												<td>{{$mda->mda_key}}</td>
 												<td>{{$mda->mda_name}}</td>
 												<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/lga/{{$mda->mda_key}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 											</tr>
-												@endforeach
-											@endif
+												@endif
+											@endforeach
+										@endif
 										</tbody>
 									</table>
 
