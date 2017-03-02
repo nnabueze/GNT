@@ -178,11 +178,11 @@ class UserController extends Controller
     public function delete_user($id)
     {
         //checking user right
-        if ( ! Auth::user()->hasRole('Superadmin')) {
+/*        if ( ! Auth::user()->hasRole('Superadmin')) {
 
            Session::flash("warning","You don't have the right to delete MDA");
            return Redirect::back();
-        }
+        }*/
 
         //deleting the mda
         if ($igr = User::where("id",$id)->first()) {
