@@ -50,7 +50,7 @@
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="col-sm-3">
 						<div class="form-group">
-							<select name="mda" class="form-control">
+							<select name="mda" class="form-control" id="mda">
 								<option value="">Select MDA</option>
 								@if(isset($igr))
 									@foreach($igr->mdas as $mda)
@@ -84,7 +84,7 @@
 					<div class="col-sm-3">				
 						<div class="form-group">
 							<div class="input-group">
-								<button type="submit" class="btn">Search</button>							
+								<button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span> Search</button>							
 							</div>
 						</div>
 					</div>

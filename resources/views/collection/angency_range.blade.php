@@ -50,7 +50,7 @@
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="col-sm-3">
 						<div class="form-group">
-							<select name="mda" class="form-control">
+							<select name="mda" class="form-control" id="mda">
 								<option value="">Select Agency</option>
 								@if(isset($mda))
 									@foreach($mda as $mda)
@@ -210,6 +210,11 @@
 
 		@stop
 		@push('scripts')
+		<script type="text/javascript">
+			$("#mda").select2({
+			  placeholder: "Select MDA",
+			});
+		</script>
 		<script type="text/javascript">
 
 	// DO NOT REMOVE : GLOBAL FUNCTIONS!
