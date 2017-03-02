@@ -32,11 +32,12 @@ class UserController extends Controller
     public function index()
     {
         //
-        $igrs = Mda::all();
+        $mdas = Mda::all();
+        $igrs = Igr::all();
         $roles = Role::all();
-        $users = User::paginate(5);
+        $users = User::paginate(4);
         $sidebar = "user_sidebar";
-        return view('user.index',compact("igrs","roles",'users','sidebar'));
+        return view('user.index',compact("mdas","roles",'users','sidebar','igrs'));
     }
 
     /**
@@ -57,29 +58,44 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //checking if email exist
           $user = User::where('email',$request->input('email'))->first();
           if ($user) {
               Session::flash('warning', 'Failed! Email already exist');
               return Redirect::back();
           }
 
+          //checking if mda is selected
           if (empty($request->input('mda_id'))) {
              Session::flash('warning', 'Failed! select MDA');
              return Redirect::back();
           }
 
+          //check if igr is selected
+          if (empty($request->input('igr_id'))) {
+             Session::flash('warning', 'Failed! select MDA');
+             return Redirect::back();
+          }
+
+          //check if role is attached
           if (empty($request->input('role'))) {
              Session::flash('warning', 'Failed! select a role');
              return Redirect::back();
           }
 
+          //hashing password
           $request['password'] = Hash::make($request->input('password'));
           
-        $user = User::create($request->all());
-        $user->attachRole($request->input('role'));
+        if ($user = User::create($request->all())) {
 
-        Session::flash('message', 'Success! Acount have been created');
+            $user->attachRole($request->input('role'));
+
+            Session::flash('message', 'Success! Account have been created');
+            return Redirect::back();
+        }
+        
+
+        Session::flash('warning', 'Failed! Unable to create account');
         return Redirect::back();
     }
 
@@ -161,13 +177,22 @@ class UserController extends Controller
 
     public function delete_user($id)
     {
-        $user = User::find($id);
-        if ($user) {
-            $user->delete();
-            Session::flash('message', 'Success! You have deleted a User');
-            return Redirect::back();
+        //checking user right
+        if ( ! Auth::user()->hasRole('Superadmin')) {
+
+           Session::flash("warning","You don't have the right to delete MDA");
+           return Redirect::back();
         }
-        Session::flash('warning', 'Failed! Unable to delete a User');
+
+        //deleting the mda
+        if ($igr = User::where("id",$id)->first()) {
+           $igr->delete();
+
+           Session::flash("message","Successful! User deleted");
+           return Redirect::back();
+        }
+
+        Session::flash("warning","Failed! User not deleted");
         return Redirect::back();
     }
 

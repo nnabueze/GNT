@@ -30,9 +30,8 @@ class AgencyController extends Controller
    public function index()
    {
       $sidebar = "agancy";
-      $igr = Igr::all();
-      $mda = Mda::where("mda_category","state")->get();
-   	return view("agency.index",compact("sidebar","igr","mda"));
+      $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
+   	return view("agency.index",compact("sidebar","igr"));
    }
 
    /////////////////////////////////////////////////////////////////////////////////

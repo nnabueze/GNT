@@ -45,7 +45,7 @@
 			</li>
 			@endif
 
-
+			@if(Auth::user()->hasRole(['Admin','Superadmin']))
 			<li class="<?php if ($sidebar == "pos"||$sidebar == "agancy"|| $sidebar == "lga" ||$sidebar == "station"||$sidebar == "agent"||$sidebar == "heads"){echo "active";}else{echo "";}?>">
 				<a href="#"><i class="fa fa-lg fa-fw fa-desktop"></i><span class="menu-item-parent">Setup</span></a>
 				<ul>
@@ -59,21 +59,34 @@
 					<li class="<?php if ($sidebar == "pos"){echo "active";}else{echo "";}?>"><a href="/pos">POS</a></li>
 				</ul>
 			</li>
+			@endif
 
+			@if(Auth::user()->hasRole(['Lga','Mda']))
+			<li class="<?php if ($sidebar == "heads"){echo "active";}else{echo "";}?>">
+				<a href="/revenue_heads"><i class="fa fa-lg fa-fw fa-desktop"></i>SubHeads</a></li>
+			</li>
+			@endif
 
-
+			@if(Auth::user()->hasRole(['Admin','Superadmin','Mda','Lga']))
 			<li class="<?php if ($sidebar == "all_collection"||$sidebar == "agency" ||$sidebar == "lga"){echo "active";}else{echo "";}?>">
 				<a href="#"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Collection Record</span></a>
 				<ul>
 					<li class="<?php if ($sidebar == "all_collection"){echo "active";}else{echo "";}?>">
 						<a href="/all_collection">All Collections</a>
 					</li>
+
+					@if(Auth::user()->hasRole(['Admin','Superadmin','Mda']))
 					<li class="<?php if ($sidebar == "agency"){echo "active";}else{echo "";}?>">
 						<a href="/agency_collection">Agency Collection</a>
 					</li>
+					@endif
+
+					@if(Auth::user()->hasRole(['Admin','Superadmin','Lga']))
 					<li class="<?php if ($sidebar == "lga_collection"){echo "active";}else{echo "";}?>">
 						<a href="/lga_collection">LGA Collection</a>
 					</li>
+					@endif
+
 					<li class="<?php if ($sidebar == "ebill_collection"){echo "active";}else{echo "";}?>">
 						<a href="/ebill_collection">Ebills Collections</a>
 					</li>
@@ -82,6 +95,27 @@
 					</li>
 				</ul>
 			</li>
+			@endif
+
+			@if(Auth::user()->hasRole('Staff'))
+			<li class="<?php if ($sidebar == "all_collection"||$sidebar == "agency" ||$sidebar == "lga"){echo "active";}else{echo "";}?>">
+				<a href="#"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Collection</span></a>
+				<ul>
+					<li class="<?php if ($sidebar == "all_collection"){echo "active";}else{echo "";}?>">
+						<a href="/all_collection">All Collections</a>
+					</li>
+
+					<li class="<?php if ($sidebar == "ebill_collection"){echo "active";}else{echo "";}?>">
+						<a href="/ebill_collection">Ebills Collections</a>
+					</li>
+					<li class="<?php if ($sidebar == "pos_collection"){echo "active";}else{echo "";}?>">
+						<a href="/pos_collection">POS Collections</a>
+					</li>
+				</ul>
+			</li>
+			@endif
+
+
 			<li>
 				<a href="#"><i class="fa fa-lg fa-fw fa-table"></i> <span class="menu-item-parent">Invoice/Remittance</span></a>
 				<ul>
@@ -94,6 +128,11 @@
 					<li>
 						<a href="#">Manage Invoices</a>
 					</ul>
+				</li>
+
+
+				<li>
+					<a href="#"><i class="fa fa-lg fa-fw fa fa-book"></i> <span class="menu-item-parent">Profile Management</span></a>
 				</li>
 
 				<li>

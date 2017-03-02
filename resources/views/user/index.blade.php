@@ -50,7 +50,7 @@
 			<div class="row">
 
 				<!-- NEW COL START -->
-				<article class="col-sm-12 col-md-12 col-lg-7">
+				<article class="col-sm-12 col-md-12 col-lg-8">
 
 					<!-- Widget ID (each widget will need unique ID)-->
 					<div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-custombutton="false">
@@ -192,7 +192,7 @@
 		<!-- END COL -->
 
 		<!-- NEW COL START -->
-		<article class="col-sm-12 col-md-12 col-lg-5">
+		<article class="col-sm-12 col-md-12 col-lg-4">
 			
 			<!-- Widget ID (each widget will need unique ID)-->
 			<div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
@@ -246,17 +246,31 @@
 
 									<section>
 										<label class="select">
-											<select name="mda_id">
-												<option value="0" selected="">Select MDA</option>
-												@if($igrs)
+											<select name="igr_id" id="igr">
+												<option value="0" selected="">Select IGR</option>
+												@if(isset($igrs))
 												@foreach($igrs as $igr)
-												<option value="{{$igr->id}}">{{$igr->mda_name}}</option>
+												<option value="{{$igr->id}}">{{$igr->state_name}}</option>
 												@endforeach
 												@else
-												<option value="1">No MDA</option>
+												<option value="1">No IGR</option>
 												@endif
 											</select> <b class="tooltip tooltip-bottom-right">Select An IGR</b></label>
 										</section>
+
+										<section>
+											<label class="select">
+												<select name="mda_id" id="mda">
+													<option value="0" selected="">Select MDA</option>
+													@if(isset($mdas))
+													@foreach($mdas as $mda)
+													<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
+													@endforeach
+													@else
+													<option value="1">No MDA</option>
+													@endif
+												</select> <b class="tooltip tooltip-bottom-right">Select An MDA</b></label>
+											</section>
 
 										<section>
 											<label class="input"> <i class="icon-append fa fa-lock"></i>
@@ -273,7 +287,7 @@
 												<section>
 													<label class="select">
 														<select name="role[]" id="user_seclect" multiple="multiple">
-															@if($roles)
+															@if(isset($roles))
 															@foreach($roles as $role)
 															<option value="{{$role->id}}">{{$role->name}}</option>
 															@endforeach
@@ -335,6 +349,14 @@
 <script type="text/javascript">
 	$("#user_seclect").select2({
 	  tags: true,
+	  placeholder: "Select Role",
+	});
+
+	$("#igr").select2({
+	  placeholder: "Select Role",
+	});
+
+	$("#mda").select2({
 	  placeholder: "Select Role",
 	});
 </script>
