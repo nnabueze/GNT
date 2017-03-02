@@ -50,7 +50,7 @@
 			<div class="row">
 
 				<!-- NEW COL START -->
-				<article class="col-sm-12 col-md-12 col-lg-8">
+				<article class="col-sm-12 col-md-8 col-lg-8">
 
 					<!-- Widget ID (each widget will need unique ID)-->
 					<div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-custombutton="false">
@@ -192,7 +192,7 @@
 		<!-- END COL -->
 
 		<!-- NEW COL START -->
-		<article class="col-sm-12 col-md-12 col-lg-4">
+		<article class="col-sm-12 col-md-4 col-lg-4">
 			
 			<!-- Widget ID (each widget will need unique ID)-->
 			<div class="jarviswidget" id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
