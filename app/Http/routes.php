@@ -158,6 +158,18 @@ Route::post("/igr","AdminController@igr_store");
 //deleting igr
 Route::get("/igr/{any}","AdminController@delete_igr");
 
+//All collection route for staff role
+Route::get("s_all_collection","HeadsController@s_all_collection");
+
+//ebill collection for staff route
+Route::get("e_ebill_collection","HeadsController@e_ebill_collection");
+
+//route for staff ebills collection
+Route::get("p_pos_collection","HeadsController@p_pos_collection");
+
+//getting the collection base on date range for staff
+Route::post("s_collection","HeadsController@s_collection");
+
 
 
 

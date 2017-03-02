@@ -114,15 +114,15 @@
 			<li class="<?php if ($sidebar == "all_collection"||$sidebar == "agency" ||$sidebar == "lga"){echo "active";}else{echo "";}?>">
 				<a href="#"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Collection</span></a>
 				<ul>
-					<li class="<?php if ($sidebar == "all_collection"){echo "active";}else{echo "";}?>">
-						<a href="/all_collection">All Collections</a>
+					<li class="<?php if ($sidebar == "s_all_collection"){echo "active";}else{echo "";}?>">
+						<a href="/s_all_collection">All Collections</a>
 					</li>
 
 					<li class="<?php if ($sidebar == "ebill_collection"){echo "active";}else{echo "";}?>">
-						<a href="/ebill_collection">Ebills Collections</a>
+						<a href="/e_ebill_collection">Ebills Collections</a>
 					</li>
 					<li class="<?php if ($sidebar == "pos_collection"){echo "active";}else{echo "";}?>">
-						<a href="/pos_collection">POS Collections</a>
+						<a href="/p_pos_collection">POS Collections</a>
 					</li>
 				</ul>
 			</li>
