@@ -181,20 +181,13 @@
 											</tr>
 										</thead>
 										<tbody>
-										@if(isset($heads))
-											@foreach($heads as $heads)
+										@if(isset($heads->subheads))
+											@foreach($heads->subheads as $heads)
 											<tr>
-												<td>{{$heads->revenue_code}}</td>
-												<td>{{$heads->revenue_name}}</td>
-												@if(count($heads->subheads) > 0)
-													@foreach($heads->subheads as $subheads)
-												<td>{{$subheads->subhead_code}}</td>
-												<td>{{$subheads->subhead_name}}</td>
-													@endforeach
-												@else
-												<td></td>
-												<td></td>
-												@endif
+												<td>{{$heads->revenuehead->revenue_code}}</td>
+												<td>{{$heads->revenuehead->revenue_name}}</td>
+												<td>{{$heads->subhead_code}}</td>
+												<td>{{$heads->subhead_name}}</td>
 												
 											<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 												

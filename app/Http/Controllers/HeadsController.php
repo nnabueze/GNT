@@ -75,14 +75,15 @@ class HeadsController extends Controller
     public function heads_revenue_range(Request $request)
     {
         //getting the parameter
-        $item = $request->only("station");
+        $item = $request->only("mda");
 
         //getting all the existing MDA
         $sidebar = "heads";
         $igr = igr::with("mdas")->find(Auth::user()->igr_id);
 
         //select station base on MDA
-        $heads = Revenuehead::where("mda_id",$item)->with("subheads")->get();
+        $heads = Mda::where("id",$item)->first();
+        
         if (count($heads) > 0) {
             
             return view("heads.heads_revenue_range",compact("heads","sidebar","igr"));

@@ -33,8 +33,15 @@ class Mda extends Model
       return $this->hasMany('App\Station');
     }
 
+    //relationship between igr and mda 
     public function igr()
     {
       return $this->belongsTo('App\Igr');
+    }
+
+    //has many through relationship between mda,revenue head and subhead
+    public function subheads()
+    {
+        return $this->hasManyThrough('App\Subhead', 'App\Revenuehead');
     }
 }
