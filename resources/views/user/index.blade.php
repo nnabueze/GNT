@@ -286,7 +286,7 @@
 
 												<section>
 													<label class="select">
-														<select name="role[]" >
+														<select name="role[]" id="user_seclect" multiple="multiple">
 															@if(isset($roles))
 															@foreach($roles as $role)
 															<option value="{{$role->id}}">{{$role->name}}</option>
