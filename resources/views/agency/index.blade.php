@@ -214,13 +214,15 @@
 										<tbody>
 										@if(isset($igr->mdas))
 											@foreach($igr->mdas as $mda)
+												@if($mda->mda_category == 'state')
 											<tr>
 												<td>{{$mda->mda_key}}</td>
 												<td>{{$mda->mda_name}}</td>
 												<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/agencies/{{$mda->mda_key}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 											</tr>
-												@endforeach
-											@endif
+												@endif
+											@endforeach
+										@endif
 										</tbody>
 									</table>
 
