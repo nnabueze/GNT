@@ -91,7 +91,7 @@ Route::post("/lga","LgaController@store");
 Route::get("/lga/{any}","LgaController@delete_lga");
 
 //adding revenue heads
-Route::get("/revenue_heads","AgencyController@revenue_heads");
+//Route::get("/revenue_heads","AgencyController@revenue_heads");
 
 //route for adding up station
 Route::get("/station","AgencyController@station");

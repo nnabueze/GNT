@@ -65,10 +65,10 @@
 							
 							<section>
 								<div class="row">
-									<label class="label col col-2">POS IMEI</label>
+									<label class="label col col-2">Revenue Name</label>
 									<div class="col col-10">
 										<label class="input"> <i class="icon-append fa fa-user"></i>
-											<input type="text" name="mda_name">
+											<input type="text" name="revenue_name">
 										</label>
 									</div>
 								</div>
@@ -76,10 +76,10 @@
 
 							<section>
 								<div class="row">
-									<label class="label col col-2">POS Name</label>
+									<label class="label col col-2">Amount</label>
 									<div class="col col-10">
 										<label class="input"> <i class="icon-append fa fa-user"></i>
-											<input type="text" name="mda_name">
+											<input type="text" name="amount">
 										</label>
 									</div>
 								</div>
@@ -92,9 +92,10 @@
 									<div class="col col-10">
 										<label class="input">
 											<select class="form-control" name="mda" >
+
 												<option value="">Select MDA</option>
-												@if(isset($mda))
-													@foreach($mda as $mda)
+												@if(isset($igr->mdas))
+													@foreach($igr->mdas as $mda)
 												<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
 													@endforeach
 												@else
@@ -107,26 +108,27 @@
 								</div>
 							</section>
 
-
 							<section>
 								<div class="row">
-									<label class="label col col-2">Station</label>
-									<div class="col col-10">
-										<label class="input">
-											<select class="form-control" name="mda" >
-												<option value="">Select Station</option>
-												@if(isset($station))
-													@foreach($station as $station)
-												<option value="{{$station->id}}">{{$station->station_name}}</option>
-													@endforeach
-												@else
-												<option value="">NO station</option>
-												@endif
-												
-											</select>	
+							
+								<label class="label col col-2">Taxible</label>
+								<div class="col-md-10">
+								<label class="input">
+									<div class="radio">
+										<label>
+											<input type="radio" class="radiobox style-0" checked="checked" name="style-0">
+											<span>Yes</span> 
 										</label>
 									</div>
-								</div>
+									<div class="radio">
+										<label>
+											<input type="radio" class="radiobox style-0" name="style-0">
+											<span>No</span> 
+										</label>
+									</div>
+								</label>
+							</div>
+							</div>
 							</section>
 
 							
@@ -159,10 +161,10 @@
 				<!-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
 				<div class="col-sm-3">
 					<div class="form-group">
-						<select name="station" class="form-control" onchange="this.form.submit()">
+						<select name="station" class="form-control" onchange="this.form.submit()" id="mda">
 							<option value="">Select MDA</option>
-							@if(isset($mda1))
-								@foreach($mda1 as $mda)
+							@if(isset($igr->mdas))
+								@foreach($igr->mdas as $mda)
 							<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
 								@endforeach
 							@endif
@@ -287,6 +289,12 @@
 
 		@stop
 		@push('scripts')
+		<script type="text/javascript">
+			$("#mda").select2({
+			  placeholder: "Select MDA",
+			});
+		</script>
+
 		<script type="text/javascript">
 
 	// DO NOT REMOVE : GLOBAL FUNCTIONS!

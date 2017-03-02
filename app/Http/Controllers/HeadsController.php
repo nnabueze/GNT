@@ -30,10 +30,9 @@ class HeadsController extends Controller
     public function index()
     {
     	$sidebar = "heads";
-    	$mda1 = Mda::all();
+    	$igr = igr::with("mdas")->find(Auth::user()->igr_id);
     	$heads = array();
-
-    	return view("heads.index",compact("sidebar",'mda1','heads'));
+    	return view("heads.index",compact("sidebar",'igr'));
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -46,14 +45,13 @@ class HeadsController extends Controller
 
     	//getting all the existing MDA
     	$sidebar = "heads";
-    	$mda = Mda::all();
-    	$mda1 = Mda::all();
+    	$igr = igr::with("mdas")->find(Auth::user()->igr_id);
 
     	//select station base on MDA
     	$heads = Revenuehead::where("mda_id",$item)->with("subheads")->get();
     	if (count($heads) > 0) {
     		
-    		return view("heads.subhead",compact("heads","sidebar","mda","mda1"));
+    		return view("heads.subhead",compact("heads","sidebar","igr"));
     	}
 
     	Session::flash("warning","Failed! No Revenue Head added.");
