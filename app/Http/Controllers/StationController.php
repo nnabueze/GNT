@@ -124,15 +124,14 @@ class StationController extends Controller
         $item = $request->only("station");
 
         //getting all the existing MDA
-        $sidebar = "station";
-        $mda = Mda::all();
-        $mda1 = Mda::all();
-
+        $sidebar = "pos";
+        $igr = Igr::with("mdas.station")->find(Auth::user()->igr_id);
+        
         //select station base on MDA
         $pos = Postable::where("mda_id",$item)->get();
         if (count($pos) > 0) {
             
-            return view("station.pos",compact("pos","sidebar","mda","mda1"));
+            return view("agency.pos",compact("pos","sidebar","igr"));
         }
 
         Session::flash("warning","Failed! No POS added.");

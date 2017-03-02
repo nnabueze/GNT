@@ -111,11 +111,10 @@ class AgencyController extends Controller
    public function pos()
    {
       $sidebar ="pos";
-      $mda = Mda::all();
-      $mda1 = Mda::all();
+      $igr = Igr::with("mdas.station")->find(Auth::user()->igr_id);
       $station = Station::all();
       $pos = array();
-      return view("agency.pos",compact("sidebar","mda",'station',"mda1","pos"));
+      return view("agency.pos",compact("sidebar","igr",'station',"pos"));
    }
 
    /////////////////////////////////////////////////////////////////////////////////////
