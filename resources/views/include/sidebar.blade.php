@@ -59,7 +59,7 @@
 					<li class="<?php if ($sidebar == "lga"){echo "active";}else{echo "";}?>"><a href="/lga">LGA</a></li>
 					<li class="<?php if ($sidebar == "heads"){echo "active";}else{echo "";}?>"><a href="/revenue_heads">SubHeads</a></li>
 					<li class="<?php if ($sidebar == "station"){echo "active";}else{echo "";}?>"><a href="/station">Stations</a></li>
-					<!-- <li><a href="#">Pool Account</a></li> -->
+					<li><a href="#">Pool Account</a></li>
 					<li class="<?php if ($sidebar == "agent"){echo "active";}else{echo "";}?>"><a href="/agent">Agents</a></li>
 					<li class="<?php if ($sidebar == "pos"){echo "active";}else{echo "";}?>"><a href="/pos">POS</a></li>
 				</ul>
@@ -127,8 +127,9 @@
 				</ul>
 			</li>
 			@endif
+			
 
-
+			
 			<li>
 				<a href="#"><i class="fa fa-lg fa-fw fa-table"></i> <span class="menu-item-parent">Invoice/Remittance</span></a>
 				<ul>
@@ -140,9 +141,33 @@
 					</li>
 					<li>
 						<a href="#">Manage Invoices</a>
-					</ul>
-				</li>
+				</ul>
+			</li>
+			
 
+			@if(Auth::user()->hasRole('Superadmin'))
+			<li>
+				<a href="#"><i class="fa fa-lg fa-fw fa-windows"></i> <span class="menu-item-parent">Fund sweeping</span></a>
+				<ul>
+					<li>
+						<a href="#" >Beneficiaries</a>
+					</li>
+					<li>
+						<a href="#">Fund sweeping history</a>
+					</li>
+					<li>
+						<a href="#">Generate sweep</a>
+					</li>
+					<li>
+						<a href="#">Settlements</a>
+					</li>
+					<li>
+						<a href="#">Agent sweep</a>
+					</li>
+					
+				</ul>
+			</li>
+			@endif
 
 				<li>
 					<a href="#"><i class="fa fa-lg fa-fw fa fa-book"></i> <span class="menu-item-parent">Profile Management</span></a>
@@ -154,12 +179,12 @@
 			</ul>
 
 
-	</nav>
+		</nav>
 
 
-	<span class="minifyme" data-action="minifyMenu"> 
-		<i class="fa fa-arrow-circle-left hit"></i> 
-	</span>
+		<span class="minifyme" data-action="minifyMenu"> 
+			<i class="fa fa-arrow-circle-left hit"></i> 
+		</span>
 
-</aside>
+	</aside>
 <!-- END NAVIGATION
