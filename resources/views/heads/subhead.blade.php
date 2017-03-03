@@ -170,119 +170,121 @@
 
 
 			<!-- Modal -->
-				<div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-									&times;
-								</button>
-								<h4 class="modal-title">
-									<img src="{{ asset('template/img/logo1.png')}}" width="150" alt="SmartAdmin">
-								</h4>
-							</div>
-							<div class="modal-body no-padding">
-							<form id="login-form" method="POST" action="/add_heads" class="smart-form">
-								<input type="hidden" name="_token" value="{{ csrf_token() }}">
-								<fieldset>
-										
-										<section>
-											<div class="row">
-												<label class="label col col-2">Revenue Name</label>
-												<div class="col col-10">
-													<label class="input"> <i class="icon-append fa fa-user"></i>
-														<input type="text" name="revenue_name">
-													</label>
-												</div>
+			<div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+								&times;
+							</button>
+							<h4 class="modal-title">
+								<img src="{{ asset('template/img/logo1.png')}}" width="150" alt="SmartAdmin">
+							</h4>
+						</div>
+						<div class="modal-body no-padding">
+						<form id="login-form" method="POST" action="/add_subhead" class="smart-form">
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+							<fieldset>
+									
+									<section>
+										<div class="row">
+											<label class="label col col-2">Subhead Name</label>
+											<div class="col col-10">
+												<label class="input"> <i class="icon-append fa fa-user"></i>
+													<input type="text" name="subhead_name">
+												</label>
 											</div>
-										</section>
+										</div>
+									</section>
 
-										<section>
-											<div class="row">
-												<label class="label col col-2">Revenue Code</label>
-												<div class="col col-10">
-													<label class="input"> <i class="icon-append fa fa-user"></i>
-														<input type="text" name="revenue_code">
-													</label>
-												</div>
+									<section>
+										<div class="row">
+											<label class="label col col-2">Subhead Code</label>
+											<div class="col col-10">
+												<label class="input"> <i class="icon-append fa fa-user"></i>
+													<input type="text" name="subhead_code">
+												</label>
 											</div>
-										</section>
+										</div>
+									</section>
 
-										<section>
-											<div class="row">
-												<label class="label col col-2">Amount</label>
-												<div class="col col-10">
-													<label class="input"> <i class="icon-append fa fa-user"></i>
-														<input type="text" name="amount">
-													</label>
-												</div>
+									<section>
+										<div class="row">
+											<label class="label col col-2">Amount</label>
+											<div class="col col-10">
+												<label class="input"> <i class="icon-append fa fa-user"></i>
+													<input type="text" name="amount">
+												</label>
 											</div>
-										</section>
-										
-										
-										<section>
-											<div class="row">
-												<label class="label col col-2">MDA</label>
-												<div class="col col-10">
-													<label class="input">
-														<select class="form-control" name="mda_id" >
+										</div>
+									</section>
+									
+									
+									<section>
+										<div class="row">
+											<label class="label col col-2">Revenue Heads</label>
+											<div class="col col-10">
+												<label class="input">
+													<select class="form-control" name="revenuehead_id" >
 
-															<option value="">Select MDA</option>
-															@if(isset($igr->mdas))
-																@foreach($igr->mdas as $mda)
-															<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
+														<option value="">Select Revenue Head</option>
+														@if(isset($igr->mdas))
+															@foreach($igr->mdas as $mda)
+																@foreach($mda->revenue as $revenue)
+														<option value="{{$revenue->id}}">{{$revenue->revenue_name}}</option>
 																@endforeach
-															@else
-															<option value="">NO MDA</option>
-															@endif
-															
-														</select>	
-													</label>
-												</div>
+															@endforeach
+														@else
+														<option value="">NO MDA</option>
+														@endif
+														
+													</select>	
+												</label>
 											</div>
-										</section>
-
-										<section>
-											<div class="row">
-										
-											<label class="label col col-2">Taxible</label>
-											<div class="col-md-10">
-											<label class="input">
-												<div class="radio">
-													<label>
-														<input type="radio" class="radiobox" value="1" name="taxiable">
-														<span>Yes</span> 
-													</label>
-												</div>
-												<div class="radio">
-													<label>
-														<input type="radio" class="radiobox" checked="checked" value="0" name="taxiable">
-														<span>No</span> 
-													</label>
-												</div>
-											</label>
 										</div>
-										</div>
-										</section>
+									</section>
 
-										
-										
-									</fieldset>
+									<section>
+										<div class="row">
 									
-									<footer>
-										<button type="submit" class="btn btn-primary">
-											ADD
-										</button>
+										<label class="label col col-2">Taxible</label>
+										<div class="col-md-10">
+										<label class="input">
+											<div class="radio">
+												<label>
+													<input type="radio" class="radiobox" value="1" name="taxiable">
+													<span>Yes</span> 
+												</label>
+											</div>
+											<div class="radio">
+												<label>
+													<input type="radio" class="radiobox" checked="checked" value="0" name="taxiable">
+													<span>No</span> 
+												</label>
+											</div>
+										</label>
+									</div>
+									</div>
+									</section>
 
-									</footer>
-								</form>						
 									
+									
+								</fieldset>
+								
+								<footer>
+									<button type="submit" class="btn btn-primary">
+										ADD
+									</button>
 
-								</div>
+								</footer>
+							</form>						
+								
 
-							</div><!-- /.modal-content -->
-						</div><!-- /.modal-dialog -->
-					</div><!-- /.modal -->
+							</div>
+
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
 
 
 
