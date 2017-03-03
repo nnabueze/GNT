@@ -50,14 +50,14 @@
 
 		<div class="row">
 			<div class="col-md-12">
-			<form method="get" action="/heads_revenue" >
+			<form method="post" action="/heads_revenue" >
 
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				@if(Auth::user()->hasRole('Lga'))
 
 				<div class="col-sm-3">
 					<div class="form-group">
-						<select name="mda" class="form-control" id="lga">
+						<select name="mda" class="form-control" onchange="this.form.submit()" id="lga">
 							<option value="">Select LGA</option>
 							@if(isset($igr->mdas))
 								@foreach($igr->mdas as $mda)
@@ -76,7 +76,7 @@
 
 				<div class="col-sm-3">
 					<div class="form-group">
-						<select name="mda" class="form-control" id="mda">
+						<select name="mda" class="form-control" onchange="this.form.submit()" id="mda">
 							<option value="">Select LGA</option>
 							@if(isset($igr->mdas))
 								@foreach($igr->mdas as $mda)
@@ -94,7 +94,7 @@
 
 				<div class="col-sm-3">
 					<div class="form-group">
-						<select name="mda" class="form-control" id="mda">
+						<select name="mda" class="form-control" onchange="this.form.submit()" id="mda">
 							<option value="">Select MDA</option>
 							@if(isset($igr->mdas))
 								@foreach($igr->mdas as $mda)
@@ -227,6 +227,10 @@
 		<script type="text/javascript">
 			$("#mda").select2({
 			  placeholder: "Select MDA",
+			});
+
+			$("#lga").select2({
+			  placeholder: "Select LGA",
 			});
 		</script>
 		<script type="text/javascript">

@@ -80,7 +80,7 @@ class HeadsController extends Controller
         $item = $request->only("mda");
 
         //getting all the existing MDA
-        $sidebar = "heads";
+        $sidebar = "heads_revenue";
         $igr = igr::with("mdas")->find(Auth::user()->igr_id);
 
         //select station base on MDA
