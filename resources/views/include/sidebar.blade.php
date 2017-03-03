@@ -127,7 +127,7 @@
 				</ul>
 			</li>
 			@endif
-			
+
 
 			
 			<li>
@@ -143,7 +143,7 @@
 						<a href="#">Manage Invoices</a>
 				</ul>
 			</li>
-			
+
 
 			@if(Auth::user()->hasRole('Superadmin'))
 			<li>
@@ -171,6 +171,14 @@
 
 				<li>
 					<a href="#"><i class="fa fa-lg fa-fw fa fa-book"></i> <span class="menu-item-parent">Profile Management</span></a>
+					<ul>
+						<li>
+							<a href="#">Edit Profile</a>
+						</li>
+						<li>
+							<a href="#">Change password</a>
+						</li>
+					</ul>
 				</li>
 
 				<li>
