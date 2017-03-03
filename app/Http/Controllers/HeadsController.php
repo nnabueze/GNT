@@ -11,6 +11,7 @@ use App\Igr;
 use App\Mda;
 use App\Station;
 use App\Revenuehead;
+use App\Subhead;
 use App\Collection;
 use App\Worker;
 use App\Http\Requests;
@@ -32,7 +33,8 @@ class HeadsController extends Controller
     public function index()
     {
     	$sidebar = "heads";
-    	$igr = igr::with("mdas")->find(Auth::user()->igr_id);
+    	$igr = igr::with("mdas.revenue")->find(Auth::user()->igr_id);
+
     	$heads = array();
     	return view("heads.index",compact("sidebar",'igr'));
     }
@@ -51,7 +53,8 @@ class HeadsController extends Controller
 
     	//select station base on MDA
     	 $heads = Mda::where("id",$item)->first();
-    	if (count($heads) > 0) {
+
+    	if ($heads) {
     		
     		return view("heads.subhead",compact("heads","sidebar","igr"));
     	}
@@ -147,6 +150,8 @@ class HeadsController extends Controller
         return Redirect::back();
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
     //collection range for staff
     public function s_collection(Request $request)
     {
@@ -170,6 +175,76 @@ class HeadsController extends Controller
 
             Session::flash("warning","Failed! No result found.");
             return Redirect::to("/s_all_collection");
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
+    //adding heads on the platform
+    public function add_heads(Request $request)
+    {
+        //validation
+        $this->validate($request, [
+            'revenue_name' => 'required|min:2',
+            'mda_id' => 'required',
+            'revenue_code' => 'required'
+        ]);
+
+        //generate random key and code
+        $request['revenueheads_key'] = "RH".$this->random_number(11);
+
+        if ($revenue = Revenuehead::create($request->all())) {
+            
+            Session::flash("message","Successful! Revenue head added");
+            return Redirect::back();
+        }
+       
+       Session::flash("warning","Fail! Unable to add revenue head");
+       return Redirect::back();
+
+
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+
+    //adding subhead
+    public function add_subhead(Request $request)
+    {
+        //validation
+        $this->validate($request, [
+            'subhead_name' => 'required|min:2',
+            'subhead_code' => 'required',
+            'revenuehead_id' => 'required'
+        ]);
+
+        //generate random key
+        $request['subhead_key'] = "SH".$this->random_number(11);
+
+        //check if inserting was succesful
+        if ($subhead = Subhead::create($request->all())) {
+            
+            Session::flash("message","Successful! Subhead head added");
+            return Redirect::back();
+        }
+
+        //return response
+        Session::flash("warning","Failed! Unable to add subhead");
+        return Redirect::back();
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    //generating random numbers
+    private function random_number($size = 5)
+    {
+        $random_number='';
+        $count=0;
+        while ($count < $size ) 
+        {
+            $random_digit = mt_rand(0, 9);
+            $random_number .= $random_digit;
+            $count++;
+        }
+        return $random_number;  
     }
 
 

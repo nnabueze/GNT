@@ -130,6 +130,12 @@ Route::get("/revenue_heads","HeadsController@index");
 //Route for getting list of head of a specific MDA
 Route::post("/revenue_heads","HeadsController@heads");
 
+//Route for adding heads
+Route::get("/add_heads","HeadsController@index");
+
+//Route for storing head
+Route::post("/add_heads","HeadsController@add_heads");
+
 //getting the revenue heads for lag and Mda
 Route::get("/heads_revenue","HeadsController@heads_revenue");
 
@@ -169,6 +175,13 @@ Route::get("p_pos_collection","HeadsController@p_pos_collection");
 
 //getting the collection base on date range for staff
 Route::post("s_collection","HeadsController@s_collection");
+
+//Route to add subhead
+Route::get("/add_subhead","HeadsController@index");
+
+//route storing subhead
+Route::post("/add_subhead","HeadsController@add_subhead");
+
 
 
 

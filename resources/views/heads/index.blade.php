@@ -42,9 +42,13 @@
 
 		<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
 			<!-- Button trigger modal -->
-			<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg pull-right header-btn hidden-mobile"><i class="fa fa-circle-arrow-up fa-lg"></i> ADD REVENUE HEAD</a>
+			<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-md header-btn hidden-mobile"><span class="glyphicon glyphicon-plus"></span> Add Head</a>
+			&nbsp;&nbsp;&nbsp;
+			<a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-md header-btn hidden-mobile"><span class="glyphicon glyphicon-plus"></span> Add Subhead</a>
 		</div>
 	</div>
+
+
 
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
@@ -59,7 +63,7 @@
 					</h4>
 				</div>
 				<div class="modal-body no-padding">
-				<form id="login-form" method="POST" action="/lga" class="smart-form">
+				<form id="login-form" method="POST" action="/add_heads" class="smart-form">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<fieldset>
 							
@@ -69,6 +73,17 @@
 									<div class="col col-10">
 										<label class="input"> <i class="icon-append fa fa-user"></i>
 											<input type="text" name="revenue_name">
+										</label>
+									</div>
+								</div>
+							</section>
+
+							<section>
+								<div class="row">
+									<label class="label col col-2">Revenue Code</label>
+									<div class="col col-10">
+										<label class="input"> <i class="icon-append fa fa-user"></i>
+											<input type="text" name="revenue_code">
 										</label>
 									</div>
 								</div>
@@ -91,7 +106,7 @@
 									<label class="label col col-2">MDA</label>
 									<div class="col col-10">
 										<label class="input">
-											<select class="form-control" name="mda" >
+											<select class="form-control" name="mda_id" >
 
 												<option value="">Select MDA</option>
 												@if(isset($igr->mdas))
@@ -116,13 +131,13 @@
 								<label class="input">
 									<div class="radio">
 										<label>
-											<input type="radio" class="radiobox style-0" checked="checked" name="style-0">
+											<input type="radio" class="radiobox" value="1" name="taxiable">
 											<span>Yes</span> 
 										</label>
 									</div>
 									<div class="radio">
 										<label>
-											<input type="radio" class="radiobox style-0" name="style-0">
+											<input type="radio" class="radiobox" checked="checked" value="0" name="taxiable">
 											<span>No</span> 
 										</label>
 									</div>
@@ -149,6 +164,126 @@
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
+
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title">
+							<img src="{{ asset('template/img/logo1.png')}}" width="150" alt="SmartAdmin">
+						</h4>
+					</div>
+					<div class="modal-body no-padding">
+					<form id="login-form" method="POST" action="/add_subhead" class="smart-form">
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<fieldset>
+								
+								<section>
+									<div class="row">
+										<label class="label col col-2">Subhead Name</label>
+										<div class="col col-10">
+											<label class="input"> <i class="icon-append fa fa-user"></i>
+												<input type="text" name="subhead_name">
+											</label>
+										</div>
+									</div>
+								</section>
+
+								<section>
+									<div class="row">
+										<label class="label col col-2">Subhead Code</label>
+										<div class="col col-10">
+											<label class="input"> <i class="icon-append fa fa-user"></i>
+												<input type="text" name="subhead_code">
+											</label>
+										</div>
+									</div>
+								</section>
+
+								<section>
+									<div class="row">
+										<label class="label col col-2">Amount</label>
+										<div class="col col-10">
+											<label class="input"> <i class="icon-append fa fa-user"></i>
+												<input type="text" name="amount">
+											</label>
+										</div>
+									</div>
+								</section>
+								
+								
+								<section>
+									<div class="row">
+										<label class="label col col-2">Revenue Heads</label>
+										<div class="col col-10">
+											<label class="input">
+												<select class="form-control" name="revenuehead_id" >
+
+													<option value="">Select Revenue Head</option>
+													@if(isset($igr->mdas))
+														@foreach($igr->mdas as $mda)
+															@foreach($mda->revenue as $revenue)
+													<option value="{{$revenue->id}}">{{$revenue->revenue_name}}</option>
+															@endforeach
+														@endforeach
+													@else
+													<option value="">NO MDA</option>
+													@endif
+													
+												</select>	
+											</label>
+										</div>
+									</div>
+								</section>
+
+								<section>
+									<div class="row">
+								
+									<label class="label col col-2">Taxible</label>
+									<div class="col-md-10">
+									<label class="input">
+										<div class="radio">
+											<label>
+												<input type="radio" class="radiobox" value="1" name="taxiable">
+												<span>Yes</span> 
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" class="radiobox" checked="checked" value="0" name="taxiable">
+												<span>No</span> 
+											</label>
+										</div>
+									</label>
+								</div>
+								</div>
+								</section>
+
+								
+								
+							</fieldset>
+							
+							<footer>
+								<button type="submit" class="btn btn-primary">
+									ADD
+								</button>
+
+							</footer>
+						</form>						
+							
+
+						</div>
+
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+
 
 
 		<br />
