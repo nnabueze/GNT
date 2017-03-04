@@ -33,7 +33,7 @@ return [
     |
     */
 
-    'ttl' => 60,
+    'ttl' => 525600,
 
     /*
     |--------------------------------------------------------------------------
@@ -98,9 +98,8 @@ return [
     |
     */
 
-    /*'required_claims' => ['iss', 'iat', 'exp', 'nbf', 'sub', 'jti'],*/
-    'required_claims' => ['iss', 'iat', 'nbf', 'sub', 'jti'],
-
+    'required_claims' => ['iss', 'iat', 'exp', 'nbf', 'sub', 'jti'],
+    
     /*
     |--------------------------------------------------------------------------
     | Blacklist Enabled

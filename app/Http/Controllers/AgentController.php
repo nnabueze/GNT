@@ -30,6 +30,7 @@ class AgentController extends Controller
     //displaying agent page
     public function index()
     {
+      
     	$sidebar = "agent";
     	$igr = Igr::with('mdas')->find(Auth::user()->igr_id);
       $pos_user =array();
