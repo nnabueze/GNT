@@ -42,7 +42,7 @@
 
 		<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
 			<!-- Button trigger modal -->
-			<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg pull-right header-btn hidden-mobile"><i class="fa fa-circle-arrow-up fa-lg"></i> ADD POS</a>
+			<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-md pull-right header-btn hidden-mobile"><span class="glyphicon glyphicon-plus"></span> ADD POS</a>
 		</div>
 	</div>
 
@@ -59,7 +59,7 @@
 					</h4>
 				</div>
 				<div class="modal-body no-padding">
-				<form id="login-form" method="POST" action="/lga" class="smart-form">
+				<form id="login-form" method="POST" action="/pos" class="smart-form">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<fieldset>
 							
@@ -68,7 +68,7 @@
 									<label class="label col col-2">POS IMEI</label>
 									<div class="col col-10">
 										<label class="input"> <i class="icon-append fa fa-user"></i>
-											<input type="text" name="mda_name">
+											<input type="text" name="pos_imei">
 										</label>
 									</div>
 								</div>
@@ -79,7 +79,7 @@
 									<label class="label col col-2">POS Name</label>
 									<div class="col col-10">
 										<label class="input"> <i class="icon-append fa fa-user"></i>
-											<input type="text" name="mda_name">
+											<input type="text" name="name">
 										</label>
 									</div>
 								</div>
@@ -91,7 +91,7 @@
 									<label class="label col col-2">MDA</label>
 									<div class="col col-10">
 										<label class="input">
-											<select class="form-control" name="mda" >
+											<select class="form-control" name="mda_id" >
 												<option value="">Select MDA</option>
 												@if(isset($igr->mdas))
 													@foreach($igr->mdas as $mda)
@@ -113,11 +113,13 @@
 									<label class="label col col-2">Station</label>
 									<div class="col col-10">
 										<label class="input">
-											<select class="form-control" name="mda" >
+											<select class="form-control" name="station_id" >
 												<option value="">Select Station</option>
-												@if(isset($station))
-													@foreach($station as $station)
+												@if(isset($igr->mdas))
+													@foreach($igr->mdas as $mda)
+														@foreach($mda->station as $station)
 												<option value="{{$station->id}}">{{$station->station_name}}</option>
+														@endforeach
 													@endforeach
 												@else
 												<option value="">NO station</option>
@@ -237,7 +239,8 @@
 											<tr>
 												<th data-hide="phone">POS IMEI</th>
 												<th data-hide="phone,tablet">POS Name</th>
-												<th>LGA</th>
+												<th>LGA/MDA</th>
+												<th>Station</th>
 												<th>Activation Status</th>
 												<th>Activation Code</th>
 												<th data-hide="phone,tablet"> Action</th>
@@ -251,6 +254,7 @@
 												<td>{{$pos->pos_imei}}</td>
 												<td>{{$pos->name}}</td>
 												<td>{{$pos->mda->mda_name}}</td>
+												<td>{{$pos->station->station_name}}</td>
 												@if($pos->activation == 0)
 												<td><span class="btn-warning">Not Activated</span></td>
 												@else

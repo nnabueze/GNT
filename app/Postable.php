@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Postable extends Model
 {
-    //
+    protected $fillable = ['pos_imei', 'name', 'mda_id','station_id','pos_key','activation_code'];
+
 	//reletionship with MDA
     public function mda()
     {

@@ -8,6 +8,7 @@ use Auth;
 use Session;
 use Redirect;
 use App\Igr;
+use App\Postable;
 use App\Mda;
 use App\Station;
 use App\Revenuehead;
@@ -128,6 +129,40 @@ class AgencyController extends Controller
    }
 
    ////////////////////////////////////////////////////////////////////////////////////
+
+   //storing pos
+   public function store_pos(Request $request)
+   {
+      //validation
+      $this->validate($request, [
+          'pos_imei' => 'required',
+          'name' => 'required',
+          'mda_id' => 'required',
+          'station_id' => 'required',
+      ]);
+
+      //checking if the imei exist
+      if ($pos = Postable::where("pos_imei",$request->pos_imei)->first()) {
+         Session::flash("warning","Failed! POS already exist ");
+         return Redirect::back();
+      }
+
+      //generating the random keys
+      $request['pos_key'] ="PO" .$this->random_number(11);
+      $request['activation_code'] ="PO" .$this->random_number(6);
+
+      //inserting record into the db
+      if ($pos_details = Postable::create($request->all())) {
+
+         Session::flash("message","Successful! POS added ");
+         return Redirect::back();
+      }
+
+      Session::flash("warning","Failed! Unable to add POS ");
+      return Redirect::back();
+   }
+
+   /////////////////////////////////////////////////////////////////////////////////////
 
    //generating random digit number
    private function random_number($size = 5)

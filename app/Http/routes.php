@@ -99,6 +99,9 @@ Route::get("/station","AgencyController@station");
 //Post action status
 Route::get("/pos","AgencyController@pos");
 
+//storing pos
+Route::post("/pos","AgencyController@store_pos");
+
 //Route viewing list of revenue heads under an mda
 Route::get("/agency/{any}","AgencyController@view_head");
 
