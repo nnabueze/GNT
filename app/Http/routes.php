@@ -94,7 +94,7 @@ Route::get("/lga/{any}","LgaController@delete_lga");
 //Route::get("/revenue_heads","AgencyController@revenue_heads");
 
 //route for adding up station
-Route::get("/station","AgencyController@station");
+/*Route::get("/station","AgencyController@station");*/
 
 //Post action status
 Route::get("/pos","AgencyController@pos");

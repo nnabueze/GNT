@@ -57,6 +57,11 @@ class Handler extends ExceptionHandler
         {
             return response()->view('error.error404', [], 404);
         }
+
+        if ($e instanceof TokenMismatchException){
+            
+            return response()->view('error.error500', [], 500);
+        }
         ////////////////////////////////////////////////////////////////////////////////
 
         return parent::render($request, $e);
