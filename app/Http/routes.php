@@ -121,6 +121,9 @@ Route::get("/station/{any}","StationController@delete_station");
 //Route to display agent
 Route::get("/agent","AgentController@index");
 
+//storing agent
+Route::post("/agent","AgentController@agent");
+
 //Route for getting list of suhheads under mda
 Route::get("/agent_mda/{any}","AgentController@agent_mda");
 
@@ -181,6 +184,15 @@ Route::get("/add_subhead","HeadsController@index");
 
 //route storing subhead
 Route::post("/add_subhead","HeadsController@add_subhead");
+
+//getting a specific MDA pos users
+Route::get('/pos_user',"AgentController@index");
+
+//getting a specific Mda pos user
+Route::post('/pos_user',"AgentController@pos_user");
+
+//Deleting a pos user
+Route::get("/pos_user/{any}","AgentController@delete_pos_user");
 
 
 

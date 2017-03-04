@@ -42,7 +42,7 @@
 
 		<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
 			<!-- Button trigger modal -->
-			<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg pull-right header-btn hidden-mobile"><i class="fa fa-circle-arrow-up fa-lg"></i> ADD AGENCY</a>
+			<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-md pull-right header-btn hidden-mobile"><span class="glyphicon glyphicon-plus"></span> ADD AGENCY</a>
 		</div>
 	</div>
 

@@ -43,7 +43,7 @@
 
 		<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
 			<!-- Button trigger modal -->
-			<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg pull-right header-btn hidden-mobile"><i class="fa fa-circle-arrow-up fa-lg"></i> ADD AGENT</a>
+			<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-md pull-right header-btn hidden-mobile"><span class="glyphicon glyphicon-plus"></span> ADD AGENT</a>
 		</div>
 	</div>
 
@@ -61,15 +61,15 @@
 				</div>
 				<div class="modal-body no-padding">
 
-					<form id="login-form" method="POST" action="/station" class="smart-form">
+					<form id="login-form" method="POST" action="/agent" class="smart-form">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<fieldset>
 							<section>
 								<div class="row">
-									<label class="label col col-2">Name</label>
+									<label class="label col col-2">Worker Name</label>
 									<div class="col col-10">
 										<label class="input"> <i class="icon-append fa fa-user"></i>
-											<input type="text" name="name">
+											<input type="text" name="worker_name">
 										</label>
 									</div>
 								</div>
@@ -87,13 +87,12 @@
 								</div>
 							</section>
 
-
 							<section>
 								<div class="row">
 									<label class="label col col-2">Email (optional)</label>
 									<div class="col col-10">
 										<label class="input"> <i class="icon-append fa fa-lock"></i>
-											<input type="text" name="phone" placeholder="(optional)">
+											<input type="text" name="email" placeholder="(optional)">
 										</label>
 
 									</div>
@@ -103,15 +102,37 @@
 
 							<section>
 								<div class="row">
-									<label class="label col col-2">Consultant</label>
+									<label class="label col col-2">Collection Limit</label>
 									<div class="col col-10">
-										<label class="checkbox"> <i class="icon-append fa fa-lock"></i>
-											<input type="checkbox" name="checkbox">
-											<i></i>
+										<label class="input"> <i class="icon-append fa fa-lock"></i>
+											<input type="text" name="user_limit">
 										</label>
 
 									</div>
 								</div>
+							</section>
+
+							<section>
+								<div class="row">
+							
+								<label class="label col col-2">Consultant</label>
+								<div class="col-md-10">
+								<label class="input">
+									<div class="radio">
+										<label>
+											<input type="radio" class="radiobox" value="agent" name="category">
+											<span>Yes</span> 
+										</label>
+									</div>
+									<div class="radio">
+										<label>
+											<input type="radio" class="radiobox" checked="checked" value="user" name="category">
+											<span>No</span> 
+										</label>
+									</div>
+								</label>
+							</div>
+							</div>
 							</section>
 
 							<section>
@@ -120,38 +141,32 @@
 									<div class="col col-10">
 
 										<label class="select"> <i class="icon-append fa fa-user"></i>
-											<select name="mda_id" id="mda">
-												<option value="0" selected="" disabled="">Select</option>
-												<option value="1">Aaland Islands</option>
-												<option value="1">Afghanistan</option>
-												<option value="2">Albania</option>
-												<option value="3">Algeria</option>
+											<select name="mda_id">
+											@if(isset($igr->mdas))
+												<option value="0" selected="" disabled="">Select MDA/LGA</option>
+												@foreach($igr->mdas as $mda)
+												<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
+												@endforeach
+											@endif
 											</select> <i></i> </label>
 										</div>
 									</div>
 								</section>
 
-								<section>
-									<div class="row">
-										<label class="label col col-2">MDA</label>
-										<div class="col col-10">
-											<label class="input">
-												<select class="form-control" name="mda" >
-
-													<option value="">Select MDA</option>
-													@if(isset($igr->mdas))
-													@foreach($igr->mdas as $mda)
-													<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
-													@endforeach
-													@else
-													<option value="">NO MDA</option>
-													@endif
-													
-												</select>	
-											</label>
-										</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label" for="multiselect1">Subhead</label>
+									<div class="col-md-10">
+										<select multiple="multiple" name="subhead[]" id="multiselect1" class="form-control custom-scroll" >
+										@if(isset($igr->mdas))
+											@foreach($igr->mdas as $mda)
+												@foreach($mda->subheads as $subhead)
+													<option value="{{$subhead->id}}">{{$subhead->subhead_name}}</option>
+												@endforeach
+											@endforeach
+										@endif
+										</select>
 									</div>
-								</section>
+								</div>
 
 							</fieldset>
 
@@ -176,7 +191,7 @@
 
 		<div class="row">
 			<div class="col-md-12">
-			<form method="get" action="#" >
+			<form method="post" action="/pos_user" >
 
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<div class="col-sm-3">
@@ -260,48 +275,28 @@
 
 												<th data-hide="phone,tablet">Name</th>
 												<th data-hide="phone,tablet">Phone</th>
-												<th data-hide="phone,tablet">MDA/LGA (Station)</th>
+												<th data-hide="phone,tablet">MDA/LGA</th>
+												<th data-hide="phone,tablet">Collection Limit</th>
+												<th data-hide="phone,tablet">Category</th>
+												<th data-hide="phone,tablet">Pin</th>
 												<th data-hide="phone,tablet"> Action</th>
 
 											</tr>
 										</thead>
 										<tbody>
+											@if(isset($pos_user))
+												@foreach($pos_user as $user)
 											<tr>
-												<td>test user</td>
-												<td>44588266255</td>
-												<td>Bauchi LGA</td>
-
-												<td> </td>
-
+												<td>{{$user->worker_name}}</td>
+												<td>{{$user->phone}}</td>
+												<td>{{$user->mda->mda_name}}</td>
+												<td>{{$user->user_limit}}</td>
+												<td>{{$user->category}}</td>
+												<td>{{$user->pin}}</td>
+												<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/pos_user/{{$user->worker_key}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 											</tr>
-											<tr>
-												<td>test user</td>
-												<td>44588266255</td>
-												<td>Tafawa Balewa LGA</td>
-
-												<td> </td>
-											</tr>
-											<tr>
-												<td>test user</td>
-												<td>44588266255</td>
-												<td>Dass LGA </td>
-
-												<td> </td>
-											</tr>
-											<tr>
-												<td>test user</td>
-												<td>44588266255</td>
-												<td>Toro LGA</td>
-
-												<td> </td>
-											</tr>
-											<tr>
-												<td>test user</td>
-												<td>44588266255</td>
-												<td>Bogoro LGA </td>
-
-												<td> </td>
-											</tr>
+												@endforeach
+											@endif
 										</tbody>
 									</table>
 
@@ -337,6 +332,10 @@
 		});
 		$("#mda1").select2({
 			placeholder: "Select MDA"
+		});
+		$("#subhead").select2({
+		  tags: true,
+		  placeholder: "Select Subheads",
 		});
 	</script>
 
