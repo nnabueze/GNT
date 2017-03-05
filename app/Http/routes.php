@@ -197,6 +197,12 @@ Route::post('/pos_user',"AgentController@pos_user");
 //Deleting a pos user
 Route::get("/pos_user/{any}","AgentController@delete_pos_user");
 
+//route for changing password
+Route::get("/change_password","AdminController@change_password");
+
+//string password change
+Route::post("/change_password","AdminController@change_password_store");
+
 
 
 

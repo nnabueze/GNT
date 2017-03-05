@@ -7,7 +7,7 @@
 		<span> <!-- User image size is adjusted inside CSS, it should stay as it --> 
 			
 			<a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
-				<img src="{{ asset('template/img/avatars/sunny.png')}}" alt="me" class="online" /> 
+				<img src="{{ asset('template/img/avatars/download.png')}}" alt="me" class="online" /> 
 				<span>
 					{{Auth::user()->name}}
 				</span>
@@ -175,8 +175,8 @@
 						<li>
 							<a href="#">Edit Profile</a>
 						</li>
-						<li>
-							<a href="#">Change password</a>
+						<li class="<?php if ($sidebar == "password"){echo "active";}else{echo "";}?>">
+							<a href="/change_password">Change password</a>
 						</li>
 					</ul>
 				</li>

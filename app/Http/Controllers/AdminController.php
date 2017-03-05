@@ -7,6 +7,8 @@ use Auth;
 use Redirect;
 use Session;
 use App\Igr;
+use App\User;
+use Hash;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -23,6 +25,8 @@ class AdminController extends Controller
 
 	}
 
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	//display login page
 	public function index()
 	{
@@ -35,6 +39,8 @@ class AdminController extends Controller
 		$sidebar = "dashbaord";
 		return view("admin.login",compact("sidebar"));
 	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//processing login parameter
 	public function store(Request $request)
@@ -49,6 +55,8 @@ class AdminController extends Controller
 		}
 	}
 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+
     //Displaying dashboard page
 	public function dashboard()
 	{
@@ -56,6 +64,8 @@ class AdminController extends Controller
 		$sidebar = "dashbaord";
 		return view("admin/dashboard",compact("sidebar"));
 	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//logout from the system
 	public function logout()
@@ -69,11 +79,15 @@ class AdminController extends Controller
 		}
 	}
 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	//redirecting to the homepage
 	public function admin()
 	{
 		return Redirect::to("/");
 	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//onboarding igr
 	public function igr()
@@ -105,6 +119,7 @@ class AdminController extends Controller
 			return Redirect::back();
 		}
 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		//insert into db
 		if (Igr::create($request->all())) {
@@ -118,6 +133,8 @@ class AdminController extends Controller
 		Session::flash("warning","Failed! Unable to onboard IGR");
 		return Redirect::back();
 	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//deleting igr from the portal
 	public function delete_igr($id)
@@ -141,7 +158,52 @@ class AdminController extends Controller
 		return Redirect::back();
 	}
 
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//changing password
+	public function change_password()
+	{
+		$sidebar = "password";
+		return view("admin.change_password",compact("sidebar"));
+	}
+
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//storing changing password
+	public function change_password_store(Request $request)
+	{
+		//validation
+		$this->validate($request, [
+		    'old_password' => 'required',
+		    'new_password' => 'required',
+		    'confirm_new_password' => 'required|same:new_password',
+		]);
+
+		//check if old password exist
+		if (! Hash::check($request->old_password, Auth::user()->password) ) {
+
+			Session::flash("warning","Failed! Old password does not exist");
+			return Redirect::back();
+		}
+
+		//hash the new password
+		$new_password = Hash::make($request->new_password);
+
+		//insert record i to db
+		if ($user = User::find($request->id)) {
+			$user->update(["password"=>$new_password]);
+
+			Session::flash("message","Successful! Password changed");
+			return Redirect::back();
+		}
+
+		Session::flash("warning","Failed! Unable to change password");
+		return Redirect::back();
+	}
+
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//generating random digit number
 	private function random_number($size = 5)

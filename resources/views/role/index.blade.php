@@ -43,6 +43,8 @@
 		<!-- NEW COL START -->
 		<article class="col-sm-12 col-md-8 col-lg-8">
 			@include('include.message')
+			@include('include.warning')
+			@include('include.error')
 			<!-- Widget ID (each widget will need unique ID)-->
 			<div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-custombutton="false">
 				<!-- widget options:
