@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Auth;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -55,7 +56,11 @@ class Handler extends ExceptionHandler
         ///////////////////////////////////CUSTOM ERROR//////////////////////////////////////////////
         if($e instanceof NotFoundHttpException)
         {
-            return response()->view('error.error404', [], 404);
+            if (Auth::user()) {
+               return response()->view('error.error', [], 404);
+            }else{
+                return response()->view('error.error', [], 404);
+            }
         }
 
         if ($e instanceof TokenMismatchException){

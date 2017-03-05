@@ -172,7 +172,7 @@
 				<li>
 					<a href="#"><i class="fa fa-lg fa-fw fa fa-book"></i> <span class="menu-item-parent">Profile Management</span></a>
 					<ul>
-						<li>
+						<li class="<?php if ($sidebar == "edit_profile"){echo "active";}else{echo "";}?>">
 							<a href="#">Edit Profile</a>
 						</li>
 						<li class="<?php if ($sidebar == "password"){echo "active";}else{echo "";}?>">

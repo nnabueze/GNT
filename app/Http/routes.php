@@ -203,6 +203,9 @@ Route::get("/change_password","AdminController@change_password");
 //string password change
 Route::post("/change_password","AdminController@change_password_store");
 
+//Route for editing the profile
+/*Route::get("/edit_profile","AdminController@edit_profile");
+*/
 
 
 
