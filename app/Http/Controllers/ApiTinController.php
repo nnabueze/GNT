@@ -105,6 +105,12 @@ class ApiTinController extends Controller
 				return $this->response->array(compact('message'))->setStatusCode(401);
 			}
 
+			//check if phone number exist
+			if ($check_tin = Tin::where("phone",$request->phone)->first()) {
+				$message = "Phone already exist on the platform.";
+				return $this->response->array(compact('message'))->setStatusCode(400);.
+			}
+
    			//getting igr id
 			$igr = Mda::with("igr")->where("id",$pos->mda_id)->first();
 			$request['igr_id'] = $igr->id;
@@ -112,7 +118,7 @@ class ApiTinController extends Controller
 			$request['tin_key'] = str_random(15);
 
 			//check if the temporary tin exist
-			if (! $tin_tempoary = tin::where("temporary_tin", $request['temporary_tin'])->first()) {
+			if (! $tin_tempoary = Tin::where("temporary_tin", $request['temporary_tin'])->first()) {
 				
 				$tem_tin = Tin::create($request->all());
 				$tin = 	$tem_tin->temporary_tin;
