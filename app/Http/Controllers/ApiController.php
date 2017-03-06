@@ -75,45 +75,37 @@ class ApiController extends Controller
                 return $this->response->array(compact('message'))->setStatusCode(400); 
             }
 
+            //checking if mda exist
+            if (! $check_mda = $this->mda_id($request->mda_key)) {
+                $message = "MDA does not exist";
+                return $this->response->array(compact('message'))->setStatusCode(400); 
+            }
+
             //checking if user is assigned to the mda
             if ($pos->mda_id != $user->mda_id) {
                 $message = "User is not assigned to MDA";
                 return $this->response->array(compact('message'))->setStatusCode(400);
             }
 
-            //getting the revenue heads
+            //getting the revenue heads assign to user
             $mda_id = $this->mda_id($request->input("mda_key"));
-            if ($heads = Revenuehead::with("subheads")->where("mda_id",$mda_id)->get()) {
-                $revenue_heads = array();
+            if ($heads = Mda::where("mda_key",$request->mda_key)->first()) {
+                $sub_heads = array();
 
-                foreach ($heads as $head) {
-                    $item = array();
+                foreach ($heads->subheads as $subhead) {
 
-                    $item['revenueheads_key'] = $head->revenueheads_key;
-                    $item['revenue_code'] = $head->revenue_code;
-                    $item['revenue_name'] = $head->revenue_name;
-                    $item['amount'] = $head->amount;
-                    $item['taxiable'] = $head->taxiable;
-                    if ($head->sub_heads == 1) {
-                        $item['subheads_details'] =array();
-                         //getting the subheads
-                        foreach($head->subheads as $subhead){
-                            $subhead_details['subhead_code'] = $subhead->subhead_code;
-                            $subhead_details['subhead_name'] = $subhead->subhead_name;
-                            $subhead_details['subhead_key'] = $subhead->subhead_key;
-                            $subhead_details['taxiable'] = $subhead->taxiable;
-                            $subhead_details['amount'] = $subhead->amount;
+                        $subhead_details['subhead_code'] = $subhead->subhead_code;
+                        $subhead_details['subhead_name'] = $subhead->subhead_name;
+                        $subhead_details['subhead_key'] = $subhead->subhead_key;
+                        $subhead_details['taxiable'] = $subhead->taxiable;
+                        $subhead_details['amount'] = $subhead->amount;
 
-                            array_push($item['subheads_details'], $subhead_details);
-                        }
-                    }
-
-                    array_push($revenue_heads, $item);
+                    array_push($sub_heads,$subhead_details);
                 }
               /*  print_r($revenue_heads);
                 die;*/
 
-                return $this->response->array(compact('revenue_heads'))->setStatusCode(200);
+                return $this->response->array(compact('sub_heads'))->setStatusCode(200);
             }
 
             $message = "No Revenue Head Listed";
