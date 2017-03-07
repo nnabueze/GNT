@@ -121,7 +121,10 @@ class ApiTinController extends Controller
 			if (! $tin_tempoary = Tin::where("temporary_tin", $request['temporary_tin'])->first()) {
 				
 				$tem_tin = Tin::create($request->all());
-				$tin = 	$tem_tin->temporary_tin;
+				$tin['tin'] = 	$tem_tin->temporary_tin;
+				$tin['name'] = 	$tem_tin->name;
+				$tin['phone'] = 	$tem_tin->phone;
+				$tin['date'] = 	$tem_tin->created_at;
 
 				return $this->response->array(compact('tin'))->setStatusCode(200);
 			}
