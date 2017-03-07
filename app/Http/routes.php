@@ -210,6 +210,9 @@ Route::post("/change_password","AdminController@change_password_store");
 //Route to get list of MDAs when pass igr id
 Route::get("/list_mda","UserController@list_mda");
 
+//Route to get list of revenue heads when pass mda id
+Route::get("/list_heads","HeadsController@list_heads");
+
 
 
 

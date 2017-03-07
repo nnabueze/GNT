@@ -126,7 +126,7 @@
 							<section>
 								<div class="row">
 							
-								<label class="label col col-2">Taxible</label>
+								<label class="label col col-2">Tax</label>
 								<div class="col-md-10">
 								<label class="input">
 									<div class="radio">
@@ -216,21 +216,21 @@
 										</div>
 									</div>
 								</section>
-								
-								
+
+
 								<section>
 									<div class="row">
-										<label class="label col col-2">Revenue Heads</label>
+										<label class="label col col-2">Select MDA</label>
 										<div class="col col-10">
 											<label class="input">
-												<select class="form-control" name="revenuehead_id" >
+												<select class="form-control" name="mda_id" id="mda2" >
 
-													<option value="">Select Revenue Head</option>
+													<option value="">Select MDA</option>
 													@if(isset($igr->mdas))
 														@foreach($igr->mdas as $mda)
-															@foreach($mda->revenue as $revenue)
-													<option value="{{$revenue->id}}">{{$revenue->revenue_name}}</option>
-															@endforeach
+															
+													<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
+															
 														@endforeach
 													@else
 													<option value="">NO MDA</option>
@@ -241,11 +241,27 @@
 										</div>
 									</div>
 								</section>
+								
+								
+								<section>
+									<div class="row">
+										<label class="label col col-2">Revenue Heads</label>
+										<div class="col col-10">
+											<label class="input">
+												<select class="form-control" name="revenuehead_id" id="heads" >
+
+													<option value="">Select Revenue Head</option>
+													
+												</select>	
+											</label>
+										</div>
+									</div>
+								</section>
 
 								<section>
 									<div class="row">
 								
-									<label class="label col col-2">Taxible</label>
+									<label class="label col col-2">Tax</label>
 									<div class="col-md-10">
 									<label class="input">
 										<div class="radio">
@@ -432,6 +448,21 @@
 			$("#lga").select2({
 			  placeholder: "Select LGA",
 			});
+		</script>
+
+		<script>
+
+		    $('#mda2').change(function(){
+		        $.get("{{ url('/list_heads')}}", 
+		        { option: $(this).val() }, 
+		        function(data) {
+		            $('#heads').empty(); 
+		            $.each(data, function(key, element) {
+		                $('#heads').append("<option value='" + key +"'>" + element + "</option>");
+		            });
+		        });
+		    });
+
 		</script>
 
 		<script type="text/javascript">

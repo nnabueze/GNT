@@ -9,6 +9,7 @@ use Session;
 use Redirect;
 use App\Igr;
 use App\Mda;
+use Input;
 use App\Station;
 use App\Revenuehead;
 use App\Subhead;
@@ -232,6 +233,16 @@ class HeadsController extends Controller
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
+
+    //Route for getting list of heads when pass mda id
+    public function list_heads()
+    {
+        $id = Input::get('option');
+        $mda = Mda::with("revenue")->find($id);
+        return $mda->revenue->lists('revenue_name', 'id');
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////
 
     //generating random numbers
     private function random_number($size = 5)
