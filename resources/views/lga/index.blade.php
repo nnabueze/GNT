@@ -1,5 +1,31 @@
 @extends('admin')
 @section('content')
+<div id="ribbon">
+
+	<span class="ribbon-button-alignment"> 
+		<span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+			<i class="fa fa-refresh"></i>
+		</span> 
+	</span>
+
+	<!-- breadcrumb -->
+	<ol class="breadcrumb">
+		<li>Setup</li><li>LGA</li>
+	</ol>
+	<!-- end breadcrumb -->
+
+	<!-- You can also add more buttons to the
+	ribbon for further usability
+
+	Example below:
+
+	<span class="ribbon-button-alignment pull-right">
+	<span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+	<span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+	<span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+</span> -->
+
+</div>
 <!-- MAIN CONTENT -->
 <div id="content">
 
@@ -16,7 +42,7 @@
 
 		<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
 			<!-- Button trigger modal -->
-			<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg pull-right header-btn hidden-mobile"><i class="fa fa-circle-arrow-up fa-lg"></i> ADD LGA</a>
+			<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-md pull-right header-btn hidden-mobile"><i class="fa fa-circle-arrow-up fa-lg"></i><span class="glyphicon glyphicon-plus"></span> ADD LGA</a>
 		</div>
 	</div>
 

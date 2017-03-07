@@ -10,7 +10,7 @@
 
 	<!-- breadcrumb -->
 	<ol class="breadcrumb">
-		<li>Setup</li><li>IGR</li>
+		<li>Setup</li><li>Biller</li>
 	</ol>
 	<!-- end breadcrumb -->
 
@@ -35,14 +35,14 @@
 				<i class="fa fa-table fa-fw "></i> 
 				Setup
 				<span>> 
-					IGR
+					Biller
 				</span>
 			</h1>
 		</div>
 
 		<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
 			<!-- Button trigger modal -->
-			<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg pull-right header-btn hidden-mobile"><i class="fa fa-circle-arrow-up fa-lg"></i> Onboard</a>
+			<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-md pull-right header-btn hidden-mobile"><i class="fa fa-circle-arrow-up fa-lg"></i><span class="glyphicon glyphicon-plus"></span> Onboard</a>
 		</div>
 	</div>
 
@@ -169,7 +169,7 @@
 
 							<header>
 								<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-								<h2>LIST OF IGR</h2>
+								<h2>LIST OF Biller</h2>
 
 							</header>
 

@@ -14,6 +14,7 @@ use Auth;
 use Redirect;
 use Session;
 use Hash;
+use Input;
 
 
 class UserController extends Controller
@@ -35,7 +36,7 @@ class UserController extends Controller
         $mdas = Mda::all();
         $igrs = Igr::all();
         $roles = Role::all();
-        $users = User::paginate(4);
+        $users = User::where("igr_id",Auth::user()->igr_id)->paginate(4);
         $sidebar = "user_sidebar";
         return view('user.index',compact("mdas","roles",'users','sidebar','igrs'));
     }
@@ -65,11 +66,6 @@ class UserController extends Controller
               return Redirect::back();
           }
 
-          //checking if mda is selected
-          if (empty($request->input('mda_id'))) {
-             Session::flash('warning', 'Failed! select MDA');
-             return Redirect::back();
-          }
 
           //check if igr is selected
           if (empty($request->input('igr_id'))) {
@@ -81,6 +77,18 @@ class UserController extends Controller
           if (empty($request->input('role'))) {
              Session::flash('warning', 'Failed! select a role');
              return Redirect::back();
+          }
+
+          //checking if mda is selected
+          if (empty($request->input('mda_id'))) {
+             
+             foreach($request->input('role') as $role){
+                $role_check = Role::find($role);
+                if ($role_check->name == "Staff") {
+                    Session::flash('warning', 'Failed! Select MDA, if role is Staff');
+                    return Redirect::back();
+                }
+             }
           }
 
           //hashing password
@@ -98,6 +106,19 @@ class UserController extends Controller
         Session::flash('warning', 'Failed! Unable to create account');
         return Redirect::back();
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //getting lidt of mads when igr id is passed
+    public function list_mda()
+    {
+        $id = Input::get('option');
+        $mda = Igr::with("mdas")->find($id);
+        return $mda->mdas->lists('mda_name', 'id');
+    }
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * Display the specified resource.

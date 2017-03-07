@@ -261,15 +261,8 @@
 										<section>
 											<label class="select">
 												<select name="mda_id" id="mda">
-													<option value="0" selected="">Select MDA</option>
-													@if(isset($mdas))
-													@foreach($mdas as $mda)
-													<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
-													@endforeach
-													@else
-													<option value="1">No MDA</option>
-													@endif
-												</select> <b class="tooltip tooltip-bottom-right">Select An MDA</b></label>
+													<option value="0" selected="">Select MDA/LGA</option>
+												</select> 
 											</section>
 
 										<section>
@@ -353,11 +346,25 @@
 	});
 
 	$("#igr").select2({
-	  placeholder: "Select Role",
+	  placeholder: "Select IGR",
 	});
 
 	$("#mda").select2({
-	  placeholder: "Select Role",
+	  placeholder: "Select MDA/LGA",
 	});
+</script>
+<script>
+
+    $('#igr').change(function(){
+        $.get("{{ url('/list_mda')}}", 
+        { option: $(this).val() }, 
+        function(data) {
+            $('#mda').empty(); 
+            $.each(data, function(key, element) {
+                $('#mda').append("<option value='" + key +"'>" + element + "</option>");
+            });
+        });
+    });
+
 </script>
 @endpush

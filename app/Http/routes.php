@@ -207,6 +207,9 @@ Route::post("/change_password","AdminController@change_password_store");
 /*Route::get("/edit_profile","AdminController@edit_profile");
 */
 
+//Route to get list of MDAs when pass igr id
+Route::get("/list_mda","UserController@list_mda");
+
 
 
 
