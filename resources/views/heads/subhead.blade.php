@@ -222,21 +222,37 @@
 									
 									<section>
 										<div class="row">
-											<label class="label col col-2">Revenue Heads</label>
+											<label class="label col col-2">Select MDA</label>
 											<div class="col col-10">
 												<label class="input">
-													<select class="form-control" name="revenuehead_id" >
+													<select class="form-control" name="mda_id" id="mda2" >
 
-														<option value="">Select Revenue Head</option>
+														<option value="">Select MDA</option>
 														@if(isset($igr->mdas))
 															@foreach($igr->mdas as $mda)
-																@foreach($mda->revenue as $revenue)
-														<option value="{{$revenue->id}}">{{$revenue->revenue_name}}</option>
-																@endforeach
+																
+														<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
+																
 															@endforeach
 														@else
 														<option value="">NO MDA</option>
 														@endif
+														
+													</select>	
+												</label>
+											</div>
+										</div>
+									</section>
+									
+									
+									<section>
+										<div class="row">
+											<label class="label col col-2">Revenue Heads</label>
+											<div class="col col-10">
+												<label class="input">
+													<select class="form-control" name="revenuehead_id" id="heads" >
+
+														<option value="">Select Revenue Head</option>
 														
 													</select>	
 												</label>
@@ -378,6 +394,7 @@
 												<th data-hide="phone,tablet">HEAD</th>
 												<th>SUBHEAD CODE</th>
 												<th>SUBHEAD</th>
+												<th>AMOUNT</th>
 												<th data-hide="phone,tablet"> ACTION</th>
 												
 											</tr>
@@ -390,6 +407,7 @@
 												<td>{{$heads->revenuehead->revenue_name}}</td>
 												<td>{{$heads->subhead_code}}</td>
 												<td>{{$heads->subhead_name}}</td>
+												<td>{{$heads->amount}}</td>
 												
 											<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 												
@@ -430,6 +448,20 @@
 			$("#mda").select2({
 			  placeholder: "Select MDA",
 			});
+		</script>
+		<script>
+
+		    $('#mda2').change(function(){
+		        $.get("{{ url('/list_heads')}}", 
+		        { option: $(this).val() }, 
+		        function(data) {
+		            $('#heads').empty(); 
+		            $.each(data, function(key, element) {
+		                $('#heads').append("<option value='" + key +"'>" + element + "</option>");
+		            });
+		        });
+		    });
+
 		</script>
 		<script type="text/javascript">
 
