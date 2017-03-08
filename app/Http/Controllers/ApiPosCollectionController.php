@@ -35,8 +35,7 @@ class ApiPosCollectionController extends Controller
 		$this->token_auth();
 
             //validating request
-		if ($request->has('name') && $request->has('phone')&&$request->has('payer_id')&&$request->has('mda')&&$request->has('revenue_head')
-			&&$request->has('amount')&&$request->has('user_key')&&$request->has('start_date')&&$request->has('end_date')&&$request->has('pos_key')
+		if ($request->has('name') && $request->has('phone')&&$request->has('payer_id')&&$request->has('mda')&&$request->has('amount')&&$request->has('user_key')&&$request->has('start_date')&&$request->has('end_date')&&$request->has('pos_key')
 			&&$request->has('tax')) {
 
                 //generating for collect and getting mda auto incremental id.
@@ -57,10 +56,7 @@ class ApiPosCollectionController extends Controller
 		}
 
 		//checking if the revenue is valid
-		if (empty($request['revenuehead_id'])) {
-			$message = "Invalid revenue key";
-			return $this->response->array(compact('message'))->setStatusCode(400);
-		}
+
 
 
          //check if worker and mda passed exist            

@@ -35,8 +35,7 @@ class ApiGenerateInvoiceController extends Controller
             $this->token_auth();
             
             //validation incoming request
-            if ($request->has('name') && $request->has('phone')&&$request->has('payer_id')&&$request->has('mda')
-                &&$request->has('amount')&&$request->has('user_key')&&$request->has('start_date')&&$request->has('end_date')&&$request->has('pos_key')) {
+            if ($request->has('name') && $request->has('phone')&&$request->has('payer_id')&&$request->has('mda')&&$request->has('amount')&&$request->has('user_key')&&$request->has('start_date')&&$request->has('end_date')&&$request->has('pos_key')) {
 
                 $request['invoice_key'] = str_random(15);
             $request['mda_id'] = $this->mda_id($request->input("mda"));
@@ -62,11 +61,6 @@ class ApiGenerateInvoiceController extends Controller
          }
 
             //checking for revenue head
-         if (empty($request['revenuehead_id'])) {
-
-             $message = "invalid revenue head";
-             return $this->response->array(compact('message'))->setStatusCode(400);
-         }
 
             //checking if subhead is valid and exist
          if ($request->has('subhead') && empty($request['subhead_id'])) {
