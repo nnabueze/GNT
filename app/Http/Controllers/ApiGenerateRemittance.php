@@ -148,7 +148,7 @@ class ApiGenerateRemittance extends Controller
                 if ($remit_status = Remittance::where("remittance_key",$remit->remittance_code)->first()) {
 
                     //checking if remittance have been cleared before
-                    if ($remit_status->remittance_status === 1) {
+                    if ($remit_status->remittance_status == 1) {
 
                         $message = "Refcode already used";
                         return $this->response->array(compact('message'))->setStatusCode(401);
