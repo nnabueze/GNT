@@ -136,7 +136,7 @@ class ApiPosCollectionController extends Controller
 		}
 
                 //checking if collection is assign to subhead
-		if ($collection->subhead) {
+		if ($collection->subhead_id) {
 			$collection_receipt['sub_head'] = $collection->subhead->subhead_name;
 		}
 

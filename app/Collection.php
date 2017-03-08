@@ -38,6 +38,18 @@ class Collection extends Model
       return $this->belongsTo('App\Revenuehead');
     }
 
+    //relationship between collection and subheads
+    public function subhead()
+    {
+      return $this->belongsTo('App\Subhead');
+    }
+
+    //relationship between collection and mda
+    public function mda()
+    {
+      return $this->belongsTo('App\Mda');
+    }
+
     //reationship between collection and pos
     public function postable()
     {
