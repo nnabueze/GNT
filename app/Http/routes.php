@@ -230,6 +230,9 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version('v1',function($api){
     //creating user token
     $api->post('authenticate','App\Http\Controllers\ApiController@authentication');
+
+    //ebillspay
+    $api->post('igr_api','App\Http\Controllers\IgrEbillsApiController@index');
 });
 
 //protected Api route
