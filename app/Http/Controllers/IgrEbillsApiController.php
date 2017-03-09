@@ -34,9 +34,12 @@ class IgrEbillsApiController extends Controller
     public function index(Request $request)
     {
 
-    	$message = "yes";
-    	//return $this->response->array(compact('message'))->setStatusCode(200);
+    	$response['info'] = $request->input("Message");
+    	$response['car'] = "yes";
+    	$response['look'] = "yes";
+    	$content = view('xml.biller', compact('response'));
 
-    	return Response::make($message, '200')->header('Content-Type', 'text/xml');
+    	return response($content, 400)
+    	    ->header('Content-Type', 'application/xml');
     }
 }
