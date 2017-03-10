@@ -25,6 +25,7 @@ use App\Collection;
 use Carbon\Carbon;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use SoapBox\Formatter\Formatter;
 
 class IgrEbillsApiController extends Controller
 {
@@ -33,13 +34,21 @@ class IgrEbillsApiController extends Controller
     //Getting ebills biller details
     public function index(Request $request)
     {
+    	$jsonString = $request->getContent();
+    	$formatter = Formatter::make($jsonString, Formatter::XML);
+    	$json  = $formatter->toArray();
+    /*	print_r($json);
+    	die;*/
 
-    	$response['info'] = $request->input("Message");
+    	$response['info'] = $json['BillerID'];
     	$response['car'] = "yes";
     	$response['look'] = "yes";
-    	$content = view('xml.biller', compact('response'));
+    	//$content = view('xml.biller', compact('response'));
 
-    	return response($content, 400)
+    	$formatter = Formatter::make($json, Formatter::ARR);
+    	$car  = $formatter->toXml();
+
+    	return response($car, 400)
     	    ->header('Content-Type', 'application/xml');
     }
 }
