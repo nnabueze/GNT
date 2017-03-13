@@ -143,9 +143,7 @@ class IgrEbillsApiController extends Controller
 
                 $tin['email'] = $tem_tin->email;
             }
-            print_r($tin);
-            die;
-
+            
             $content = view('xml.create_tin', compact('tin'));
 
             return response($content, 200)
