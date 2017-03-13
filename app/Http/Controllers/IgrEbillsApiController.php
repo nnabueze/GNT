@@ -46,7 +46,9 @@ class IgrEbillsApiController extends Controller
                 $item = $this->create_tin($json);
                 return $item;
             break;
-            case label2:
+            case "1":
+                $item = $this->non_tax($json);
+                return $item;
 
             break;
             case label3:
@@ -151,6 +153,44 @@ class IgrEbillsApiController extends Controller
         $code = '401';
         $error = $this->error_response($message, $code, $param['Step']);
         return $error;
+
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //PAYMENT OF NON TAX
+    private function non_tax($param)
+    {
+        //getting parameter
+        $BillerID = $param['BillerID'];
+
+        //check the parmeter is missing
+        if (!isset($BillerID)) {
+
+            $message = "Parameter missing";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+
+        //check if biller exist
+        if (!$igr = Igr::with("mdas")->where("igr_key", $BillerID)->first()) {
+
+            $message = "Bileer does not exist";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+        //return response
+        $mda['mda'] = $igr->mdas;
+        $mda['NextStep'] = 4;
+
+        $content = view('xml.list_mda', compact('mda'));
+
+        return response($content, 200)
+            ->header('Content-Type', 'application/xml');
 
     }
 
