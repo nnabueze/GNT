@@ -51,7 +51,9 @@ class IgrEbillsApiController extends Controller
                 return $item;
 
             break;
-            case label3:
+            case "4":
+                $item = $this->step_4($json);
+                return $item;
 
             break;
             default:
@@ -96,19 +98,19 @@ class IgrEbillsApiController extends Controller
 
         }
 
-        //check if the phone number exist
-        if ($phone = Tin::where("phone", $data['phone'])->first()) {
+        //checking if the parameter are set
+        if (empty($data['address']) || empty($data['name']) || empty($data['phone']) || empty($data['BillerID'])) {
 
-            $message = "Phone number already exist";
+            $message = "Parameter missing";
             $code = '401';
             $error = $this->error_response($message, $code, $param['Step']);
             return $error;
         }
 
-        //checking if the parameter are set
-        if (!isset($data['address']) || !isset($data['name']) || !isset($data['phone']) || !isset($data['BillerID'])) {
+        //check if the phone number exist
+        if ($phone = Tin::where("phone", $data['phone'])->first()) {
 
-            $message = "Parameter missing";
+            $message = "Phone number already exist";
             $code = '401';
             $error = $this->error_response($message, $code, $param['Step']);
             return $error;
@@ -165,7 +167,7 @@ class IgrEbillsApiController extends Controller
         $BillerID = $param['BillerID'];
 
         //check the parmeter is missing
-        if (!isset($BillerID)) {
+        if (empty($BillerID)) {
 
             $message = "Parameter missing";
             $code = '401';
@@ -195,6 +197,74 @@ class IgrEbillsApiController extends Controller
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //Non Tax step 4
+    private function step_4($param)
+    {
+
+        //getting params
+        $data['mda_id'] = $param['MdaID'];
+        for ($i=0; $i <count($param['Param']) ; $i++) { 
+
+            if ($param['Param'][$i]['Key'] == "name") {
+                $data['name'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "phone") {
+                $data['phone'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "email") {
+                $data['email'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "payer_id") {
+                $data['payer_id'] = $param['Param'][$i]['Value'];
+            }
+        }
+
+        //check if param is missing
+        if (empty($data['payer_id']) || empty($data['name']) || empty($data['phone']) || empty($data['mda_id'])) {
+
+            $message = "Parameter missing";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+        //checking if mda exist
+        if (!$mda = Mda::find($data['mda_id'])) {
+
+            $message = "Mda does not exist";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+        //generating refcode and random number
+        $data['collection_key'] = $this->random_number(11);
+        $data['collection_type'] = "ebills";
+
+        //inserting record
+        if ($collection = Collection::create($data)) {
+            $item['subheads'] = $mda->subheads;
+            $item['NextStep'] = 5;
+
+            $content = view('xml.subhead_list', compact('item'));
+
+            return response($content, 200)
+                ->header('Content-Type', 'application/xml');
+        }
+
+        $message = "Unable to validate record";
+        $code = '401';
+        $error = $this->error_response($message, $code, $param['Step']);
+        return $error;
+    }
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //generating random number
     private function random_number($size = 5)
