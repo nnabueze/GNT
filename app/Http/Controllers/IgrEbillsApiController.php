@@ -56,6 +56,14 @@ class IgrEbillsApiController extends Controller
                 return $item;
 
             break;
+            case "5":
+                $item = $this->step_5($json);
+                return $item;
+
+            break;
+            case "#":
+
+            break;
             default:
 
         }
@@ -249,6 +257,7 @@ class IgrEbillsApiController extends Controller
         if ($collection = Collection::create($data)) {
             $item['subheads'] = $mda->subheads;
             $item['NextStep'] = 5;
+            $item['refcode'] = $collection->collection_key;
 
             $content = view('xml.subhead_list', compact('item'));
 
@@ -257,6 +266,74 @@ class IgrEbillsApiController extends Controller
         }
 
         $message = "Unable to validate record";
+        $code = '401';
+        $error = $this->error_response($message, $code, $param['Step']);
+        return $error;
+    }
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //non tax step 5
+    private function step_5($param)
+    {
+        //getting parameter
+        $data['BillerID'] = $param['BillerID'];
+        $data['subhead_id'] = $param['HeadID'];
+        $data['Refcode'] = $param['Refcode'];
+        for ($i=0; $i <count($param['Param']) ; $i++) { 
+
+            if ($param['Param'][$i]['Key'] == "start") {
+                $data['start_date'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "end") {
+                $data['end_date'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "amount") {
+                $data['amount'] = $param['Param'][$i]['Value'];
+            }
+        }
+
+        //checking for parameter
+        if (empty($data['subhead_id']) || empty($data['start_date']) || empty($data['end_date']) || empty($data['amount'])) {
+
+            $message = "Parameter missing";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+        //updating record
+        if ($collection = Collection::where("collection_key", $data['Refcode'])->first()) {
+            $collection->update(['start_date' => $data['start_date'],
+                "end_date"=>$data['end_date'],"amount"=>$data['amount'],"subhead_id"=>$data['subhead_id']]);
+/*            print_r($collection);
+            die;*/
+
+            
+            $item['refcode'] = $collection->collection_key;
+            $item['name'] = $collection->name;
+            $item['payerID'] = $collection->payer_id;
+            $item['phone'] = $collection->phone;
+         
+                $item['mda'] = $this->mda_name($collection->mda_id);
+
+            $item['subhead'] = $this->subhead($data['subhead_id']);
+            $item['period'] = $data['start_date']."-". $data['end_date'];
+            $item['amount'] = $data['amount'];
+           
+
+            $content = view('xml.step_5', compact('item'));
+
+            return response($content, 200)
+                ->header('Content-Type', 'application/xml');
+        }
+
+        //return response
+        $message = "Unable to record data";
         $code = '401';
         $error = $this->error_response($message, $code, $param['Step']);
         return $error;
@@ -304,5 +381,27 @@ class IgrEbillsApiController extends Controller
 
         return response($car, 400)
             ->header('Content-Type', 'application/xml');
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //getting mda name
+    private function mda_name($mda_key)
+    {
+        if ($mda = Mda::where("id",$mda_key)->first()) {
+                # code...
+            return $mda->mda_name;
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //getting mda name
+    private function subhead($mda_key)
+    {
+        if ($mda = Subhead::where("id",$mda_key)->first()) {
+                # code...
+            return $mda->subhead_name;
+        }
     }
 }
