@@ -233,6 +233,9 @@ $api->version('v1',function($api){
 
     //ebillspay
     $api->post('igr_api','App\Http\Controllers\IgrEbillsApiController@index');
+
+    //ebill notification
+    $api->post('igr_api_notification','App\Http\Controllers\EbillNotificationController@index');
 });
 
 //protected Api route
