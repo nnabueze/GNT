@@ -23,6 +23,7 @@ use App\Igr;
 use App\Remittance;
 use App\Collection;
 use App\ebillcollection;
+use App\Remittancenotification;
 use Carbon\Carbon;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -36,11 +37,17 @@ class EbillNotificationController extends Controller
     	$formatter = Formatter::make($jsonString, Formatter::XML);
     	$json  = $formatter->toArray();
 
-    	//checking if notification is collection
+    	//checking notification for collection
     	if (isset($json['tax'])) {
 
     		$this->collection($json);
 
+    	}
+
+    	//checking notification for remittance
+    	if (isset($json['Remittance'])) {
+    		
+    		$this->remittance($json);
     	}
     }
 
@@ -90,7 +97,7 @@ class EbillNotificationController extends Controller
     	$data['SessionID'] = $param['SessionID'];
     	$data['SourceBankCode'] = $param['SourceBankCode'];
     	$data['DestinationBankCode'] = $param['DestinationBankCode'];
- 
+
 
     	//inserting into collection
     	$collection = Collection::create($data);
@@ -101,6 +108,48 @@ class EbillNotificationController extends Controller
 
 
 
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+
+    //notification for remittance
+    private function remittance($param)
+    {
+    	$data['remittance_key'] = $param['Remittance'];
+    	$data['igr_id'] = $this->igr_id($param['BillerID']);
+    	$data['mda_id'] = $this->mda_id($param['Mda_key']);
+
+    	for ($i=0; $i <count($param['Param']) ; $i++) { 
+
+    	    if ($param['Param'][$i]['Key'] == "name") {
+    	        $data['name'] = $param['Param'][$i]['Value'];
+    	    }
+
+    	    if ($param['Param'][$i]['Key'] == "phone") {
+    	        $data['phone'] = $param['Param'][$i]['Value'];
+    	    }
+
+    	    if ($param['Param'][$i]['Key'] == "mda") {
+    	        $data['mda'] = $param['Param'][$i]['Value'];
+    	    }
+
+    	    if ($param['Param'][$i]['Key'] == "amount") {
+    	        $data['amount'] = $param['Param'][$i]['Value'];
+    	    }
+    	}
+
+    	$data['SessionID'] = $param['SessionID'];
+    	$data['SourceBankCode'] = $param['SourceBankCode'];
+    	$data['DestinationBankCode'] = $param['DestinationBankCode'];
+
+
+
+    	//insert ebills remittance notification table
+    	if ($ebillcollection = Remittancenotification::create($data)) {
+    		$remittance = Remittance::where("remittance_key", $data['remittance_key'])->first();
+
+    		$remittance->update(['remittance_status'=>1]);
+    	}
     }
 
     /////////////////////////////////////////////////////////////////////////////////
