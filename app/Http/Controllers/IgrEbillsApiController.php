@@ -61,7 +61,9 @@ class IgrEbillsApiController extends Controller
                 return $item;
 
             break;
-            case "#":
+            case "7":
+                $item = $this->tax($json);
+                return $item;
 
             break;
             default:
@@ -342,6 +344,54 @@ class IgrEbillsApiController extends Controller
 
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //tax
+    private function tax($param)
+    {
+
+        //getting param
+        $BillerID = $param['BillerID'];
+        $tin = $param['Tin'];
+
+        //checkng missing param
+        if (empty($tin) || empty($BillerID)) {
+
+            $message = "Parameter missing";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+        //Getting biller auto incremental id
+        $igr_id = $this->igr_id($BillerID);
+        if (empty($igr_id)) {
+
+            $message = "Biller does not exist";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+        //validating param
+        if ($tin_detains = Tin::where("tin_no",$tin)->orwhere("temporary_tin",$tin)->where("igr_id",$igr_id)->first()) {
+            $item['name'] = $tin_detains->name;
+            $item['NextStep'] = 8;
+            $item['phone'] = $tin_detains->phone;
+            $item['tin'] = $param['Tin'];
+
+            $content = view('xml.tax', compact('item'));
+
+            return response($content, 200)
+                ->header('Content-Type', 'application/xml');
+           
+        }
+
+        //returning response
+        $message = "Invalid Tin No";
+        $code = '401';
+        $error = $this->error_response($message, $code, $param['Step']);
+        return $error;
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //generating random number
     private function random_number($size = 5)
@@ -404,4 +454,8 @@ class IgrEbillsApiController extends Controller
             return $mda->subhead_name;
         }
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 }
