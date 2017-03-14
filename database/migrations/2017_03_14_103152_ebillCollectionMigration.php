@@ -21,6 +21,7 @@ class EbillCollectionMigration extends Migration
             $table->string('mda_id');
             $table->string('subhead_id');
             $table->string('name');
+            $table->string('payer_id');
             $table->string('phone');
             $table->string('mda');
             $table->string('subhead');

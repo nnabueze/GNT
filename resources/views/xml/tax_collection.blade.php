@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ValidationResponse>
-	
+	@if(isset($data['Tin']))
     <Tin>{{$data['Tin']}}</Tin>
+    @endif
     <BillerID>{{$data['BillerID']}}</BillerID>
     <Mda_key>{{$data['mda']}}</Mda_key>
     <subhead_key>{{$data['subhead']}}</subhead_key>
@@ -47,6 +48,13 @@
     <Key>amount</Key>
     <Value>{{$data['amount']}}</Value>
     </Param>
+
+    @if(isset($data['payerid']))
+    <Param>
+    <Key>payerid</Key>
+    <Value>{{$data['payerid']}}</Value>
+    </Param>
+    @endif
     
 </ValidationResponse>
 

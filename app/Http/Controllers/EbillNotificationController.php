@@ -95,6 +95,10 @@ class EbillNotificationController extends Controller
     	    if ($param['Param'][$i]['Key'] == "amount") {
     	        $data['amount'] = $param['Param'][$i]['Value'];
     	    }
+
+            if ($param['Param'][$i]['Key'] == "payerid") {
+                $data['payer_id'] = $param['Param'][$i]['Value'];
+            }
     	}
 
     	$date_info = explode("/", $data['period']);
