@@ -66,6 +66,11 @@ class IgrEbillsApiController extends Controller
                 return $item;
 
             break;
+            case "9":
+                $item = $this->step_9($json);
+                return $item;
+
+            break;
             default:
 
         }
@@ -312,8 +317,7 @@ class IgrEbillsApiController extends Controller
         if ($collection = Collection::where("collection_key", $data['Refcode'])->first()) {
             $collection->update(['start_date' => $data['start_date'],
                 "end_date"=>$data['end_date'],"amount"=>$data['amount'],"subhead_id"=>$data['subhead_id']]);
-/*            print_r($collection);
-            die;*/
+
 
             
             $item['refcode'] = $collection->collection_key;
@@ -392,6 +396,97 @@ class IgrEbillsApiController extends Controller
         return $error;
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    //step_9 tax collection
+    private function step_9($param)
+    {
+        //getting param
+        $data['BillerID'] = $param['BillerID'];
+        $data['Tin'] = $param['Tin'];
+        for ($i=0; $i <count($param['Param']) ; $i++) { 
+
+            if ($param['Param'][$i]['Key'] == "name") {
+                $data['name'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "phone") {
+                $data['phone'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "mda") {
+                $data['mda'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "subhead") {
+                $data['subhead'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "start") {
+                $data['start_date'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "end") {
+                $data['end_date'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "amount") {
+                $data['amount'] = $param['Param'][$i]['Value'];
+            }
+        }
+
+        //checking missing param
+        if (empty($data['BillerID']) || empty($data['Tin']) || empty($data['start_date']) || empty($data['end_date']) || empty($data['amount'])
+            || empty($data['name']) || empty($data['phone']) || empty($data['mda']) || empty($data['subhead'])) {
+
+            $message = "Parameter missing";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+        //validation
+        $data['igr_id'] = $this->igr_id($data['BillerID']);
+        $data['mda_id'] = $this->mda_id($data['mda']);
+        $data['subhead_id'] = $this->subhead_id($data['subhead']);
+        
+
+        //checking if mda, igr and subhead exist
+        if (empty($data['igr_id']) || empty($data['mda_id']) || empty($data['subhead_id'])) {
+
+            $message = "Mda or Subhead does not exist";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+        $data['mda_name'] = $this->mda_name($data['mda_id']);
+        $data['mda_category'] = $this->mda_category($data['mda']);
+        $data['subhead_name'] = $this->subhead($data['subhead_id']);
+        
+        //checking if MDA belong to biller
+        if (!$mda = Mda::where("igr_id",$data['igr_id'])->find($data['mda_id'])) {
+            $message = "Mda does not belong to biller";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+        //genrating random number
+        $data['collection_key'] = $this->random_number(11);
+        $data['collection_type'] = "ebills";
+        $data['tax'] = 1;
+        $data['NextStep'] = 10;
+
+            $content = view('xml.tax_collection', compact('data'));
+
+            return response($content, 200)
+                ->header('Content-Type', 'application/xml');
+      
+
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //generating random number
     private function random_number($size = 5)
@@ -444,6 +539,26 @@ class IgrEbillsApiController extends Controller
         }
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //getting mda category
+    private function mda_category($mda_key)
+    {
+        if ($mda = Mda::where("mda_key",$mda_key)->first()) {
+                # code...
+            return $mda->mda_category;
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //getting mda id
+    private function mda_id($mda_key)
+    {
+        if ($mda = Mda::where("mda_key",$mda_key)->first()) {
+                # code...
+            return $mda->id;
+        }
+    }
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //getting mda name
@@ -452,6 +567,16 @@ class IgrEbillsApiController extends Controller
         if ($mda = Subhead::where("id",$mda_key)->first()) {
                 # code...
             return $mda->subhead_name;
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //getting mda name
+    private function subhead_id($mda_key)
+    {
+        if ($mda = Subhead::where("subhead_key",$mda_key)->first()) {
+                # code...
+            return $mda->id;
         }
     }
 
