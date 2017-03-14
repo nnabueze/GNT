@@ -76,6 +76,11 @@ class IgrEbillsApiController extends Controller
                 return $item;
 
             break;
+            case "13":
+                $item = $this->remittance($json);
+                return $item;
+
+            break;
             default:
 
         }
@@ -548,6 +553,70 @@ class IgrEbillsApiController extends Controller
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //remittance 
+        private function remittance($param)
+    {
+        //getting parameters
+        $data['BillerID'] = $param['BillerID'];
+        $data['Remittance'] = $param['Remittance'];
+
+        //checkinng for missing parameter
+        if (empty($data['BillerID']) || empty($data['Remittance'])) {
+
+            $message = "Parameter missing";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+        if (!$biller = $this->igr_id($data['BillerID'])) {
+
+            $message = "Biller does not exist";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+        //validating
+        if (!$remittance = Remittance::where("remittance_key", $data['Remittance'])->first()) {
+
+            $message = "remittance number does not exist";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+        //checking remittance code have been used
+        if ($remittance->remittance_status == 1) {
+            $message = "remittance code have been used";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+        //worker details
+        $worker = $this->worker($remittance->worker_id);
+
+        //return response
+        $data['NextStep'] = 14;
+        $data['name'] = $worker->worker_name;
+        $data['phone'] = $worker->phone;
+        $data['amount'] = $remittance->amount;
+        $data['mda_name'] = $this->mda_name($remittance->mda_id);
+        $data['mda_category'] = $this->mda_category($remittance->mda_id);
+
+
+
+        $data['mda'] = $remittance->mda_id;
+
+        $content = view('xml.remittance', compact('data'));
+
+        return response($content, 200)
+            ->header('Content-Type', 'application/xml');
+
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //generating random number
     private function random_number($size = 5)
@@ -642,6 +711,16 @@ class IgrEbillsApiController extends Controller
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //getting worker details
+    private function worker($mda_key)
+    {
+        if ($mda = Worker::where("id",$mda_key)->first()) {
+                # code...
+            return $mda;
+        }
+    }
+
 
 
 }
