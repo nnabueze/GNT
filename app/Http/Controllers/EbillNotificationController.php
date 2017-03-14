@@ -24,6 +24,7 @@ use App\Remittance;
 use App\Collection;
 use App\ebillcollection;
 use App\Remittancenotification;
+use App\Invoicenotification;
 use Carbon\Carbon;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -48,6 +49,11 @@ class EbillNotificationController extends Controller
     	if (isset($json['Remittance'])) {
     		
     		$this->remittance($json);
+    	}
+
+    	//checking notification for invoice
+    	if (isset($json['Invoice'])) {
+    		$this->invoice($json);
     	}
     }
 
@@ -149,6 +155,51 @@ class EbillNotificationController extends Controller
     		$remittance = Remittance::where("remittance_key", $data['remittance_key'])->first();
 
     		$remittance->update(['remittance_status'=>1]);
+    	}
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    //invoice notifcation
+    private function invoice($param)
+    {
+    	$data['invoice_key'] = $param['Invoice'];
+    	$data['igr_id'] = $this->igr_id($param['BillerID']);
+    	$data['mda_id'] = $this->mda_id($param['Mda_key']);
+    	$data['subhead_id'] = $this->subhead_id($param['subhead_key']);
+
+    	for ($i=0; $i <count($param['Param']) ; $i++) { 
+
+    	    if ($param['Param'][$i]['Key'] == "name") {
+    	        $data['name'] = $param['Param'][$i]['Value'];
+    	    }
+
+    	    if ($param['Param'][$i]['Key'] == "phone") {
+    	        $data['phone'] = $param['Param'][$i]['Value'];
+    	    }
+
+    	    if ($param['Param'][$i]['Key'] == "mda") {
+    	        $data['mda'] = $param['Param'][$i]['Value'];
+    	    }
+
+    	    if ($param['Param'][$i]['Key'] == "subhead") {
+    	        $data['subhead'] = $param['Param'][$i]['Value'];
+    	    }
+
+    	    if ($param['Param'][$i]['Key'] == "amount") {
+    	        $data['amount'] = $param['Param'][$i]['Value'];
+    	    }
+    	}
+
+    	$data['SessionID'] = $param['SessionID'];
+    	$data['SourceBankCode'] = $param['SourceBankCode'];
+    	$data['DestinationBankCode'] = $param['DestinationBankCode'];
+
+
+    	//insert ebills remittance notification table
+    	if ($invoice = Invoicenotification::create($data)) {
+    		$remittance = Invoice::where("invoice_key", $data['invoice_key'])->first();
+
+    		$remittance->update(['invoice_status'=>1]);
     	}
     }
 
