@@ -40,6 +40,14 @@ class IgrEbillsApiController extends Controller
         $formatter = Formatter::make($jsonString, Formatter::XML);
         $json  = $formatter->toArray();
 
+        //checking if step is set
+        if (!isset($json['Step'])) {
+           $message = "current step missing";
+           $code = '401';
+           $error = $this->error_response($message, $code);
+           return $error;
+        }
+
 
         switch ($json['Step']) {
             case "2":
@@ -82,6 +90,10 @@ class IgrEbillsApiController extends Controller
 
             break;
             default:
+            $message = "Invalid Step passed";
+            $code = '401';
+            $error = $this->error_response($message, $code, $json['Step']);
+            return $error;
 
         }
     }
@@ -644,7 +656,7 @@ class IgrEbillsApiController extends Controller
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    private function error_response($message, $code, $step)
+    private function error_response($message, $code, $step=null)
     {
         
         $response['NextStep'] = $step;
