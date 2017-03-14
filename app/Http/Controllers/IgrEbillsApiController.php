@@ -71,6 +71,11 @@ class IgrEbillsApiController extends Controller
                 return $item;
 
             break;
+            case "11":
+                $item = $this->invoice($json);
+                return $item;
+
+            break;
             default:
 
         }
@@ -482,6 +487,62 @@ class IgrEbillsApiController extends Controller
             return response($content, 200)
                 ->header('Content-Type', 'application/xml');
       
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //invoice payment
+    private function invoice($param)
+    {
+        //getting parameters
+        $data['BillerID'] = $param['BillerID'];
+        $data['Invoice'] = $param['Invoice'];
+
+        //checkinng for missing parameter
+        if (empty($data['BillerID']) || empty($data['Invoice'])) {
+
+            $message = "Parameter missing";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+        if (!$biller = $this->igr_id($data['BillerID'])) {
+
+            $message = "Biller does not exist";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+        //validating
+        if (!$invoice = Invoice::where("invoice_key", $data['Invoice'])->first()) {
+
+            $message = "Invoice number does not exist";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+        //return response
+        $data['NextStep'] = 12;
+        $data['name'] = $invoice->name;
+        $data['phone'] = $invoice->phone;
+        $data['amount'] = $invoice->amount;
+        $data['mda_name'] = $this->mda_name($invoice->mda_id);
+        $data['mda_category'] = $this->mda_category($invoice->mda_id);
+        $data['subhead_name'] = $this->subhead($invoice->subhead_id);
+
+
+
+        $data['mda'] = $invoice->mda_id;
+        $data['subhead'] = $invoice->subhead_id;
+
+        $content = view('xml.invoice', compact('data'));
+
+        return response($content, 200)
+            ->header('Content-Type', 'application/xml');
 
     }
 
