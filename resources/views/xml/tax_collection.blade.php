@@ -49,6 +49,13 @@
     <Value>{{$data['amount']}}</Value>
     </Param>
 
+    @if(isset($data['email']))
+    <Param>
+    <Key>email</Key>
+    <Value>{{$data['email']}}</Value>
+    </Param>
+    @endif
+
     @if(isset($data['payerid']))
     <Param>
     <Key>payerid</Key>

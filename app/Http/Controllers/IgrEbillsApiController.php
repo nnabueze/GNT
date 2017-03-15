@@ -465,6 +465,10 @@ class IgrEbillsApiController extends Controller
                 $data['end_date'] = $param['Param'][$i]['Value'];
             }
 
+            if ($param['Param'][$i]['Key'] == "email") {
+                $data['email'] = $param['Param'][$i]['Value'];
+            }
+
             if ($param['Param'][$i]['Key'] == "amount") {
                 $data['amount'] = $param['Param'][$i]['Value'];
             }
