@@ -679,7 +679,7 @@ class IgrEbillsApiController extends Controller
         
         $response['NextStep'] = $step;
         $response['ResponseCode'] = $code;
-        $response['ErrorMessage'] = $message;
+        $response['ResponseMessage'] = $message;
 
         $formatter = Formatter::make($response, Formatter::ARR);
         $car  = $formatter->toXml();
