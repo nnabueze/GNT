@@ -22,7 +22,7 @@ use App\Tin;
 use App\Igr;
 use App\Remittance;
 use App\Collection;
-use App\ebillcollection;
+use App\Ebillcollection;
 use App\Remittancenotification;
 use App\Invoicenotification;
 use Carbon\Carbon;
@@ -63,7 +63,10 @@ class EbillNotificationController extends Controller
     private function collection($param)
     {
     	$data['collection_key'] = $param['Refcode'];
-    	$data['Tin'] = $param['Tin'];
+        if (isset($param['Tin'])) {
+            $data['Tin'] = $param['Tin'];
+        }
+    	
     	$data['collection_type'] = $param['collection_type'];
     	$data['tax'] = $param['tax'];
     	$data['igr_id'] = $this->igr_id($param['BillerID']);
