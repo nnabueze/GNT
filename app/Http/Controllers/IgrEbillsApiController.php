@@ -637,7 +637,7 @@ class IgrEbillsApiController extends Controller
 
 
 
-        $data['mda'] = $remittance->mda_id;
+        $data['mda'] = $this->mda_key($remittance->mda_id);
 
         $content = view('xml.remittance', compact('data'));
 
