@@ -50,10 +50,17 @@
     </Param>
 
     @if(isset($data['email']))
-    <Param>
-    <Key>email</Key>
-    <Value>{{$data['email']}}</Value>
-    </Param>
+        @if(empty($data['email']))
+            <Param>
+            <Key>email</Key>
+            <Value></Value>
+            </Param>
+            @else
+            <Param>
+            <Key>email</Key>
+            <Value>{{$data['email']}}</Value>
+            </Param>
+        @endif
     @endif
 
     @if(isset($data['payerid']))
