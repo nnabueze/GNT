@@ -571,8 +571,8 @@ class IgrEbillsApiController extends Controller
 
 
 
-        $data['mda'] = $invoice->mda_id;
-        $data['subhead'] = $invoice->subhead_id;
+        $data['mda'] = $this->mda_key($invoice->mda_id);
+        $data['subhead'] = $this->subhead_key($invoice->subhead_id);
 
         $content = view('xml.invoice', compact('data'));
 
@@ -700,6 +700,16 @@ class IgrEbillsApiController extends Controller
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //getting mda key
+    private function mda_key($mda_key)
+    {
+        if ($mda = Mda::where("id",$mda_key)->first()) {
+                # code...
+            return $mda->mda_key;
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //getting mda category
     private function mda_category($mda_key)
     {
@@ -721,12 +731,22 @@ class IgrEbillsApiController extends Controller
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //getting mda name
+    //getting subhead name
     private function subhead($mda_key)
     {
         if ($mda = Subhead::where("id",$mda_key)->first()) {
                 # code...
             return $mda->subhead_name;
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //getting subhead key
+    private function subhead_key($mda_key)
+    {
+        if ($mda = Subhead::where("id",$mda_key)->first()) {
+                # code...
+            return $mda->subhead_key;
         }
     }
 
