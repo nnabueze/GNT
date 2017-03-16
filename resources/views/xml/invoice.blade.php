@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ValidationResponse>
 	
-    <Invoice>{{$data['Invoice']}}</Invoice>
+   
     <BillerID>{{$data['BillerID']}}</BillerID>
-    <Mda_key>{{$data['mda']}}</Mda_key>
-    <subhead_key>{{$data['subhead']}}</subhead_key>
     <NextStep>{{$data['NextStep']}}</NextStep>
+
+    <Param>
+    <Key>Mda_key</Key>
+    <Value>{{$data['mda']}}</Value>
+    </Param>
+
+    <Param>
+    <Key>subhead_key</Key>
+    <Value>{{$data['subhead']}}</Value>
+    </Param>
+
+    <Param>
+    <Key>Invoice</Key>
+    <Value>{{$data['Invoice']}}</Value>
+    </Param>
    
     <Param>
     <Key>name</Key>
