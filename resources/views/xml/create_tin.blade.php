@@ -17,11 +17,18 @@
 		<Key>address</Key>
 		<Value>{{$tin['address']}}</Value>
 	</Param>
-	@if($tin['email'])
+	@if(isset($tin['email']))
+		@if(empty($tin['email']))
 	<Param>
 		<Key>email</Key>
-		<Value>{{$tin['email']}}</Value>
+		<Value></Value>
 	</Param>
+		@else
+		<Param>
+			<Key>email</Key>
+			<Value>{{$tin['email']}}</Value>
+		</Param>
+		@endif
 	@endif
 
 </ValidationResponse>
