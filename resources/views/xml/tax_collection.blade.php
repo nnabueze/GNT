@@ -1,15 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ValidationResponse>
-	@if(isset($data['Tin']))
-    <Tin>{{$data['Tin']}}</Tin>
-    @endif
+
     <BillerID>{{$data['BillerID']}}</BillerID>
-    <Mda_key>{{$data['mda']}}</Mda_key>
-    <subhead_key>{{$data['subhead']}}</subhead_key>
-    <Refcode>{{$data['collection_key']}}</Refcode>
-    <collection_type>{{$data['collection_type']}}</collection_type>
-    <tax>{{$data['tax']}}</tax>
+    
     <NextStep>{{$data['NextStep']}}</NextStep>
+
+    
+    <Param>
+    <Key>Mda_key</Key>
+    <Value>{{$data['mda']}}</Value>
+    </Param>
+
+    <Param>
+    <Key>subhead_key</Key>
+    <Value>{{$data['subhead']}}</Value>
+    </Param>
+
+    <Param>
+    <Key>Refcode</Key>
+    <Value>{{$data['collection_key']}}</Value>
+    </Param>
+
+
+    <Param>
+    <Key>collection_type</Key>
+    <Value>{{$data['collection_type']}}</Value>
+    </Param>
+
+    <Param>
+    <Key>tax</Key>
+    <Value>{{$data['tax']}}</Value>
+    </Param>
+  
+    @if(isset($data['Tin']))
+    <Param>
+    <Key>Tin</Key>
+    <Value>{{$data['Tin']}}</Value>
+    </Param>
+    @endif
    
     <Param>
     <Key>name</Key>
@@ -17,7 +45,7 @@
     </Param>
 
     <Param>
-    <Key>Phone</Key>
+    <Key>phone</Key>
     <Value>{{$data['phone']}}</Value>
     </Param>
 
