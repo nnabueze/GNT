@@ -160,28 +160,36 @@ class EbillNotificationController extends Controller
     //notification for remittance
     private function remittance($param)
     {
-    	$data['remittance_key'] = $param['Remittance'];
     	$data['igr_id'] = $this->igr_id($param['BillerID']);
-    	$data['mda_id'] = $this->mda_id($param['Mda_key']);
+   
 
-    	for ($i=0; $i <count($param['Param']) ; $i++) { 
 
-    	    if ($param['Param'][$i]['Key'] == "name") {
-    	        $data['name'] = $param['Param'][$i]['Value'];
-    	    }
+                if (isset($param['name'])) {
+                    $data['name'] = $param['name'];
+                }
 
-    	    if ($param['Param'][$i]['Key'] == "phone") {
-    	        $data['phone'] = $param['Param'][$i]['Value'];
-    	    }
+                if (isset($param['phone'])) {
+                    $data['phone'] = $param['phone'];
+                }
 
-    	    if ($param['Param'][$i]['Key'] == "mda") {
-    	        $data['mda'] = $param['Param'][$i]['Value'];
-    	    }
+                if (isset($param['mda'])) {
+                    $data['mda'] = $param['mda'];
+                }
 
-    	    if ($param['Param'][$i]['Key'] == "amount") {
-    	        $data['amount'] = $param['Param'][$i]['Value'];
-    	    }
-    	}
+
+                if (isset($param['amount'])) {
+                    $data['amount'] = $param['amount'];
+                }
+
+                if (isset($param['Mda_key'])) {
+                    $data['Mda_key'] = $param['Mda_key'];
+                }
+
+                if (isset($param['Remittance'])) {
+                    $data['remittance_key'] = $param['Remittance'];
+                }
+
+        $data['mda_id'] = $this->mda_id($param['Mda_key']);
 
     	$data['SessionID'] = $param['SessionID'];
     	$data['SourceBankCode'] = $param['SourceBankCode'];
@@ -339,6 +347,10 @@ class EbillNotificationController extends Controller
 
                 if ($param['Param'][$i]['Key'] == "subhead_key") {
                     $data['subhead_key'] = $param['Param'][$i]['Value'];
+                }
+
+                if ($param['Param'][$i]['Key'] == "Remittance") {
+                    $data['Remittance'] = $param['Param'][$i]['Value'];
                 }
             }
 
