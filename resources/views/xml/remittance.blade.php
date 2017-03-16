@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ValidationResponse>
 	
-    <Remittance>{{$data['Remittance']}}</Remittance>
-    <BillerID>{{$data['BillerID']}}</BillerID>
-    <Mda_key>{{$data['mda']}}</Mda_key>
-    <NextStep>{{$data['NextStep']}}</NextStep>
    
+    <BillerID>{{$data['BillerID']}}</BillerID>
+    <NextStep>{{$data['NextStep']}}</NextStep>
+    
+
+    <Param>
+    <Key>Mda_key</Key>
+    <Value>{{$data['mda']}}</Value>
+    </Param>
+
+    <Param>
+    <Key>Remittance</Key>
+    <Value>{{$data['Remittance']}}</Value>
+    </Param>
+
     <Param>
     <Key>name</Key>
     <Value>{{$data['name']}}</Value>

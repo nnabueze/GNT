@@ -625,7 +625,13 @@ class IgrEbillsApiController extends Controller
     {
         //getting parameters
         $data['BillerID'] = $param['BillerID'];
-        $data['Remittance'] = $param['Remittance'];
+        
+        for ($i=0; $i <count($param['Param']) ; $i++) { 
+
+            if ($param['Param']['Key'] == "Remittance") {
+                $data['Remittance'] = $param['Param']['Value'];
+            }
+        }
 
         //checkinng for missing parameter
         if (empty($data['BillerID']) || empty($data['Remittance'])) {
