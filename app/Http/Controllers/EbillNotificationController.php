@@ -209,33 +209,46 @@ class EbillNotificationController extends Controller
     //invoice notifcation
     private function invoice($param)
     {
-    	$data['invoice_key'] = $param['Invoice'];
+        
+    	
     	$data['igr_id'] = $this->igr_id($param['BillerID']);
-    	$data['mda_id'] = $this->mda_id($param['Mda_key']);
-    	$data['subhead_id'] = $this->subhead_id($param['subhead_key']);
 
-    	for ($i=0; $i <count($param['Param']) ; $i++) { 
 
-    	    if ($param['Param'][$i]['Key'] == "name") {
-    	        $data['name'] = $param['Param'][$i]['Value'];
-    	    }
+        if (isset($param['name'])) {
+            $data['name'] = $param['name'];
+        }
 
-    	    if ($param['Param'][$i]['Key'] == "phone") {
-    	        $data['phone'] = $param['Param'][$i]['Value'];
-    	    }
+        if (isset($param['phone'])) {
+            $data['phone'] = $param['phone'];
+        }
 
-    	    if ($param['Param'][$i]['Key'] == "mda") {
-    	        $data['mda'] = $param['Param'][$i]['Value'];
-    	    }
+        if (isset($param['mda'])) {
+            $data['mda'] = $param['mda'];
+        }
 
-    	    if ($param['Param'][$i]['Key'] == "subhead") {
-    	        $data['subhead'] = $param['Param'][$i]['Value'];
-    	    }
 
-    	    if ($param['Param'][$i]['Key'] == "amount") {
-    	        $data['amount'] = $param['Param'][$i]['Value'];
-    	    }
-    	}
+        if (isset($param['amount'])) {
+            $data['amount'] = $param['amount'];
+        }
+
+        if (isset($param['Mda_key'])) {
+            $data['Mda_key'] = $param['Mda_key'];
+        }
+
+        if (isset($param['subhead'])) {
+            $data['subhead'] = $param['subhead'];
+        }
+
+        if (isset($param['mda'])) {
+            $data['mda'] = $param['mda'];
+        }
+
+        if (isset($param['Invoice'])) {
+            $data['invoice_key'] = $param['Invoice'];
+        }
+
+        $data['mda_id'] = $this->mda_id($param['Mda_key']);
+        $data['subhead_id'] = $this->subhead_id($param['subhead_key']);
 
     	$data['SessionID'] = $param['SessionID'];
     	$data['SourceBankCode'] = $param['SourceBankCode'];
@@ -246,7 +259,8 @@ class EbillNotificationController extends Controller
     	if ($invoice = Invoicenotification::create($data)) {
     		$remittance = Invoice::where("invoice_key", $data['invoice_key'])->first();
 
-    		$remittance->update(['invoice_status'=>1]);
+            $remittance->invoice_status = 1;
+    		$remittance->save();
     	}
     }
 
@@ -351,6 +365,10 @@ class EbillNotificationController extends Controller
 
                 if ($param['Param'][$i]['Key'] == "Remittance") {
                     $data['Remittance'] = $param['Param'][$i]['Value'];
+                }
+
+                if ($param['Param'][$i]['Key'] == "Invoice") {
+                    $data['Invoice'] = $param['Param'][$i]['Value'];
                 }
             }
 
