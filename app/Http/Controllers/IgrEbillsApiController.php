@@ -150,6 +150,11 @@ class IgrEbillsApiController extends Controller
            return $error;
         }
 
+        //avoiding error email is empty
+        if (empty($data['email'])) {
+            $data['email'] = 'dummy_email@dummy.com';
+        }
+
         //generate random number and temperary tin
         $data['temporary_tin'] = $this->random_number(11);
         $data['tin_key'] = str_random(15);
@@ -164,9 +169,16 @@ class IgrEbillsApiController extends Controller
             $tin['address'] = $tem_tin->address;
             $tin['NextStep'] = 3;
             $tin['ResponseCode'] = 200;
-            if ($tem_tin->email) {
 
-                $tin['email'] = $tem_tin->email;
+            for ($i=0; $i <count($param['Param']) ; $i++) { 
+
+                if ($param['Param'][$i]['Key'] == "email") {
+                    $data['email_1'] = $param['Param'][$i]['Value'];
+                }
+            }
+            if (isset($data['email_1'])) {
+
+                $tin['email'] = $data['email_1'];
             }
             
             $content = view('xml.create_tin', compact('tin'));
