@@ -6,10 +6,17 @@
     <NextStep>{{$data['NextStep']}}</NextStep>
 
     
+    @if(isset($data['mda']))
     <Param>
     <Key>Mda_key</Key>
     <Value>{{$data['mda']}}</Value>
     </Param>
+    @else
+    <Param>
+    <Key>Mda_key</Key>
+    <Value>{{$data['lga']}}</Value>
+    </Param>
+    @endif
 
     <Param>
     <Key>subhead_key</Key>

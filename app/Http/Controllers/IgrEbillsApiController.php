@@ -444,11 +444,19 @@ class IgrEbillsApiController extends Controller
     {
         //getting param
         $data['BillerID'] = $param['BillerID'];
-        $data['Tin'] = $param['Tin'];
+
         for ($i=0; $i <count($param['Param']) ; $i++) { 
 
             if ($param['Param'][$i]['Key'] == "name") {
                 $data['name'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "Tin") {
+                $data['Tin'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "lga") {
+                $data['lga'] = $param['Param'][$i]['Value'];
             }
 
             if ($param['Param'][$i]['Key'] == "phone") {
@@ -482,7 +490,7 @@ class IgrEbillsApiController extends Controller
 
         //checking missing param
         if (empty($data['BillerID']) || empty($data['Tin']) || empty($data['start_date']) || empty($data['end_date']) || empty($data['amount'])
-            || empty($data['name']) || empty($data['phone']) || empty($data['mda']) || empty($data['subhead'])) {
+            || empty($data['name']) || empty($data['phone']) || empty($data['subhead'])) {
 
             $message = "Parameter missing";
             $code = '401';
@@ -490,9 +498,21 @@ class IgrEbillsApiController extends Controller
             return $error;
         }
 
+        if (isset($data['mda']) && empty($data['mda']) || isset($data['lga']) && empty($data['lga'])) {
+            $message = "Agency Parameter missing";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
         //validation
         $data['igr_id'] = $this->igr_id($data['BillerID']);
-        $data['mda_id'] = $this->mda_id($data['mda']);
+        if (isset($data['mda'])) {
+            $data['mda_id'] = $this->mda_id($data['mda']);
+        }else{
+            $data['mda_id'] = $this->mda_id($data['lga']);
+        }
+        
         $data['subhead_id'] = $this->subhead_id($data['subhead']);
         
 
@@ -506,7 +526,12 @@ class IgrEbillsApiController extends Controller
         }
 
         $data['mda_name'] = $this->mda_name($data['mda_id']);
-        $data['mda_category'] = $this->mda_category($data['mda']);
+        if (isset($data['mda'])) {
+            $data['mda_category'] = $this->mda_category($data['mda']);
+        }else{
+            $data['mda_category'] = $this->mda_category($data['lga']);
+        }
+        
         $data['subhead_name'] = $this->subhead($data['subhead_id']);
         
         //checking if MDA belong to biller
