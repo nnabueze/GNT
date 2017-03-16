@@ -390,7 +390,13 @@ class IgrEbillsApiController extends Controller
 
         //getting param
         $BillerID = $param['BillerID'];
-        $tin = $param['Tin'];
+
+        for ($i=0; $i <count($param['Param']) ; $i++) { 
+
+            if ($param['Param']['Key'] == "Tin") {
+                $tin = $param['Param']['Value'];
+            }
+        }
 
         //checkng missing param
         if (empty($tin) || empty($BillerID)) {
@@ -416,7 +422,7 @@ class IgrEbillsApiController extends Controller
             $item['name'] = $tin_detains->name;
             $item['NextStep'] = 8;
             $item['phone'] = $tin_detains->phone;
-            $item['tin'] = $param['Tin'];
+            $item['tin'] = $tin;
 
             $content = view('xml.tax', compact('item'));
 
