@@ -107,6 +107,10 @@ class EbillNotificationController extends Controller
     	        $data['mda'] = $param['mda'];
     	    }
 
+            if (isset($param['lga'])) {
+                $data['mda'] = $param['lga'];
+            }
+
     	    if (isset($param['subhead'])) {
     	        $data['subhead'] = $param['subhead'];
     	    }
@@ -119,8 +123,8 @@ class EbillNotificationController extends Controller
     	        $data['amount'] = $param['amount'];
     	    }
 
-            if (isset($param['payerid'])) {
-                $data['payer_id'] = $param['payerid'];
+            if (isset($param['payer_id'])) {
+                $data['payer_id'] = $param['payer_id'];
             }
 
             if (isset($param['Mda_key'])) {
@@ -337,6 +341,10 @@ class EbillNotificationController extends Controller
 
                 if ($param['Param'][$i]['Key'] == "mda") {
                     $data['mda'] = $param['Param'][$i]['Value'];
+                }
+
+                if ($param['Param'][$i]['Key'] == "lga") {
+                    $data['lga'] = $param['Param'][$i]['Value'];
                 }
 
                 if ($param['Param'][$i]['Key'] == "subhead") {
