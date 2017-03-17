@@ -48,7 +48,7 @@ class IgrEbillsApiController extends Controller
 
 
         switch ($json['Step']) {
-            case "2":
+            case "1":
                 $item = $this->create_tin($json);
                 return $item;
             break;
@@ -94,7 +94,11 @@ class IgrEbillsApiController extends Controller
         //getting all the param
         $data['BillerID'] = $param['BillerID'];
         $data['BillerName'] = $param['BillerName'];
-        for ($i=0; $i <count($param['Param']) ; $i++) { 
+        for ($i=0; $i <count($param['Param']) ; $i++) {
+
+            if ($param['Param'][$i]['Key'] == "ercasBillerId") {
+                 $data['ercasBillerId'] = $param['Param'][$i]['Value'];
+             } 
 
             if ($param['Param'][$i]['Key'] == "name") {
                 $data['name'] = $param['Param'][$i]['Value'];
@@ -114,7 +118,7 @@ class IgrEbillsApiController extends Controller
         }
 
         //check if the biller exist
-        if (!$data['igr_id'] = $this->igr_id($data['BillerID'])) {
+        if (!$data['igr_id'] = $this->igr_id($data['ercasBillerId'])) {
          
             $message = "Biller does not exist";
             $code = '401';
@@ -124,7 +128,7 @@ class IgrEbillsApiController extends Controller
         }
 
         //checking if the parameter are set
-        if (empty($data['address']) || empty($data['name']) || empty($data['phone']) || empty($data['BillerID'])) {
+        if (empty($data['address']) || empty($data['name']) || empty($data['phone']) || empty($data['ercasBillerId'])) {
 
             $message = "Parameter missing";
             $code = '401';
@@ -152,7 +156,7 @@ class IgrEbillsApiController extends Controller
 
         //avoiding error email is empty
         if (empty($data['email'])) {
-            $data['email'] = 'dummy_email@dummy.com';
+            $data['email'] = null;
         }
 
         //generate random number and temperary tin
@@ -167,7 +171,7 @@ class IgrEbillsApiController extends Controller
             $tin['name'] =  $tem_tin->name;
             $tin['phone'] = $tem_tin->phone;
             $tin['address'] = $tem_tin->address;
-            $tin['NextStep'] = 3;
+            $tin['NextStep'] = 2;
             $tin['ResponseCode'] = 200;
 
             for ($i=0; $i <count($param['Param']) ; $i++) { 
