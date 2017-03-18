@@ -4,6 +4,11 @@
 	<NextStep>{{$item['NextStep']}}</NextStep>
 
     <Param>
+    <Key>ercasBillerId</Key>
+    <Value>{{$item['ercasBillerId']}}</Value>
+    </Param>
+    
+    <Param>
     <Key>tin</Key>
     <Value>{{$item['tin']}}</Value>
     </Param>

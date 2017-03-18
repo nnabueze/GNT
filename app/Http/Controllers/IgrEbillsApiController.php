@@ -57,7 +57,7 @@ class IgrEbillsApiController extends Controller
                 return $item;
 
             break;
-            case "7":
+            case "6":
                 $item = $this->tax($json);
                 return $item;
 
@@ -350,6 +350,15 @@ class IgrEbillsApiController extends Controller
             if ($param['Param'][$i]['Key'] == "payerid") {
                 $data['payerid'] = $param['Param'][$i]['Value'];
             }
+
+            if ($param['Param'][$i]['Key'] == "lga") {
+                $data['lga'] = $param['Param'][$i]['Value'];
+            }
+
+        }
+
+        if (isset($data['lga'])) {
+            $data['mda'] = $data['lga'];
         }
 
         //checking missing param
@@ -376,6 +385,7 @@ class IgrEbillsApiController extends Controller
             $error = $this->error_response($message, $code, $param['Step']);
             return $error;
         }
+
 
         $data['mda_name'] = $this->mda_name($data['mda_id']);
         $data['mda_category'] = $this->mda_category($data['mda']);
@@ -407,19 +417,24 @@ class IgrEbillsApiController extends Controller
     //tax
     private function tax($param)
     {
-
+        /*print_r($param);
+        die;*/
         //getting param
         $BillerID = $param['BillerID'];
 
         for ($i=0; $i <count($param['Param']) ; $i++) { 
 
-            if ($param['Param']['Key'] == "Tin") {
-                $tin = $param['Param']['Value'];
+            if ($param['Param'][$i]['Key'] == "Tin") {
+                $tin = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "ercasBillerId") {
+                $biller = $param['Param'][$i]['Value'];
             }
         }
 
         //checkng missing param
-        if (empty($tin) || empty($BillerID)) {
+        if (empty($tin) || empty($biller)) {
 
             $message = "Parameter missing";
             $code = '401';
@@ -428,7 +443,7 @@ class IgrEbillsApiController extends Controller
         }
 
         //Getting biller auto incremental id
-        $igr_id = $this->igr_id($BillerID);
+        $igr_id = $this->igr_id($biller);
         if (empty($igr_id)) {
 
             $message = "Biller does not exist";
@@ -440,7 +455,8 @@ class IgrEbillsApiController extends Controller
         //validating param
         if ($tin_detains = Tin::where("tin_no",$tin)->orwhere("temporary_tin",$tin)->where("igr_id",$igr_id)->first()) {
             $item['name'] = $tin_detains->name;
-            $item['NextStep'] = 8;
+            $item['ercasBillerId'] = $biller;
+            $item['NextStep'] = 7;
             $item['phone'] = $tin_detains->phone;
             $item['tin'] = $tin;
 
@@ -832,6 +848,20 @@ class IgrEbillsApiController extends Controller
                 # code...
             return $mda;
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //checking if subhead belong mda
+    private function mda_head($subhead, $mda)
+    {
+        $sub = Subhead::find($subhead);
+
+        if ($sub->mda_id == $mda) {
+            return True;
+        }
+
+        return False;
     }
 
 
