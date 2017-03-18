@@ -218,7 +218,7 @@ class EbillNotificationController extends Controller
     {
         
     	
-    	$data['igr_id'] = $this->igr_id($param['BillerID']);
+    	
 
 
         if (isset($param['name'])) {
@@ -238,8 +238,8 @@ class EbillNotificationController extends Controller
             $data['amount'] = $param['amount'];
         }
 
-        if (isset($param['Mda_key'])) {
-            $data['Mda_key'] = $param['Mda_key'];
+        if (isset($param['mda_key'])) {
+            $data['mda_key'] = $param['mda_key'];
         }
 
         if (isset($param['subhead'])) {
@@ -254,7 +254,15 @@ class EbillNotificationController extends Controller
             $data['invoice_key'] = $param['Invoice'];
         }
 
-        $data['mda_id'] = $this->mda_id($param['Mda_key']);
+        if (isset($param['ercasBillerId'])) {
+            $data['ercasBillerId'] = $param['ercasBillerId'];
+        }
+
+
+        $data['igr_id'] = $this->igr_id($data['ercasBillerId']);
+        
+
+        $data['mda_id'] = $this->mda_id($param['mda_key']);
         $data['subhead_id'] = $this->subhead_id($param['subhead_key']);
 
     	$data['SessionID'] = $param['SessionID'];
