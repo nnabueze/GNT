@@ -62,7 +62,7 @@ class IgrEbillsApiController extends Controller
                 return $item;
 
             break;
-            case "9":
+            case "8":
                 $item = $this->step_9($json);
                 return $item;
 
@@ -487,6 +487,10 @@ class IgrEbillsApiController extends Controller
                 $data['name'] = $param['Param'][$i]['Value'];
             }
 
+            if ($param['Param'][$i]['Key'] == "ercasBillerId") {
+                $data['ercasBillerId'] = $param['Param'][$i]['Value'];
+            }
+
             if ($param['Param'][$i]['Key'] == "Tin") {
                 $data['Tin'] = $param['Param'][$i]['Value'];
             }
@@ -525,7 +529,7 @@ class IgrEbillsApiController extends Controller
         }
 
         //checking missing param
-        if (empty($data['BillerID']) || empty($data['Tin']) || empty($data['start_date']) || empty($data['end_date']) || empty($data['amount'])
+        if (empty($data['ercasBillerId']) || empty($data['Tin']) || empty($data['start_date']) || empty($data['end_date']) || empty($data['amount'])
             || empty($data['name']) || empty($data['phone']) || empty($data['subhead'])) {
 
             $message = "Parameter missing";
@@ -542,7 +546,7 @@ class IgrEbillsApiController extends Controller
         }
 
         //validation
-        $data['igr_id'] = $this->igr_id($data['BillerID']);
+        $data['igr_id'] = $this->igr_id($data['ercasBillerId']);
         if (isset($data['mda'])) {
             $data['mda_id'] = $this->mda_id($data['mda']);
         }else{
@@ -582,7 +586,7 @@ class IgrEbillsApiController extends Controller
         $data['collection_key'] = $this->random_number(11);
         $data['collection_type'] = "ebills";
         $data['tax'] = 1;
-        $data['NextStep'] = 10;
+        $data['NextStep'] = 9;
 
             $content = view('xml.tax_collection', compact('data'));
 
