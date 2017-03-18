@@ -64,13 +64,6 @@ class EbillNotificationController extends Controller
     //collection api
     private function collection($param)
     {
-    	
-
-    	
-    	
-    	
-    	$data['igr_id'] = $this->igr_id($param['BillerID']);
-
     	 
 
     	    if (isset($param['collection_key'])) {
@@ -127,17 +120,21 @@ class EbillNotificationController extends Controller
                 $data['payer_id'] = $param['payer_id'];
             }
 
-            if (isset($param['Mda_key'])) {
-                $data['Mda_key'] = $param['Mda_key'];
+            if (isset($param['mda_key'])) {
+                $data['mda_key'] = $param['mda_key'];
             }
 
             if (isset($param['subhead_key'])) {
                 $data['subhead_key'] = $param['subhead_key'];
             }
+
+            if (isset($param['ercasBillerId'])) {
+                $data['ercasBillerId'] = $param['ercasBillerId'];
+            }
     	
+        $data['igr_id'] = $this->igr_id($data['ercasBillerId']);
 
-
-        $data['mda_id'] = $this->mda_id($data['Mda_key']);
+        $data['mda_id'] = $this->mda_id($data['mda_key']);
         $data['subhead_id'] = $this->subhead_id($data['subhead_key']);
 
     	$date_info = explode("/", $data['period']);
@@ -164,7 +161,7 @@ class EbillNotificationController extends Controller
     //notification for remittance
     private function remittance($param)
     {
-    	$data['igr_id'] = $this->igr_id($param['BillerID']);
+    	
    
 
 
@@ -185,15 +182,21 @@ class EbillNotificationController extends Controller
                     $data['amount'] = $param['amount'];
                 }
 
-                if (isset($param['Mda_key'])) {
-                    $data['Mda_key'] = $param['Mda_key'];
+                if (isset($param['mda_key'])) {
+                    $data['mda_key'] = $param['mda_key'];
                 }
 
                 if (isset($param['Remittance'])) {
                     $data['remittance_key'] = $param['Remittance'];
                 }
 
-        $data['mda_id'] = $this->mda_id($param['Mda_key']);
+                if (isset($param['ercasBillerId'])) {
+                    $data['ercasBillerId'] = $param['ercasBillerId'];
+                }
+
+        $data['igr_id'] = $this->igr_id($data['ercasBillerId']);
+
+        $data['mda_id'] = $this->mda_id($param['mda_key']);
 
     	$data['SessionID'] = $param['SessionID'];
     	$data['SourceBankCode'] = $param['SourceBankCode'];
@@ -363,8 +366,8 @@ class EbillNotificationController extends Controller
                     $data['payer_id'] = $param['Param'][$i]['Value'];
                 }
 
-                if ($param['Param'][$i]['Key'] == "Mda_key") {
-                    $data['Mda_key'] = $param['Param'][$i]['Value'];
+                if ($param['Param'][$i]['Key'] == "mda_key") {
+                    $data['mda_key'] = $param['Param'][$i]['Value'];
                 }
 
                 if ($param['Param'][$i]['Key'] == "subhead_key") {
@@ -377,6 +380,10 @@ class EbillNotificationController extends Controller
 
                 if ($param['Param'][$i]['Key'] == "Invoice") {
                     $data['Invoice'] = $param['Param'][$i]['Value'];
+                }
+
+                if ($param['Param'][$i]['Key'] == "ercasBillerId") {
+                    $data['ercasBillerId'] = $param['Param'][$i]['Value'];
                 }
             }
 
