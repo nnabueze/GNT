@@ -6,7 +6,13 @@
     <NextStep>{{$data['NextStep']}}</NextStep>
 
     <Param>
-    <Key>Mda_key</Key>
+    <Key>ercasBillerId</Key>
+    <Value>{{$data['ercasBillerId']}}</Value>
+    </Param>
+    
+
+    <Param>
+    <Key>mda_key</Key>
     <Value>{{$data['mda']}}</Value>
     </Param>
 
