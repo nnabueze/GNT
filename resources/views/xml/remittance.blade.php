@@ -5,6 +5,10 @@
     <BillerID>{{$data['BillerID']}}</BillerID>
     <NextStep>{{$data['NextStep']}}</NextStep>
     
+    <Param>
+    <Key>ercasBillerId</Key>
+    <Value>{{$data['ercasBillerId']}}</Value>
+    </Param>
 
     <Param>
     <Key>Mda_key</Key>

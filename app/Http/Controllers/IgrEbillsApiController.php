@@ -72,7 +72,7 @@ class IgrEbillsApiController extends Controller
                 return $item;
 
             break;
-            case "13":
+            case "12":
                 $item = $this->remittance($json);
                 return $item;
 
@@ -672,13 +672,17 @@ class IgrEbillsApiController extends Controller
         
         for ($i=0; $i <count($param['Param']) ; $i++) { 
 
-            if ($param['Param']['Key'] == "Remittance") {
-                $data['Remittance'] = $param['Param']['Value'];
+            if ($param['Param'][$i]['Key'] == "Remittance") {
+                $data['Remittance'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "ercasBillerId") {
+                $data['ercasBillerId'] = $param['Param'][$i]['Value'];
             }
         }
 
         //checkinng for missing parameter
-        if (empty($data['BillerID']) || empty($data['Remittance'])) {
+        if (empty($data['ercasBillerId']) || empty($data['Remittance'])) {
 
             $message = "Parameter missing";
             $code = '401';
@@ -686,7 +690,7 @@ class IgrEbillsApiController extends Controller
             return $error;
         }
 
-        if (!$biller = $this->igr_id($data['BillerID'])) {
+        if (!$biller = $this->igr_id($data['ercasBillerId'])) {
 
             $message = "Biller does not exist";
             $code = '401';
@@ -715,7 +719,7 @@ class IgrEbillsApiController extends Controller
         $worker = $this->worker($remittance->worker_id);
 
         //return response
-        $data['NextStep'] = 14;
+        $data['NextStep'] = 13;
         $data['name'] = $worker->worker_name;
         $data['phone'] = $worker->phone;
         $data['amount'] = $remittance->amount;
