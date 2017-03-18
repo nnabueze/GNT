@@ -5,6 +5,10 @@
     
     <NextStep>{{$data['NextStep']}}</NextStep>
 
+    <Param>
+    <Key>ercasBillerId</Key>
+    <Value>{{$data['ercasBillerId']}}</Value>
+    </Param>
     
     @if(isset($data['mda']))
     <Param>
