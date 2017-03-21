@@ -194,6 +194,11 @@ class EbillNotificationController extends Controller
                     $data['ercasBillerId'] = $param['ercasBillerId'];
                 }
 
+                if (isset($param['refcode'])) {
+                    $data['refcode'] = $param['refcode'];
+                }
+                
+
         $data['igr_id'] = $this->igr_id($data['ercasBillerId']);
 
         $data['mda_id'] = $this->mda_id($param['mda_key']);
@@ -392,6 +397,10 @@ class EbillNotificationController extends Controller
 
                 if ($param['Param'][$i]['Key'] == "ercasBillerId") {
                     $data['ercasBillerId'] = $param['Param'][$i]['Value'];
+                }
+
+                if ($param['Param'][$i]['Key'] == "refcode") {
+                    $data['refcode'] = $param['Param'][$i]['Value'];
                 }
             }
 

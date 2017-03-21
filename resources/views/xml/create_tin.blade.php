@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ValidationResponse>
 	<NextStep>{{$tin['NextStep']}}</NextStep>
+	<ResponseCode>{{$tin['ResponseCode']}}</ResponseCode>
 	<Param>
 		<Key>refcode</Key>
 		<Value>{{$tin['refcode']}}</Value>
