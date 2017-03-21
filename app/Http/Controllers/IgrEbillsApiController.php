@@ -718,6 +718,9 @@ class IgrEbillsApiController extends Controller
         //worker details
         $worker = $this->worker($remittance->worker_id);
 
+        //genarating recode
+        $data['refcode'] = $this->random_number(11);
+
         //return response
         $data['NextStep'] = 13;
         $data['name'] = $worker->worker_name;
