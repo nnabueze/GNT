@@ -4,6 +4,7 @@
    
     <BillerID>{{$data['BillerID']}}</BillerID>
     <NextStep>{{$data['NextStep']}}</NextStep>
+    <ResponseCode>{{$tin['ResponseCode']}}</ResponseCode>
 
     <Param>
     <Key>ercasBillerId</Key>

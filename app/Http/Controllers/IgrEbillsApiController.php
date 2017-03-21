@@ -38,6 +38,16 @@ class IgrEbillsApiController extends Controller
         $formatter = Formatter::make($jsonString, Formatter::XML);
         $json  = $formatter->toArray();
 
+
+
+        //looping through param to check if page is passed
+        for ($i=0; $i <count($json['Param']) ; $i++) {
+
+            if ($json['Param'][$i]['Key'] == "page") {
+                 $param['page'] = $json['Param'][$i]['Value'];
+            }
+        }
+
         //checking if step is set
         if (!isset($json['Step'])) {
            $message = "current step missing";
@@ -46,44 +56,57 @@ class IgrEbillsApiController extends Controller
            return $error;
         }
 
-
-        switch ($json['Step']) {
-            case "1":
-                $item = $this->create_tin($json);
-                return $item;
-            break;
-            case "4":
-                $item = $this->step_5($json);
-                return $item;
-
-            break;
-            case "6":
-                $item = $this->tax($json);
-                return $item;
-
-            break;
-            case "8":
-                $item = $this->step_9($json);
-                return $item;
-
-            break;
-            case "10":
-                $item = $this->invoice($json);
-                return $item;
-
-            break;
-            case "12":
-                $item = $this->remittance($json);
-                return $item;
-
-            break;
-            default:
-            $message = "Invalid Step passed";
-            $code = '401';
-            $error = $this->error_response($message, $code, $json['Step']);
-            return $error;
-
+        //checking if page is set
+        if (!isset($param['page'])) {
+           $message = "current Page no missing";
+           $code = '401';
+           $error = $this->error_response($message, $code);
+           return $error;
         }
+
+        //creating refoce or temperateary tin
+        if ($json['Step'] == 1 && $param['page'] == 1) {
+            $item = $this->create_tin($json);
+            return $item;
+        }
+
+        //non tax collection
+        if ($json['Step'] == 2 && $param['page'] == 4) {
+            $item = $this->step_5($json);
+            return $item;
+        }
+
+        //tax collection validation
+        if ($json['Step'] == 1 && $param['page'] == 6) {
+            $item = $this->tax($json);
+            return $item;
+        }
+
+        //tax collection
+        if ($json['Step'] == 3 && $param['page'] == 8) {
+            $item = $this->step_9($json);
+            return $item;
+        }
+
+        //Invoice collection 
+        if ($json['Step'] == 1 && $param['page'] == 10) {
+            $item = $this->invoice($json);
+            return $item;
+        }
+
+        //remittance collection
+        if ($json['Step'] == 1 && $param['page'] == 12) {
+            $item = $this->remittance($json);
+            return $item;
+        }
+
+
+        $message = "Invalid Step and page passed";
+        $code = '401';
+        $error = $this->error_response($message, $code, $json['Step']);
+        return $error;
+
+
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -229,6 +252,7 @@ class IgrEbillsApiController extends Controller
         //return response
         $mda['mda'] = $igr->mdas;
         $mda['NextStep'] = 4;
+        $tin['ResponseCode'] = "00";
 
         $content = view('xml.list_mda', compact('mda'));
 
@@ -291,6 +315,7 @@ class IgrEbillsApiController extends Controller
             $item['subheads'] = $mda->subheads;
             $item['NextStep'] = 5;
             $item['refcode'] = $collection->collection_key;
+            $tin['ResponseCode'] = "00";
 
             $content = view('xml.subhead_list', compact('item'));
 
@@ -403,7 +428,8 @@ class IgrEbillsApiController extends Controller
         $data['collection_key'] = $this->random_number(11);
         $data['collection_type'] = "ebills";
         $data['tax'] = 0;
-        $data['NextStep'] = 5;
+        $data['NextStep'] = 3;
+        $data['ResponseCode'] = "00";
 
             $content = view('xml.tax_collection', compact('data'));
 
@@ -456,9 +482,10 @@ class IgrEbillsApiController extends Controller
         if ($tin_detains = Tin::where("tin_no",$tin)->orwhere("temporary_tin",$tin)->where("igr_id",$igr_id)->first()) {
             $item['name'] = $tin_detains->name;
             $item['ercasBillerId'] = $biller;
-            $item['NextStep'] = 7;
+            $item['NextStep'] = 2;
             $item['phone'] = $tin_detains->phone;
             $item['tin'] = $tin;
+            $item['ResponseCode'] = "00";
 
             $content = view('xml.tax', compact('item'));
 
@@ -586,7 +613,8 @@ class IgrEbillsApiController extends Controller
         $data['collection_key'] = $this->random_number(11);
         $data['collection_type'] = "ebills";
         $data['tax'] = 1;
-        $data['NextStep'] = 9;
+        $data['NextStep'] = 4;
+        $data['ResponseCode'] = "00";
 
             $content = view('xml.tax_collection', compact('data'));
 
@@ -642,13 +670,14 @@ class IgrEbillsApiController extends Controller
         }
 
         //return response
-        $data['NextStep'] = 11;
+        $data['NextStep'] = 2;
         $data['name'] = $invoice->name;
         $data['phone'] = $invoice->phone;
         $data['amount'] = $invoice->amount;
         $data['mda_name'] = $this->mda_name($invoice->mda_id);
         $data['mda_category'] = $this->mda_category($invoice->mda_id);
         $data['subhead_name'] = $this->subhead($invoice->subhead_id);
+        $data['ResponseCode'] = "00";
 
 
 
@@ -722,12 +751,13 @@ class IgrEbillsApiController extends Controller
         $data['refcode'] = $this->random_number(11);
 
         //return response
-        $data['NextStep'] = 13;
+        $data['NextStep'] = 2;
         $data['name'] = $worker->worker_name;
         $data['phone'] = $worker->phone;
         $data['amount'] = $remittance->amount;
         $data['mda_name'] = $this->mda_name($remittance->mda_id);
         $data['mda_category'] = $this->mda_category($remittance->mda_id);
+        $tin['ResponseCode'] = "00";
 
 
 
