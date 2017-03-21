@@ -775,10 +775,9 @@ class IgrEbillsApiController extends Controller
         $response['ResponseCode'] = $code;
         $response['ResponseMessage'] = $message;
 
-        $formatter = Formatter::make($response, Formatter::ARR);
-        $car  = $formatter->toXml();
+        $content = view('xml.error', compact('response'));
 
-        return response($car, 400)
+        return response($content, 200)
             ->header('Content-Type', 'application/xml');
     }
 
