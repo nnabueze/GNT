@@ -172,7 +172,7 @@ class IgrEbillsApiController extends Controller
             $tin['phone'] = $tem_tin->phone;
             $tin['address'] = $tem_tin->address;
             $tin['NextStep'] = 2;
-            $tin['ResponseCode'] = 200;
+            $tin['ResponseCode'] = "00";
 
             for ($i=0; $i <count($param['Param']) ; $i++) { 
 
