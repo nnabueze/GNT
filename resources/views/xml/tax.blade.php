@@ -2,7 +2,7 @@
 <ValidationResponse>
 
 	<NextStep>{{$item['NextStep']}}</NextStep>
-    <ResponseCode>{{$tin['ResponseCode']}}</ResponseCode>
+    <ResponseCode>{{$item['ResponseCode']}}</ResponseCode>
 
     <Param>
     <Key>ercasBillerId</Key>

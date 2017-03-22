@@ -52,7 +52,7 @@ class IgrEbillsApiController extends Controller
         if (!isset($json['Step'])) {
            $message = "current step missing";
            $code = '401';
-           $error = $this->error_response($message, $code);
+           $error = $this->error_response($message, $code, $json['Step']);
            return $error;
         }
 
@@ -60,7 +60,7 @@ class IgrEbillsApiController extends Controller
         if (!isset($param['page'])) {
            $message = "current Page no missing";
            $code = '401';
-           $error = $this->error_response($message, $code);
+           $error = $this->error_response($message, $code, $json['Step']);
            return $error;
         }
 
@@ -757,7 +757,7 @@ class IgrEbillsApiController extends Controller
         $data['amount'] = $remittance->amount;
         $data['mda_name'] = $this->mda_name($remittance->mda_id);
         $data['mda_category'] = $this->mda_category($remittance->mda_id);
-        $tin['ResponseCode'] = "00";
+        $data['ResponseCode'] = "00";
 
 
 
