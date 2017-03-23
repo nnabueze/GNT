@@ -173,7 +173,7 @@
 
 							<header>
 								<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-								<h2>All Collection</h2>
+								<h2>{{$mda_name}} Collections</h2>
 
 							</header>
 
@@ -196,7 +196,7 @@
 											<th data-hide="phone">Transaction ID</th>
 											<th data-class="expand">Payer Name</th>
 											<th>Payer ID</th>
-											<th data-hide="phone,tablet">Revenue Head</th>
+											<th data-hide="phone,tablet">SubHead</th>
 											<th data-hide="phone,tablet">POS User</th>
 											<th data-hide="phone,tablet">Station</th>
 											<th data-hide="phone">Amount</th>
@@ -220,10 +220,10 @@
 											<td>{{$collection->worker->worker_name}}</td>
 											<td>{{$collection->station->station_name}}</td>
 											@else
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
+											<td>{{$collection->payer_id}}</td>
+											<td>{{$collection->subhead->subhead_name}}</td>
+											<td>NIBSS</td>
+											<td>NIBSS</td>
 											@endif
 											<td>{{$collection->amount}}</td>
 											<td>{{$collection->collection_type}}</td>
