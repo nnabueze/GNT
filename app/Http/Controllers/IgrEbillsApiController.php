@@ -20,6 +20,7 @@ use App\Postable;
 use App\Subhead;
 use App\Tin;
 use App\Igr;
+use DB;
 use App\Remittance;
 use App\Collection;
 use Carbon\Carbon;
@@ -37,6 +38,12 @@ class IgrEbillsApiController extends Controller
         $jsonString = $request->getContent();
         $formatter = Formatter::make($jsonString, Formatter::XML);
         $json  = $formatter->toArray();
+
+        $json_en = json_encode($json);
+
+        DB::table('ebilslogs')->insert(
+            ['log' => $json_en]
+        );
 
 
 
