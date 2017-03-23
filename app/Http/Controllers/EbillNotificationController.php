@@ -144,6 +144,10 @@ class EbillNotificationController extends Controller
     	$data['SourceBankCode'] = $param['SourceBankCode'];
     	$data['DestinationBankCode'] = $param['DestinationBankCode'];
 
+        if ($data['tax'] == 1) {
+            $data['payer_id'] = $data['Tin'];
+        }
+
 
     	//inserting into collection
     	$collection = Collection::create($data);
