@@ -55,9 +55,10 @@ class CollectionController extends Controller
 
         //getting collection within the date range
         $collections = Collection::where("mda_id",$mda_id)->whereDate('created_at',">=",$start_date )->whereDate('created_at',"<=",$end_date )->get();
+       /*echo"><pre>";print_r($collections);die;*/
 
         //select station base on MDA
-        
+
         if (count($collections) > 0) {
                 
             return view("collection.all",compact("igr","sidebar","collections"));
