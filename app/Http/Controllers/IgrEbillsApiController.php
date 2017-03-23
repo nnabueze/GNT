@@ -41,6 +41,7 @@ class IgrEbillsApiController extends Controller
 
         $json_en = json_encode($json);
 
+        //loging ebils request
         DB::table('ebilslogs')->insert(
             ['log' => $json_en]
         );
