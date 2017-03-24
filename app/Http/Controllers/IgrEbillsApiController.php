@@ -527,7 +527,7 @@ class IgrEbillsApiController extends Controller
                 $data['ercasBillerId'] = $param['Param'][$i]['Value'];
             }
 
-            if ($param['Param'][$i]['Key'] == "Tin") {
+            if ($param['Param'][$i]['Key'] == "tin") {
                 $data['Tin'] = $param['Param'][$i]['Value'];
             }
 
@@ -547,11 +547,11 @@ class IgrEbillsApiController extends Controller
                 $data['subhead'] = $param['Param'][$i]['Value'];
             }
 
-            if ($param['Param'][$i]['Key'] == "start") {
+            if ($param['Param'][$i]['Key'] == "startdate") {
                 $data['start_date'] = $param['Param'][$i]['Value'];
             }
 
-            if ($param['Param'][$i]['Key'] == "end") {
+            if ($param['Param'][$i]['Key'] == "enddate") {
                 $data['end_date'] = $param['Param'][$i]['Value'];
             }
 
@@ -564,18 +564,15 @@ class IgrEbillsApiController extends Controller
             }
         }
 
-        //checking missing param
-        if (empty($data['ercasBillerId']) || empty($data['Tin']) || empty($data['start_date']) || empty($data['end_date']) || empty($data['amount'])
-            || empty($data['name']) || empty($data['phone']) || empty($data['subhead'])) {
-
-            $message = "Parameter missing";
-            $code = '401';
-            $error = $this->error_response($message, $code, $param['Step']);
-            return $error;
+        if (isset($data['lga'])) {
+            $data['mda'] = $data['lga'];
         }
 
-        if (isset($data['mda']) && empty($data['mda']) || isset($data['lga']) && empty($data['lga'])) {
-            $message = "Agency Parameter missing";
+        //checking missing param
+        if (empty($data['ercasBillerId']) || empty($data['Tin']) || empty($data['start_date']) || empty($data['end_date']) || empty($data['amount'])
+            || empty($data['name']) || empty($data['phone']) || empty($data['subhead']) || empty($data['mda'])) {
+
+            $message = "Parameter missing";
             $code = '401';
             $error = $this->error_response($message, $code, $param['Step']);
             return $error;
