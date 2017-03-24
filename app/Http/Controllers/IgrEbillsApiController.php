@@ -368,11 +368,11 @@ class IgrEbillsApiController extends Controller
                 $data['subhead'] = $param['Param'][$i]['Value'];
             }
 
-            if ($param['Param'][$i]['Key'] == "start") {
+            if ($param['Param'][$i]['Key'] == "startdate") {
                 $data['start_date'] = $param['Param'][$i]['Value'];
             }
 
-            if ($param['Param'][$i]['Key'] == "end") {
+            if ($param['Param'][$i]['Key'] == "enddate") {
                 $data['end_date'] = $param['Param'][$i]['Value'];
             }
 
@@ -390,6 +390,7 @@ class IgrEbillsApiController extends Controller
 
         }
 
+        //assigning lga varible to mda
         if (isset($data['lga'])) {
             $data['mda'] = $data['lga'];
         }
