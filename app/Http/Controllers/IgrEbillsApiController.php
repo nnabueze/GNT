@@ -640,7 +640,7 @@ class IgrEbillsApiController extends Controller
 
         for ($i=0; $i <count($param['Param']) ; $i++) { 
 
-            if ($param['Param'][$i]['Key'] == "Invoice") {
+            if ($param['Param'][$i]['Key'] == "invoicenumber") {
                 $data['Invoice'] = $param['Param'][$i]['Value'];
             }
 
