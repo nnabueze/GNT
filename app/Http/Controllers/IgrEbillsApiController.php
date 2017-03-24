@@ -459,7 +459,7 @@ class IgrEbillsApiController extends Controller
 
         for ($i=0; $i <count($param['Param']) ; $i++) { 
 
-            if ($param['Param'][$i]['Key'] == "Tin") {
+            if ($param['Param'][$i]['Key'] == "tin") {
                 $tin = $param['Param'][$i]['Value'];
             }
 
