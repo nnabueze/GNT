@@ -108,7 +108,7 @@
 					<div class="col-sm-3">				
 						<div class="form-group">
 							<div class="input-group">
-								<input class="form-control" id="startdate" type="text" placeholder="Select a date" name="startdate">
+								<input class="form-control" id="startdate" type="text" placeholder="From" name="startdate">
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>							
 							</div>
 						</div>
@@ -116,7 +116,7 @@
 					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="input-group">
-								<input class="form-control" id="finishdate" type="text" placeholder="From" name="enddate">
+								<input class="form-control" id="finishdate" type="text" placeholder="To" name="enddate">
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
@@ -207,7 +207,7 @@
 										</tr>
 									</thead>
 									<tbody>
-									<?php echo count($collections);?>
+									
 									@if($collections)
 										@foreach($collections as $collection)
 										<tr>
@@ -226,7 +226,7 @@
 											<td>NIBSS</td>
 											@endif
 											<td>{{$collection->amount}}</td>
-											<td>{{$collection->collection_type}}</td>
+											<td><span <?php echo ($collection->collection_type=="pos")? 'class="label label-success"': 'class="label label-primary"' ?>>{{$collection->collection_type}}</span></td>
 											<td>{{$collection->created_at}}</td>
 										</tr>
 										@endforeach
