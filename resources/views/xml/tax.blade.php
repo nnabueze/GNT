@@ -13,6 +13,11 @@
     <Key>tin</Key>
     <Value>{{$item['tin']}}</Value>
     </Param>
+
+    <Param>
+    <Key>page</Key>
+    <Value>{{$item['page']}}</Value>
+    </Param>
    
     <Param>
     <Key>name</Key>

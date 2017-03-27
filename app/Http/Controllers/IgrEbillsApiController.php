@@ -494,6 +494,7 @@ class IgrEbillsApiController extends Controller
             $item['NextStep'] = 2;
             $item['phone'] = $tin_detains->phone;
             $item['tin'] = $tin;
+            $item['page'] = 8;
             $item['ResponseCode'] = "00";
 
             $content = view('xml.tax', compact('item'));
