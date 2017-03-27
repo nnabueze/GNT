@@ -112,7 +112,7 @@
 				<div class="col-sm-3">				
 					<div class="form-group">
 						<div class="input-group">
-							<input class="form-control" id="startdate" type="text" placeholder="Select a date" name="startdate">
+							<input class="form-control" id="startdate" type="text" placeholder="From" name="startdate">
 							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>							
 						</div>
 					</div>
@@ -120,7 +120,7 @@
 				<div class="col-sm-3">
 					<div class="form-group">
 						<div class="input-group">
-							<input class="form-control" id="finishdate" type="text" placeholder="From" name="enddate">
+							<input class="form-control" id="finishdate" type="text" placeholder="To" name="enddate">
 							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 						</div>
 					</div>
@@ -185,7 +185,7 @@
 												<th data-hide="phone">Transaction ID</th>
 												<th data-class="expand">Payer Name</th>
 												<th>Payer ID</th>
-												<th data-hide="phone,tablet">Revenue Head</th>
+												<th data-hide="phone,tablet">SubHead</th>
 												<th data-hide="phone">Amount</th>
 												<th data-hide="phone,tablet">Channel</th>
 												<th data-hide="phone,tablet">POS User</th>
