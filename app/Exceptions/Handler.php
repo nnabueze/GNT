@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Exception;
 use Auth;
+use Redirect;
+use Session;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -63,9 +65,11 @@ class Handler extends ExceptionHandler
             }
         }
 
-        if ($e instanceof TokenMismatchException){
+        if ($e instanceof \Illuminate\Session\TokenMismatchException){
             
-            return response()->view('error.error500', [], 500);
+            /*return response()->view('error.error500', [], 500);*/
+            Session::flash("warning","Failed! Token expired!");
+            return Redirect::back();
         }
         ////////////////////////////////////////////////////////////////////////////////
 
