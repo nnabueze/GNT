@@ -370,7 +370,7 @@
 
 							<header>
 								<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-								<h2>LIST OF REVENUE HEADS</h2>
+								<h2>{{$heads->mda_name}} SUBHEADS</h2>
 
 							</header>
 
