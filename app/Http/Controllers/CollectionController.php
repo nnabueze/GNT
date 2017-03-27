@@ -100,11 +100,15 @@ class CollectionController extends Controller
         //getting collection within the date range
         $collections = Collection::where("collection_type","ebill")->where("mda_id",$mda_id)->whereDate('created_at',">=",$start_date )->whereDate('created_at',"<=",$end_date )->get();
 
+        //getting the name of the search MDA
+        $mda = Mda::find($mda_id);
+        $mda_name = $mda->mda_name;
+
         //select station base on MDA
         
         if (count($collections) > 0) {
                 
-            return view("collection.ebill_range",compact("mda","sidebar","collections"));
+            return view("collection.ebill_range",compact("mda","sidebar","collections","mda_name"));
         }
 
             Session::flash("warning","Failed! No result found.");

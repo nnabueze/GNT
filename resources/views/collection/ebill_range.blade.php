@@ -173,7 +173,7 @@
 
 							<header>
 								<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-								<h2>Ebill Collection</h2>
+								<h2>{{$mda_name}} Collections</h2>
 
 							</header>
 
@@ -196,28 +196,37 @@
 											<th data-hide="phone">Transaction ID</th>
 											<th data-class="expand">Payer Name</th>
 											<th>Payer ID</th>
-											<th data-hide="phone,tablet">Revenue Head</th>
-											<th data-hide="phone">Amount</th>
-											<th data-hide="phone,tablet">Channel</th>
+											<th data-hide="phone,tablet">SubHead</th>
 											<th data-hide="phone,tablet">POS User</th>
 											<th data-hide="phone,tablet">Station</th>
+											<th data-hide="phone">Amount</th>
+											<th data-hide="phone,tablet">Channel</th>
+										
 											<th data-hide="phone,tablet">Date</th>
 
 										</tr>
 									</thead>
 									<tbody>
+									
 									@if($collections)
 										@foreach($collections as $collection)
 										<tr>
 											<td>{{$collection->collection_key}}</td>
 											<td>{{$collection->name}} </td>
-											<td>{{$collection->payer_id}}</td>
 
-											<td>{{$collection->revenuehead->revenue_name}}</td>
-											<td>{{$collection->amount}}</td>
-											<td>{{$collection->collection_type}}</td>
+											@if($collection->collection_type == "pos")
+											<td>{{$collection->payer_id}}</td>
+											<td>{{$collection->subhead->subhead_name}}</td>
 											<td>{{$collection->worker->worker_name}}</td>
 											<td>{{$collection->station->station_name}}</td>
+											@else
+											<td>{{$collection->payer_id}}</td>
+											<td>{{$collection->subhead->subhead_name}}</td>
+											<td>NIBSS</td>
+											<td>NIBSS</td>
+											@endif
+											<td>{{$collection->amount}}</td>
+											<td><span <?php echo ($collection->collection_type=="pos")? 'class="label label-success"': 'class="label label-primary"' ?>>{{$collection->collection_type}}</span></td>
 											<td>{{$collection->created_at}}</td>
 										</tr>
 										@endforeach
