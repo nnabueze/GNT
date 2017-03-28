@@ -8,7 +8,7 @@ class Igr extends Model
 {
     //
 
-    protected $fillable = ['igr_key', 'state_name', "igr_code",'igr_abbre'];
+    protected $fillable = ['igr_key', 'state_name', "igr_code",'igr_abbre',"logo"];
 
 	//relationship between igr and Mda
     public function mdas()

@@ -9,6 +9,8 @@ use Session;
 use App\Igr;
 use App\User;
 use Hash;
+use Input;
+use Image;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -107,6 +109,23 @@ class AdminController extends Controller
 		    'state_name' => 'required|min:3',
 		    'igr_abbre' => 'required',
 		]);
+
+		//checking logo is selected
+		if (! Input::file()) {
+			Session::flash("warning","Failed! Upload a Logo");
+			return Redirect::back();
+		}
+
+		//upload logo to the folder
+		$image = Input::file('file');
+		$filename  = time() . '.' . $image->getClientOriginalExtension();
+
+		$path = public_path('logo/' . $filename);
+		
+		//resizing the image
+		Image::make($image->getRealPath())->resize(150, 54)->save($path);
+		$request['logo'] = $filename;
+		
 
 		//generate random digit number
 		$request['igr_key'] = $this->random_number(11);

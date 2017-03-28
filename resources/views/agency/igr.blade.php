@@ -59,7 +59,7 @@
 					</h4>
 				</div>
 				<div class="modal-body no-padding">
-				<form id="login-form" method="POST" action="/igr" class="smart-form">
+				<form id="login-form" method="POST" action="/igr" class="smart-form" enctype="multipart/form-data">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<fieldset>
 							
@@ -85,7 +85,19 @@
 								</div>
 							</section>
 							
-						</fieldset>
+						
+							<section>
+								<div class="row">
+									<label class="label col col-2">Logo</label>
+									<div class="col col-10">
+										<label class="input"> <i class="icon-append fa fa-user"></i>
+											<input type="file" name="file">
+										</label>
+									</div>
+								</div>
+							</section>
+							
+					
 						
 						<footer>
 							<button type="submit" class="btn btn-primary">

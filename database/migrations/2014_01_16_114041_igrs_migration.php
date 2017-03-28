@@ -19,6 +19,7 @@ class IgrsMigration extends Migration
             $table->string('state_name');
             $table->string('igr_code');
             $table->string('igr_abbre');
+            $table->text('logo');
             $table->timestamps();
         });
     }
