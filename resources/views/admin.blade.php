@@ -102,14 +102,17 @@
 		* 'container'         - boxed layout mode (non-responsive: will not work with fixed-navigation & fixed-ribbon)
 	-->
 	<body class="">
-
+	<?php
+		$igr = DB::table('igrs')->where('id', Auth::user()->igr_id)->first();
+	?>
 		<!-- HEADER -->
 		<header id="header">
 			<div id="logo-group">
 				
+
 				<!-- PLACE YOUR LOGO HERE -->
-				@if(Auth::user()->logo)
-				<span id="logo"> <img src="{{ asset('logo/Auth::user()->logo')}}" alt="{{Auth::user()->name}}"> </span>
+				@if($igr->logo)
+				 <img src="{{ asset('logo/'.$igr->logo)}}" alt="{{$igr->state_name}}"> 
 				@endif
 				<!-- END LOGO PLACEHOLDER -->
 				

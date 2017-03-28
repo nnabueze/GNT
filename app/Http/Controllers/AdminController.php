@@ -123,7 +123,7 @@ class AdminController extends Controller
 		$path = public_path('logo/' . $filename);
 		
 		//resizing the image
-		Image::make($image->getRealPath())->resize(150, 54)->save($path);
+		Image::make($image->getRealPath())->resize(220, 49)->save($path);
 		$request['logo'] = $filename;
 		
 
@@ -212,8 +212,8 @@ class AdminController extends Controller
 		//uploading new image
 		if (Input::file()) {
 
-			if(public_path('logo/' . $igr->logo)){
-				
+			if(file_exists(public_path('logo/' . $igr->logo)) && $igr->logo != null){
+
 				unlink(public_path('logo/' . $igr->logo));
 			}
 
@@ -224,7 +224,7 @@ class AdminController extends Controller
 			$path = public_path('logo/' . $filename);
 			
 			//resizing the image
-			Image::make($image->getRealPath())->resize(150, 54)->save($path);
+			Image::make($image->getRealPath())->resize(220, 49)->save($path);
 
 			$igr->update(['state_name'=>$request->state_name,'igr_abbre'=>$request->igr_abbre,"logo"=>$filename]);
 
