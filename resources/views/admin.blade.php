@@ -108,7 +108,9 @@
 			<div id="logo-group">
 				
 				<!-- PLACE YOUR LOGO HERE -->
-				<!-- <span id="logo"> <img src="{{ asset('template/img/logo.png')}}" alt="SmartAdmin"> </span> -->
+				@if(Auth::user()->logo)
+				<span id="logo"> <img src="{{ asset('logo/Auth::user()->logo')}}" alt="{{Auth::user()->name}}"> </span>
+				@endif
 				<!-- END LOGO PLACEHOLDER -->
 				
 
