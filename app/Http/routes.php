@@ -167,6 +167,12 @@ Route::get("/igr","AdminController@igr");
 //storing igr
 Route::post("/igr","AdminController@igr_store");
 
+//editing igr biller
+Route::get("/igr/{any}/edit","AdminController@edit_igr");
+
+//storing edited igr biller
+Route::post("/igr/edit","AdminController@edit_igr_store");
+
 //deleting igr
 Route::get("/igr/{any}","AdminController@delete_igr");
 

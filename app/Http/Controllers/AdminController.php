@@ -138,8 +138,6 @@ class AdminController extends Controller
 			return Redirect::back();
 		}
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 		//insert into db
 		if (Igr::create($request->all())) {
 
@@ -175,6 +173,69 @@ class AdminController extends Controller
 
 		Session::flash("warning","Failed! IGR not deleted");
 		return Redirect::back();
+	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//editing igr biller
+	public function edit_igr($id)
+	{
+		//checking user right
+		if ( ! Auth::user()->hasRole('Superadmin')) {
+
+		   Session::flash("warning","You don't have the right to delete MDA");
+		   return Redirect::back();
+		}
+
+		//checking if the biller exist
+		if ($igr = Igr::where("igr_key",$id)->first()) {
+			$sidebar = "igr";
+			return view("agency.igr_edit",compact("igr","sidebar"));
+		}
+
+		Session::flash("warning","Failed! IGR does not exist");
+		return Redirect::back();
+	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//storing edited biller
+	public function edit_igr_store(Request $request)
+	{
+		//validate
+		$this->validate($request, [
+		    'state_name' => 'required|min:3',
+		    'igr_abbre' => 'required',
+		]);
+
+		//checking original logo exist and unlinking
+		$igr = Igr::find($request->id);
+
+		//uploading new image
+		if (Input::file()) {
+
+			if(public_path('logo/' . $igr->logo)){
+				
+				unlink(public_path('logo/' . $igr->logo));
+			}
+
+			//upload logo to the folder
+			$image = Input::file('file');
+			$filename  = time() . '.' . $image->getClientOriginalExtension();
+
+			$path = public_path('logo/' . $filename);
+			
+			//resizing the image
+			Image::make($image->getRealPath())->resize(150, 54)->save($path);
+
+			$igr->update(['state_name'=>$request->state_name,'igr_abbre'=>$request->igr_abbre,"logo"=>$filename]);
+
+			Session::flash("message","Success! Biller edited");
+			return Redirect::to("/igr");
+		}
+
+		$igr->update(['state_name'=>$request->state_name,'igr_abbre'=>$request->igr_abbre]);
+
+		Session::flash("message","Success! Biller edited");
+		return Redirect::to("/igr");
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
