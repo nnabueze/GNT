@@ -214,11 +214,19 @@ class HeadsController extends Controller
         $this->validate($request, [
             'subhead_name' => 'required|min:2',
             'subhead_code' => 'required',
-            'revenuehead_id' => 'required'
+            'revenuehead_id' => 'required',
+            'amount' => 'numeric',
+            'gov'=>'numeric',
+            'gency'=>'numeric'
         ]);
 
         //generate random key
-        $request['subhead_key'] = "SH".$this->random_number(11);
+        $request['subhead_key'] = "SH".$this->random_number(5).$this->random_number(8);
+
+        //check if gov is not empty
+        if (! empty($request->gov)) {
+           $request['agency'] = 100 - $request->gov;
+        }
 
         //check if inserting was succesful
         if ($subhead = Subhead::create($request->all())) {
@@ -257,6 +265,9 @@ class HeadsController extends Controller
         }
         return $random_number;  
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 }

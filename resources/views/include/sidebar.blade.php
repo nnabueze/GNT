@@ -153,6 +153,9 @@
 						<a href="#" >Beneficiaries</a>
 					</li>
 					<li>
+						<a href="#" >Reversal</a>
+					</li>
+					<li>
 						<a href="#">Fund sweeping history</a>
 					</li>
 					<li>

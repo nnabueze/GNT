@@ -24,6 +24,8 @@ class SubheadsMigrate extends Migration
             $table->string('subhead_name');
              $table->enum('taxiable', [0, 1]);
             $table->string('amount');
+            $table->integer('gov');
+            $table->integer('agency');
             $table->timestamps();
         });
     }
