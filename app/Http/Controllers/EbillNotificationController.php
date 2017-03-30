@@ -157,11 +157,27 @@ class EbillNotificationController extends Controller
         }
 
 
-    	//inserting into collection
-    	$collection = Collection::create($data);
+        if ($collection = Collection::create($data)) {
 
-    	//insert ebills collection
-    	$ebillcollection = Ebillcollection::create($data);
+            //insert ebills collection
+            $ebillcollection = Ebillcollection::create($data);
+
+            $message = "00";
+
+            $content = view('xml.notification', compact('message'));
+
+            return response($content, 200)
+                ->header('Content-Type', 'application/xml');
+        }
+
+        $message = 401;
+    	
+        $content = view('xml.notification_error', compact('message'));
+
+        return response($content, 401)
+            ->header('Content-Type', 'application/xml');
+
+ 
 
 
 
@@ -226,7 +242,21 @@ class EbillNotificationController extends Controller
     		$remittance = Remittance::where("remittance_key", $data['remittance_key'])->first();
 
     		$remittance->update(['remittance_status'=>1]);
+
+            $message = "00";
+
+            $content = view('xml.notification', compact('message'));
+
+            return response($content, 200)
+                ->header('Content-Type', 'application/xml');
     	}
+
+        $message = 401;
+        
+        $content = view('xml.notification_error', compact('message'));
+
+        return response($content, 401)
+            ->header('Content-Type', 'application/xml');
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -293,7 +323,21 @@ class EbillNotificationController extends Controller
 
             $remittance->invoice_status = 1;
     		$remittance->save();
+
+            $message = "00";
+
+            $content = view('xml.notification', compact('message'));
+
+            return response($content, 200)
+                ->header('Content-Type', 'application/xml');
     	}
+
+        $message = 401;
+        
+        $content = view('xml.notification_error', compact('message'));
+
+        return response($content, 401)
+            ->header('Content-Type', 'application/xml');
     }
 
     /////////////////////////////////////////////////////////////////////////////////
