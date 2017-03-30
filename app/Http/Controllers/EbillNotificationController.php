@@ -38,6 +38,13 @@ class EbillNotificationController extends Controller
     	$formatter = Formatter::make($jsonString, Formatter::XML);
     	$json  = $formatter->toArray();
 
+        $json_en = json_encode($json);
+
+        //loging ebils request
+        DB::table('ebilsNotificationlogs')->insert(
+            ['log' => $json_en]
+        );
+
          $json = $this->param_value($json);
 
     	//checking notification for collection
