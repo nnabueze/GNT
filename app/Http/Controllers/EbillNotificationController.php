@@ -20,6 +20,7 @@ use App\Postable;
 use App\Subhead;
 use App\Tin;
 use App\Igr;
+use DB;
 use App\Remittance;
 use App\Collection;
 use App\Ebillcollection;
@@ -41,7 +42,7 @@ class EbillNotificationController extends Controller
         $json_en = json_encode($json);
 
         //loging ebils request
-        DB::table('ebilsNotificationlogs')->insert(
+        DB::table('ebilsnotificationlogs')->insert(
             ['log' => $json_en]
         );
 
