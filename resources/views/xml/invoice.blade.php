@@ -6,6 +6,13 @@
     <NextStep>{{$data['NextStep']}}</NextStep>
     <ResponseCode>{{$data['ResponseCode']}}</ResponseCode>
 
+    <PaymentDetail>
+        <BillerAccountID></BillerAccountID>
+        <Amount>{{$data['amount']}}</Amount>
+        <Fee>0</Fee>
+        <Narration>Invoice Payment</Narration>
+    </PaymentDetail>
+
     <Param>
     <Key>ercasBillerId</Key>
     <Value>{{$data['ercasBillerId']}}</Value>
