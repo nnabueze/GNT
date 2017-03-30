@@ -108,7 +108,7 @@ class ApiTinController extends Controller
 			//check if phone number exist
 			if ($check_tin = Tin::where("phone",$request->phone)->first()) {
 				$message = "Phone already exist on the platform.";
-				return $this->response->array(compact('message'))->setStatusCode(400);.
+				return $this->response->array(compact('message'))->setStatusCode(400);
 			}
 
    			//getting igr id
