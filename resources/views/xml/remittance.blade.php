@@ -7,7 +7,7 @@
     <ResponseCode>{{$data['ResponseCode']}}</ResponseCode>
 
     <PaymentDetail>
-        <BillerAccountID></BillerAccountID>
+        <BillerAccountID>ERCAS_BAUCHI</BillerAccountID>
         <Amount>{{$data['amount']}}</Amount>
         <Fee>0</Fee>
         <Narration>Remittance Payment</Narration>
