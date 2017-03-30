@@ -91,7 +91,7 @@ class IgrEbillsApiController extends Controller
         }
 
         //tax collection
-        if ($json['Step'] == 2 && $param['page'] == 8) {
+        if ($json['Step'] == 2 && $json['ProductName'] == "Tax") {
             $item = $this->step_9($json);
             return $item;
         }
