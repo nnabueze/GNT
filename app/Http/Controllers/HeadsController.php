@@ -64,6 +64,54 @@ class HeadsController extends Controller
     	return Redirect::to("/revenue_heads");
     }
 
+    //////////////////////////////////////////////////////////////////////////////
+
+    //editing subheads
+    public function revenue_heads_edit($id)
+    {
+       
+        //checking the key exist
+        if ($subhead = Subhead::where("subhead_key", $id)->first()) {
+            
+            $sidebar = "heads";
+            return view("heads.edit_subhead", compact("sidebar","subhead"));
+        }
+
+        Session::flash("warning","Failed! Subhead does not exist.");
+        return Redirect::back();
+    }
+
+    /////////////////////////////////////////////////////////////////////////////
+
+    //storing edited subhead
+    public function revenue_heads_store(Request $request)
+    {
+        //validate in put fields
+        $this->validate($request, [
+                'head_code' => 'required',
+                'head' => 'required',
+                'subhead_code' => 'required',
+                'subhead' => 'required',
+                'amount' => 'numeric',
+            ]);
+
+        //check if the subhead exist
+        if ($subhead = Subhead::find($request->id)) {
+            $subhead->update(["subhead_code"=>$request->subhead_code,"subhead_name"=>$request->subhead,"amount"=>$request->amount]);
+
+            //selecting the heads
+            $heads = Revenuehead::find($request->head_id);
+            $heads->update(["revenue_code"=>$request->head_code,"revenue_name"=>$request->head]);
+
+            Session::flash("message","Successful! Subhead updated");
+            return Redirect::to("revenue_heads");
+        }
+
+        Session::flash("warning","Failed! Unable to update Subhead");
+        return Redirect::back();
+    }
+
+
     /////////////////////////////////////////////////////////////////////////////
 
     //getting revenue heads for Lga and Mda

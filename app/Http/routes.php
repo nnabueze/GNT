@@ -136,6 +136,13 @@ Route::get("/revenue_heads","HeadsController@index");
 //Route for getting list of head of a specific MDA
 Route::post("/revenue_heads","HeadsController@heads");
 
+//editing subhead
+Route::get("/revenue_heads/{any}/edit","HeadsController@revenue_heads_edit");
+
+//storing the edit subhead
+Route::post("/revenue_heads/store","HeadsController@revenue_heads_store");
+
+
 //Route for adding heads
 Route::get("/add_heads","HeadsController@index");
 
