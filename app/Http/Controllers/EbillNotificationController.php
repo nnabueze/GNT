@@ -51,19 +51,22 @@ class EbillNotificationController extends Controller
     	//checking notification for collection
     	if (isset($json['tax'])) {
 
-    		$this->collection($json);
+    		$res = $this->collection($json);
+            return $res;
 
     	}
 
     	//checking notification for remittance
     	if (isset($json['Remittance'])) {
     		
-    		$this->remittance($json);
+    		$res = $this->remittance($json);
+            return $res;
     	}
 
     	//checking notification for invoice
     	if (isset($json['Invoice'])) {
-    		$this->invoice($json);
+    		$res = $this->invoice($json);
+            return $res;
     	}
     }
 
@@ -263,10 +266,6 @@ class EbillNotificationController extends Controller
     //invoice notifcation
     private function invoice($param)
     {
-        
-    	
-    	
-
 
         if (isset($param['name'])) {
             $data['name'] = $param['name'];
@@ -305,6 +304,18 @@ class EbillNotificationController extends Controller
             $data['ercasBillerId'] = $param['ercasBillerId'];
         }
 
+        if (isset($param['BillerID'])) {
+            $data['BillerID'] = $param['BillerID'];
+        }
+
+        if (isset($param['SourceBankName'])) {
+            $data['SourceBankName'] = $param['SourceBankName'];
+        }
+
+        if (isset($param['BillerName'])) {
+            $data['BillerName'] = $param['BillerName'];
+        }
+
 
         $data['igr_id'] = $this->igr_id($data['ercasBillerId']);
         
@@ -319,25 +330,24 @@ class EbillNotificationController extends Controller
 
     	//insert ebills remittance notification table
     	if ($invoice = Invoicenotification::create($data)) {
-    		$remittance = Invoice::where("invoice_key", $data['invoice_key'])->first();
 
-            $remittance->invoice_status = 1;
-    		$remittance->save();
+            if (! $invoice_result = Invoice::where("invoice_key", $data['invoice_key'])->first()) {
+                
+                $res = $this->success_error($data);
+                return $res;
+            }
 
-            $message = "00";
+            //updating remited invoice
+            $invoice_result->invoice_status = 1;
+            $invoice_result->save();
+    		
 
-            $content = view('xml.notification', compact('message'));
-
-            return response($content, 200)
-                ->header('Content-Type', 'application/xml');
+            $res = $this->success_message($data);
+            return $res;
     	}
 
-        $message = 401;
-        
-        $content = view('xml.notification_error', compact('message'));
-
-        return response($content, 401)
-            ->header('Content-Type', 'application/xml');
+        $res = $this->success_error($data);
+        return $res;
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -374,6 +384,34 @@ class EbillNotificationController extends Controller
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
+
+    //XML successful response
+    private function success_message($data)
+    {
+        $data['messageCode'] = "00";
+        $data['message'] = "Successfully recieved";
+
+        $content = view('xml.notification', compact('data'));
+
+        return response($content, 200)
+                   ->header('Content-Type', 'application/xml'); 
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    //XML error response
+    private function success_error($data)
+    {
+        $data['messageCode'] = 401;
+        $data['message'] = "Invalid invoice number";
+        
+        $content = view('xml.notification_error', compact('data'));
+
+        return response($content, 401)
+            ->header('Content-Type', 'application/xml');
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////
     //geting array value
     private function param_value($param)
     {
@@ -381,7 +419,10 @@ class EbillNotificationController extends Controller
         $data['BillerID'] = $param['BillerID'];
         $data['SessionID'] = $param['SessionID'];
         $data['SourceBankCode'] = $param['SourceBankCode'];
+        $data['SourceBankName'] = $param['SourceBankName'];
         $data['DestinationBankCode'] = $param['DestinationBankCode'];
+        $data['Amount'] = $param['Amount'];
+        $data['BillerName'] = $param['BillerName'];
 
             for ($i=0; $i <count($param['Param']) ; $i++) { 
 
