@@ -192,9 +192,6 @@ class EbillNotificationController extends Controller
     //notification for remittance
     private function remittance($param)
     {
-    	
-   
-
 
                 if (isset($param['name'])) {
                     $data['name'] = $param['name'];
@@ -228,6 +225,18 @@ class EbillNotificationController extends Controller
                 if (isset($param['refcode'])) {
                     $data['refcode'] = $param['refcode'];
                 }
+
+                if (isset($param['BillerID'])) {
+                    $data['BillerID'] = $param['BillerID'];
+                }
+
+                if (isset($param['SourceBankName'])) {
+                    $data['SourceBankName'] = $param['SourceBankName'];
+                }
+
+                if (isset($param['BillerName'])) {
+                    $data['BillerName'] = $param['BillerName'];
+                }
                 
 
         $data['igr_id'] = $this->igr_id($data['ercasBillerId']);
@@ -238,28 +247,26 @@ class EbillNotificationController extends Controller
     	$data['SourceBankCode'] = $param['SourceBankCode'];
     	$data['DestinationBankCode'] = $param['DestinationBankCode'];
 
-
-
     	//insert ebills remittance notification table
     	if ($ebillcollection = Remittancenotification::create($data)) {
-    		$remittance = Remittance::where("remittance_key", $data['remittance_key'])->first();
 
+    		if (! $remittance = Remittance::where("remittance_key", $data['remittance_key'])->first()) {
+
+               $message = "Invalid remmittance key";
+               $res = $this->success_error($data, $message);
+               return $res;
+            }
+
+            //updating paid remittance
     		$remittance->update(['remittance_status'=>1]);
 
-            $message = "00";
-
-            $content = view('xml.notification', compact('message'));
-
-            return response($content, 200)
-                ->header('Content-Type', 'application/xml');
+            $res = $this->success_message($data);
+            return $res;
     	}
 
-        $message = 401;
-        
-        $content = view('xml.notification_error', compact('message'));
-
-        return response($content, 401)
-            ->header('Content-Type', 'application/xml');
+        $message = "Parameter missing";
+        $res = $this->success_error($data,$message);
+        return $res;
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -333,7 +340,8 @@ class EbillNotificationController extends Controller
 
             if (! $invoice_result = Invoice::where("invoice_key", $data['invoice_key'])->first()) {
                 
-                $res = $this->success_error($data);
+                $message ="Invalid invoice number";
+                $res = $this->success_error($data, $message);
                 return $res;
             }
 
@@ -346,7 +354,8 @@ class EbillNotificationController extends Controller
             return $res;
     	}
 
-        $res = $this->success_error($data);
+        $message ="paramer missing";
+        $res = $this->success_error($data, $message);
         return $res;
     }
 
@@ -400,10 +409,10 @@ class EbillNotificationController extends Controller
     /////////////////////////////////////////////////////////////////////////////////////
 
     //XML error response
-    private function success_error($data)
+    private function success_error($data, $message)
     {
         $data['messageCode'] = 401;
-        $data['message'] = "Invalid invoice number";
+        $data['message'] = $message;
         
         $content = view('xml.notification_error', compact('data'));
 
