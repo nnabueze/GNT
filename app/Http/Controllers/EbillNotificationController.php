@@ -165,27 +165,15 @@ class EbillNotificationController extends Controller
             //insert ebills collection
             $ebillcollection = Ebillcollection::create($data);
 
-            $message = "00";
-
-            $content = view('xml.notification', compact('message'));
-
-            return response($content, 200)
-                ->header('Content-Type', 'application/xml');
+            $res = $this->success_message($data);
+            return $res;
         }
 
-        $message = 401;
-    	
-        $content = view('xml.notification_error', compact('message'));
-
-        return response($content, 401)
-            ->header('Content-Type', 'application/xml');
-
- 
-
-
-
-
+        $message = "parameter missing unable to receive message";
+        $res = $this->success_error($data, $message);
+        return $res;
     }
+
 
     /////////////////////////////////////////////////////////////////////////////////
 
