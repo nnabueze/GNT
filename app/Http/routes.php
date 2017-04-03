@@ -284,5 +284,8 @@ $api->version('v1',['middleware'=>'api.auth'],function($api){
 	//clearing remittance
 	$api->post("clear_remittance","App\Http\Controllers\ApiGenerateRemittance@clear_remittance");
 
+	//mobile registration
+	$api->post("registration","App\Http\Controllers\ApiRegistrationController@details");
+
 
 });
