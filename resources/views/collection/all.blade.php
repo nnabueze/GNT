@@ -222,8 +222,8 @@
 											@else
 											<td>{{$collection->payer_id}}</td>
 											<td>{{$collection->subhead->subhead_name}}</td>
-											<td>NIBSS</td>
-											<td>NIBSS</td>
+											<td>A/C</td>
+											<td>ERCASPay</td>
 											@endif
 											<td>{{$collection->amount}}</td>
 											<td><span <?php echo ($collection->collection_type=="pos")? 'class="label label-success"': 'class="label label-primary"' ?>>{{$collection->collection_type}}</span></td>
