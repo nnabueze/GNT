@@ -140,6 +140,28 @@
 										</div>
 									</div>
 								</section>
+
+								<section>
+									<div class="row">
+										<label class="label col col-2">Gov %</label>
+										<div class="col col-10">
+											<label class="input"> <i class="icon-append fa fa-user"></i>
+												<input type="text" name="gov" value="{{$subhead->gov}}">
+											</label>
+										</div>
+									</div>
+								</section>
+
+								<section>
+									<div class="row">
+										<label class="label col col-2">Agency %</label>
+										<div class="col col-10">
+											<label class="input"> <i class="icon-append fa fa-user"></i>
+												<input type="text" name="agency" value="{{$subhead->agency}}">
+											</label>
+										</div>
+									</div>
+								</section>
 						
 							
 							<footer>

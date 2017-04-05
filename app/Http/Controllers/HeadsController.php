@@ -122,11 +122,14 @@ class HeadsController extends Controller
                 'subhead_code' => 'required',
                 'subhead' => 'required',
                 'amount' => 'numeric',
+                'gov' => 'numeric',
+                'agency' => 'numeric',
             ]);
 
         //check if the subhead exist
         if ($subhead = Subhead::find($request->id)) {
-            $subhead->update(["subhead_code"=>$request->subhead_code,"subhead_name"=>$request->subhead,"amount"=>$request->amount]);
+            $subhead->update(["subhead_code"=>$request->subhead_code,"subhead_name"=>$request->subhead,"amount"=>$request->amount,"gov"=>$request->gov,
+                "agency"=>$request->agency]);
 
             //selecting the heads
             $heads = Revenuehead::find($request->head_id);
