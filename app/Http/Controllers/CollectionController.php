@@ -98,11 +98,11 @@ class CollectionController extends Controller
         $sidebar = "ebill_collection";
 
         //getting collection within the date range
-        $collections = Collection::where("collection_type","ebill")->where("mda_id",$mda_id)->whereDate('created_at',">=",$start_date )->whereDate('created_at',"<=",$end_date )->get();
+        $collections = Collection::where("collection_type","ebills")->where("mda_id",$mda_id)->whereDate('created_at',">=",$start_date )->whereDate('created_at',"<=",$end_date )->get();
 
         //getting the name of the search MDA
-        $mda = Mda::find($mda_id);
-        $mda_name = $mda->mda_name;
+        $mda1 = Mda::find($mda_id);
+        $mda_name = $mda1->mda_name;
 
         //select station base on MDA
         
@@ -240,8 +240,8 @@ class CollectionController extends Controller
         //getting collection within the date range
         $collections = Collection::where("collection_type","pos")->where("mda_id",$mda_id)->whereDate('created_at',">=",$start_date )->whereDate('created_at',"<=",$end_date )->get();
 
-        $mda = Mda::find($mda_id);
-        $mda_name = $mda->mda_name;
+        $mda1 = Mda::find($mda_id);
+        $mda_name = $mda1->mda_name;
 
         //select station base on MDA
         
