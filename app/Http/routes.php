@@ -142,6 +142,8 @@ Route::get("/revenue_heads/{any}/edit","HeadsController@revenue_heads_edit");
 //storing the edit subhead
 Route::post("/revenue_heads/store","HeadsController@revenue_heads_store");
 
+//deleting remove heads
+Route::get("/revenue_heads/{any}","HeadsController@revenue_heads_delete");
 
 //Route for adding heads
 Route::get("/add_heads","HeadsController@index");

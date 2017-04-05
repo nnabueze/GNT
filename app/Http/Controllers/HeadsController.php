@@ -82,6 +82,35 @@ class HeadsController extends Controller
     }
 
     /////////////////////////////////////////////////////////////////////////////
+    //deleting subheads
+    public function revenue_heads_delete($id)
+    {
+
+        //checking user is a super admin
+        //checking user right
+        if ( ! Auth::user()->hasRole('Superadmin')) {
+
+           Session::flash("warning","You don't have the right to delete MDA");
+           return Redirect::back();
+        }
+
+        //checking if the key exist
+        if ($subhead = Subhead::where("subhead_key",$id)->first()) {
+
+            //deleting subhead
+            $subhead->delete();
+            
+            //return response
+            Session::flash("message","Successful! Subhead deleted");
+            return Redirect::back();
+        }
+
+        //return response
+        Session::flash("warning","Failed! Unable to delete subhead");
+        return Redirect::back();
+    }
+
+    /////////////////////////////////////////////////////////////////////////////
 
     //storing edited subhead
     public function revenue_heads_store(Request $request)
