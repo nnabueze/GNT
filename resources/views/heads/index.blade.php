@@ -415,6 +415,8 @@
 												<th>SUBHEAD CODE</th>
 												<th>SUBHEAD</th>
 												<th>AMOUNT</th>
+												<th>GOV %</th>
+												<th>AGENCY %</th>
 												<th data-hide="phone,tablet"> ACTION</th>
 												
 											</tr>
@@ -428,6 +430,8 @@
 												<td>{{$heads->mda->mda_name}}</td>
 												<td>{{$heads->activation_code}}</td>
 												<td>{{$heads->amount}}</td>
+												<td>{{$heads->gov}}</td>
+												<td>{{$heads->agency}}</td>
 												
 											<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 												
