@@ -22,10 +22,10 @@ class SubheadsMigrate extends Migration
             $table->integer('mda_id')->unsigned()->index();
             $table->foreign('mda_id')->references('id')->on('mdas')->onDelete('cascade');
             $table->string('subhead_name');
-             $table->enum('taxiable', [0, 1]);
+            $table->enum('taxiable', [0, 1]);
             $table->string('amount');
-            $table->integer('gov');
-            $table->integer('agency');
+            $table->double('gov', 20, 2);
+            $table->double('agency', 20, 2);
             $table->timestamps();
         });
     }
