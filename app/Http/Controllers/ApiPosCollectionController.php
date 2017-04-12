@@ -13,6 +13,7 @@ use Dingo\Api\Routing\Helpers;
 use App\User;
 use App\Invoice;
 use App\Revenuehead;
+use App\Percentage;
 use App\Mda;
 use App\Worker;
 use App\Postable;
@@ -108,9 +109,21 @@ class ApiPosCollectionController extends Controller
 
                 //inserting records
 		if (! $collection = Collection::create($request->all())) {
+
 			$message = "unable to insert record";
 			return $this->response->array(compact('message'))->setStatusCode(400);
 		}
+
+		//getting percentage
+		$percentage_data = $this->get_percentage($request['subhead_id'], $collection);
+
+		//gov and agency percentage amount
+		$request['agency_amount'] = $percentage_data['agency_amount'];
+		$request['gov_amount'] = $percentage_data['gov_amount'];
+		$request['collection_id'] = $collection->id;
+
+		//inserting percentage amount
+		Percentage::create($request->all());
 
 		$collection_receipt['collection_key'] = $collection->collection_key;
 		$collection_receipt['name'] = $collection->name;
@@ -238,6 +251,35 @@ private function user_check($user_id)
         return $pos_check;
     }
     return $pos_check;
+}
+
+//getting gov and agency percentage
+private function get_percentage($subhead_id, $collection)
+{
+	//getting subhead percentage
+	$subhead_percentage = Subhead::where("id",$subhead_id)->first();
+
+	//getting gov amount and agency amount if gov % > 0 and agency > 0
+	if ($subhead_percentage->gov >= 0 && $subhead_percentage->agency > 0) {
+		
+		$data['gov_amount'] = $subhead_percentage->gov/100 * $collection->amount;
+		$data['agency_amount'] = $subhead_percentage->agency/100 * $collection->amount;
+	}
+
+	//getting gov amount and agency amount if gov % = 0 and agency = 0
+	if ($subhead_percentage->gov == 0 && $subhead_percentage->agency == 0) {
+
+		$data['gov_amount'] = $subhead_percentage->gov/100 * $collection->amount;
+		$data['agency_amount'] = $collection->amount;
+	}
+
+	//getting gov amount and agency amount if gov % > 0 and agency = 0
+	if ($subhead_percentage->gov > 0 && $subhead_percentage->agency == 0) {
+		$data['gov_amount'] = $subhead_percentage->gov/100 * $collection->amount;
+		$data['agency_amount'] = $subhead_percentage->agency/100 * $collection->amount;
+	}
+
+	return $data;
 }
 
 }

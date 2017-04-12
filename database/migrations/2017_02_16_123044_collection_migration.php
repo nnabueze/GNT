@@ -18,7 +18,7 @@ class CollectionMigration extends Migration
             $table->string('collection_key');
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('amount');
+            $table->double('amount', 20, 2);
             $table->string('payer_id');
             $table->string('phone');
             $table->string('name');
