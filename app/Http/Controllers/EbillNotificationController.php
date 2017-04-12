@@ -18,6 +18,7 @@ use App\Mda;
 use App\Worker;
 use App\Postable;
 use App\Subhead;
+use App\Percentage;
 use App\Tin;
 use App\Igr;
 use DB;
@@ -142,6 +143,22 @@ class EbillNotificationController extends Controller
             if (isset($param['ercasBillerId'])) {
                 $data['ercasBillerId'] = $param['ercasBillerId'];
             }
+
+            if (isset($param['refcode'])) {
+                $data['refcode'] = $param['refcode'];
+            }
+
+            if (isset($param['BillerID'])) {
+                $data['BillerID'] = $param['BillerID'];
+            }
+
+            if (isset($param['SourceBankName'])) {
+                $data['SourceBankName'] = $param['SourceBankName'];
+            }
+
+            if (isset($param['BillerName'])) {
+                $data['BillerName'] = $param['BillerName'];
+            }
     	
         $data['igr_id'] = $this->igr_id($data['ercasBillerId']);
 
@@ -164,6 +181,17 @@ class EbillNotificationController extends Controller
 
             //insert ebills collection
             $ebillcollection = Ebillcollection::create($data);
+
+            //getting percentage
+            $percentage_data = $this->get_percentage($data['subhead_id'], $collection);
+
+            //gov and agency percentage amount
+            $data['agency_amount'] = $percentage_data['agency_amount'];
+            $data['gov_amount'] = $percentage_data['gov_amount'];
+            $data['collection_id'] = $collection->id;
+
+            //inserting percentage amount
+            Percentage::create($data);
 
             $res = $this->success_message($data);
             return $res;
@@ -500,5 +528,35 @@ class EbillNotificationController extends Controller
 
 
             return $data;
+    }
+
+
+    //getting gov and agency percentage
+    private function get_percentage($subhead_id, $collection)
+    {
+        //getting subhead percentage
+        $subhead_percentage = Subhead::where("id",$subhead_id)->first();
+
+        //getting gov amount and agency amount if gov % > 0 and agency > 0
+        if ($subhead_percentage->gov >= 0 && $subhead_percentage->agency > 0) {
+            
+            $data['gov_amount'] = $subhead_percentage->gov/100 * $collection->amount;
+            $data['agency_amount'] = $subhead_percentage->agency/100 * $collection->amount;
+        }
+
+        //getting gov amount and agency amount if gov % = 0 and agency = 0
+        if ($subhead_percentage->gov == 0 && $subhead_percentage->agency == 0) {
+
+            $data['gov_amount'] = $subhead_percentage->gov/100 * $collection->amount;
+            $data['agency_amount'] = $collection->amount;
+        }
+
+        //getting gov amount and agency amount if gov % > 0 and agency = 0
+        if ($subhead_percentage->gov > 0 && $subhead_percentage->agency == 0) {
+            $data['gov_amount'] = $subhead_percentage->gov/100 * $collection->amount;
+            $data['agency_amount'] = $subhead_percentage->agency/100 * $collection->amount;
+        }
+
+        return $data;
     }
 }
