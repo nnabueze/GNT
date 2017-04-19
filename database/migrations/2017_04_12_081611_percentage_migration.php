@@ -20,8 +20,10 @@ class PercentageMigration extends Migration
             $table->foreign('subhead_id')->references('id')->on('subheads')->onDelete('cascade');
             $table->integer('mda_id')->unsigned()->index();
             $table->foreign('mda_id')->references('id')->on('mdas')->onDelete('cascade');
+            $table->double('amount', 20, 2);
             $table->double('agency_amount', 20, 2);
             $table->double('gov_amount', 20, 2);
+            $table->dateTime('collected_at');
             $table->timestamps();
         });
     }

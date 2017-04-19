@@ -26,4 +26,10 @@ class Remittance extends Model
 	{
 		return $this->belongsTo('App\Worker');
 	}
+
+	//relationship between remittance and collection
+	public function collections()
+	{
+	  return $this->hasMany('App\Collection');
+	}
 }

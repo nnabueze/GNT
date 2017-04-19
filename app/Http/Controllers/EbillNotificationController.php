@@ -189,6 +189,8 @@ class EbillNotificationController extends Controller
             $data['agency_amount'] = $percentage_data['agency_amount'];
             $data['gov_amount'] = $percentage_data['gov_amount'];
             $data['collection_id'] = $collection->id;
+            $data['amount'] = $collection->amount;
+            $data['collected_at'] = $collection->created_at;
 
             //inserting percentage amount
             Percentage::create($data);
@@ -266,7 +268,7 @@ class EbillNotificationController extends Controller
     	//insert ebills remittance notification table
     	if ($ebillcollection = Remittancenotification::create($data)) {
 
-    		if (! $remittance = Remittance::where("remittance_key", $data['remittance_key'])->first()) {
+    		if (! $remittance = Remittance::where("remittance_key", $data['remittance_key'])->with('collections')->first()) {
 
                $message = "Invalid remmittance key";
                $res = $this->success_error($data, $message);
@@ -275,6 +277,24 @@ class EbillNotificationController extends Controller
 
             //updating paid remittance
     		$remittance->update(['remittance_status'=>1]);
+
+            //calculating pacentage base on gov collection
+            foreach ($remittance->collections as $collection) {
+                //getting percentage
+                $percentage_data = $this->get_percentage($collection->subhead_id, $collection);
+
+                //gov and agency percentage amount
+                $data['subhead_id'] = $collection->subhead_id;
+                $data['agency_amount'] = $percentage_data['agency_amount'];
+                $data['gov_amount'] = $percentage_data['gov_amount'];
+                $data['collection_id'] = $collection->id;
+                $data['amount'] = $collection->amount;
+                $data['collected_at'] = $collection->created_at;
+
+                //inserting percentage amount
+                Percentage::create($data);
+            }
+
 
             $res = $this->success_message($data);
             return $res;

@@ -18,12 +18,16 @@ class RemittanceNotification extends Migration
             $table->string('igr_id');
             $table->string('mda_id');
             $table->string('name');
+            $table->string('refcode');
             $table->string('phone');
             $table->string('amount');
             $table->string('mda');
             $table->string('SessionID');
             $table->string('SourceBankCode');
             $table->string('DestinationBankCode');
+            $table->string('BillerID');
+            $table->string('SourceBankName');
+            $table->string('BillerName');
             $table->timestamps();
         });
     }

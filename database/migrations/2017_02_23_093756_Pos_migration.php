@@ -34,6 +34,6 @@ class PosMigration extends Migration
      */
     public function down()
     {
-        Schema::drop('poses');
+        Schema::drop('postables');
     }
 }
