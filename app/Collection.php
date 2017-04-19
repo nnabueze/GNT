@@ -59,4 +59,10 @@ class Collection extends Model
     public function getStationAttribute() {
         return $this->postable->station;
     }
+
+    //relationship with percentage table
+    public function percentage()
+    {
+        return $this->hasOne('App\Percentage','collection_id', 'id');
+    }
 }

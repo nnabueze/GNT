@@ -104,6 +104,12 @@
 					<li class="<?php if ($sidebar == "pos_collection"){echo "active";}else{echo "";}?>">
 						<a href="/pos_collection">POS Collections</a>
 					</li>
+
+					@if(Auth::user()->hasRole(['Admin','Superadmin']))
+					<li class="<?php if ($sidebar == "percentage"){echo "active";}else{echo "";}?>">
+						<a href="/percentage">Percentage Report</a>
+					</li>
+					@endif
 				</ul>
 			</li>
 			@endif

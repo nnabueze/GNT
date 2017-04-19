@@ -253,4 +253,51 @@ class CollectionController extends Controller
             Session::flash("warning","Failed! No result found.");
             return Redirect::to("/pos_collection");
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //percentage collection
+    public function percentage()
+    {
+            $sidebar = "percentage";
+            $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
+            $collection = array();
+            return view("collection.percentage",compact("igr","sidebar","collection"));
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //showing percentage collection
+
+
+    public function percentage_report(Request $request)
+    {
+
+        //getting list of mdas
+        $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
+        //print_r($igr); die;
+
+        //getting all the request
+        $mda_id = $request->input("mda");
+        $start_date = $request->input("startdate");
+        $end_date = $request->input("enddate");
+
+        $sidebar = "percentage";
+        $collection = array();
+
+        //getting collection within the date range
+        $collections = Collection::where("mda_id",$mda_id)->with("percentage")->whereDate('created_at',">=",$start_date )->whereDate('created_at',"<=",$end_date )->get();
+        
+        //getting the name of the search MDA
+        $mda = Mda::find($mda_id);
+        $mda_name = $mda->mda_name;
+
+        //select station base on MDA
+
+        if (count($collections) > 0) {            
+                
+            return view("collection.percentage_report",compact("igr","sidebar","collections","mda_name"));
+        }
+
+            Session::flash("warning","Failed! No result found.");
+            return Redirect::to("/all_collection");
+    }
 }
