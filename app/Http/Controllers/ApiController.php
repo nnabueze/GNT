@@ -164,6 +164,15 @@ public function user_login(Request $request)
         return $this->response->array(compact('message'))->setStatusCode(401);
     }
 
+    //check if firebase id is included
+    if ($request->has("firebase_id")) {
+        
+        //update firbase_id
+        $user_login->firebase_id = $request->input("firebase_id");
+        $user_login->save();
+
+    }
+
 
     //return user credentials
     $credential["user_id"] = $user_login->worker_key;
