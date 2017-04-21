@@ -175,7 +175,7 @@
 
 							<header>
 								<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-								<h2>All Collection</h2>
+								<h2>Collection</h2>
 
 							</header>
 

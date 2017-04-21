@@ -208,8 +208,8 @@
 										<tr>
 											<td>{{$collection->subhead->subhead_name}}</td>
 											<td>{{$collection->amount}}</td>
-											<td>{{$collection->percentage->gov_amount}}</td>
-											<td>{{$collection->percentage->agency_amount}}</td>
+											<td>{{$collection->gov_amount}}</td>
+											<td>{{$collection->agency_amount}}</td>
 											<td>{{$collection->created_at}}</td>
 										</tr>
 										@endforeach

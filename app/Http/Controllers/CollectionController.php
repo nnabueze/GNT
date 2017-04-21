@@ -8,6 +8,7 @@ use Redirect;
 use Auth;
 use Session;
 use App\Mda;
+use App\Percentage;
 use App\Igr;
 use App\Collection;
 use App\Revenuehead;
@@ -43,7 +44,6 @@ class CollectionController extends Controller
 
         //getting list of mdas
         $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
-        //print_r($igr); die;
 
         //getting all the request
         $mda_id = $request->input("mda");
@@ -284,7 +284,7 @@ class CollectionController extends Controller
         $collection = array();
 
         //getting collection within the date range
-        $collections = Collection::where("mda_id",$mda_id)->with("percentage")->whereDate('created_at',">=",$start_date )->whereDate('created_at',"<=",$end_date )->get();
+        $collections = Percentage::where("mda_id",$mda_id)->whereDate('created_at',">=",$start_date )->whereDate('created_at',"<=",$end_date )->get();
         
         //getting the name of the search MDA
         $mda = Mda::find($mda_id);
