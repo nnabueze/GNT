@@ -197,24 +197,28 @@
 											<th data-class="expand">AMOUNT</th>
 											<th data-hide="phone,tablet">GOV</th>
 											<th data-hide="phone,tablet">AGENCY</th>
-											<th data-hide="phone,tablet">Date</th>
 
 										</tr>
 									</thead>
 									<tbody>
 									
-									@if($collections)
-										@foreach($collections as $collection)
+									@if($percent_array)
+										@foreach($percent_array as $collection)
 										<tr>
-											<td>{{$collection->subhead->subhead_name}}</td>
-											<td>{{$collection->amount}}</td>
-											<td>{{$collection->gov_amount}}</td>
-											<td>{{$collection->agency_amount}}</td>
-											<td>{{$collection->created_at}}</td>
+											<td>{{$collection['subhead']}}</td>
+											<td>{{$collection['amount']}}</td>
+											<td>{{$collection['gov_amount']}}</td>
+											<td>{{$collection['agency_amount']}}</td>
 										</tr>
 										@endforeach
 									@endif
 									</tbody>
+									<tfoot>
+										<th data-hide="phone">Total</th>
+										<th data-class="expand">{{$agency_total}}</th>
+										<th data-hide="phone,tablet">{{$gov_total}}</th>
+										<th data-hide="phone,tablet">{{$amount_total}}</th>
+									</tfoot>
 								</table>
 
 								</div>

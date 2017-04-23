@@ -12,6 +12,7 @@ use App\Percentage;
 use App\Igr;
 use App\Collection;
 use App\Revenuehead;
+use App\Subhead;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -260,8 +261,8 @@ class CollectionController extends Controller
     {
             $sidebar = "percentage";
             $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
-            $collection = array();
-            return view("collection.percentage",compact("igr","sidebar","collection"));
+            $percent_array = array();
+            return view("collection.percentage",compact("igr","sidebar","percent_array"));
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -270,10 +271,10 @@ class CollectionController extends Controller
 
     public function percentage_report(Request $request)
     {
+        //echo "string";die;
 
         //getting list of mdas
         $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
-        //print_r($igr); die;
 
         //getting all the request
         $mda_id = $request->input("mda");
@@ -283,21 +284,67 @@ class CollectionController extends Controller
         $sidebar = "percentage";
         $collection = array();
 
-        //getting collection within the date range
-        $collections = Percentage::where("mda_id",$mda_id)->whereDate('created_at',">=",$start_date )->whereDate('created_at',"<=",$end_date )->get();
-        
+        //getting subheads under an MDA
+        $mda_subheads = Mda::find($mda_id);
+
+        $percent_array = array();
+        $info = array();
+        $agency_total =0;
+        $gov_total = 0;
+        $amount_total =0;
+
+        foreach($mda_subheads->subheads as $subhead){
+            $info['amount'] = 0;
+            $info['gov_amount'] = 0;
+            $info['agency_amount'] = 0;
+            $info['subhead'] = "";
+
+            //casting subhead id to int
+            $id = (int) $subhead->id;
+
+            //getting percentage collection of mda subheads within the date range
+            $collections = Percentage::where("mda_id",$mda_id)->where("subhead_id",$id)->whereDate('created_at',">=",$start_date )->whereDate('created_at',"<=",$end_date )->get();
+
+            //check for subhead that have payment within date range
+            if (count($collections) > 0) {
+                foreach ($collections as $collection) {
+
+                    $info['amount'] += $collection->amount;
+                    $info['gov_amount'] += $collection->gov_amount;
+                    $info['agency_amount'] += $collection->agency_amount;
+                    
+                }
+
+                $agency_total = $agency_total + $info['agency_amount'];
+                $gov_total = $gov_total + $info['gov_amount'];
+                $amount_total = $amount_total + $info['amount'];
+                $info['subhead'] = $this->subhead_name($id);
+
+                array_push($percent_array, $info);
+            }
+
+        }
+
         //getting the name of the search MDA
         $mda = Mda::find($mda_id);
         $mda_name = $mda->mda_name;
 
         //select station base on MDA
 
-        if (count($collections) > 0) {            
+        if (count($percent_array) > 0) {            
                 
-            return view("collection.percentage_report",compact("igr","sidebar","collections","mda_name"));
+            return view("collection.percentage_report",compact("igr","sidebar","percent_array","mda_name","agency_total","gov_total","amount_total"));
         }
 
             Session::flash("warning","Failed! No result found.");
-            return Redirect::to("/all_collection");
+            return Redirect::to("/percentage");
+    }
+
+    //getting name of a subhead
+    private function subhead_name($id)
+    {
+        $subhead = Subhead::find($id);
+
+        return $subhead->subhead_name;
     }
 }

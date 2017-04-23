@@ -195,35 +195,32 @@
 								<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
 									<thead>
 										<tr>
-											<th data-hide="phone">Transaction ID</th>
-											<th data-class="expand">Payer Name</th>
-											<th>Payer ID</th>
-											<th data-hide="phone,tablet">Revenue Head</th>
-											<th data-hide="phone">Amount</th>
-											<th data-hide="phone,tablet">Channel</th>
-											<th data-hide="phone,tablet">POS User</th>
-											<th data-hide="phone,tablet">Station</th>
-											<th data-hide="phone,tablet">Date</th>
+											<th data-hide="phone">SUBHEAD</th>
+											<th data-class="expand">AMOUNT</th>
+											<th data-hide="phone,tablet">GOV</th>
+											<th data-hide="phone,tablet">AGENCY</th>
 
 										</tr>
 									</thead>
 									<tbody>
-									@if($collection)
-										@foreach($collection as $collection)
+									
+									@if($percent_array)
+										@foreach($percent_array as $collection)
 										<tr>
-											<td>{{$collection->collection_key}}</td>
-											<td>{{$collection->name}} </td>
-											<td>{{$collection->payer_id}}</td>
-											<td>{{$collection->revenuehead->revenue_name}}</td>
-											<td>{{$collection->amount}}</td>
-											<td>{{$collection->collection_type}}</td>
-											<td>{{$collection->worker->worker_name}}</td>
-											<td>{{$collection->station->station_name}}</td>
-											<td>{{$collection->created_at}}</td>
+											<td>{{$collection['subhead']}}</td>
+											<td>{{$collection['amount']}}</td>
+											<td>{{$collection['gov_amount']}}</td>
+											<td>{{$collection['agency_amount']}}</td>
 										</tr>
 										@endforeach
 									@endif
 									</tbody>
+									<tfoot>
+									<th data-hide="phone">SUBHEAD</th>
+									<th data-class="expand">AMOUNT</th>
+									<th data-hide="phone,tablet">GOV</th>
+									<th data-hide="phone,tablet">AGENCY</th>
+									</tfoot>
 								</table>
 
 								</div>
