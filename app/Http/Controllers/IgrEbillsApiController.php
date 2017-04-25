@@ -765,6 +765,7 @@ class IgrEbillsApiController extends Controller
         $data['mda_name'] = $this->mda_name($remittance->mda_id);
         $data['mda_category'] = $this->mda_category($remittance->mda_id);
         $data['ResponseCode'] = "00";
+        $data['biller_name'] = $this->igr_name($data['ercasBillerId']);
 
 
 
@@ -916,5 +917,13 @@ class IgrEbillsApiController extends Controller
     }
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    private function igr_name($igr_key)
+    {
+        if ($igr = Igr::where("igr_key",$igr_key)->first()) {
+                   
+            return $igr->state_name;
+        }
+    }
 }
