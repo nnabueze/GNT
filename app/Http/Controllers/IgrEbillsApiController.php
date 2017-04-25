@@ -685,6 +685,7 @@ class IgrEbillsApiController extends Controller
         $data['mda_category'] = $this->mda_category($invoice->mda_id);
         $data['subhead_name'] = $this->subhead($invoice->subhead_id);
         $data['ResponseCode'] = "00";
+        $data['biller_name'] = $this->igr_name($data['ercasBillerId']);
 
 
 
