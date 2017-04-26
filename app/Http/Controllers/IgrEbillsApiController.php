@@ -579,6 +579,8 @@ class IgrEbillsApiController extends Controller
             return $error;
         }
 
+
+
         //validation
         $data['igr_id'] = $this->igr_id($data['ercasBillerId']);
         if (isset($data['mda'])) {
@@ -620,7 +622,7 @@ class IgrEbillsApiController extends Controller
         $data['collection_key'] = $this->random_number(11);
         $data['collection_type'] = "ebills";
         $data['tax'] = 1;
-        $data['NextStep'] = 4;
+        $data['NextStep'] = 3;
         $data['ResponseCode'] = "00";
 
             $content = view('xml.tax_collection', compact('data'));
@@ -924,7 +926,7 @@ class IgrEbillsApiController extends Controller
     {
         if ($igr = Igr::where("igr_key",$igr_key)->first()) {
                    
-            return $igr->state_name;
+            return $igr->igr_abbre;
         }
     }
 }
