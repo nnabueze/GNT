@@ -487,6 +487,9 @@ class IgrEbillsApiController extends Controller
             return $error;
         }
 
+        //getting list of MDA/LGA
+        $igr = $this->igr_details($biller);
+        
         //validating param
         if ($tin_detains = Tin::where("tin_no",$tin)->orwhere("temporary_tin",$tin)->where("igr_id",$igr_id)->first()) {
             $item['name'] = $tin_detains->name;
@@ -495,6 +498,8 @@ class IgrEbillsApiController extends Controller
             $item['phone'] = $tin_detains->phone;
             $item['tin'] = $tin;
             $item['page'] = 8;
+            $item['mda_item'] = $igr->mdas;
+            $item['biller_name'] = $igr->igr_abbre;
             $item['ResponseCode'] = "00";
 
             $content = view('xml.tax', compact('item'));
@@ -609,6 +614,11 @@ class IgrEbillsApiController extends Controller
         }
         
         $data['subhead_name'] = $this->subhead($data['subhead_id']);
+
+        //getting list of subheads under an MDA
+        $mda_subheads = $this->mda_subheads($data['mda']);
+
+        $data['mda_subheads'] = $mda_subheads->subheads;
         
         //checking if MDA belong to biller
         if (!$mda = Mda::where("igr_id",$data['igr_id'])->find($data['mda_id'])) {
@@ -920,7 +930,7 @@ class IgrEbillsApiController extends Controller
     }
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private function igr_name($igr_key)
     {
@@ -929,4 +939,30 @@ class IgrEbillsApiController extends Controller
             return $igr->igr_abbre;
         }
     }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    //getting subhead under an MDA or LGA
+    private function mda_subheads($id)
+    {
+        if ($mda_subheads = Mda::where("mda_key",$id)->first()) {
+            return $mda_subheads;
+        }
+
+        return array();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //getting igr details
+    private function igr_details($igr_key)
+    {
+        if ($igr = Igr::with("mdas")->where("igr_key",$igr_key)->first()) {
+                   
+            return $igr;
+        }
+
+    return null;
+    }
+
+
 }

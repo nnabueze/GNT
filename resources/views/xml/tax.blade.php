@@ -28,6 +28,27 @@
     <Key>Phone</Key>
     <Value>{{$item['phone']}}</Value>
     </Param>
+
+    <Field>
+    @if($item['biller_name'] == "Bauchi LG")
+        <Name>lga</Name>
+    @else
+        <Name>mda</Name>
+    @endif
+        <Type>list</Type>
+        <Required>true</Required>
+        <Readonly>false</Readonly>
+        <MaxLength>0</MaxLength>
+        <Order>0</Order>
+        <RequiredInNextStep>true</RequiredInNextStep>
+        <AmountField>false</AmountField>
+        @foreach($item['mda_item'] as $mda)
+        <Item>
+            <Name>{{$mda->mda_name}}</Name>
+            <Value>{{$mda->mda_key}}</Value>
+        </Item>
+        @endforeach
+    </Field>
     
 </ValidationResponse>
 

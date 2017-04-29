@@ -109,6 +109,23 @@
     <Value>{{$data['payerid']}}</Value>
     </Param>
     @endif
+
+    <Field>
+        <Name>mda</Name>
+        <Type>list</Type>
+        <Required>false</Required>
+        <Readonly>false</Readonly>
+        <MaxLength>0</MaxLength>
+        <Order>0</Order>
+        <RequiredInNextStep>true</RequiredInNextStep>
+        <AmountField>false</AmountField>
+        @foreach($data['mda_subheads'] as $subhead)
+        <Item>
+            <Name>{{$subhead->subhead_name}}</Name>
+            <Value>{{$subhead->subhead_key}}</Value>
+        </Item>
+        @endforeach
+    </Field>
     
 </ValidationResponse>
 
