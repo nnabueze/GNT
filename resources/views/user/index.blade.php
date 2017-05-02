@@ -111,52 +111,42 @@
 
 							<!-- widget div-->
 
-
-							<table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
-								<thead>			                
+							<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
+								<thead>
 									<tr>
-										<th data-hide="phone">ID</th>
-										<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Name</th>
-										<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Email</th>
-										<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Role</th>
-										<th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> Role Discription</th>
-										<th data-hide="phone,tablet">Action</th>
-
-
+										<th data-hide="phone">Name</th>
+										<th data-class="expand">Email</th>
+										<th>Role</th>
+										<th data-hide="phone,tablet">Role Discription</th>
+										<th data-hide="phone">Action</th>
 
 									</tr>
 								</thead>
 								<tbody>
-									<?php $i = 1;?>
-									@if($users)
-									@foreach($users as $user)
+								@if($users)
+								@foreach($users as $user)
 									<tr>
-										<td>{{$i}}</td>
 										<td>{{$user->name}}</td>
 										<td>{{$user->email}}</td>
-										<td>
-										@foreach($user->roles as $role)
-										{{$role->name}}
-										@endforeach
-										</td>
-										<td>
-										@foreach($user->roles as $role)
-										{{$role->description}}
-										@endforeach
-										</td>
-										<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/users/{{$user->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
-
-									</tr>
-									<?php $i++; ?>
+									<td>
+									@foreach($user->roles as $role)
+									{{$role->name}}
 									@endforeach
-									@endif
-
-
+									</td>
+									<td>
+									@foreach($user->roles as $role)
+									{{$role->description}}
+									@endforeach
+									</td>
+										<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/users/{{$user->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
+									</tr>
+									@endforeach
+								@endif
 								</tbody>
 							</table>
 							<!-- pagination -->
 
-							{!! $users->render() !!}
+							
 						</div>
 						<!-- end widget div -->
 
