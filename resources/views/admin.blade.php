@@ -21,6 +21,7 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/smartadmin-production-plugins.min.css')}}">
 	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/smartadmin-production.min.css')}}">
 	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/smartadmin-skins.min.css')}}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.0/jquery-confirm.min.css">
 
 	<!-- SmartAdmin RTL Support  -->
 	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('template/css/smartadmin-rtl.min.css')}}">
@@ -359,6 +360,7 @@
 		<script src="{{ asset('template/js/plugin/datatables/dataTables.tableTools.min.js')}}"></script>
 		<script src="{{ asset('template/js/plugin/datatables/dataTables.bootstrap.min.js')}}"></script>
 		<script src="{{ asset('template/js/plugin/datatable-responsive/datatables.responsive.min.js')}}"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.0/jquery-confirm.min.js"></script>
 		@stack('scripts')
 
 		<script>

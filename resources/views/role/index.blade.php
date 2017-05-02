@@ -127,7 +127,7 @@
 													<td>{{$role->name}}</td>
 													<td>{{$role->display_name}}</td>
 													<td>{{$role->description}}</td>
-													<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/role/{{$role->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
+													<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/role/{{$role->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete" onclick="confirm_alert()"><span class="glyphicon glyphicon-trash"></span></a></td>
 													
 												</tr>
 												<?php $i++; ?>
@@ -366,3 +366,19 @@
 		<!-- END MAIN PANEL -->
 
 @stop
+@push('scripts')
+
+<script type="text/javascript">
+function confirm_alert() {
+
+   	var x = confirm("Are you sure you want to delete?");
+	if (x) {
+		return true;
+	}else {
+
+		event.preventDefault();
+		return false;
+	}
+}
+</script>
+@endpush
