@@ -12,6 +12,7 @@ use App\Percentage;
 use App\Igr;
 use App\Collection;
 use App\Revenuehead;
+use App\Remittance;
 use App\Subhead;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -346,5 +347,45 @@ class CollectionController extends Controller
         $subhead = Subhead::find($id);
 
         return $subhead->subhead_name;
+    }
+
+    //getting list of remittance 
+    public function list_remittance()
+    {
+        $sidebar = "remittance";
+        $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
+        $remittance = array();
+        return view("remittance_invoice.remittance",compact("igr","sidebar","remittance"));
+    }
+
+    //viewing remittance with date range
+    public function remittance_view(Request $request)
+    {
+        //getting list of mdas
+        $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
+
+        //getting all the request
+        $mda_id = $request->input("mda");
+        $start_date = $request->input("startdate");
+        $end_date = $request->input("enddate");
+
+        $sidebar = "remittance";
+
+        //getting collection within the date range
+        $remittances = Remittance::where("mda_id",$mda_id)->whereDate('created_at',">=",$start_date )->whereDate('created_at',"<=",$end_date )->get();
+        
+        //getting the name of the search MDA
+        $mda = Mda::find($mda_id);
+        $mda_name = $mda->mda_name;
+
+        //select station base on MDA
+
+        if (count($remittances) > 0) {
+                
+            return view("remittance_invoice.remittance_view",compact("igr","sidebar","remittances","mda_name"));
+        }
+
+            Session::flash("warning","Failed! No result found.");
+            return Redirect::to("/list_remittance");
     }
 }

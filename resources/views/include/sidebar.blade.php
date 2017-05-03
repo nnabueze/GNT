@@ -139,14 +139,17 @@
 			<li>
 				<a href="#"><i class="fa fa-lg fa-fw fa-table"></i> <span class="menu-item-parent">Invoice/Remittance</span></a>
 				<ul>
-					<li>
-						<a href="#">Remittances</a>
+				@if(Auth::user()->hasRole(['Admin','Superadmin','Lga','Mda']))
+					<li class="<?php if ($sidebar == "remittance"){echo "active";}else{echo "";}?>">
+						<a href="/list_remittance">Remittances</a>
 					</li>
 					<li>
 						<a href="#">Transactions </a>
 					</li>
 					<li>
 						<a href="#">Manage Invoices</a>
+					</li>
+				@endif
 				</ul>
 			</li>
 

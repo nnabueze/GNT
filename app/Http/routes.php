@@ -234,6 +234,12 @@ Route::get("/percentage","CollectionController@percentage");
 //displaying percentage report
 Route::post("/percentage_report","CollectionController@percentage_report");
 
+//viewing list of remittance
+Route::get("/list_remittance", "CollectionController@list_remittance");
+
+//view remittance with date range
+Route::post("/list_remittance", "CollectionController@remittance_view");
+
 
 
 
