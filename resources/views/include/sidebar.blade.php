@@ -143,11 +143,11 @@
 					<li class="<?php if ($sidebar == "remittance"){echo "active";}else{echo "";}?>">
 						<a href="/list_remittance">Remittances</a>
 					</li>
-					<li>
+<!-- 					<li>
 						<a href="#">Transactions </a>
-					</li>
-					<li>
-						<a href="#">Manage Invoices</a>
+					</li> -->
+					<li class="<?php if ($sidebar == "invoice"){echo "active";}else{echo "";}?>">
+						<a href="/list_invoice">Manage Invoices</a>
 					</li>
 				@endif
 				</ul>

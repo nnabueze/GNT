@@ -240,6 +240,12 @@ Route::get("/list_remittance", "CollectionController@list_remittance");
 //view remittance with date range
 Route::post("/list_remittance", "CollectionController@remittance_view");
 
+//viewing list of invoice
+Route::get("/list_invoice", "CollectionController@list_invoice");
+
+//view remittance with date range
+Route::post("/list_invoice", "CollectionController@invoice_view");
+
 
 
 

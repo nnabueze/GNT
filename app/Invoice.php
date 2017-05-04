@@ -40,4 +40,10 @@ class Invoice extends Model
     {
     	return $this->belongsTo('App\Subhead');
     }
+
+    //relationshp between invoice and worker
+    public function worker()
+    {
+      return $this->belongsTo('App\Worker');
+    }
 }
