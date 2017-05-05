@@ -331,6 +331,16 @@ class HeadsController extends Controller
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
+    //Route for getting list of subheads
+    public function list_subheads()
+    {
+        $id = Input::get('option');
+        $mda = Mda::with("revenue")->find($id);
+        print_r($mda->subheads);die;
+        return $mda->subheads->lists('subhead_name', 'id');
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////
 
     //generating random numbers
     private function random_number($size = 5)

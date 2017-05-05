@@ -141,7 +141,7 @@
 									<div class="col col-10">
 
 										<label class="select"> <i class="icon-append fa fa-user"></i>
-											<select name="mda_id">
+											<select name="mda_id" id="mda_id">
 											@if(isset($igr->mdas))
 												<option value="0" selected="" disabled="">Select MDA/LGA</option>
 												@foreach($igr->mdas as $mda)
@@ -157,13 +157,9 @@
 									<label class="col-md-2 control-label" for="multiselect1">Subhead</label>
 									<div class="col-md-10">
 										<select multiple="multiple" name="subhead[]" id="multiselect1" class="form-control custom-scroll" >
-										@if(isset($igr->mdas))
-											@foreach($igr->mdas as $mda)
-												@foreach($mda->subheads as $subhead)
-													<option value="{{$subhead->id}}">{{$subhead->subhead_name}}</option>
-												@endforeach
-											@endforeach
-										@endif
+
+													<option value="">Select Revenue Head</option>
+
 										</select>
 									</div>
 								</div>
@@ -337,6 +333,21 @@
 		  tags: true,
 		  placeholder: "Select Subheads",
 		});
+	</script>
+
+	<script>
+
+	    $('#mda_id').change(function(){
+	        $.get("{{ url('/list_subheads')}}", 
+	        { option: $(this).val() }, 
+	        function(data) {
+	            $('#multiselect1').empty(); 
+	            $.each(data, function(key, element) {
+	                $('#heads').append("<option value='" + key +"'>" + element + "</option>");
+	            });
+	        });
+	    });
+
 	</script>
 
 	<script type="text/javascript">
