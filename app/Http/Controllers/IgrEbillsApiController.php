@@ -78,11 +78,16 @@ class IgrEbillsApiController extends Controller
             return $item;
         }
 
-        //non tax collection
-        if ($json['Step'] == 2 && $param['page'] == 4) {
+        //non tax collection step1
+        if ($json['Step'] == 1 && $param['page'] == 4) {
             $item = $this->step_5($json);
             return $item;
         }
+
+        //step2=====page=5
+        //non tax collection step2
+        
+
 
         //tax collection validation
         if ($json['Step'] == 1 && $param['page'] == 6) {
@@ -95,6 +100,8 @@ class IgrEbillsApiController extends Controller
             $item = $this->step_9($json);
             return $item;
         }
+
+        //step-3 page1
 
         //Invoice collection 
         if ($json['Step'] == 1 && $param['page'] == 10) {
@@ -396,8 +403,7 @@ class IgrEbillsApiController extends Controller
         }
 
         //checking missing param
-        if (empty($data['ercasBillerId']) || empty($data['payerid']) || empty($data['start_date']) || empty($data['end_date']) || empty($data['amount'])
-            || empty($data['name']) || empty($data['phone']) || empty($data['mda']) || empty($data['subhead'])) {
+        if (empty($data['ercasBillerId']) || empty($data['payerid']) || empty($data['name'])) {
 
             $message = "Parameter missing";
             $code = '401';
@@ -407,27 +413,15 @@ class IgrEbillsApiController extends Controller
 
         //validation
         $data['igr_id'] = $this->igr_id($data['ercasBillerId']);
-        $data['mda_id'] = $this->mda_id($data['mda']);
-        $data['subhead_id'] = $this->subhead_id($data['subhead']);
+
+        //getting list of MDA
+        $igr_mda = $this->igr_details($data['ercasBillerId']);
         
 
         //checking if mda, igr and subhead exist
-        if (empty($data['igr_id']) || empty($data['mda_id']) || empty($data['subhead_id'])) {
+        if (empty($data['igr_id'])) {
 
             $message = "Mda or Subhead does not exist";
-            $code = '401';
-            $error = $this->error_response($message, $code, $param['Step']);
-            return $error;
-        }
-
-
-        $data['mda_name'] = $this->mda_name($data['mda_id']);
-        $data['mda_category'] = $this->mda_category($data['mda']);
-        $data['subhead_name'] = $this->subhead($data['subhead_id']);
-        
-        //checking if MDA belong to biller
-        if (!$mda = Mda::where("igr_id",$data['igr_id'])->find($data['mda_id'])) {
-            $message = "Mda does not belong to biller";
             $code = '401';
             $error = $this->error_response($message, $code, $param['Step']);
             return $error;
@@ -437,10 +431,12 @@ class IgrEbillsApiController extends Controller
         $data['collection_key'] = $this->random_number(11);
         $data['collection_type'] = "ebills";
         $data['tax'] = 0;
-        $data['NextStep'] = 3;
+        $data['NextStep'] = 2;
         $data['ResponseCode'] = "00";
+        $data['mda_list'] = $igr_mda->mdas;
+        $data['igr_name'] = $igr_mda->igr_abbre;
 
-            $content = view('xml.tax_collection', compact('data'));
+            $content = view('xml.non_tax_1', compact('data'));
 
             return response($content, 200)
                 ->header('Content-Type', 'application/xml');
