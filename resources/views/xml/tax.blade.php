@@ -30,13 +30,13 @@
     </Param>
 
     <Field>
-    @if($item['biller_name'] == "Bauchi LG")
+    @if($item['biller_name'] == "ERCAS_BAUCHI")
         <Name>lga</Name>
     @else
         <Name>mda</Name>
     @endif
         <Type>list</Type>
-        <Required>true</Required>
+        <Required>false</Required>
         <Readonly>false</Readonly>
         <MaxLength>0</MaxLength>
         <Order>0</Order>

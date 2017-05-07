@@ -100,9 +100,15 @@ class IgrEbillsApiController extends Controller
 
 
         ///////////////////////////////////////////////////////////////////////TAX COLLECTION
-        //tax collection validation
+        //tax collection validation step1
         if ($json['Step'] == 1 && $param['page'] == 6) {
             $item = $this->tax($json);
+            return $item;
+        }
+
+        //tax collection step2
+        if ($json['Step'] == 2 && $param['page'] == 6) {
+            $item = $this->step($json);
             return $item;
         }
 
