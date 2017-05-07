@@ -156,7 +156,7 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="multiselect1">Subhead</label>
 									<div class="col-md-10">
-										<select multiple="multiple" name="subhead[]" id="multiselect1" class="form-control custom-scroll" >
+										<select multiple="multiple" name="subhead[]" id="multiselect1" class="form-control" >
 
 													<option value="">Select Revenue Head</option>
 
@@ -333,6 +333,7 @@
 		  tags: true,
 		  placeholder: "Select Subheads",
 		});
+
 	</script>
 
 	<script>
@@ -343,7 +344,7 @@
 	        function(data) {
 	            $('#multiselect1').empty(); 
 	            $.each(data, function(key, element) {
-	                $('#heads').append("<option value='" + key +"'>" + element + "</option>");
+	                $('#multiselect1').append("<option value='" + key +"'>" + element + "</option>");
 	            });
 	        });
 	    });

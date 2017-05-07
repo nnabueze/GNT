@@ -336,7 +336,6 @@ class HeadsController extends Controller
     {
         $id = Input::get('option');
         $mda = Mda::with("revenue")->find($id);
-        print_r($mda->subheads);die;
         return $mda->subheads->lists('subhead_name', 'id');
     }
 
