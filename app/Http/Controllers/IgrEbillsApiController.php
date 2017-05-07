@@ -108,12 +108,12 @@ class IgrEbillsApiController extends Controller
 
         //tax collection step2
         if ($json['Step'] == 2 && $param['page'] == 6) {
-            $item = $this->step($json);
+            $item = $this->tax_step_2($json);
             return $item;
         }
 
         //tax collection
-        if ($json['Step'] == 2 && $json['ProductName'] == "Tax") {
+        if ($json['Step'] == 3 && $param['page'] == 6) {
             $item = $this->step_9($json);
             return $item;
         }
@@ -741,6 +741,127 @@ class IgrEbillsApiController extends Controller
         return $error;
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //tax collection step2
+
+    private function tax_step_2($param)
+    {
+        //getting param
+        $data['BillerID'] = $param['BillerID'];
+
+        for ($i=0; $i <count($param['Param']) ; $i++) { 
+
+            if ($param['Param'][$i]['Key'] == "name") {
+                $data['name'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "ercasBillerId") {
+                $data['ercasBillerId'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "tin") {
+                $data['Tin'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "lga") {
+                $data['lga'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "phone") {
+                $data['phone'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "mda") {
+                $data['mda'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "subhead") {
+                $data['subhead'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "startdate") {
+                $data['start_date'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "enddate") {
+                $data['end_date'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "email") {
+                $data['email'] = $param['Param'][$i]['Value'];
+            }
+
+            if ($param['Param'][$i]['Key'] == "amount") {
+                $data['amount'] = $param['Param'][$i]['Value'];
+            }
+        }
+
+        if (isset($data['lga'])) {
+            $data['mda'] = $data['lga'];
+        }
+
+        //checking missing param
+        if (empty($data['ercasBillerId']) || empty($data['Tin']) || empty($data['name']) || empty($data['phone']) || empty($data['mda'])) {
+
+            $message = "Parameter missing";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+
+
+        //validation
+        $data['igr_id'] = $this->igr_id($data['ercasBillerId']);
+        if (isset($data['mda'])) {
+            $data['mda_id'] = $this->mda_id($data['mda']);
+        }else{
+            $data['mda_id'] = $this->mda_id($data['lga']);
+        }
+        
+
+        //checking if mda, igr and subhead exist
+        if (empty($data['igr_id']) || empty($data['mda_id'])) {
+
+            $message = "Mda or Subhead does not exist";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+        $data['mda_name'] = $this->mda_name($data['mda_id']);
+        if (isset($data['mda'])) {
+            $data['mda_category'] = $this->mda_category($data['mda']);
+        }else{
+            $data['mda_category'] = $this->mda_category($data['lga']);
+        }
+
+        //getting list of subheads under an MDA
+        $mda_subheads = $this->mda_subheads($data['mda']);
+
+        $data['mda_subheads'] = $mda_subheads->subheads;
+        
+        //checking if MDA belong to biller
+        if (!$mda = Mda::where("igr_id",$data['igr_id'])->find($data['mda_id'])) {
+            $message = "Mda does not belong to biller";
+            $code = '401';
+            $error = $this->error_response($message, $code, $param['Step']);
+            return $error;
+        }
+
+        //genrating random number
+        $data['collection_key'] = $this->random_number(11);
+        $data['collection_type'] = "ebills";
+        $data['tax'] = 1;
+        $data['NextStep'] = 3;
+        $data['ResponseCode'] = "00";
+
+            $content = view('xml.tax_step2', compact('data'));
+
+            return response($content, 200)
+                ->header('Content-Type', 'application/xml');
+        
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     //step_9 tax collection
     private function step_9($param)
@@ -857,7 +978,7 @@ class IgrEbillsApiController extends Controller
         $data['collection_key'] = $this->random_number(11);
         $data['collection_type'] = "ebills";
         $data['tax'] = 1;
-        $data['NextStep'] = 3;
+        $data['NextStep'] = 4;
         $data['ResponseCode'] = "00";
 
             $content = view('xml.tax_collection', compact('data'));
