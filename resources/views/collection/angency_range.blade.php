@@ -175,12 +175,12 @@
 											<td>{{$collection->name}} </td>
 
 											@if($collection->collection_type == "pos")
-											<td>{{$collection->payer_id}}</td>
+											<td>{{$collection->subhead->revenuehead->revenue_code}}  /  {{$collection->subhead->subhead_code}}</td>
 											<td>{{$collection->subhead->subhead_name}}</td>
 											<td>{{$collection->worker->worker_name}}</td>
 											<td>{{$collection->station->station_name}}</td>
 											@else
-											<td>{{$collection->payer_id}}</td>
+											<td>{{$collection->subhead->revenuehead->revenue_code}}  /  {{$collection->subhead->subhead_code}}</td>
 											<td>{{$collection->subhead->subhead_name}}</td>
 											<td>NIBSS</td>
 											<td>NIBSS</td>
