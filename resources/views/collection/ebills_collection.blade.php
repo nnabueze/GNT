@@ -192,18 +192,19 @@
 
 								<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
 									<thead>
-										<tr>
-											<th data-hide="phone">Transaction ID</th>
-											<th data-class="expand">Payer Name</th>
-											<th>Payer ID</th>
-											<th data-hide="phone,tablet">SubHead</th>
-											<th data-hide="phone">Amount</th>
-											<th data-hide="phone,tablet">Channel</th>
-											<th data-hide="phone,tablet">POS User</th>
-											<th data-hide="phone,tablet">Station</th>
-											<th data-hide="phone,tablet">Date</th>
+									<tr>
+										<th data-hide="phone">Transaction ID</th>
+										<th data-class="expand">Payer Name</th>
+										<th>Head/Subhead</th>
+										<th data-hide="phone,tablet">Transaction Detail</th>
+										<th data-hide="phone,tablet">POS User</th>
+										<th data-hide="phone,tablet">Collection Point</th>
+										<th data-hide="phone">Amount</th>
+										<th data-hide="phone,tablet">Channel</th>
+									
+										<th data-hide="phone,tablet">Date</th>
 
-										</tr>
+									</tr>
 									</thead>
 									<tbody>
 										@if($collection)
