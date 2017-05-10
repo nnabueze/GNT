@@ -152,12 +152,13 @@
 								<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
 									<thead>
 										<tr>
+										<tr>
 											<th data-hide="phone">Transaction ID</th>
 											<th data-class="expand">Payer Name</th>
-											<th>Payer ID</th>
-											<th data-hide="phone,tablet">SubHead</th>
+											<th>Head/Subhead</th>
+											<th data-hide="phone,tablet">Transaction Detail</th>
 											<th data-hide="phone,tablet">POS User</th>
-											<th data-hide="phone,tablet">Station</th>
+											<th data-hide="phone,tablet">Collection Point</th>
 											<th data-hide="phone">Amount</th>
 											<th data-hide="phone,tablet">Channel</th>
 										
@@ -174,15 +175,15 @@
 											<td>{{$collection->name}} </td>
 
 											@if($collection->collection_type == "pos")
-											<td>{{$collection->payer_id}}</td>
+											<td>{{$collection->subhead->revenuehead->revenue_code}}  /  {{$collection->subhead->subhead_code}}</td>
 											<td>{{$collection->subhead->subhead_name}}</td>
 											<td>{{$collection->worker->worker_name}}</td>
 											<td>{{$collection->station->station_name}}</td>
 											@else
-											<td>{{$collection->payer_id}}</td>
+											<td>{{$collection->subhead->revenuehead->revenue_code}}  /  {{$collection->subhead->subhead_code}}</td>
 											<td>{{$collection->subhead->subhead_name}}</td>
-											<td>NIBSS</td>
-											<td>NIBSS</td>
+											<td>A/C</td>
+											<td>ErcasPay</td>
 											@endif
 											<td>{{$collection->amount}}</td>
 											<td><span <?php echo ($collection->collection_type=="pos")? 'class="label label-success"': 'class="label label-primary"' ?>>{{$collection->collection_type}}</span></td>
