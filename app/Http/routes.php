@@ -310,5 +310,9 @@ $api->version('v1',['middleware'=>'api.auth'],function($api){
 	//mobile registration
 	$api->post("registration","App\Http\Controllers\ApiRegistrationController@details");
 
+	//Bussiness enumaration
+	$api->post("bussiness_tin","App\Http\Controllers\ApiTinController@bussiness_tin");
+
+
 
 });

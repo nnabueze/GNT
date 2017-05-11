@@ -139,6 +139,75 @@ class ApiTinController extends Controller
 
 	}
 
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//bussiness numaration
+	public function bussiness_tin(Request $request)
+	{
+		   	//Token authentication
+				$this->token_auth();
+
+		   	//check if the user and pos key is posed
+				if ($request->has("user_key")&&$request->has("pos_key")) {
+
+		   			//check if user and pos key is right
+					if (!$user = $this->user_check($request->input("user_key"))) {
+						$message = "User does not exist";
+						return $this->response->array(compact('message'))->setStatusCode(401);
+					}
+
+					if (!$pos = $this->pos_check($request->input("pos_key"))) {
+						$message = "Pos key does not exist";
+						return $this->response->array(compact('message'))->setStatusCode(401);
+					}
+
+		   			//check if user is assigned to mda 
+					if ($pos->mda_id != $user->mda_id) {
+						$message = "User is not assigned to MDA";
+						return $this->response->array(compact('message'))->setStatusCode(401);
+					}
+
+					//check if phone number exist
+					if ($check_tin = Tin::where("phone",$request->phone)->first()) {
+						$message = "Phone already exist on the platform.";
+						return $this->response->array(compact('message'))->setStatusCode(400);
+					}
+
+		   			//getting igr id
+					$igr = Mda::with("igr")->where("id",$pos->mda_id)->first();
+					$request['igr_id'] = $igr->id;
+					$request['temporary_tin'] = $this->random_number(11);
+					$request['tin_key'] = str_random(15);
+
+					//check if the temporary tin exist
+					if (! $tin_tempoary = Tin::where("temporary_tin", $request['temporary_tin'])->first()) {
+						
+						$tem_tin = Tin::create($request->all());
+						$tin['tin'] = 	$tem_tin->temporary_tin;
+						$tin['name'] = 	$tem_tin->name;
+						$tin['phone'] = 	$tem_tin->phone;
+						$tin['nationality'] = 	$tem_tin->nationality;
+						$tin['identification'] = 	$tem_tin->identification;
+						$tin['bussiness_type'] = 	$tem_tin->bussiness_type;
+						$tin['bussiness_name'] = 	$tem_tin->bussiness_name;
+						$tin['bussiness_address'] = 	$tem_tin->bussiness_address;
+						$tin['bussiness_no'] = 	$tem_tin->bussiness_no;
+						$tin['reg_bus_name'] = 	$tem_tin->reg_bus_name;
+						$tin['Commencement_date'] = 	$tem_tin->Commencement_date;
+						$tin['date'] = 	$tem_tin->created_at;
+
+						return $this->response->array(compact('tin'))->setStatusCode(200);
+					}
+
+					$message = "unable to generate Tin try again.";
+					return $this->response->array(compact('message'))->setStatusCode(400);
+
+				}
+
+				$message = "parameter missing";
+				return $this->response->array(compact('message'))->setStatusCode(400);
+	}
+
  /////////////////////////////////////////////////////////////////////////////////////////////////Private Class
 
 	private function random_number($size = 5)

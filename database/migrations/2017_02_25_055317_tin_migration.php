@@ -23,6 +23,15 @@ class TinMigration extends Migration
             $table->string('tin_no');
             $table->string('temporary_tin');
             $table->string('phone');
+            $table->string('nationality')->nullable();
+            $table->string('identification')->nullable();
+            $table->string('bussiness_type')->nullable();
+            $table->string('bussiness_name')->nullable();
+            $table->string('bussiness_address')->nullable();
+            $table->string('bussiness_no')->nullable();
+            $table->string('reg_bus_name')->nullable();
+            $table->string('Commencement_date')->nullable();
+            $table->enum('tin_type', ["personal", "business"]);
             $table->timestamps();
         });
     }
