@@ -113,7 +113,7 @@
 
 				<!-- PLACE YOUR LOGO HERE -->
 				@if($igr->logo)
-				 <img src="{{ asset('logo/'.$igr->logo)}}" alt="{{$igr->state_name}}"> 
+				 <img src="{{ asset('public/logo/'.$igr->logo)}}" alt="{{$igr->state_name}}"> 
 				@endif
 				<!-- END LOGO PLACEHOLDER -->
 				
