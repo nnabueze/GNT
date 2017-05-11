@@ -55,7 +55,7 @@
 						&times;
 					</button>
 					<h4 class="modal-title">
-						<img src="{{ asset('template/img/logo1.png')}}" width="150" alt="SmartAdmin">
+						<!-- <img src="{{ asset('template/img/logo1.png')}}" width="150" alt="SmartAdmin"> -->
 					</h4>
 				</div>
 				<div class="modal-body no-padding">
