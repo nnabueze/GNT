@@ -249,6 +249,12 @@ Route::get("/list_invoice", "CollectionController@list_invoice");
 //view remittance with date range
 Route::post("/list_invoice", "CollectionController@invoice_view");
 
+//adding agency beneficary account
+Route::get("beneficiaries","BeneficialController@index");
+
+//storing beneficiary
+Route::post("beneficiaries","BeneficialController@Beneficial");
+
 
 
 

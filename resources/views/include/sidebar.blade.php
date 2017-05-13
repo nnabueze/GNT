@@ -105,11 +105,11 @@
 						<a href="/pos_collection">POS Collections</a>
 					</li>
 
-					@if(Auth::user()->hasRole(['Admin','Superadmin']))
+<!-- 					@if(Auth::user()->hasRole(['Admin','Superadmin']))
 					<li class="<?php if ($sidebar == "percentage"){echo "active";}else{echo "";}?>">
 						<a href="/percentage">Percentage Report</a>
 					</li>
-					@endif
+					@endif -->
 				</ul>
 			</li>
 			@endif
@@ -158,25 +158,25 @@
 			<li>
 				<a href="#"><i class="fa fa-lg fa-fw fa-windows"></i> <span class="menu-item-parent">Fund sweeping</span></a>
 				<ul>
-					<li>
-						<a href="#" >Beneficiaries</a>
+					<li class="<?php if ($sidebar == "beneficiaries"){echo "active";}else{echo "";}?>">
+						<a href="/beneficiaries" >Beneficiaries</a>
 					</li>
-					<li>
+<!-- 					<li>
 						<a href="#" >Reversal</a>
+					</li> -->
+					<li>
+						<a href="/percentage">Fund sweeping history</a>
 					</li>
 					<li>
-						<a href="#">Fund sweeping history</a>
+						<a href="/percentage">Generate sweep</a>
 					</li>
-					<li>
-						<a href="#">Generate sweep</a>
-					</li>
-					<li>
+<!-- 					<li>
 						<a href="#">Settlements</a>
 					</li>
 					<li>
 						<a href="#">Agent sweep</a>
 					</li>
-					
+					 -->
 				</ul>
 			</li>
 			@endif
