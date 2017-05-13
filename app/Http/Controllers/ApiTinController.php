@@ -178,6 +178,7 @@ class ApiTinController extends Controller
 					$request['igr_id'] = $igr->id;
 					$request['temporary_tin'] = $this->random_number(11);
 					$request['tin_key'] = str_random(15);
+					$request['tin_type'] = "business";
 
 					//check if the temporary tin exist
 					if (! $tin_tempoary = Tin::where("temporary_tin", $request['temporary_tin'])->first()) {
