@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Igr;
+use App\Percentage;
 use App\Beneficial;
+use App\History;
 use Session;
 use Redirect;
 use Auth;
+use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -61,6 +64,125 @@ class BeneficialController extends Controller
 
     	Session::flash("warning","Failed! Unable to create account");
     	return Redirect::back();
+    }
+
+    //displaying generating fundsweep page
+    public function fundsweep()
+    {
+        $sidebar = "fundsweep";
+        $percent_array = array();
+
+        return view("beneficial.fundsweep",compact('sidebar','percent_array'));
+    }
+
+    //generating fundsweep 
+    public function generate_fundsweep(Request $request)
+    {
+        //validaating input param
+        $this->validate($request, [
+            'enddate' => 'required',
+            'startdate' => 'required',
+          
+        ]);
+
+
+        //getting list of mdas
+        $igr = Igr::find(Auth::user()->igr_id);
+
+        //getting all the request
+        $start_date = $request->input("startdate");
+        $end_date = $request->input("enddate");
+
+        $sidebar = "fundsweep";
+
+        $percent_array = array();
+        $info = array();
+
+        //checking if sweep have been genarated before
+/*        if ($fundsweep_check = History::whereDate('startdate',"=",$start_date )->whereDate('enddate',"=",$start_date )) {
+
+            Session::flash("warning","Failed! Fundsweep already exist check history.");
+            return Redirect::to("/fundsweep");
+        }*/
+
+
+        foreach ($igr->mdas as $mda) {
+
+            $info['mda_name'] = null;
+            $info['account_no'] = null;
+            $info['bank_code'] = null;
+            $info['bank_name'] = null;
+            $info['agency_total'] = 0;
+
+            foreach($mda->subheads as $subhead){
+
+                $agency_amount = 0;
+
+                //casting subhead id to int
+                $id = (int) $subhead->id;
+                $mda_id = $mda->id;
+
+                //getting percentage collection of mda subheads within the date range
+                $collections = Percentage::where("mda_id",$mda_id)->where("subhead_id",$id)->whereDate('created_at',">=",$start_date )->whereDate('created_at',"<=",$end_date )->get();
+
+                //check for subhead that have payment within date range
+                if (count($collections) > 0) {
+                    foreach ($collections as $collection) {
+
+                        $agency_amount += $collection->agency_amount;
+                        
+                    }
+
+                    $info['agency_total'] = $info['agency_total'] + $agency_amount;
+
+                    
+                }
+
+            }
+
+            //getting account details for MDA.
+            if ($account = Beneficial::where("mda_id",$mda->id)->first()) {
+
+                $info['mda_name'] = $mda->mda_name;
+                $info['account_no'] = $account->account_no;
+                $info['bank_code'] = $account->bank_code;
+                $info['bank_name'] = $account->bank_name;
+                $info['mda_id'] = (int) $mda->id;
+
+                array_push($percent_array, $info);
+            }
+            
+         }
+        /* echo"<pre>";print_r($percent_array);die;*/
+
+         //storing the fundsweep history
+         $ran_number = $this->random_number(10);
+         $gen_name = date('d F Y', strtotime($start_date))."-".date('d F Y', strtotime($end_date));
+         
+
+        if (count($percent_array) > 0) {
+
+            $insert_id = DB::table('histories')->insertGetId(['history_key' => $ran_number, 
+                                                            'history_name' => $gen_name,
+                                                            'startdate'=>$start_date,
+                                                            'enddate'=>$end_date]);
+
+            //storing generated fundsweep
+            foreach ($percent_array as $sweep) {
+               
+                DB::table('fundsweeps')->insertGetId(['mda_id' => $sweep['mda_id'], 
+                                                        'history_id' => $insert_id,'account_no'=>$sweep['account_no'],
+                                                        'bank_code'=>$sweep['bank_code'],
+                                                        'bank_name'=>$sweep['bank_name'],
+                                                        'agency_total'=>$sweep['agency_total']]);
+            }            
+                
+            return view("beneficial.generate_fundsweep",compact("sidebar",'percent_array'));
+        }
+
+            Session::flash("warning","Failed! No fundsweep generated for the selected date.");
+            return Redirect::to("/fundsweep");
+
     }
 
     private function random_number($size = 5)

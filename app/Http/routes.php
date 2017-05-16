@@ -255,6 +255,12 @@ Route::get("beneficiaries","BeneficialController@index");
 //storing beneficiary
 Route::post("beneficiaries","BeneficialController@Beneficial");
 
+//displaying page for generating fundsweep
+Route::get("/fundsweep","BeneficialController@fundsweep");
+
+//generating fundsweep
+Route::post("/fundsweep","BeneficialController@generate_fundsweep");
+
 
 
 

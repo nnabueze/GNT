@@ -164,12 +164,13 @@
 <!-- 					<li>
 						<a href="#" >Reversal</a>
 					</li> -->
+					<li class="<?php if ($sidebar == "fundsweep"){echo "active";}else{echo "";}?>">
+						<a href="/fundsweep">Generate sweep</a>
+					</li>
 					<li>
 						<a href="/percentage">Fund sweeping history</a>
 					</li>
-					<li>
-						<a href="/percentage">Generate sweep</a>
-					</li>
+
 <!-- 					<li>
 						<a href="#">Settlements</a>
 					</li>
