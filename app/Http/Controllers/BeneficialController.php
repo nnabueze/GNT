@@ -153,11 +153,12 @@ class BeneficialController extends Controller
             }
             
          }
-        /* echo"<pre>";print_r($percent_array);die;*/
+         /*echo"<pre>";print_r();die;*/
 
          //storing the fundsweep history
          $ran_number = $this->random_number(10);
          $gen_name = date('d F Y', strtotime($start_date))."-".date('d F Y', strtotime($end_date));
+         $igr_id = date('d F Y', strtotime($start_date))."-".date('d F Y', strtotime($end_date));
          
 
         if (count($percent_array) > 0) {
@@ -165,6 +166,7 @@ class BeneficialController extends Controller
             $insert_id = DB::table('histories')->insertGetId(['history_key' => $ran_number, 
                                                             'history_name' => $gen_name,
                                                             'startdate'=>$start_date,
+                                                            'igr_id'=>$mda->igr->id,
                                                             'enddate'=>$end_date]);
 
             //storing generated fundsweep
@@ -182,6 +184,18 @@ class BeneficialController extends Controller
 
             Session::flash("warning","Failed! No fundsweep generated for the selected date.");
             return Redirect::to("/fundsweep");
+
+    }
+
+    //viewing fundsweep history
+    public function fundsweep_history()
+    {
+        $sidebar = "history";
+
+        //getting biller id
+        $history = History::where("igr_id",Auth::user()->igr_id)->get();
+
+        return view("beneficial.fundsweep_history",compact("sidebar","history"));
 
     }
 

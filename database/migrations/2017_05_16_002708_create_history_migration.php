@@ -14,6 +14,8 @@ class CreateHistoryMigration extends Migration
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('igr_id')->unsigned()->index();
+            $table->foreign('igr_id')->references('id')->on('igrs')->onDelete('cascade');
             $table->string('history_key');
             $table->string('history_name');
             $table->dateTime('startdate');

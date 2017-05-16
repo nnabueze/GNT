@@ -261,6 +261,9 @@ Route::get("/fundsweep","BeneficialController@fundsweep");
 //generating fundsweep
 Route::post("/fundsweep","BeneficialController@generate_fundsweep");
 
+//view fundsweep history
+Route::get("/fundsweep_history","BeneficialController@fundsweep_history");
+
 
 
 

@@ -167,8 +167,8 @@
 					<li class="<?php if ($sidebar == "fundsweep"){echo "active";}else{echo "";}?>">
 						<a href="/fundsweep">Generate sweep</a>
 					</li>
-					<li>
-						<a href="/percentage">Fund sweeping history</a>
+					<li class="<?php if ($sidebar == "history"){echo "active";}else{echo "";}?>">
+						<a href="/fundsweep_history">Fund sweeping history</a>
 					</li>
 
 <!-- 					<li>
