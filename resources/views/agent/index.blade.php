@@ -289,7 +289,7 @@
 												<td>{{$user->user_limit}}</td>
 												<td>{{$user->category}}</td>
 												<td>{{$user->pin}}</td>
-												<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/pos_user/{{$user->worker_key}}" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
+												<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td><!-- /pos_user/{{$user->worker_key}} -->
 											</tr>
 												@endforeach
 											@endif
