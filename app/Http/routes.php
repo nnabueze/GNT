@@ -231,6 +231,9 @@ Route::get("/list_heads","HeadsController@list_heads");
 //Route to get list of revenue heads when passed the mda id
 Route::get("/list_subheads","HeadsController@list_subheads");
 
+//getting list of stattion when  an mda is passed
+Route::get("/list_station","AgencyController@list_station");
+
 //displaying percentage report for gov and agency page
 Route::get("/percentage","CollectionController@percentage");
 

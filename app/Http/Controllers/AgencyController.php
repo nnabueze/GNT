@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Session;
 use Redirect;
+use Input;
 use App\Igr;
 use App\Postable;
 use App\Mda;
@@ -160,6 +161,16 @@ class AgencyController extends Controller
 
       Session::flash("warning","Failed! Unable to add POS ");
       return Redirect::back();
+   }
+
+   /////////////////////////////////////////////////////////////////////////////////////
+
+   //getting list of stations
+   public function list_station()
+   {
+       $id = Input::get('option');
+       $mda = Mda::with("station")->find($id);
+       return $mda->station->lists('station_name', 'id');
    }
 
    /////////////////////////////////////////////////////////////////////////////////////

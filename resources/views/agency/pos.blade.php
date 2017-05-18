@@ -91,7 +91,7 @@
 									<label class="label col col-2">MDA</label>
 									<div class="col col-10">
 										<label class="input">
-											<select class="form-control" name="mda_id" >
+											<select class="form-control" name="mda_id" id="mda_id" >
 												<option value="">Select MDA</option>
 												@if(isset($igr->mdas))
 													@foreach($igr->mdas as $mda)
@@ -113,18 +113,10 @@
 									<label class="label col col-2">Station</label>
 									<div class="col col-10">
 										<label class="input">
-											<select class="form-control" name="station_id" >
+											<select class="form-control" name="station_id" id="station_id" >
+											
 												<option value="">Select Station</option>
-												@if(isset($igr->mdas))
-													@foreach($igr->mdas as $mda)
-														@foreach($mda->station as $station)
-												<option value="{{$station->id}}">{{$station->station_name}}</option>
-														@endforeach
-													@endforeach
-												@else
-												<option value="">NO station</option>
-												@endif
-												
+
 											</select>	
 										</label>
 									</div>
@@ -302,6 +294,24 @@
 			  placeholder: "Select MDA",
 			});
 		</script>
+
+
+		<script>
+
+		    $('#mda_id').change(function(){
+		        $.get("{{ url('/list_station')}}", 
+		        { option: $(this).val() }, 
+		        function(data) {
+		            $('#station_id').empty(); 
+		            $.each(data, function(key, element) {
+		                $('#station_id').append("<option value='" + key +"'>" + element + "</option>");
+		            });
+		        });
+		    });
+
+		</script>
+
+
 		<script type="text/javascript">
 
 	// DO NOT REMOVE : GLOBAL FUNCTIONS!
