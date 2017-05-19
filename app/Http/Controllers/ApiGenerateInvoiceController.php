@@ -35,7 +35,7 @@ class ApiGenerateInvoiceController extends Controller
             $this->token_auth();
             
             //validation incoming request
-            if ($request->has('name') && $request->has('phone')&&$request->has('payer_id')&&$request->has('mda')&&$request->has('amount')&&$request->has('user_key')&&$request->has('start_date')&&$request->has('end_date')&&$request->has('pos_key')) {
+            if ($request->has('name') && $request->has('phone')&&$request->has('mda')&&$request->has('amount')&&$request->has('user_key')&&$request->has('pos_key')) {
 
                 $request['invoice_key'] = str_random(15);
             $request['mda_id'] = $this->mda_id($request->input("mda"));
@@ -94,11 +94,11 @@ class ApiGenerateInvoiceController extends Controller
         //returning details of a specific inoice
         $invoice_receipt['invoice_no'] = $invoice->invoice_key;
         $invoice_receipt['name'] = $invoice->name;
-        $invoice_receipt['email'] = $invoice->email;
+        /*$invoice_receipt['email'] = $invoice->email;*/
         $invoice_receipt['phone'] = $invoice->phone;
         $invoice_receipt['amount'] = $invoice->amount;
-        $invoice_receipt['start_date'] = $invoice->start_date;
-        $invoice_receipt['end_date'] = $invoice->end_date;
+/*        $invoice_receipt['start_date'] = $invoice->start_date;
+        $invoice_receipt['end_date'] = $invoice->end_date;*/
         $invoice_receipt['invoice_status'] = $invoice->invoice_status;
         $invoice_receipt['pos_key'] = $invoice->pos_key;
 

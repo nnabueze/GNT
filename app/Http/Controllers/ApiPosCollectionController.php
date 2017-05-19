@@ -36,7 +36,7 @@ class ApiPosCollectionController extends Controller
 		$this->token_auth();
 
             //validating request
-		if ($request->has('name') && $request->has('phone')&&$request->has('payer_id')&&$request->has('mda')&&$request->has('amount')&&$request->has('user_key')&&$request->has('start_date')&&$request->has('end_date')&&$request->has('pos_key')
+		if ($request->has('name') && $request->has('phone')&&$request->has('mda')&&$request->has('amount')&&$request->has('user_key')&&$request->has('pos_key')
 			&&$request->has('tax')) {
 
                 //generating for collect and getting mda auto incremental id.
@@ -116,14 +116,14 @@ class ApiPosCollectionController extends Controller
 
 		$collection_receipt['collection_key'] = $collection->collection_key;
 		$collection_receipt['name'] = $collection->name;
-		$collection_receipt['email'] = $collection->email;
+		/*$collection_receipt['email'] = $collection->email;*/
 		$collection_receipt['phone'] = $collection->phone;
 		$collection_receipt['amount'] = $collection->amount;
-		$collection_receipt['start_date'] = $collection->start_date;
-		$collection_receipt['end_date'] = $collection->end_date;
+/*		$collection_receipt['start_date'] = $collection->start_date;
+		$collection_receipt['end_date'] = $collection->end_date;*/
 		$collection_receipt['collection_type'] = $collection->collection_type;
-		$collection_receipt['payer_id'] = $collection->payer_id;
-		$collection_receipt['email'] = $collection->email;
+	/*	$collection_receipt['payer_id'] = $collection->payer_id;
+		$collection_receipt['email'] = $collection->email;*/
 		$collection_receipt['phone'] = $collection->phone;
 		$collection_receipt['pos_user'] = $collection->worker->worker_name;
 

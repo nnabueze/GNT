@@ -64,11 +64,11 @@ class ApiInvoiceController extends Controller
             	 //returning details of a specific inoice
             	 $invoice_receipt['invoice_no'] = $invoice->invoice_key;
             	 $invoice_receipt['name'] = $invoice->name;
-            	 $invoice_receipt['email'] = $invoice->email;
+           /* 	 $invoice_receipt['email'] = $invoice->email;*/
             	 $invoice_receipt['phone'] = $invoice->phone;
             	 $invoice_receipt['amount'] = $invoice->amount;
-            	 $invoice_receipt['start_date'] = $invoice->start_date;
-            	 $invoice_receipt['end_date'] = $invoice->end_date;
+/*            	 $invoice_receipt['start_date'] = $invoice->start_date;
+            	 $invoice_receipt['end_date'] = $invoice->end_date;*/
             	 $invoice_receipt['invoice_status'] = $invoice->invoice_status;
             	 $invoice_receipt['pos_key'] = $invoice->pos_key;
 
