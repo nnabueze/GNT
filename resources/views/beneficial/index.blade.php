@@ -72,11 +72,10 @@
 												<option value="">Select MDA/LGA</option>
 												@if(isset($igr))
 													@foreach($igr->mdas as $mda)
-														@if($mda->mda_category == 'lga')
+														
 												<option value="{{$mda->id}}">{{$mda->mda_name}}</option>
-														@endif
+														
 													@endforeach
-												@else
 												@endif
 											</select>
 										</label>
