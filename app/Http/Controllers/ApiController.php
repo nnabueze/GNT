@@ -180,6 +180,7 @@ public function user_login(Request $request)
     $credential["phone"] = $user_login->phone;
     $credential["email"] = $user_login->email;
     $credential["pos_key"] = $pos_check->pos_key;
+    $credential["user_limit"] = $pos_check->user_limit;
 
     $credential["mda_name"] = $user_login->mda->mda_name;
     $credential["mda_id"] = $user_login->mda->mda_key;
