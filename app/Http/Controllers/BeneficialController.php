@@ -42,8 +42,9 @@ class BeneficialController extends Controller
     	    'mda_id' => 'required',
     	    'account_no' => 'required|numeric',
     	    'bank_code' => 'required|numeric',
-    	    'notification_no' => 'required|numeric',
-    	    'bank_name' => 'required',
+    	    'narration' => 'required|max:20',
+            'bank_name' => 'required',
+    	    'account_name' => 'required',
     	]);
 
     	//check if the account number exist

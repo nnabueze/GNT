@@ -97,6 +97,17 @@
 
 							<section>
 								<div class="row">
+									<label class="label col col-2">Account Name</label>
+									<div class="col col-10">
+										<label class="input"> <i class="icon-append fa fa-user"></i>
+											<input type="text" name="account_name">
+										</label>
+									</div>
+								</div>
+							</section>
+
+							<section>
+								<div class="row">
 									<label class="label col col-2">Bank Code</label>
 									<div class="col col-10">
 										<label class="input"> <i class="icon-append fa fa-user"></i>
@@ -119,16 +130,18 @@
 
 							<section>
 								<div class="row">
-									<label class="label col col-2">Notification No</label>
+									<label class="label col col-2">Narration</label>
 									<div class="col col-10">
 										<label class="input"> <i class="icon-append fa fa-user"></i>
-											<input type="text" name="notification_no">
+											<input type="text" name="narration">
 										</label>
 									</div>
 								</div>
 							</section>
 							
-					
+							
+
+							
 						
 						<footer>
 							<button type="submit" class="btn btn-primary">
