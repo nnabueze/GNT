@@ -268,7 +268,7 @@ class EbillNotificationController extends Controller
     	//insert ebills remittance notification table
     	if ($ebillcollection = Remittancenotification::create($data)) {
 
-    		if (! $remittance = Remittance::where("remittance_key", $data['remittance_key'])->with('collections')->first()) {
+    		if (! $remittance = Remittance::where("remittance_key", $data['remittance_key'])->first()) {
 
                $message = "Invalid remmittance key";
                $res = $this->success_error($data, $message);
@@ -278,8 +278,11 @@ class EbillNotificationController extends Controller
             //updating paid remittance
     		$remittance->update(['remittance_status'=>1]);
 
+            //getting all pos collection with remittance id
+            $collections = Collection::where("remittance_id",$remittance->id)->get();
+
             //calculating pacentage base on gov collection
-            foreach ($remittance->collections as $collection) {
+            foreach ($collections as $collection) {
                 //getting percentage
                 $percentage_data = $this->get_percentage($collection->subhead_id, $collection);
 
