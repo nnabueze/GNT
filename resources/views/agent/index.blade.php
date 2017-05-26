@@ -269,9 +269,9 @@
 										<thead>
 											<tr>
 
-												<th data-hide="phone,tablet">Name</th>
-												<th data-hide="phone,tablet">Phone</th>
-												<th data-hide="phone,tablet">MDA/LGA</th>
+												<th data-class="expand">Name</th>
+												<th data-hide="phone">Phone</th>
+												<th data-hide="phone">MDA/LGA</th>
 												<th data-hide="phone,tablet">Collection Limit</th>
 												<th data-hide="phone,tablet">Category</th>
 												<th data-hide="phone,tablet">Pin</th>
