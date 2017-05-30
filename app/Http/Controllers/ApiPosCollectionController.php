@@ -36,7 +36,7 @@ class ApiPosCollectionController extends Controller
 		$this->token_auth();
 
             //validating request
-		if ($request->has('name') && $request->has('phone')&&$request->has('mda')&&$request->has('amount')&&$request->has('user_key')&&$request->has('pos_key')
+		if ($request->has('name')&&$request->has('mda')&&$request->has('amount')&&$request->has('user_key')&&$request->has('pos_key')
 			&&$request->has('tax')) {
 
                 //generating for collect and getting mda auto incremental id.
