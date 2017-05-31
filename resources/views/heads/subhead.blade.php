@@ -262,8 +262,30 @@
 
 									<section>
 										<div class="row">
+											<label class="label col col-2">Gov %</label>
+											<div class="col col-10">
+												<label class="input"> <i class="icon-append fa fa-user"></i>
+													<input type="text" name="gov">
+												</label>
+											</div>
+										</div>
+									</section>
+
+									<section>
+										<div class="row">
+											<label class="label col col-2">Agency %</label>
+											<div class="col col-10">
+												<label class="input"> <i class="icon-append fa fa-user"></i>
+													<input type="text" name="gency">
+												</label>
+											</div>
+										</div>
+									</section>
+
+									<section>
+										<div class="row">
 									
-										<label class="label col col-2">Taxible</label>
+										<label class="label col col-2">Tax</label>
 										<div class="col-md-10">
 										<label class="input">
 											<div class="radio">
