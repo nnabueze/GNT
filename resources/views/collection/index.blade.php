@@ -70,7 +70,6 @@
 
 
 					@elseif(Auth::user()->hasRole('Mda'))
-
 					<div class="col-sm-3">
 						<div class="form-group">
 							<select name="mda" class="form-control" id="mda">
@@ -88,7 +87,6 @@
 					</div>
 
 					@else
-
 					<div class="col-sm-3">
 						<div class="form-group">
 							<select name="mda" class="form-control" id="mda">
