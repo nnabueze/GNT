@@ -8,6 +8,8 @@ use App\Igr;
 use App\Percentage;
 use App\Beneficial;
 use App\History;
+use App\Fundsweep;
+use App\Mda;
 use Session;
 use Redirect;
 use Auth;
@@ -186,6 +188,58 @@ class BeneficialController extends Controller
             Session::flash("warning","Failed! No fundsweep generated for the selected date.");
             return Redirect::to("/fundsweep");
 
+    }
+
+    //viewing the fundsweep history
+    public function view_fundsweep_history($id)
+    {
+        $sidebar = "history";
+
+        //checking if the id exist
+        if (! $fund_history = History::find($id)) {
+
+            return Redirect::back();
+        }
+
+        //getting list of fundsweep history
+        $history = Fundsweep::where("history_id",$id)->get();
+
+        //checking if the id exist
+        if (count($history) > 0) {
+            $percent_array = array();
+
+            foreach ($history as $value) {
+                //offseting variables
+                $info['mda_name'] = "";
+                $info['account_no'] = "";
+                $info['bank_code'] = "";
+                $info['bank_name'] = "";
+
+
+
+                //getting mda name
+                $mda = Mda::where("id",$value->mda_id)->first();
+
+                //getting account details for MDA.
+                $account = Beneficial::where("mda_id",$value->mda_id)->first();
+
+                    $info['mda_name'] = $mda->mda_name;
+                    $info['account_no'] = $account->account_no;
+                    $info['bank_code'] = $account->bank_code;
+                    $info['bank_name'] = $account->bank_name;
+                    $info['agency_total'] = $value->agency_total;
+                    $info['mda_id'] = (int) $mda->id;
+
+                    array_push($percent_array, $info);
+                
+            }
+
+            $fundsweep_name = $fund_history->history_name;
+
+            return view("beneficial.view_history",compact("percent_array",'sidebar','fundsweep_name'));
+        }
+
+        return Redirect::back();
     }
 
     //viewing fundsweep history

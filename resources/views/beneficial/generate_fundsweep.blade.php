@@ -153,7 +153,7 @@
 											<td>{{$percent_array['mda_name']}}</td>
 											<td>{{$percent_array['account_no']}}</td>
 											<td>{{$percent_array['bank_code']}}</td>
-											<td>{{$percent_array['agency_total']}}</td>
+											<td>{{number_format($percent_array['agency_total'], 2)}}</td>
 										</tr>
 										@endforeach
 									@endif
