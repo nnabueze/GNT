@@ -35,8 +35,54 @@ class CollectionController extends Controller
     {
         $sidebar = "all_collection";
         $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
-        $collection = array();
-    	return view("collection.index",compact("igr","sidebar","collection"));
+
+        $percent_array = array();
+        $info = array();
+        $total_amount = 0;
+
+        foreach ($igr->mdas as $mda) {
+            $info['transaction_id'] = "";
+            $info['payer_name'] = "";
+            $info['head_subhead'] = "";
+            $info['transaction_detail'] = "";
+            $info['pos_user'] = "";
+            $info['collection_point'] = "";
+            $info['amount'] = "";
+            $info['channel'] = "";
+            $info['date'] = "";
+
+            $collections = Collection::where("mda_id",$mda->id)->get();
+
+            if (count($collections) > 0) {
+                foreach ($collections as $collection) {
+                    $info['transaction_id'] = $collection->collection_key;
+                    $info['payer_name'] = $collection->name;
+
+                    if($collection->collection_type == "pos"){
+                    $info['head_subhead'] = $collection->subhead->subhead_code;
+                    $info['transaction_detail'] = $collection->subhead->subhead_name;
+                    $info['pos_user'] = $collection->worker->worker_name; 
+                    $info['collection_point'] = $collection->station->station_name;
+                    } else{
+                    $info['head_subhead'] = $collection->subhead->subhead_code;
+                    $info['transaction_detail'] = $collection->subhead->subhead_name;
+                    $info['pos_user'] = "A/C"; 
+                    $info['collection_point'] = "ERCASPay";
+                    }
+                    $info['channel'] = $collection->collection_type;
+                    $info['amount'] = $collection->amount;
+                    $info['date'] = $collection->created_at;
+
+                    $total_amount += $collection->amount;
+
+
+                    array_push($percent_array, $info);
+                }
+            }
+            
+        }
+
+    	return view("collection.index",compact("igr","sidebar","percent_array","total_amount"));
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
