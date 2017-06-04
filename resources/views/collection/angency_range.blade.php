@@ -197,9 +197,9 @@
 										<th></th>
 										<th></th>
 										<th></th>
+										<th></th>
 										<th>Total Amount</th>
 										<th>{{number_format($total_amount)}}</th>
-										<th></th>
 										<th></th>
 										<th></th>
 									</tfoot>
