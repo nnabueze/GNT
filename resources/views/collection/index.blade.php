@@ -216,7 +216,7 @@
 											<td>{{$collection['transaction_detail']}}</td>
 											<td>{{$collection['pos_user']}}</td>
 											<td>{{$collection['collection_point']}}</td>
-											<td>{{$collection['amount']}}</td>
+											<td>{{number_format($collection['amount'])}}</td>
 											<td><span <?php echo ($collection['channel']=="pos")? 'class="label label-success"': 'class="label label-primary"' ?>>{{$collection['channel']}}</span></td>
 											<td>{{$collection['date']}}</td>
 										</tr>
@@ -229,7 +229,7 @@
 										<th></th>
 										<th></th>
 										<th>Total Amount</th>
-										<th>{{$total_amount}}</th>
+										<th>{{number_format($total_amount)}}</th>
 										<th></th>
 										<th></th>
 										<th></th>
