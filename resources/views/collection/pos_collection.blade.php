@@ -179,41 +179,51 @@
 								<!-- widget content -->
 								<div class="widget-body no-padding">
 
-									<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
-										<thead>
+								<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
+									<thead>
+									<tr>
+										<th data-hide="phone">Transaction ID</th>
+										<th data-class="expand">Payer Name</th>
+										<th>Head/Subhead</th>
+										<th data-hide="phone,tablet">Transaction Detail</th>
+										<th data-hide="phone,tablet">POS User</th>
+										<th data-hide="phone,tablet">Collection Point</th>
+										<th data-hide="phone">Amount</th>
+										<th data-hide="phone,tablet">Channel</th>
+									
+										<th data-hide="phone,tablet">Date</th>
+
+									</tr>
+									</thead>
+									<tbody>
+									@if(count($percent_array) > 0)
+										@foreach($percent_array as $collection)
 										<tr>
-											<th data-hide="phone">Transaction ID</th>
-											<th data-class="expand">Payer Name</th>
-											<th>Head/Subhead</th>
-											<th data-hide="phone,tablet">Transaction Detail</th>
-											<th data-hide="phone,tablet">POS User</th>
-											<th data-hide="phone,tablet">Collection Point</th>
-											<th data-hide="phone">Amount</th>
-											<th data-hide="phone,tablet">Channel</th>
-										
-											<th data-hide="phone,tablet">Date</th>
-
+											<td>{{$collection['transaction_id']}}</td>
+											<td>{{$collection['payer_name']}} </td>
+											<td>{{$collection['head_subhead']}}</td>
+											<td>{{$collection['transaction_detail']}}</td>
+											<td>{{$collection['pos_user']}}</td>
+											<td>{{$collection['collection_point']}}</td>
+											<td>{{number_format($collection['amount'])}}</td>
+											<td><span <?php echo ($collection['channel']=="pos")? 'class="label label-success"': 'class="label label-primary"' ?>>{{$collection['channel']}}</span></td>
+											<td>{{$collection['date']}}</td>
 										</tr>
-										</thead>
-										<tbody>
-											@if($collection)
-											@foreach($collection as $collection)
-											<tr>
-												<td>{{$collection->collection_key}}</td>
-												<td>{{$collection->name}} </td>
-												<td>{{$collection->payer_id}}</td>
-
-												<td>{{$collection->revenuehead->revenue_name}}</td>
-												<td>{{$collection->amount}}</td>
-												<td>{{$collection->collection_type}}</td>
-												<td>{{$collection->worker->worker_name}}</td>
-												<td>{{$collection->station->station_name}}</td>
-												<td>{{$collection->created_at}}</td>
-											</tr>
-											@endforeach
-											@endif
-										</tbody>
-									</table>
+										@endforeach
+									@endif
+									</tbody>
+									<tfoot>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th>Total Amount</th>
+										<th>{{number_format($total_amount)}}</th>
+										<th></th>
+										<th></th>
+									</tfoot>
+								</table>
 
 								</div>
 								<!-- end widget content -->

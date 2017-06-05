@@ -272,6 +272,14 @@
 		@stop
 		@push('scripts')
 		<script type="text/javascript">
+			$("#mda").select2({
+			  placeholder: "Select MDA",
+			});
+			$("#lga").select2({
+			  placeholder: "Select LGA",
+			});
+		</script>
+		<script type="text/javascript">
 
 	// DO NOT REMOVE : GLOBAL FUNCTIONS!
 	

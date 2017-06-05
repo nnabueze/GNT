@@ -446,10 +446,61 @@ class CollectionController extends Controller
     //getting all collections by POS
 public function pos_collection()
 {
-    $mda = Mda::where("igr_id",Auth::user()->igr_id)->get();
     $sidebar = "pos_collection";
-    $collection = array();
-    return view("collection.pos_collection",compact("mda",'sidebar',"collection"));
+
+    $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
+
+    $percent_array = array();
+    $info = array();
+    $total_amount = 0;
+
+    foreach ($igr->mdas as $mda) {
+        $info['transaction_id'] = "";
+        $info['payer_name'] = "";
+        $info['head_subhead'] = "";
+        $info['transaction_detail'] = "";
+        $info['pos_user'] = "";
+        $info['collection_point'] = "";
+        $info['amount'] = "";
+        $info['channel'] = "";
+        $info['date'] = "";
+
+            //checking if the MDA belong to state
+
+            $collections = Collection::where("mda_id",$mda->id)->get();
+
+            if (count($collections) > 0) {
+                foreach ($collections as $collection) {
+                    if ($collection->collection_type == "pos") {
+                        $info['transaction_id'] = $collection->collection_key;
+                        $info['payer_name'] = $collection->name;
+
+                        if($collection->collection_type == "pos"){
+                            $info['head_subhead'] = $collection->subhead->subhead_code;
+                            $info['transaction_detail'] = $collection->subhead->subhead_name;
+                            $info['pos_user'] = $collection->worker->worker_name; 
+                            $info['collection_point'] = $collection->station->station_name;
+                        } else{
+                            $info['head_subhead'] = $collection->subhead->subhead_code;
+                            $info['transaction_detail'] = $collection->subhead->subhead_name;
+                            $info['pos_user'] = "A/C"; 
+                            $info['collection_point'] = "ERCASPay";
+                        }
+                        $info['channel'] = $collection->collection_type;
+                        $info['amount'] = $collection->amount;
+                        $info['date'] = $collection->created_at;
+
+                        $total_amount += $collection->amount;
+
+
+                        array_push($percent_array, $info);
+                    }
+                }
+            }
+    }
+
+    $mda = Mda::where("igr_id",Auth::user()->igr_id)->get();
+    return view("collection.pos_collection",compact("igr","sidebar","percent_array","total_amount","mda"));
 }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -476,7 +527,14 @@ public function pos_collection_range(Request $request)
 
     if (count($collections) > 0) {
 
-        return view("collection.pos_range",compact("mda","sidebar","collections","mda_name"));
+        $total_amount = 0;
+
+        //getting the total sum for the selected MDA
+        foreach ($collections as $collection) {
+            $total_amount += $collection->amount;
+        }
+
+        return view("collection.pos_range",compact("mda","sidebar","collections","mda_name","total_amount"));
     }
 
     Session::flash("warning","Failed! No result found.");
