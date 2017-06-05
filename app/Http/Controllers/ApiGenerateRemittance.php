@@ -66,7 +66,7 @@ class ApiGenerateRemittance extends Controller
                 //check if there any collection that have not been remited
             if (count($collections) > 0) {
 
-                $request['remittance_key'] = str_random(15);
+                $request['remittance_key'] = "RE".$this->random_number(5).$this->random_number(5).$this->random_number(2);
                 $request['amount'] = $collections->sum("amount");
                 $request['mda_id'] = $mda;
                 $request['worker_id'] = $worker;
@@ -259,6 +259,22 @@ class ApiGenerateRemittance extends Controller
             return $pos_check;
         }
         return $pos_check;
+    }
+
+    //generating random number
+
+    //generating random number
+    private function random_number($size = 5)
+    {
+        $random_number='';
+        $count=0;
+        while ($count < $size ) 
+        {
+            $random_digit = mt_rand(0, 9);
+            $random_number .= $random_digit;
+            $count++;
+        }
+        return $random_number;  
     }
 
 }
