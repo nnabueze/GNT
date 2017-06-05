@@ -37,7 +37,7 @@ class ApiGenerateInvoiceController extends Controller
             //validation incoming request
             if ($request->has('name') && $request->has('phone')&&$request->has('mda')&&$request->has('amount')&&$request->has('user_key')&&$request->has('pos_key')) {
 
-                $request['invoice_key'] = str_random(15);
+            $request['invoice_key'] = "IV".$this->random_number(5).$this->random_number(5).$this->random_number(2);
             $request['mda_id'] = $this->mda_id($request->input("mda"));
             $request['revenuehead_id'] = $this->revenue_id($request->input("revenue_head"));
             $request['worker_id'] = $this->worker_id($request->input('user_key'));
@@ -204,5 +204,20 @@ class ApiGenerateInvoiceController extends Controller
             return $pos_check;
         }
         return $pos_check;
+    }
+
+
+    //generating random number
+    private function random_number($size = 5)
+    {
+        $random_number='';
+        $count=0;
+        while ($count < $size ) 
+        {
+            $random_digit = mt_rand(0, 9);
+            $random_number .= $random_digit;
+            $count++;
+        }
+        return $random_number;  
     }
 }
