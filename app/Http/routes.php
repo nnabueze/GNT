@@ -258,6 +258,9 @@ Route::get("beneficiaries","BeneficialController@index");
 //storing beneficiary
 Route::post("beneficiaries","BeneficialController@Beneficial");
 
+//deleting beneficiary
+Route::get("beneficiaries/{any}","BeneficialController@delete_benficial");
+
 //displaying page for generating fundsweep
 Route::get("/fundsweep","BeneficialController@fundsweep");
 

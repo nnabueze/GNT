@@ -37,6 +37,29 @@ class BeneficialController extends Controller
     	return view("beneficial.index",compact('sidebar','igr','beneficial'));
     }
 
+    //deleting beneficary
+    public function delete_benficial($id)
+    {
+
+        //checking if the key exist
+        if ($beneficial = Beneficial::where("beneficial_key",$id)->first()) {
+
+            if (Auth::user()->hasRole('Superadmin')) {
+
+                $beneficial->delete();
+
+                Session::flash("message","Successful! Record deleted");
+                return Redirect::back();
+            }
+
+            Session::flash("warning","You don't have the right to delete record");
+            return Redirect::back();
+        }
+
+        Session::flash("warning","Failed! Unable to delete record!.");
+        return Redirect::back();
+    }
+
     //storing Beneficial
     public function Beneficial(Request $request)
     {
