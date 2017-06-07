@@ -197,6 +197,7 @@
 											<th data-class="expand">AMOUNT</th>
 											<th>REMITTANCE STATUS</th>
 											<th data-hide="phone,tablet">POS USER</th>
+											<th data-hide="phone,tablet">REMITTED DATE</th>
 											<th data-hide="phone,tablet">GENERATED DATE</th>
 
 										</tr>
@@ -215,6 +216,7 @@
 												@endif
 											</span></td>
 											<td>{{$remittance->worker->worker_name}}</td>
+											<td>{{$remittance->remtted_date}}</td>
 											<td>{{$remittance->created_at}}</td>
 										</tr>
 										@endforeach

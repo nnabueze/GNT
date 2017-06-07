@@ -275,8 +275,13 @@ class EbillNotificationController extends Controller
                return $res;
             }
 
+            //getting the current date time
+            $date_time = date('Y-m-d H:i:s');
+
             //updating paid remittance
-    		$remittance->update(['remittance_status'=>1]);
+            $remittance->update(['remittance_status'=>1]);
+            $remittance->remtted_date = $date_time;
+    		$remittance->save();
 
             //getting all pos collection with remittance id
             $collections = Collection::where("remittance_id",$remittance->id)->get();
