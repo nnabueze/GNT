@@ -246,9 +246,9 @@
 											<tr>
 												<th data-hide="phone">BENEFICIAL NAME</th>
 												<th data-hide="phone,tablet">ACCOUNT NO</th>
-												<th>ACCOUNT NAME</th>
+												<th>BANK NAME</th>
 												<th>BANK CODE</th>
-												<th>NOTIFICATION NO</th>
+												<th>NARRATION</th>
 												<th data-hide="phone,tablet"> Action</th>
 												
 											</tr>
@@ -259,9 +259,9 @@
 											<tr>
 												<td>{{$beneficial->mda->mda_name}}</td>
 												<td>{{$beneficial->account_no}}</td>
-												<td>{{$beneficial->bank_code}}</td>
 												<td>{{$beneficial->bank_name}}</td>
-												<td>{{$beneficial->notification_no}}</td>
+												<td>{{$beneficial->bank_code}}</td>
+												<td>{{$beneficial->narration}}</td>
 												
 											<td> <a href="#" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> &nbsp;&nbsp;<a href="/beneficiaries/{{$beneficial->beneficial_key}}" class="btn btn-default btn-sm" data-toggle="tooltip" onclick="confirm_alert()" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 											</tr>
