@@ -16,6 +16,7 @@ use Auth;
 use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Excel;
 
 class BeneficialController extends Controller
 {
@@ -276,6 +277,44 @@ class BeneficialController extends Controller
         return view("beneficial.fundsweep_history",compact("sidebar","history"));
 
     }
+
+    public function upload_fundsweep()
+    {
+        $sidebar = "upload_fundsweep";
+
+        //getting list of uploaded sweep
+        return view("beneficial.upload_fundsweep",compact('sidebar'));
+
+    }
+
+    //uploading fundsweep file
+    public function upload(Request $request)
+    {
+
+            try {
+                Excel::load($request->file('file'), function ($reader) {
+
+                    $reader->each(function($sheet) {
+
+                        // Loop through all rows
+                        $sheet->each(function($row) {
+                            $row = $row->toArray();
+                            
+                            echo "<pre>";print_r($row);die;
+                        });
+
+                    });
+
+                });
+                Session::flash('message', 'Users uploaded successfully.');
+                return Redirect::to('/upload_fundsweep');
+            } catch (\Exception $e) {
+                Session::flash('warning', $e->getMessage());
+                return Redirect::to('/upload_fundsweep');
+            }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private function random_number($size = 5)
     {

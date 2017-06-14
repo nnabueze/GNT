@@ -171,13 +171,13 @@
 						<a href="/fundsweep_history">Fund sweeping history</a>
 					</li>
 
+					<li class="<?php if ($sidebar == "upload_fundsweep"){echo "active";}else{echo "";}?>">
+						<a href="/upload_fundsweep">Fundsweep Upload</a>
+					</li>
 <!-- 					<li>
-						<a href="#">Settlements</a>
-					</li>
-					<li>
 						<a href="#">Agent sweep</a>
-					</li>
-					 -->
+					</li> -->
+					
 				</ul>
 			</li>
 			@endif

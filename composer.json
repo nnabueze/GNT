@@ -12,7 +12,6 @@
         "simplesoftwareio/simple-qrcode": "~1",
         "yajra/laravel-datatables-oracle": "6.18.0",
         "intervention/image": "^2.3",
-        "maatwebsite/excel": "~2.1.0",
         "dingo/api": "1.0.*@dev",
         "tymon/jwt-auth": "0.5.*",
         "zizaco/entrust": "5.2.x-dev",

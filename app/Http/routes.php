@@ -273,6 +273,13 @@ Route::get("/fundsweep_history","BeneficialController@fundsweep_history");
 //viewing the fundsweep history
 Route::get("/fundsweep_history/{any}","BeneficialController@view_fundsweep_history");
 
+//displaying page to upload fundsweep
+Route::get("/upload_fundsweep","BeneficialController@upload_fundsweep");
+
+//uploading fundsweep file
+Route::get("/upload_fundsweep","BeneficialController@upload");
+
+
 
 
 
