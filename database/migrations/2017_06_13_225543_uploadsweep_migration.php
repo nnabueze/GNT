@@ -15,6 +15,8 @@ class UploadsweepMigration extends Migration
         Schema::create('uploadsweeps', function (Blueprint $table) {
             $table->increments('id');
             $table->string("agency");
+            $table->integer('mda_id')->unsigned()->index();
+            $table->foreign('mda_id')->references('id')->on('mdas')->onDelete('cascade');
             $table->decimal('collected_amount', 18, 2);
             $table->decimal('agency_amount', 18, 2);
             $table->decimal('remitted_amount', 18, 2);

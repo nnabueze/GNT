@@ -10,10 +10,12 @@ use App\Beneficial;
 use App\History;
 use App\Fundsweep;
 use App\Mda;
+use App\Uploadsweep;
 use Session;
 use Redirect;
 use Auth;
 use DB;
+use Carbon\Carbon;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
@@ -290,8 +292,7 @@ class BeneficialController extends Controller
     //uploading fundsweep file
     public function upload(Request $request)
     {
-        //echo "string";die;
-
+       
             try {
                 Excel::load($request->file('file'), function ($reader) {
 
@@ -299,13 +300,18 @@ class BeneficialController extends Controller
 
                         // Loop through all rows
                         $sheet->each(function($row) {
-                            echo "<pre>";print_r($row->Agency);die;
+                            $row = $row->toArray();
+                            $row['mda_id'] = Auth::user()->igr_id;
+
+                            if (!empty($row['agency'])) {
+                                $sweep = Uploadsweep::create($row);
+                            }
                         });
 
                     });
 
                 });
-                Session::flash('message', 'Users uploaded successfully.');
+                Session::flash('message', 'File uploaded successfully.');
                 return Redirect::to('/upload_fundsweep');
             } catch (\Exception $e) {
                 Session::flash('warning', $e->getMessage());
