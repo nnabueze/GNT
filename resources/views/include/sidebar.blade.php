@@ -182,6 +182,17 @@
 			</li>
 			@endif
 
+			@if(Auth::user()->hasRole(['Lga','Mda']))
+						<li>
+							<a href="#"><i class="fa fa-lg fa-fw fa-windows"></i> <span class="menu-item-parent">Fund sweeping</span></a>
+							<ul>
+								<li class="<?php if ($sidebar == "upload_fundsweep"){echo "active";}else{echo "";}?>">
+									<a href="/upload_fundsweep">Fundsweep Upload</a>
+								</li>
+							</ul>
+						</li>
+			@endif
+
 				<li>
 					<a href="#"><i class="fa fa-lg fa-fw fa fa-book"></i> <span class="menu-item-parent">Profile Management</span></a>
 					<ul>

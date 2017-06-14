@@ -43,6 +43,8 @@
 
 	</div>
 
+
+	@if(Auth::user()->hasRole('Superadmin'))
 		<div class="row">
 			<div class="col-md-4 col-md-offset-8">
 
@@ -61,7 +63,7 @@
 			</form>	
 			</div>
 		</div>
-
+	@endif
 
 
 		<br >
@@ -133,14 +135,18 @@
 									</tr>
 									</thead>
 									<tbody>
+									@if($sweeps)
+										@foreach($sweeps as $sweep)
 										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
+											<td>{{$sweep->agency}}</td>
+											<td>{{number_format($sweep->collected_amount)}}</td>
+											<td>{{number_format($sweep->remitted_amount)}}</td>
+											<td>{{number_format($sweep->agency_amount)}}</td>
+											<td>{{date('d F Y', strtotime($sweep->remitted_date))}}</td>
+											<td>{{$sweep->created_at}}</td>
 										</tr>
+										@endforeach
+									@endif
 									</tbody>
 								</table>
 
