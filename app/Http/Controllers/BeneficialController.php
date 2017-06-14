@@ -285,7 +285,7 @@ class BeneficialController extends Controller
         $sidebar = "upload_fundsweep";
 
         //getting list of uploaded sweep
-        $sweeps = Uploadsweep::orderBy('created_at', 'ASC')->get();
+        $sweeps = Uploadsweep::where("mda_id",Auth::user()->igr_id)->orderBy('created_at', 'ASC')->get();
         return view("beneficial.upload_fundsweep",compact('sidebar','sweeps'));
 
     }
