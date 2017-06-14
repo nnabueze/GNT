@@ -47,6 +47,7 @@
 			<div class="col-md-4 col-md-offset-8">
 
 			<form id="order-form" method="Post" action="/upload_fundsweep" enctype="multipart/form-data" class="smart-form" novalidate="novalidate">
+			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<fieldset>
 						<div class="input input-file">
 							<span class="button"><input id="file2" type="file" name="file" onchange="this.parentNode.nextSibling.value = this.value">Browse</span><input type="text" placeholder="upload Fundsweep" readonly="">

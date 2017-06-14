@@ -277,7 +277,7 @@ Route::get("/fundsweep_history/{any}","BeneficialController@view_fundsweep_histo
 Route::get("/upload_fundsweep","BeneficialController@upload_fundsweep");
 
 //uploading fundsweep file
-Route::get("/upload_fundsweep","BeneficialController@upload");
+Route::post("/upload_fundsweep","BeneficialController@upload");
 
 
 

@@ -16,7 +16,7 @@ use Auth;
 use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Excel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BeneficialController extends Controller
 {
@@ -290,6 +290,7 @@ class BeneficialController extends Controller
     //uploading fundsweep file
     public function upload(Request $request)
     {
+        //echo "string";die;
 
             try {
                 Excel::load($request->file('file'), function ($reader) {
@@ -298,9 +299,7 @@ class BeneficialController extends Controller
 
                         // Loop through all rows
                         $sheet->each(function($row) {
-                            $row = $row->toArray();
-                            
-                            echo "<pre>";print_r($row);die;
+                            echo "<pre>";print_r($row->Agency);die;
                         });
 
                     });
