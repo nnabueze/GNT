@@ -7,11 +7,14 @@ use Auth;
 use Redirect;
 use Session;
 use App\Igr;
+use App\Mda;
 use App\User;
 use Hash;
 use Input;
 use Image;
 
+use App\Remittance;
+use App\Collection;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -64,8 +67,150 @@ class AdminController extends Controller
 	{
 		//setting the side bar
 		$sidebar = "dashbaord";
-		return view("admin/dashboard",compact("sidebar"));
+		
+		$today_collection_user = 0;
+
+		if (Auth::user()->hasRole('Staff')) {
+
+		$collection_thismonth = Collection::where("mda_id",Auth::user()->mda_id)->whereMonth('created_at',"=", date('m'))->whereYear('created_at',"=", date('Y'))->get();
+
+		$collection_lastmonth = Collection::where("mda_id",Auth::user()->mda_id)->whereMonth('created_at',"=", date('m', strtotime("-1 month")))->whereYear('created_at',"=", date('Y'))->get();
+
+		$collection_today = Collection::where("mda_id",Auth::user()->mda_id)->whereDate('created_at',"=", date('Y-m-d'))->get();
+
+		$collection_ts = Collection::where("mda_id",Auth::user()->mda_id)->whereDate('created_at',"=", date('Y-m-d'))->limit(5)->get();
+
+		//$collection_users = Remittance::where("mda_id",Auth::user()->mda_id)->whereDate('created_at',"=", date('Y-m-d', strtotime("-1 day")))->orderBy('amount', 'DESC')->limit(5)->get();
+
+		$collection_users = Collection::selectRaw('worker_id, sum(amount) as sum')->where("mda_id",Auth::user()->mda_id)->whereDate('created_at',"=", date('Y-m-d'))->limit(5)->groupby('worker_id')->orderBy('sum', 'DESC')->get();
+		if (count($collection_users) > 0) {
+			foreach ($collection_users as $collection_user) {
+				$today_collection_user += $collection_user->sum;
+			}
+		} 
+
+		}
+			
+		if(Auth::user()->hasRole(['Lga','Mda'])) {
+
+		$igr = Igr::with("mdas")->find(Auth::user()->igr_id);
+
+		$today_collection = 0;
+
+		$lastmonth_collection = 0;
+
+		$thismonth_collection = 0;
+
+		$today_collection_user = 0;
+
+		
+        foreach ($igr->mdas as $mda) {
+
+			$summary = array();
+			$summary_array = array();	
+			$summary['mda'] = '';
+			$summary['amount'] = '';
+			
+
+		$collection_thismonths = Collection::where("mda_id",$mda->id)->whereMonth('created_at',"=", date('m'))->whereYear('created_at',"=", date('Y'))->get();
+		if (count($collection_thismonths) > 0) {
+			foreach ($collection_thismonths as $collection_thismonth) {
+				$thismonth_collection += $collection_thismonth->amount;
+			}
+		}
+
+		$collection_lastmonths = Collection::where("mda_id",$mda->id)->whereMonth('created_at',"=", date('m', strtotime("-1 month")))->whereYear('created_at',"=", date('Y'))->get();
+		if (count($collection_lastmonths) > 0) {
+			foreach ($collection_lastmonths as $collection_lastmonth) {
+				$lastmonth_collection += $collection_lastmonth->amount;
+			}
+		}
+
+		$collection_todays = Collection::where("mda_id",$mda->id)->whereDate('created_at',"=", date('Y-m-d'))->get();
+		if (count($collection_todays) > 0) {
+			foreach ($collection_todays as $collection_today) {
+				$today_collection += $collection_today->amount;
+			}
+		}
+
+		$collection_ts = Collection::where("mdas.igr_id",$mda->igr_id)->whereDate('collections.created_at',"=", date('Y-m-d'))->limit(5)->join('mdas', 'collections.mda_id', '=', 'mdas.id')->get();
+		
+
+		
+			}
+
+		
+		$collection_users = Collection::where("mdas.igr_id",$mda->igr_id)->whereMonth('collections.created_at',"=", date('m'))->whereYear('collections.created_at',"=", date('Y'))->limit(5)->orderBy('sum', 'DESC')->groupby('mda_id')->selectRaw('mda_id, sum(amount) as sum')->join('mdas', 'collections.mda_id', '=', 'mdas.id')->get();
+		if (count($collection_users) > 0) {
+			foreach ($collection_users as $collection_user) {
+				
+				$today_collection_user += $collection_user->sum;
+				
+			}
+		} 
+			
+
+			
+		}
+
+		if(Auth::user()->hasRole(['Admin','Superadmin'])) {
+
+		$igr = Igr::with("mdas")->find(Auth::user()->igr_id);
+
+		$today_collection = 0;
+
+		$lastmonth_collection = 0;
+
+		$thismonth_collection = 0;
+
+		$today_collection_user = 0;
+
+			$summary = array();
+			$summary_array = array();	
+			$summary['mda'] = '';
+			$summary['amount'] = '';
+			
+
+		$collection_thismonths = Collection::whereMonth('created_at',"=", date('m'))->whereYear('created_at',"=", date('Y'))->get();
+		if (count($collection_thismonths) > 0) {
+			foreach ($collection_thismonths as $collection_thismonth) {
+				$thismonth_collection += $collection_thismonth->amount;
+			}
+		}
+
+		$collection_lastmonths = Collection::whereMonth('created_at',"=", date('m', strtotime("-1 month")))->whereYear('created_at',"=", date('Y'))->get();
+		if (count($collection_lastmonths) > 0) {
+			foreach ($collection_lastmonths as $collection_lastmonth) {
+				$lastmonth_collection += $collection_lastmonth->amount;
+			}
+		}
+
+		$collection_todays = Collection::whereDate('created_at',"=", date('Y-m-d'))->get();
+		if (count($collection_todays) > 0) {
+			foreach ($collection_todays as $collection_today) {
+				$today_collection += $collection_today->amount;
+			}
+		}
+
+		$collection_ts = Collection::whereDate('created_at',"=", date('Y-m-d'))->limit(5)->get();
+		
+
+		$collection_users = Collection::whereMonth('created_at',"=", date('m'))->whereYear('created_at',"=", date('Y'))->limit(5)->groupby('mda_id')->selectRaw('mda_id, sum(amount) as sum')->orderBy('sum', 'DESC')->get();
+		if (count($collection_users) > 0) {
+			foreach ($collection_users as $collection_user) {
+				$today_collection_user += $collection_user->sum;
+
+				}
+			}
+		}
+
+
+		return view("admin/dashboard",compact("sidebar","collection_today","collection_thismonth","collection_lastmonth","collection_users","collection_ts","today_collection","lastmonth_collection","thismonth_collection","igr","today_collection_user","mda"));
+		//print_r($collection_users);
+		//echo $today_collection_user;
+
 	}
+
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 

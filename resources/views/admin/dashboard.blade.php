@@ -11,19 +11,59 @@
 						<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
 							<ul id="sparks" class="">
 								<li class="sparks-info">
-									<h5> Today <span class="txt-color-blue">₦47,171</span></h5>
+								<?php
+
+								if (Auth::user()->hasRole('Staff')) {
+
+								$amount_today = 0;
+								foreach ($collection_today as $collection_today)
+								{
+									$amount_today += $collection_today->amount;
+								}
+								
+								$amount_thismonth = 0;
+								foreach ($collection_thismonth as $collection_thismonth)
+								{
+									$amount_thismonth += $collection_thismonth->amount;
+								}
+								
+								$amount_lastmonth = 0;
+								foreach ($collection_lastmonth as $collection_lastmonth)
+								{
+									$amount_lastmonth += $collection_lastmonth->amount;
+								}
+
+								$sum_amount = $today_collection_user;
+								}
+
+								if(Auth::user()->hasRole(['Lga','Mda'])) {
+									$amount_today = $today_collection;
+									$amount_thismonth = $thismonth_collection;
+									$amount_lastmonth = $lastmonth_collection;
+									$sum_amount = $today_collection_user;
+								}
+
+								if(Auth::user()->hasRole(['Admin','Superadmin'])) {
+									$amount_today = $today_collection;
+									$amount_thismonth = $thismonth_collection;
+									$amount_lastmonth = $lastmonth_collection;
+									$sum_amount = $today_collection_user;
+								}
+
+								?>
+									<h5> Today <span class="txt-color-blue">₦<?php echo number_format($amount_today,2); ?></span></h5>
 									<div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
 										1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
 									</div>
 								</li>
 								<li class="sparks-info">
-									<h5> This Month<span class="txt-color-purple">₦45,500</span></h5>
+									<h5> This Month<span class="txt-color-purple">₦<?php echo number_format($amount_thismonth,2); ?></span></h5>
 									<div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
 										110,150,300,130,400,240,220,310,220,300, 270, 210
 									</div>
 								</li>
 								<li class="sparks-info">
-									<h5> Last Month <span class="txt-color-greenDark">₦24,047</span></h5>
+									<h5> Last Month <span class="txt-color-greenDark">₦<?php echo number_format($amount_lastmonth,2); ?></span></h5>
 									<div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
 										110,150,300,130,400,240,220,310,220,300, 270, 210
 									</div>
@@ -97,32 +137,95 @@
 														</div>
 														<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 show-stats">
 
-															<div class="row">
-																<div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> User 1 <span class="pull-right">₦500</span> </span>
-																	<div class="progress">
-																		<div class="progress-bar bg-color-blueDark" style="width: 85%;"></div>
-																	</div> </div>
-																<div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> User 2<span class="pull-right">₦440</span> </span>
-																	<div class="progress">
-																		<div class="progress-bar bg-color-blue" style="width: 70%;"></div>
-																	</div> </div>
-																<div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> User 3 <span class="pull-right">₦77</span> </span>
-																	<div class="progress">
-																		<div class="progress-bar bg-color-blue" style="width: 53%;"></div>
-																	</div> </div>
-																<div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> User 4<span class="pull-right">₦70</span> </span>
-																	<div class="progress">
-																		<div class="progress-bar bg-color-greenLight" style="width: 49%;"></div>
-																	</div> </div>
-																	<div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> User 5<span class="pull-right">₦70</span> </span>
-																	<div class="progress">
-																		<div class="progress-bar bg-color-greenLight" style="width: 49%;"></div>
-																	</div> </div>
+														<div class="row">
+														<?php
+														
+																	if(Auth::user()->hasRole(['Lga','Mda'])) {						
+																	
+																	$line = 0;
+																	
+															
+																		foreach ($collection_users as $collection_users ){
+																		
+																		$user_amount = $collection_users->sum;
+																		$user_name = $collection_users->mda->mda_name;
 
+																		$line = $user_amount / $sum_amount * 100; 
+																
+																echo		
+															
+																'<div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> '.$user_name .' <span class="pull-right">₦'.number_format($user_amount,2).'</span> </span>
+																	<div class="progress">
+																		<div class="progress-bar bg-color-blueDark" style="width: '.$line.'%;"></div>
+																	</div> </div>';
+
+																		}	
+
+															
+															
+
+																	}
+
+
+																	if(Auth::user()->hasRole(['Admin','Superadmin'])) {						
+																	
+																	$line = 0;
+																	
+															
+																		foreach ($collection_users as $collection_users ){
+																		$user_amount = $collection_users->sum;
+																		$user_name = $collection_users->mda->mda_name;
+
+																		$line = $user_amount / $sum_amount * 100; 
+
+																echo		
+															
+																'<div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> '.$user_name .' <span class="pull-right">₦'.number_format($user_amount,2).'</span> </span>
+																	<div class="progress">
+																		<div class="progress-bar bg-color-blueDark" style="width: '.$line.'%;"></div>
+																	</div> </div>';
+
+																		}	
+
+															
+															
+
+																	}
+
+
+																	
+																	if (Auth::user()->hasRole('Staff')) {						
+																	
+																	$line = 0;
+																	foreach ($collection_users as $collection_users)
+																	{
+																		$user_amount = $collection_users->sum;
+																		if($collection_users->worker_id > 0){
+																		$user_name = $collection_users->worker->worker_name;
+																		} else {
+																			$user_name = "Ebills";
+																		}
+
+																		$line = $user_amount / $sum_amount * 100; 
+
+																echo		
+															
+																'<div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> '.$user_name .' <span class="pull-right">₦'.number_format($user_amount,2).'</span> </span>
+																	<div class="progress">
+																		<div class="progress-bar bg-color-blueDark" style="width: '.$line.'%;"></div>
+																	</div> </div>';
+															
+																	}
+
+																	}
+
+														?>
+
+														
 																<!--<span class="show-stat-buttons"> <span class="col-xs-12 col-sm-6 col-md-6 col-lg-6"> <a href="javascript:void(0);" class="btn btn-default btn-block hidden-xs">Generate PDF</a> </span> <span class="col-xs-12 col-sm-6 col-md-6 col-lg-6"> <a href="javascript:void(0);" class="btn btn-default btn-block hidden-xs">Report a bug</a> </span> </span>
 																	-->
-															</div>
 
+															</div>
 														</div>
 													</div>
 
@@ -312,102 +415,80 @@
 	                                                                </thead>
 	                                                                <!--tbody section is required-->
 	                                                                <tbody>
-	                                                                                                                                        <tr class="border-warning">
-	                                                                        
-	                                                                        <td>
-	                                                                            <b>678</b>
-	                                                                        </td>
-	                                                                        <td>
-	                                                                            7,500.00                                                                        </td>
-	                                                                        <td>
-	                                                                            2017-02-17 06:12:26                                                                        </td>
 
-	                                                                        <td>
-	                                                                            Workshop Receipt (Per Annum)                                                                     </td>
-	                                                                        <td>
-	                                                                            User 5                                                                 </td>
-	                                                                        <td class="text-center">
+																	@if (Auth::user()->hasRole('Staff'))
+																							
+																		@if($collection_ts)
+																			@foreach($collection_ts as $collection_t)
+																			<tr  class="border-warning">
+																				<td><b>{{$collection_t->collection_key}}</b></td>
+																				<td>{{$collection_t->amount}}</td>
+																				<td>{{date("d-M-Y", strtotime($collection_t->created_at))}}</td>
+																				<td>{{$collection_t->subhead->subhead_code}}</td>
+																				
+																				@if($collection_t->collection_type == "pos")
+																				<td>{{$collection_t->worker->worker_name}}</td>
+																				<td class="text-center"><span class="label label-success">{{$collection_t->collection_type}}</span></td>
+																				@else
+																				<td>A/C</td>
+																				<td class="text-center">><span class="label label-primary">ebills</span></td>
+																				@endif
+																				
+																			</tr>
+																			@endforeach
+																		@endif
 
-	                                                                                                                                                        <span class="label label-success">POS</span>
-	                                                                                                                                                    </td>
+																		@endif
 
-	                                                                                                                                            <tr class="border-warning">
-	                                                                        
-	                                                                        <td>
-	                                                                            <b>672</b>
-	                                                                        </td>
-	                                                                        <td>
-	                                                                            7,500.00                                                                        </td>
-	                                                                        <td>
-	                                                                            2017-02-17 05:27:54                                                                        </td>
+																	@if(Auth::user()->hasRole(['Lga','Mda']))
+																							
+																		@if($collection_ts)
+																			@foreach($collection_ts as $collection_t)
+																			<tr  class="border-warning">
+																				<td><b>{{$collection_t->collection_key}}</b></td>
+																				<td>{{$collection_t->amount}}</td>
+																				<td>{{date("d-M-Y", strtotime($collection_t->created_at))}}</td>
+																				<td>{{$collection_t->subhead->subhead_code}}</td>
+																				
+																				@if($collection_t->collection_type == "pos")
+																				<td>{{$collection_t->mda->mda_name}}</td>
+																				<td class="text-center"><span class="label label-success">{{$collection_t->collection_type}}</span></td>
+																				@else
+																				<td>{{$collection_t->mda->mda_name}}</td>
+																				<td class="text-center"><span class="label label-primary">ebills</span></td>
+																				@endif
+																				
+																			</tr>
+																			@endforeach
+																		@endif
 
-	                                                                        <td>
-	                                                                            Advertisement Signboard License (Per Annum)- Medium                                                                  </td>
-	                                                                        <td>
-	                                                                            Zenith Bank                                                                       </td>
-	                                                                        <td class="text-center">
+																		@endif
 
-	                                                                                                                                                        <span class="label label-success">Ebills</span>
-	                                                                                                                                                    </td>
+																	@if(Auth::user()->hasRole(['Admin','Superadmin']))
+																							
+																		@if($collection_ts)
+																			@foreach($collection_ts as $collection_t)
+																			<tr  class="border-warning">
+																				<td><b>{{$collection_t->collection_key}}</b></td>
+																				<td>{{$collection_t->amount}}</td>
+																				<td>{{date("d-M-Y", strtotime($collection_t->created_at))}}</td>
+																				<td>{{$collection_t->subhead->subhead_code}}</td>
+																				
+																				@if($collection_t->collection_type == "pos")
+																				<td>{{$collection_t->mda->mda_name}}</td>
+																				<td class="text-center"><span class="label label-success">{{$collection_t->collection_type}}</span></td>
+																				@else
+																				<td>A/C</td>
+																				<td class="text-center">><span class="label label-primary">ebills</span></td>
+																				@endif
+																				
+																			</tr>
+																			@endforeach
+																		@endif
 
-	                                                                                                                                            <tr class="border-warning">
-	                                                                        
-	                                                                        <td>
-	                                                                            <b>613</b>
-	                                                                        </td>
-	                                                                        <td>
-	                                                                            9.00                                                                        </td>
-	                                                                        <td>
-	                                                                            2017-02-14 19:42:18                                                                        </td>
+																		@endif
 
-	                                                                        <td>
-	                                                                            Undertaking Tractorshiring unit (per day)                                                                     </td>
-	                                                                        <td>
-	                                                                            User 4                                                                        </td>
-	                                                                        <td class="text-center">
-
-	                                                                                                                                                        <span class="label label-success">POS</span>
-	                                                                                                                                                    </td>
-
-	                                                                                                                                            <tr class="border-warning">
-	                                                                        
-	                                                                        <td>
-	                                                                            <b>J1122</b>
-	                                                                        </td>
-	                                                                        <td>
-	                                                                            200,000.00                                                                        </td>
-	                                                                        <td>
-	                                                                            2017-02-09 00:00:00                                                                        </td>
-
-	                                                                        <td>
-	                                                                            Rent of Local Govt Building                                                                    </td>
-	                                                                        <td>
-	                                                                            Eco Bank                                                                        </td>
-	                                                                        <td class="text-center">
-
-	                                                                                                                                                        <span class="label label-success">Ebills</span>
-	                                                                                                                                                    </td>
-
-	                                                                                                                                            <tr class="border-warning">
-	                                                                        
-	                                                                        <td>
-	                                                                            <b>J11</b>
-	                                                                        </td>
-	                                                                        <td>
-	                                                                            1,010,000.00                                                                        </td>
-	                                                                        <td>
-	                                                                            2017-02-09 00:00:00                                                                        </td>
-
-	                                                                        <td>
-	                                                                            Damban                                                                     </td>
-	                                                                        <td>
-	                                                                            User 2                                                                       </td>
-	                                                                        <td class="text-center">
-
-	                                                                                                                                                        <span class="label label-success">POS</span>
-	                                                                                                                                                    </td>
-
-	                                                                        
+	                                                                    
 	                                                                    </tbody>
 	                                                                </table>
 	                                                            </div>
