@@ -140,6 +140,7 @@
 										<tr>
 											<th data-hide="phone">REMITTANCE ID</th>
 											<th data-class="expand">AMOUNT</th>
+											<th data-class="expand">STATION</th>
 											<th>REMITTANCE STATUS</th>
 											<th data-hide="phone,tablet">POS USER</th>
 											<th data-hide="phone,tablet">REMITTED DATE</th>
@@ -153,6 +154,11 @@
 										<tr>
 											<td>{{$remittance->remittance_key}}</td>
 											<td>{{$remittance->amount}} </td>
+											@if($remittance->station_id == 0)
+											<td>N/A</td>
+											@else
+											<td>{{$remittance->station->station_name}}</td>
+											@endif
 											<td><span <?php echo ($remittance->remittance_status=="1")? 'class="label label-success"': 'class="label label-primary"' ?>>
 												@if($remittance->remittance_status=="1")
 												Remitted
