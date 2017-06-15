@@ -129,6 +129,7 @@
 										<th >AMOUNT REMITTED</th>
 										<th >AGENCY AMOUNT </th>
 										<th>REMITTED DATE </th>
+										<th>PAYMENT DATE </th>
 										<th>UPLOAD DATE</th>
 
 
@@ -143,6 +144,7 @@
 											<td>{{number_format($sweep->remitted_amount)}}</td>
 											<td>{{number_format($sweep->agency_amount)}}</td>
 											<td>{{date('d F Y', strtotime($sweep->remitted_date))}}</td>
+											<td>{{date('d F Y', strtotime($sweep->payment_date))}}</td>
 											<td>{{$sweep->created_at}}</td>
 										</tr>
 										@endforeach
