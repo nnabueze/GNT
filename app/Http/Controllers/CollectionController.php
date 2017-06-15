@@ -643,6 +643,14 @@ public function list_remittance()
     return view("remittance_invoice.remittance",compact("igr","sidebar","remittance"));
 }
 
+//getting list of remittance for staff
+public function s_list_remittance()
+{
+    $sidebar = "remittance";
+    $remittances = Remittance::where("mda_id",Auth::user()->mda_id)->get();
+    return view("remittance_invoice.s_remittance",compact("sidebar","remittances"));
+}
+
     //viewing remittance with date range
 public function remittance_view(Request $request)
 {
@@ -668,6 +676,36 @@ public function remittance_view(Request $request)
     if (count($remittances) > 0) {
 
         return view("remittance_invoice.remittance_view",compact("igr","sidebar","remittances","mda_name"));
+    }
+
+    Session::flash("warning","Failed! No result found.");
+    return Redirect::to("/list_remittance");
+}
+
+//getting range of staff remittance
+public function s_remittance_view(Request $request)
+{
+
+
+        //getting all the request
+    $mda_id = Auth::user()->mda_id;
+    $start_date = $request->input("startdate");
+    $end_date = $request->input("enddate");
+
+    $sidebar = "remittance";
+
+        //getting collection within the date range
+    $remittances = Remittance::where("mda_id",$mda_id)->whereDate('created_at',">=",$start_date )->whereDate('created_at',"<=",$end_date )->get();
+
+        //getting the name of the search MDA
+    $mda = Mda::find($mda_id);
+    $mda_name = $mda->mda_name;
+
+        //select station base on MDA
+
+    if (count($remittances) > 0) {
+
+        return view("remittance_invoice.s_remittance_view",compact("sidebar","remittances","mda_name"));
     }
 
     Session::flash("warning","Failed! No result found.");

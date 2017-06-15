@@ -149,10 +149,10 @@
 				@endif
 				@if(Auth::user()->hasRole('Staff'))
 				<li class="<?php if ($sidebar == "remittance"){echo "active";}else{echo "";}?>">
-					<a href="/list_remittance">Remittances</a>
+					<a href="/s_list_remittance">Remittances</a>
 				</li>
 				@endif
-				
+
 				</ul>
 			</li>
 

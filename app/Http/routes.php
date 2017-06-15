@@ -243,8 +243,14 @@ Route::post("/percentage_report","CollectionController@percentage_report");
 //viewing list of remittance
 Route::get("/list_remittance", "CollectionController@list_remittance");
 
+//viewing the list of staff remittance
+Route::get("/s_list_remittance", "CollectionController@s_list_remittance");
+
 //view remittance with date range
 Route::post("/list_remittance", "CollectionController@remittance_view");
+
+//getting range of staff remittance 
+Route::post("/s_list_remittance", "CollectionController@s_remittance_view");
 
 //viewing list of invoice
 Route::get("/list_invoice", "CollectionController@list_invoice");
