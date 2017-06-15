@@ -143,13 +143,16 @@
 					<li class="<?php if ($sidebar == "remittance"){echo "active";}else{echo "";}?>">
 						<a href="/list_remittance">Remittances</a>
 					</li>
-<!-- 					<li>
-						<a href="#">Transactions </a>
-					</li> -->
 					<li class="<?php if ($sidebar == "invoice"){echo "active";}else{echo "";}?>">
 						<a href="/list_invoice">Manage Invoices</a>
 					</li>
 				@endif
+				@if(Auth::user()->hasRole('Staff'))
+				<li class="<?php if ($sidebar == "remittance"){echo "active";}else{echo "";}?>">
+					<a href="/list_remittance">Remittances</a>
+				</li>
+				@endif
+				
 				</ul>
 			</li>
 

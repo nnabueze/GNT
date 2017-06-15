@@ -186,9 +186,9 @@ class HeadsController extends Controller
     {
         $sidebar = "s_all_collection";
         
-        if ($collection = Collection::where("mda_id",Auth::user()->mda_id)->get()) {
+        if ($collections = Collection::where("mda_id",Auth::user()->mda_id)->orderBy('created_at', 'ASC')->get()) {
 
-           return view("heads.s_all_collection",compact("collection","sidebar"));
+           return view("heads.s_all_collection",compact("collections","sidebar"));
         }
 
         Session::flash("warning","Failed! No record found.");
@@ -203,10 +203,10 @@ class HeadsController extends Controller
 
         $sidebar = "e_ebill_collection";
         
-        if ($collection = Collection::where("mda_id",Auth::user()->mda_id)->where("collection_type","ebills")->get()) {
+        if ($collections = Collection::where("mda_id",Auth::user()->mda_id)->where("collection_type","ebills")->get()) {
    
 
-           return view("heads.s_all_collection",compact("collection","sidebar"));
+           return view("heads.s_all_collection",compact("collections","sidebar"));
         }
 
         Session::flash("warning","Failed! No record found.");
@@ -221,10 +221,10 @@ class HeadsController extends Controller
 
         $sidebar = "p_pos_collection";
         
-        if ($collection = Collection::where("mda_id",Auth::user()->mda_id)->where("collection_type","pos")->get()) {
+        if ($collections = Collection::where("mda_id",Auth::user()->mda_id)->where("collection_type","pos")->get()) {
     
 
-           return view("heads.s_all_collection",compact("collection","sidebar"));
+           return view("heads.s_all_collection",compact("collections","sidebar"));
         }
 
         Session::flash("warning","Failed! No record found.");
@@ -245,13 +245,13 @@ class HeadsController extends Controller
         $collection = array();
 
         //getting collection within the date range
-        $collection = Collection::where("mda_id",Auth::user()->mda_id)->whereDate('created_at',">=",$start_date )->whereDate('created_at',"<=",$end_date )->get();
+        $collections = Collection::where("mda_id",Auth::user()->mda_id)->whereDate('created_at',">=",$start_date )->whereDate('created_at',"<=",$end_date )->get();
 
         //select station base on MDA
         
-        if (count($collection) > 0) {
+        if (count($collections) > 0) {
                 
-            return view("heads.s_all_collection",compact("sidebar","collection"));
+            return view("heads.s_all_collection",compact("sidebar","collections"));
         }
 
             Session::flash("warning","Failed! No result found.");
