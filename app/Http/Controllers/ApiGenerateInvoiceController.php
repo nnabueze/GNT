@@ -35,7 +35,7 @@ class ApiGenerateInvoiceController extends Controller
             $this->token_auth();
             
             //validation incoming request
-            if ($request->has('name') && $request->has('phone')&&$request->has('mda')&&$request->has('amount')&&$request->has('user_key')&&$request->has('pos_key')) {
+            if ($request->has('name')&&$request->has('mda')&&$request->has('amount')&&$request->has('user_key')&&$request->has('pos_key')) {
 
             $request['invoice_key'] = "IV".$this->random_number(5).$this->random_number(5).$this->random_number(2);
             $request['mda_id'] = $this->mda_id($request->input("mda"));
