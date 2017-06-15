@@ -70,12 +70,15 @@ class ApiGenerateRemittance extends Controller
                 $request['amount'] = $collections->sum("amount");
                 $request['mda_id'] = $mda;
                 $request['worker_id'] = $worker;
+                $request['station_id'] = $collections[0]->postable->station->id;
+
+                
 
                     //insert remittance 
                 if (!$remit= Remittance::where("worker_id",$worker)->where("remittance_status",0)->first()) {
 
                 	$remittance = Remittance::create($request->all());
-
+                    
                     //updateing collection table with remittance_id
                     Collection::where('worker_id',$worker)
                     ->where('mda_id',$mda)

@@ -12,7 +12,8 @@ class Remittance extends Model
           "worker_id",
           "mda_id",
           "amount",
-          "remittance_status"
+          "remittance_status",
+          "station_id"
     ];
 
 	//relationship between mda and remittance
@@ -31,5 +32,11 @@ class Remittance extends Model
 	public function collections()
 	{
 	  return $this->hasMany('App\Collection');
+	}
+
+	//relationship between remittance and collection
+	public function station()
+	{
+	  return $this->belongsTo('App\Station');
 	}
 }
