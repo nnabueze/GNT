@@ -78,7 +78,7 @@ class AdminController extends Controller
 
 		$collection_today = Collection::where("mda_id",Auth::user()->mda_id)->whereDate('created_at',"=", date('Y-m-d'))->get();
 
-		$collection_ts = Collection::where("mda_id",Auth::user()->mda_id)->whereDate('created_at',"=", date('Y-m-d'))->limit(5)->get();
+		$collection_ts = Collection::where("mda_id",Auth::user()->mda_id)->whereDate('created_at',"=", date('Y-m-d'))->limit(5)->orderBy('created_at', 'DESC')->get();
 
 		//$collection_users = Remittance::where("mda_id",Auth::user()->mda_id)->whereDate('created_at',"=", date('Y-m-d', strtotime("-1 day")))->orderBy('amount', 'DESC')->limit(5)->get();
 
@@ -133,7 +133,7 @@ class AdminController extends Controller
 			}
 		}
 
-		$collection_ts = Collection::where("mdas.igr_id",$mda->igr_id)->whereDate('collections.created_at',"=", date('Y-m-d'))->limit(5)->join('mdas', 'collections.mda_id', '=', 'mdas.id')->get();
+		$collection_ts = Collection::selectRaw('collections.collection_key as collection_key, collections.amount as amount, collections.created_at as created_at, collections.mda_id as mda_id, collections.subhead_id as subhead_id, collections.collection_type')->where("mdas.igr_id",$mda->igr_id)->whereDate('collections.created_at',"=", date('Y-m-d'))->limit(5)->join('mdas', 'collections.mda_id', '=', 'mdas.id')->orderBy('collections.created_at', 'DESC')->get();
 		
 
 		
@@ -192,7 +192,7 @@ class AdminController extends Controller
 			}
 		}
 
-		$collection_ts = Collection::whereDate('created_at',"=", date('Y-m-d'))->limit(5)->get();
+		$collection_ts = Collection::whereDate('created_at',"=", date('Y-m-d'))->limit(5)->orderBy('created_at', 'DESC')->get();
 		
 
 		$collection_users = Collection::whereMonth('created_at',"=", date('m'))->whereYear('created_at',"=", date('Y'))->limit(5)->groupby('mda_id')->selectRaw('mda_id, sum(amount) as sum')->orderBy('sum', 'DESC')->get();
