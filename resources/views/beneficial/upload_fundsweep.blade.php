@@ -131,6 +131,7 @@
 										<th>REMITTED DATE </th>
 										<th>PAYMENT DATE </th>
 										<th>UPLOAD DATE</th>
+										<th>ACTION</th>
 
 
 									</tr>
@@ -146,6 +147,7 @@
 											<td>{{date('d F Y', strtotime($sweep->remitted_date))}}</td>
 											<td>{{date('d F Y', strtotime($sweep->payment_date))}}</td>
 											<td>{{$sweep->created_at}}</td>
+											<td> <a href="/edit_upload/{{$sweep->id}}/edit" class="btn btn-default btn-sm" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"></span></a></td>
 										</tr>
 										@endforeach
 									@endif

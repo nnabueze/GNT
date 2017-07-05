@@ -319,6 +319,45 @@ class BeneficialController extends Controller
                 return Redirect::to('/upload_fundsweep');
             }
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //edit upload
+    public function edit_upload($id)
+    {
+        $sidebar = "upload_fundsweep";
+
+        //checking user right
+        if ( ! Auth::user()->hasRole('Superadmin')) {
+
+           Session::flash("warning","You don't have the right to edit record");
+           return Redirect::back();
+        }
+
+        //check if the id exist
+        if ($upload = Uploadsweep::find($id)) {
+            
+            return view("beneficial.edit_upload",compact("sidebar","upload"));
+        }
+
+        Session::flash("warning","Unable to edit record");
+        return Redirect::back();
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //posting edit upload
+
+    public function post_upload(Request $request)
+    {
+        if ($upload = Uploadsweep::find($request->input("id"))) {
+            $upload->update($request->all());
+
+            Session::flash('message', 'Record edited successfully.');
+            return Redirect::to('/upload_fundsweep');
+        }
+
+        Session::flash("warning","Unable to edit record");
+        return Redirect::back();
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

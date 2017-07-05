@@ -285,6 +285,12 @@ Route::get("/upload_fundsweep","BeneficialController@upload_fundsweep");
 //uploading fundsweep file
 Route::post("/upload_fundsweep","BeneficialController@upload");
 
+//edit upload fundsweep
+Route::get("/edit_upload/{any}/edit","BeneficialController@edit_upload");
+
+//posting edit upload 
+Route::post("/edit_upload","BeneficialController@post_upload");
+
 
 
 
