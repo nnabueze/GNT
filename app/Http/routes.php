@@ -327,22 +327,22 @@ $api->version('v1',['middleware'=>'api.auth'],function($api){
 	$api->post('invoice','App\Http\Controllers\ApiInvoiceController@invoice');
 
 	//api to generate invoice
-	$api->post('generate_invoice','App\Http\Controllers\ApiGenerateInvoiceController@generate_invoice');
+	$api->post('generate_invoice','App\Http\Controllers\ApiGenerateInvoiceController@generate_invoice');//done
 
 	//Pos collection api
-	$api->post('pos_collection','App\Http\Controllers\ApiPosCollectionController@pos_collection');
+	$api->post('pos_collection','App\Http\Controllers\ApiPosCollectionController@pos_collection');//done
 
 	//generating remittance
-	$api->post('generate_remittance','App\Http\Controllers\ApiGenerateRemittance@generate_remittance');
+	$api->post('generate_remittance','App\Http\Controllers\ApiGenerateRemittance@generate_remittance');//done
 
 	//login user
-	$api->post('user_login','App\Http\Controllers\ApiController@user_login');
+	$api->post('user_login','App\Http\Controllers\ApiController@user_login');//done
 
 	//activation of pos
-	$api->post('pos_activation','App\Http\Controllers\ApiController@pos_activation');
+	$api->post('pos_activation','App\Http\Controllers\ApiController@pos_activation');//done
 
 	//verification of tin
-	$api->post("tin_verification","App\Http\Controllers\ApiTinController@verify_tin");
+	$api->post("tin_verification","App\Http\Controllers\ApiTinController@verify_tin");//done
 
 	//creating temporary tin
 	$api->post("temporary_tin","App\Http\Controllers\ApiTinController@temporary_tin");
