@@ -14,7 +14,7 @@ class IgrMobileController extends Controller
     public function authentication(Request $request)
     {
     	$credentials = $request->only('email', 'password');
-        return "yes";
+        return $this->response->array(compact('yes'))->setStatusCode(200);
 
     	try{
     		if (! Auth::attempt(['email' => $request->input("email"), 'password' => $request->input("password")])) {
