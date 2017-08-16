@@ -14,7 +14,7 @@ class IgrMobileController extends Controller
     public function authentication(Request $request)
     {
     	$credentials = $request->only('email', 'password');
-        return $request->input("password");
+
         //return $this->response->array(compact('yes'))->setStatusCode(200);
 
     	try{
@@ -26,6 +26,7 @@ class IgrMobileController extends Controller
     		return $this->response->errorInternal();
     	}
 
-    	return $this->response->array(compact('token'))->setStatusCode(200);
+        return $request->input("password");
+    	//return $this->response->array(compact('token'))->setStatusCode(200);
     }
 }
