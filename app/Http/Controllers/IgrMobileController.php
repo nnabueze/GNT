@@ -11,11 +11,9 @@ class IgrMobileController extends Controller
 {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////API LOGIN
     //Login User
-    public function authentication(Request $request)
+/*    public function authentication(Request $request)
     {
     	$credentials = $request->only('email', 'password');
-
-        //return $this->response->array(compact('yes'))->setStatusCode(200);
 
     	try{
     		if (! Auth::attempt(['email' => $request->input("email"), 'password' => $request->input("password")])) {
@@ -25,8 +23,18 @@ class IgrMobileController extends Controller
     	} catch (JWTException $e) {
     		return $this->response->errorInternal();
     	}
+    	
+        return $this->response->array(compact('token'))->setStatusCode(200);
+    }
+*/
+        public function authentication(Request $request)
+    {
+
+            if (! Auth::attempt(['email' => $request->input("email"), 'password' => $request->input("password")])) {
+                return $this->response->errorUnauthorized();
+            }
 
         return $request->input("password");
-    	//return $this->response->array(compact('token'))->setStatusCode(200);
+        //return $this->response->array(compact('token'))->setStatusCode(200);
     }
 }
