@@ -14,7 +14,7 @@ class IgrMobileController extends Controller
     public function authentication(Request $request)
     {
     	$credentials = $request->only('email', 'password');
-        return "yes";
+        return $request->input("password");
         //return $this->response->array(compact('yes'))->setStatusCode(200);
 
     	try{
