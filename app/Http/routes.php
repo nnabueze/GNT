@@ -315,6 +315,10 @@ $api->version('v1',function($api){
 
     //ebill notification
     $api->post('igr_api_notification','App\Http\Controllers\EbillNotificationController@index');
+
+    //igr mobile ocntroller
+    $api->post('igr_api_mobile','App\Http\Controllers\IgrMobileController@authentication');
+
 });
 
 //protected Api route
