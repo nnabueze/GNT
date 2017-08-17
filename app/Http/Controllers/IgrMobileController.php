@@ -25,6 +25,7 @@ use App\Http\Controllers\Controller;
 
 class IgrMobileController extends Controller
 {
+    use Helpers;
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////API LOGIN
     //Login User
     public function authentication(Request $request)
