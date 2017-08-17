@@ -33,9 +33,9 @@ class IgrMobileController extends Controller
     	$credentials = $request->only('email', 'password');
 
     	try{
-    		if (! Auth::attempt(['email' => $request->input("email"), 'password' => $request->input("password")])) {
-    			return $this->response->errorUnauthorized();
-    		}
+    		if (! $token = JWTAuth::attempt($credentials)) {
+                return $this->response->errorUnauthorized();
+            }
 
     	} catch (JWTException $e) {
     		return $this->response->errorInternal();
