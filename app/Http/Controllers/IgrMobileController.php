@@ -81,7 +81,7 @@ class IgrMobileController extends Controller
                 }
 
                 $yestarday_date = Collection::where("mda_id",$mda->id)->where("created_at","=", $yestarday)->get();
-                if (count($yestarday) > 0) {
+                if (count($yestarday_date) > 0) {
                     foreach ($yestarday_date as $yestarday_date) {
 
                         $data['yestarday'] += $yestarday_date->amount;
