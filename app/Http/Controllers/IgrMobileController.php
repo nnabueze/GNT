@@ -50,7 +50,7 @@ class IgrMobileController extends Controller
             $lastday_last_date = date('Y-m-d', strtotime('last day of last month'));
             $firstday_curent_date = date('Y-m-d', strtotime(date('Y-m-1')));
             $yestarday = date('Y-m-d',strtotime("-1 days"));
-            $today = date('Y-m-d');
+            $today = date('Y-m-d',time());
 
             $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
 
@@ -80,7 +80,7 @@ class IgrMobileController extends Controller
                     }
                 }
 
-                $yestarday_date = Collection::where("mda_id",$mda->id)->where("created_at", $yestarday)->get();
+                $yestarday_date = Collection::where("mda_id",$mda->id)->where("created_at","==", $yestarday)->get();
                 if (count($yestarday) > 0) {
                     foreach ($yestarday_date as $yestarday_date) {
 
@@ -88,7 +88,7 @@ class IgrMobileController extends Controller
                     }
                 }
 
-                $today_date = Collection::where("mda_id",$mda->id)->where("created_at", $today)->get();
+                $today_date = Collection::where("mda_id",$mda->id)->where("created_at","==", $today)->get();
                 if (count($today_date) > 0) {
                     foreach ($today_date as $today_date) {
 
