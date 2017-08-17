@@ -44,7 +44,7 @@ class IgrMobileController extends Controller
               return $this->response->errorInternal();
         }
 
-        if (Auth::attempt(['email' => $request->input("email"), 'password' => $request->input("password")])) {
+/*        if (Auth::attempt(['email' => $request->input("email"), 'password' => $request->input("password")])) {
 
             $firstday_last_date = date('Y-m-d', strtotime('first day of last month'));
             $lastday_last_date = date('Y-m-d', strtotime('last day of last month'));
@@ -101,8 +101,8 @@ class IgrMobileController extends Controller
         $data['token'] = $token;
         $data['igr_key'] = $igr->igr_key;
         $data['state_name'] = $igr->state_name;
-        $data['logo'] = $igr->logo;
+        $data['logo'] = $igr->logo;*/
 
-        return $this->response->array(compact('data'))->setStatusCode(200);
+        return $this->response->array(compact('token'))->setStatusCode(200);
     }
 }
