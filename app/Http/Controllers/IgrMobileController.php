@@ -80,7 +80,7 @@ class IgrMobileController extends Controller
                     }
                 }
 
-                $yestarday_date = Collection::where("mda_id",$mda->id)->where("created_at","==", $yestarday)->get();
+                $yestarday_date = Collection::where("mda_id",$mda->id)->where("created_at","=", $yestarday)->get();
                 if (count($yestarday) > 0) {
                     foreach ($yestarday_date as $yestarday_date) {
 
@@ -88,7 +88,7 @@ class IgrMobileController extends Controller
                     }
                 }
 
-                $today_date = Collection::where("mda_id",$mda->id)->where("created_at","==", $today)->get();
+                $today_date = Collection::where("mda_id",$mda->id)->where("created_at","=", $today)->get();
                 if (count($today_date) > 0) {
                     foreach ($today_date as $today_date) {
 
