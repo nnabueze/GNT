@@ -52,8 +52,6 @@ class IgrMobileController extends Controller
             $yestarday = date('Y-m-d',strtotime("-1 days"));
             $today = date('Y-m-d',time());
 
-            print_r($today);die;
-
             $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
 
             $data['last_month'] = 0;
