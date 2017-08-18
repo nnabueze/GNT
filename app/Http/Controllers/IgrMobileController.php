@@ -52,6 +52,8 @@ class IgrMobileController extends Controller
             $yestarday = date('Y-m-d',strtotime("-1 days"));
             $today = date('Y-m-d',time());
 
+            print_r($today);die;
+
             $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
 
             $data['last_month'] = 0;
@@ -80,7 +82,7 @@ class IgrMobileController extends Controller
                     }
                 }
 
-                $yestarday_date = Collection::where("mda_id",$mda->id)->where("created_at","=", $yestarday)->get();
+                $yestarday_date = Collection::where("mda_id",$mda->id)->where("created_at",">=", $yestarday)->get();
                 if (count($yestarday_date) > 0) {
                     foreach ($yestarday_date as $yestarday_date) {
 
@@ -88,7 +90,7 @@ class IgrMobileController extends Controller
                     }
                 }
 
-                $today_date = Collection::where("mda_id",$mda->id)->where("created_at","=", $today)->get();
+                $today_date = Collection::where("mda_id",$mda->id)->where("created_at",">=", $today)->get();
                 if (count($today_date) > 0) {
                     foreach ($today_date as $today_date) {
 
