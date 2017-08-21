@@ -70,7 +70,7 @@ class IgrMobileController extends Controller
                         $data['last_month'] += $collection->amount;
                     }
                 }
-
+                
 
                 $current_months = Collection::where("mda_id",$mda->id)->where("created_at",">=", $firstday_curent_date)->get();
                 if (count($current_months) > 0) {
@@ -80,15 +80,18 @@ class IgrMobileController extends Controller
                     }
                 }
 
-                $yestarday_date = Collection::where("mda_id",$mda->id)->where("created_at",">=", $yestarday)->get();
+
+
+                $yestarday_date = Collection::where("mda_id",$mda->id)->where("created_at","==", $yestarday)->get();
                 if (count($yestarday_date) > 0) {
                     foreach ($yestarday_date as $yestarday_date) {
 
                         $data['yestarday'] += $yestarday_date->amount;
                     }
                 }
+                print_r($data['yestarday']);die;
 
-                $today_date = Collection::where("mda_id",$mda->id)->where("created_at",">=", $today)->get();
+                $today_date = Collection::where("mda_id",$mda->id)->where("created_at","==", $today)->get();
                 if (count($today_date) > 0) {
                     foreach ($today_date as $today_date) {
 
