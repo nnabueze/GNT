@@ -90,9 +90,8 @@ class IgrMobileController extends Controller
                         $data['yestarday'] += $yestarday_date->amount;
                     }
                 }
-                print_r($data['yestarday']);die;
 
-                $today_date = Collection::where("mda_id",$mda->id)->whereDate("created_at",">=", $today)->->whereDate("created_at","<=", $today)->get();
+                $today_date = Collection::where("mda_id",$mda->id)->whereDate("created_at",">=", $today)->get();
                 if (count($today_date) > 0) {
                     foreach ($today_date as $today_date) {
 
