@@ -105,7 +105,61 @@ class IgrMobileController extends Controller
         $data['igr_key'] = $igr->igr_key;
         $data['state_name'] = $igr->state_name;
         $data['logo'] = $igr->logo;
+        $data['billerId'] = Auth::user()->igr_id;
 
         return $this->response->array(compact('data'))->setStatusCode(200);
+    }
+
+    public function getMdas(Request $request){
+
+        //Token authentication
+        $this->token_auth();
+
+        if ( ! $request->has("billerId")) {
+            $message = "parameter missing";
+            return $this->response->array(compact('message'))->setStatusCode(400);
+        }
+
+            $igr = Igr::with("mdas")->find($request->input("billerId"));
+
+            $info = array();
+            $today = date('Y-m-d',time());    
+            
+
+            foreach ($igr->mdas as $mda) {
+
+                $data['amount'] = 0;
+                $data["name"] = "";
+
+                $today_date = Collection::where("mda_id",$mda->id)->where("created_at",">=", $today)->get();
+                if (count($today_date) > 0) {
+                    foreach ($today_date as $today_date) {
+
+                        $data['amount']+= $today_date->amount;
+                    }
+                }
+                $data["name"] = $mda->mda_name;
+                array_push($info, $data);
+            }
+
+        return $this->response->array(compact('info'))->setStatusCode(200);
+
+
+    }
+
+
+    //token Authentication
+    private function token_auth()
+    {
+                //Token authentication
+        $user = JWTAuth::parseToken()->authenticate();
+        try{
+            if (! $user ) {
+                return $this->response->errorUnauthorized();
+            } 
+        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+            return $this->response->error('something went wrong');
+        }
+
     }
 }

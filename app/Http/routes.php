@@ -324,6 +324,10 @@ $api->version('v1',function($api){
 //protected Api route
 $api->version('v1',['middleware'=>'api.auth'],function($api){
 
+	$api->post('mda','App\Http\Controllers\IgrMobileController@getMdas');
+
+	//////////////////////////////////////////////////////////////////////////Mobile
+
 	//getting list of revenue heads
 	$api->post('revenue_heads','App\Http\Controllers\ApiController@revenue_heads');
 
