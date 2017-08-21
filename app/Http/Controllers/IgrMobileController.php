@@ -83,7 +83,7 @@ class IgrMobileController extends Controller
 
 
                 $yestarday_date = Collection::where("mda_id",$mda->id)->where("created_at",">=", $yestarday)
-                                                ->whereDate("created_at","<=", $yestarday)->get();
+                                                ->where("created_at","<=", $yestarday)->get();
                 if (count($yestarday_date) > 0) {
                     foreach ($yestarday_date as $yestarday_date) {
 
