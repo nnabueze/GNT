@@ -147,6 +147,113 @@ class IgrMobileController extends Controller
 
     }
 
+    //getting monthly remittance
+    public function getRemittanceStatus(Request $request){
+        $this->token_auth();
+
+        if ( ! $request->has("billerId")) {
+            $message = "parameter missing";
+            return $this->response->array(compact('message'))->setStatusCode(400);
+        }
+
+        $firstday_last_date = date('Y-m-d', strtotime('first day of last month'));
+        $lastday_last_date = date('Y-m-d', strtotime('last day of last month'));
+        $firstday_curent_date = date('Y-m-d', strtotime(date('Y-m-1')));
+
+        $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
+
+        $data['last_month_remitted'] = 0;
+        $data['current_month_remitted'] = 0;
+        $data['last_month'] = 0;
+        $data['current_month'] = 0;
+
+        foreach ($igr->mdas as $mda) {
+
+            $last_months = Remittance::where("mda_id",$mda->id)->where("remittance_status",1)->where("created_at",">=", $firstday_last_date)
+                            ->where("created_at","<=",$lastday_last_date)->get();
+
+            if (count($last_months) > 0) {
+                foreach ($last_months as $collection) {
+
+                    $data['last_month_remitted'] += $collection->amount;
+                }
+            }
+            
+
+            $current_months = Remittance::where("mda_id",$mda->id)->where("remittance_status",1)->where("created_at",">=", $firstday_curent_date)->get();
+            if (count($current_months) > 0) {
+                foreach ($current_months as $current_month) {
+
+                    $data['current_month_remitted'] += $current_month->amount;
+                }
+            }
+
+
+
+            $yestarday_date = Remittance::where("mda_id",$mda->id)->where("remittance_status",0)->where("created_at",">=", $firstday_last_date)
+                            ->where("created_at","<=",$lastday_last_date)->get();
+            if (count($yestarday_date) > 0) {
+                foreach ($yestarday_date as $yestarday_date) {
+
+                    $data['last_month'] += $yestarday_date->amount;
+                }
+            }
+
+            $today_date = Remittance::where("mda_id",$mda->id)->where("remittance_status",0)->where("created_at",">=", $firstday_curent_date)->get();
+            if (count($today_date) > 0) {
+                foreach ($today_date as $today_date) {
+
+                    $data['current_month'] += $today_date->amount;
+                }
+            }
+        }
+
+        return $this->response->array(compact('data'))->setStatusCode(200);
+    }
+
+    //getting remittance
+    public function getRemittance(Request $request){
+        //Token authentication
+        $this->token_auth();
+
+        if ( ! $request->has("billerId")) {
+            $message = "parameter missing";
+            return $this->response->array(compact('message'))->setStatusCode(400);
+        }
+
+            $igr = Igr::with("mdas")->find($request->input("billerId"));
+
+            $info = array();
+            $start = new Carbon('first day of last month');            
+
+            foreach ($igr->mdas as $mda) {
+
+                $remittances = Remittance::with("Worker")->where("mda_id",$mda->id)->where("created_at",">=", $start)->get();
+                if (count($remittances) > 0) {
+                    foreach ($remittances as $remittance) {
+                       $data['id'] = $remittance->remittance_key;
+                       $data['amount'] = $remittance->amount;
+                       $data['remiteDate'] = $remittance->remtted_date;
+                       $data['genDate'] = $remittance->created_at;
+                       $data['name'] = $remittance->worker->worker_name;
+                       if ($remittance->remittance_status == 1) {
+                           $data['status'] = "Remitted";
+                       }else{
+                            $data['status'] = "UnPaid";
+                       }
+                       array_push($info, $data); 
+                    }                    
+                }
+                
+            }
+
+            /*usort($info, function( $a, $b ) {
+        return strtotime($a["genDate"]) - strtotime($b["genDate"]);
+    });*/
+
+        return $this->response->array(compact('info'))->setStatusCode(200);
+    }
+
 
     //token Authentication
     private function token_auth()
