@@ -327,6 +327,7 @@ $api->version('v1',['middleware'=>'api.auth'],function($api){
 	$api->post('mda','App\Http\Controllers\IgrMobileController@getMdas');
 	$api->post('getremittance','App\Http\Controllers\IgrMobileController@getRemittance');
 	$api->post('getremittancestatus','App\Http\Controllers\IgrMobileController@getRemittanceStatus');
+	$api->post('getPosCollection','App\Http\Controllers\IgrMobileController@getPosCollection');
 
 	//////////////////////////////////////////////////////////////////////////Mobile
 
