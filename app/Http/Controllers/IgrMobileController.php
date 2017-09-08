@@ -234,8 +234,8 @@ class IgrMobileController extends Controller
 
         foreach ($igr->mdas as $mda) {
 
-            $last_months = Collection::where("mda_id",$mda->id)->where("collection_type","pos")->where("created_at",">=", $firstday_last_date)
-                            ->where("created_at","<=",$lastday_last_date)->get();
+            $last_months = Collection::where("mda_id",$mda->id)->where("collection_type","pos")->whereDate("created_at",">=", $firstday_last_date)
+                            ->whereDate("created_at","<=",$lastday_last_date)->get();
 
             if (count($last_months) > 0) {
                 foreach ($last_months as $collection) {
@@ -245,7 +245,7 @@ class IgrMobileController extends Controller
             }
             
 
-            $current_months = Collection::where("mda_id",$mda->id)->where("collection_type","pos")->where("created_at",">=", $firstday_curent_date)->get();
+            $current_months = Collection::where("mda_id",$mda->id)->where("collection_type","pos")->whereDate("created_at",">=", $firstday_curent_date)->get();
             if (count($current_months) > 0) {
                 foreach ($current_months as $current_month) {
 
@@ -263,7 +263,7 @@ class IgrMobileController extends Controller
                 }
             }
 
-            $today_date = Collection::where("mda_id",$mda->id)->where("collection_type","pos")->where("created_at",">=", $today)->get();
+            $today_date = Collection::where("mda_id",$mda->id)->where("collection_type","pos")->whereDate("created_at",">=", $today)->get();
             if (count($today_date) > 0) {
                 foreach ($today_date as $today_date) {
 
