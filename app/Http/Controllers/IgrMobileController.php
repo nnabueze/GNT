@@ -272,6 +272,8 @@ class IgrMobileController extends Controller
                 }
             }
         }
+
+        return $this->response->array(compact('data'))->setStatusCode(200);
     }
 
     //getting remittance
