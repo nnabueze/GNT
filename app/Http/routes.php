@@ -328,6 +328,7 @@ $api->version('v1',['middleware'=>'api.auth'],function($api){
 	$api->post('getremittance','App\Http\Controllers\IgrMobileController@getRemittance');
 	$api->post('getremittancestatus','App\Http\Controllers\IgrMobileController@getRemittanceStatus');
 	$api->post('getPosCollection','App\Http\Controllers\IgrMobileController@getPosCollection');
+	$api->post('getEbillsCollection','App\Http\Controllers\IgrMobileController@getEbills');
 
 	//////////////////////////////////////////////////////////////////////////Mobile
 

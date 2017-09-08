@@ -274,6 +274,69 @@ class IgrMobileController extends Controller
         return $this->response->array(compact('data'))->setStatusCode(200);
     }
 
+    //getting ebills collection
+    public function getEbills(Request $request){
+         if ( ! $request->has("billerId")) {
+            $message = "parameter missing";
+            return $this->response->array(compact('message'))->setStatusCode(400);
+        }
+
+        $firstday_last_date = date('Y-m-d', strtotime('first day of last month'));
+        $lastday_last_date = date('Y-m-d', strtotime('last day of last month'));
+        $firstday_curent_date = date('Y-m-d', strtotime(date('Y-m-1')));
+        $yestarday = date('Y-m-d',strtotime("-1 days"));
+        $today = date('Y-m-d',time());
+
+        $igr = Igr::with("mdas")->find(Auth::user()->igr_id);
+
+        $data['last_month'] = 0;
+        $data['current_month'] = 0;
+        $data['yestarday'] = 0;
+        $data['today'] = 0;
+
+        foreach ($igr->mdas as $mda) {
+
+            $last_months = Collection::where("mda_id",$mda->id)->where("collection_type","ebills")->whereDate("created_at",">=", $firstday_last_date)
+                            ->whereDate("created_at","<=",$lastday_last_date)->get();
+
+            if (count($last_months) > 0) {
+                foreach ($last_months as $collection) {
+
+                    $data['last_month'] += $collection->amount;
+                }
+            }
+            
+
+            $current_months = Collection::where("mda_id",$mda->id)->where("collection_type","ebills")->whereDate("created_at",">=", $firstday_curent_date)->get();
+            if (count($current_months) > 0) {
+                foreach ($current_months as $current_month) {
+
+                    $data['current_month'] += $current_month->amount;
+                }
+            }
+
+
+
+            $yestarday_date = Collection::where("mda_id",$mda->id)->where("collection_type","ebills")->whereDate("created_at","=", $yestarday)->get();
+            if (count($yestarday_date) > 0) {
+                foreach ($yestarday_date as $yestarday_date) {
+
+                    $data['yestarday'] += $yestarday_date->amount;
+                }
+            }
+
+            $today_date = Collection::where("mda_id",$mda->id)->where("collection_type","ebills")->whereDate("created_at",">=", $today)->get();
+            if (count($today_date) > 0) {
+                foreach ($today_date as $today_date) {
+
+                    $data['today'] += $today_date->amount;
+                }
+            }
+        }
+
+        return $this->response->array(compact('data'))->setStatusCode(200);
+    }
+
     //getting remittance
     public function getRemittance(Request $request){
         //Token authentication
