@@ -61,8 +61,8 @@ class IgrMobileController extends Controller
 
             foreach ($igr->mdas as $mda) {
 
-                $last_months = Collection::where("mda_id",$mda->id)->where("created_at",">=", $firstday_last_date)
-                                ->where("created_at","<=",$lastday_last_date)->get();
+                $last_months = Collection::where("mda_id",$mda->id)->whereDate("created_at",">=", $firstday_last_date)
+                                ->whereDate("created_at","<=",$lastday_last_date)->get();
 
                 if (count($last_months) > 0) {
                     foreach ($last_months as $collection) {
@@ -72,7 +72,7 @@ class IgrMobileController extends Controller
                 }
                 
 
-                $current_months = Collection::where("mda_id",$mda->id)->where("created_at",">=", $firstday_curent_date)->get();
+                $current_months = Collection::where("mda_id",$mda->id)->whereDate("created_at",">=", $firstday_curent_date)->get();
                 if (count($current_months) > 0) {
                     foreach ($current_months as $current_month) {
 
@@ -82,8 +82,7 @@ class IgrMobileController extends Controller
 
 
 
-                $yestarday_date = Collection::where("mda_id",$mda->id)->where("created_at",">=", $yestarday)
-                                                ->where("created_at","<=", $yestarday)->get();
+                $yestarday_date = Collection::where("mda_id",$mda->id)->whereDate("created_at","=", $yestarday)->get();
                 if (count($yestarday_date) > 0) {
                     foreach ($yestarday_date as $yestarday_date) {
 
@@ -91,7 +90,7 @@ class IgrMobileController extends Controller
                     }
                 }
 
-                $today_date = Collection::where("mda_id",$mda->id)->where("created_at",">=", $today)->get();
+                $today_date = Collection::where("mda_id",$mda->id)->whereDate("created_at",">=", $today)->get();
                 if (count($today_date) > 0) {
                     foreach ($today_date as $today_date) {
 
@@ -131,7 +130,7 @@ class IgrMobileController extends Controller
                 $data['amount'] = 0;
                 $data["name"] = "";
 
-                $today_date = Collection::where("mda_id",$mda->id)->where("created_at",">=", $today)->get();
+                $today_date = Collection::where("mda_id",$mda->id)->whereDate("created_at",">=", $today)->get();
                 if (count($today_date) > 0) {
                     foreach ($today_date as $today_date) {
 
@@ -169,8 +168,8 @@ class IgrMobileController extends Controller
 
         foreach ($igr->mdas as $mda) {
 
-            $last_months = Remittance::where("mda_id",$mda->id)->where("remittance_status",1)->where("created_at",">=", $firstday_last_date)
-                            ->where("created_at","<=",$lastday_last_date)->get();
+            $last_months = Remittance::where("mda_id",$mda->id)->where("remittance_status",1)->whereDate("created_at",">=", $firstday_last_date)
+                            ->whereDate("created_at","<=",$lastday_last_date)->get();
 
             if (count($last_months) > 0) {
                 foreach ($last_months as $collection) {
@@ -180,7 +179,7 @@ class IgrMobileController extends Controller
             }
             
 
-            $current_months = Remittance::where("mda_id",$mda->id)->where("remittance_status",1)->where("created_at",">=", $firstday_curent_date)->get();
+            $current_months = Remittance::where("mda_id",$mda->id)->where("remittance_status",1)->whereDate("created_at",">=", $firstday_curent_date)->get();
             if (count($current_months) > 0) {
                 foreach ($current_months as $current_month) {
 
@@ -190,8 +189,8 @@ class IgrMobileController extends Controller
 
 
 
-            $yestarday_date = Remittance::where("mda_id",$mda->id)->where("remittance_status",0)->where("created_at",">=", $firstday_last_date)
-                            ->where("created_at","<=",$lastday_last_date)->get();
+            $yestarday_date = Remittance::where("mda_id",$mda->id)->where("remittance_status",0)->whereDate("created_at",">=", $firstday_last_date)
+                            ->whereDate("created_at","<=",$lastday_last_date)->get();
             if (count($yestarday_date) > 0) {
                 foreach ($yestarday_date as $yestarday_date) {
 
@@ -199,7 +198,7 @@ class IgrMobileController extends Controller
                 }
             }
 
-            $today_date = Remittance::where("mda_id",$mda->id)->where("remittance_status",0)->where("created_at",">=", $firstday_curent_date)->get();
+            $today_date = Remittance::where("mda_id",$mda->id)->where("remittance_status",0)->whereDate("created_at",">=", $firstday_curent_date)->get();
             if (count($today_date) > 0) {
                 foreach ($today_date as $today_date) {
 
