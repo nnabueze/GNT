@@ -255,7 +255,7 @@ class IgrMobileController extends Controller
 
 
 
-            $yestarday_date = Collection::where("mda_id",$mda->id)->where("collection_type","pos")->whereDate("created_at", $yestarday)->get();
+            $yestarday_date = Collection::where("mda_id",$mda->id)->where("collection_type","pos")->whereDate("created_at","=", $yestarday)->get();
             if (count($yestarday_date) > 0) {
                 foreach ($yestarday_date as $yestarday_date) {
 
