@@ -132,7 +132,7 @@
 
 							<header>
 								<span class="widget-icon"> <i class="fa fa-table"></i> </span>
-								<h2>Agency Collection</h2>
+								<h2>Today Collection</h2>
 
 							</header>
 
@@ -189,7 +189,7 @@
 										<th></th>
 										<th></th>
 										<th></th>
-										<th>Total Amount</th>
+										<th>Today Amount</th>
 										<th>{{number_format($total_amount)}}</th>
 										<th></th>
 										<th></th>

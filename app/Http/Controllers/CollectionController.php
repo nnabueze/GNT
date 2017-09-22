@@ -141,6 +141,8 @@ class CollectionController extends Controller
         $info = array();
         $total_amount = 0;
 
+        $today = date('Y-m-d',time());
+
         foreach ($igr->mdas as $mda) {
             $info['transaction_id'] = "";
             $info['payer_name'] = "";
@@ -154,7 +156,7 @@ class CollectionController extends Controller
 
                 //checking if the MDA belong to state
 
-                $collections = Collection::where("mda_id",$mda->id)->get();
+                $collections = Collection::where("mda_id",$mda->id)->whereDate("created_at",">=", $today)->get();
 
                 if (count($collections) > 0) {
                     foreach ($collections as $collection) {
@@ -253,6 +255,8 @@ class CollectionController extends Controller
         $info = array();
         $total_amount = 0;
 
+        $today = date('Y-m-d',time());
+
         foreach ($igr->mdas as $mda) {
             $info['transaction_id'] = "";
             $info['payer_name'] = "";
@@ -267,7 +271,7 @@ class CollectionController extends Controller
                 //checking if the MDA belong to state
             if ($mda->mda_category == "state") {
 
-                $collections = Collection::where("mda_id",$mda->id)->get();
+                $collections = Collection::where("mda_id",$mda->id)->whereDate("created_at",">=", $today)->get();
 
                 if (count($collections) > 0) {
                     foreach ($collections as $collection) {
@@ -455,6 +459,8 @@ public function pos_collection()
     $info = array();
     $total_amount = 0;
 
+    $today = date('Y-m-d',time());
+
     foreach ($igr->mdas as $mda) {
         $info['transaction_id'] = "";
         $info['payer_name'] = "";
@@ -468,7 +474,7 @@ public function pos_collection()
 
             //checking if the MDA belong to state
 
-            $collections = Collection::where("mda_id",$mda->id)->get();
+            $collections = Collection::where("mda_id",$mda->id)->whereDate("created_at",">=", $today)->get();
 
             if (count($collections) > 0) {
                 foreach ($collections as $collection) {
