@@ -354,7 +354,7 @@ class IgrMobileController extends Controller
 
             foreach ($igr->mdas as $mda) {
 
-                $remittances = Remittance::with("Worker")->where("mda_id",$mda->id)->where("created_at",">=", $start)->get();
+                $remittances = Remittance::with("Worker")->where("mda_id",$mda->id)->where("created_at",">=", $start)->orderBy('created_at', 'ASC')->get();
                 if (count($remittances) > 0) {
                     foreach ($remittances as $remittance) {
                        $data['id'] = $remittance->remittance_key;
