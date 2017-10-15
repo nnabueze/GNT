@@ -319,6 +319,10 @@ $api->version('v1',function($api){
     //igr mobile ocntroller
     $api->post('igr_api_mobile','App\Http\Controllers\IgrMobileController@authentication');
 
+    //IGR mobile latest authenticate
+    $api->post('igr_mobile','App\Http\Controllers\IgrMobileLatestController@authentication');
+
+
 });
 
 //protected Api route
