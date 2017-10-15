@@ -112,12 +112,11 @@ class IgrMobileLatestController extends Controller
 
                 				$data['current_month_remitted'] = $current_month_remitted->sum('amount');
 
-                $yestarday_remitted = Remittance::where("mda_id",$mda->id)->where("remittance_status",1)->whereDate("created_at",">=", $firstday_last_date)
-                            ->whereDate("created_at","<=",$lastday_last_date)->get();
+                $yestarday_remitted = Remittance::where("mda_id",$mda->id)->where("remittance_status",1)->whereDate("created_at","=", $yestarday)->get();
 
                             $data['yestarday_remitted'] = $yestarday_remitted->sum('amount');
 
-                $today_remitted = Remittance::where("mda_id",$mda->id)->where("remittance_status",1)->whereDate("created_at",">=", $firstday_curent_date)->get();
+                $today_remitted = Remittance::where("mda_id",$mda->id)->where("remittance_status",1)->whereDate("created_at",">=",$today)->get();
 
                 			$data['today_remitted'] = $today_remitted->sum('amount');
 
