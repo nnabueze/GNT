@@ -365,7 +365,7 @@ class IgrMobileController extends Controller
                        if ($remittance->remittance_status == 1) {
                            $data['status'] = "Remitted";
                        }else{
-                            $data['status'] = "UnPaid";
+                            $data['status'] = "******";
                        }
                        array_push($info, $data); 
                     }                    
