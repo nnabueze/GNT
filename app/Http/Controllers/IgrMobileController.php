@@ -373,9 +373,40 @@ class IgrMobileController extends Controller
                 
             }
 
-            /*usort($info, function( $a, $b ) {
-        return strtotime($a["genDate"]) - strtotime($b["genDate"]);
-    });*/
+        return $this->response->array(compact('info'))->setStatusCode(200);
+    }
+
+    public function getInvoice(Request $request){
+        //Token authentication
+        $this->token_auth();
+
+        if ( ! $request->has("billerId")) {
+            $message = "parameter missing";
+            return $this->response->array(compact('message'))->setStatusCode(400);
+        }
+
+            $igr = Igr::with("mdas")->find($request->input("billerId"));
+
+            $info = array();
+            $start = new Carbon('first day of last month');            
+
+            foreach ($igr->mdas as $mda) {
+
+                $invoices = Invoice::where("mda_id",$mda->id)->where("created_at",">=", $start)->orderBy('created_at', 'ASC')->get();
+                if (count($invoices) > 0) {
+                    foreach ($invoices as $invoice) {
+                       $data['id'] = $invoice->invoice_key;
+                       $data['amount'] = $invoice->amount;
+                       if ($invoice->invoice_status == 1) {
+                           $data['status'] = "Paid";
+                       }else{
+                            $data['status'] = "******";
+                       }
+                       array_push($info, $data); 
+                    }                    
+                }
+                
+            }
 
         return $this->response->array(compact('info'))->setStatusCode(200);
     }

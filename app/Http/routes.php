@@ -330,6 +330,7 @@ $api->version('v1',['middleware'=>'api.auth'],function($api){
 
 	$api->post('mda','App\Http\Controllers\IgrMobileController@getMdas');
 	$api->post('getremittance','App\Http\Controllers\IgrMobileController@getRemittance');
+	$api->post('getinvoice','App\Http\Controllers\IgrMobileController@getInvoice');
 	$api->post('getremittancestatus','App\Http\Controllers\IgrMobileController@getRemittanceStatus');
 	$api->post('getPosCollection','App\Http\Controllers\IgrMobileController@getPosCollection');
 	$api->post('getEbillsCollection','App\Http\Controllers\IgrMobileController@getEbills');
