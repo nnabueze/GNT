@@ -79,10 +79,15 @@ class CentralpayController extends Controller
         $response = $this->curlInfo($url);
 
         $response['Amount'] = $this->kobo_to_naira($response['Currency'], $response['Amount']);
+        
 
         if ($response['ResponseCode'] == '000') {
+
+            
             //updating record
-            $customer_details = $this->updateRecord($response, "success");
+            $customer_details = $this->updateRecord($response,'success');
+            //echo "yes";die;
+            //echo "<pre>";print_r($response);die;
 
             $users = $this->getSecretId($response['MerchantId']);
 
@@ -93,8 +98,12 @@ class CentralpayController extends Controller
 
             return redirect($redirect_url);
         }else{
+
             //updating record
-            $customer_details = $this->updateRecord($response, "failed");
+            $customer_details = $this->updateRecord($response, 'failed');
+            //echo "no";die;
+             //echo "<pre>";print_r($response);die;
+
 
             $users = $this->getSecretId($response['MerchantId']);
 
@@ -136,11 +145,13 @@ class CentralpayController extends Controller
     }
 
     //updating record
-    public function updateRecord($response, $status)
+    public function updateRecord($response,$status)
     {
-        $response['status'] = $status;
-        $status = Notification::where('SessionID',$response['TransactionId'])->first();
-        $status->update(['status'=>$response['status'],'ReferenceCode' =>$response['CPAYRef'],'TransactionDate'=>$response['TransDate']]);
+        $status1 = Notification::where('SessionID',$response['TransactionId'])->first();
+        $status1->status = $status;
+        $status1->ReferenceCode = $response['CPAYRef'];
+        $status1->TransactionDate = $response['TransDate'];
+        $status1->save();
 
         return $status;
     }

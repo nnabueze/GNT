@@ -23,7 +23,7 @@ class NotificationMigration extends Migration
             //$table->string('TransactionDate')->nullable();
             $table->dateTime('TransactionDate')->nullable();
             $table->enum('paymentType',['centralpay','ussd','mcash']);
-            $table->enum('status',['success','failed'])->default('failed');
+            $table->enum('status',['failed','success']);
             $table->timestamps();
         });
     }
