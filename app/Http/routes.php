@@ -12,15 +12,17 @@
 */
 
 ////////////////////////////////////////////////Admin Route
-Route::get('pay','CentralPayController@pay');
-Route::get('pay/cancel','CentralPayController@cancel');
-Route::post('pay/response','CentralPayController@response');
-Route::get('pay/success','centralPayController@success');
-Route::post('pay/notification','NotificationController@centralpay');
-Route::get('pay/testCancel','centralPayController@testCancel');
+
 
 //GNT
 Route::get('/','CentralPayController@index');
+
+Route::get('pay','CentralPayController@pay');
+Route::get('pay/cancel','CentralPayController@cancel');
+Route::post('pay/response','CentralPayController@response');
+Route::get('pay/success','CentralPayController@success');
+Route::post('pay/notification','NotificationController@centralpay');
+Route::get('pay/test','CentralpayController@test');
 
 
 

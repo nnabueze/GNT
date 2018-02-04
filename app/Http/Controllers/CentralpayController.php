@@ -215,7 +215,6 @@ class CentralpayController extends Controller
     //test cancel url
     public function cancel(Request $request)
     {
-         die;
         echo "<pre>";
         print_r($request->all());
         die;
@@ -233,10 +232,19 @@ class CentralpayController extends Controller
     }
 
     //testing cancelation
-    public function testCancel()
+    public function test()
     {
         echo "cancel transaction";
         die;
+
+        $options = [
+            'trace' => true,
+            'cache_wsdl' => WSDL_CACHE_NONE
+        ];
+
+        $client = new \SoapClient("http://127.0.0.1:8080/mlottery_wgpe/wgpe/ServicePort", $options);
+
+        
     }
 
 
